@@ -1,24 +1,13 @@
 {
-
-  "name": "ui-router",
-  "description": "State-based routing for Javascript",
+  "name": "ui-router-ng2",
+  "description": "State-based routing for Angular 2",
   "version": "1.0.0-beta.4",
   "scripts": {
-    "test": "npm run test:integrate",
-    "build": "node ./scripts/package.js ng1 && node ./scripts/package.js ng2",
-    "watch": "node_modules/watch/cli.js 'npm run test' src test",
-    "test:ng1": "karma start config/karma.ng15.js",
-    "debug:ng1": "karma start config/karma.ng15.js --singleRun=false --browsers=Chrome --autoWatch=true --autoWatchInterval=1",
-    "watch:ng1": "node_modules/watch/cli.js 'npm run test:ng1' src test",
-    "test:ng12": "karma start config/karma.ng12.js",
-    "test:ng13": "karma start config/karma.ng13.js",
-    "test:ng14": "karma start config/karma.ng14.js",
-    "test:ng15": "karma start config/karma.ng15.js",
-    "test:ng2": "karma start config/karma.ng2.js",
-    "test:integrate": "tsc && npm run test:ng12 && npm run test:ng13 && npm run test:ng14 && npm run test:ng15",
+    "build": "node ./scripts/package.js ng2",
+    "test": "karma start config/karma.ng2.js",
     "docs": "./scripts/docs.sh"
   },
-  "homepage": "https://ui-router.github.io",
+  "homepage": "https://ui-router.github.io/ng2",
   "contributors": [
     {
       "name": "Nate Abele",
@@ -46,38 +35,35 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular-ui/ui-router.git"
+    "url": "https://github.com/ui-router/ng2.git"
   },
   "bugs": {
-    "url": "https://github.com/angular-ui/ui-router/issues"
+    "url": "https://github.com/ui-router/ng2/issues"
   },
   "engines": {
     "node": ">4"
   },
   "license": "MIT",
+  "main": "lib/ng2.js",
+  "typings": "lib/ng2.d.ts",
   "dependencies": {
     "ui-router-core": "latest"
   },
+  "peerDependencies": {
+    "@angular/core": "^2.0.0",
+    "@angular/common": "^2.0.0"
+  },
   "devDependencies": {
-    "@angular/common": "^2.0.0",
     "@angular/compiler": "^2.0.0",
     "@angular/compiler-cli": "^0.6.2",
-    "@angular/core": "^2.0.0",
     "@angular/platform-browser": "^2.0.0",
     "@angular/platform-browser-dynamic": "^2.0.0",
     "@angular/platform-server": "^2.0.0",
-    "@types/angular": "^1.5.14",
-    "@types/angular-animate": "^1.5.5",
-    "@types/angular-mocks": "^1.5.5",
     "@types/jasmine": "^2.2.34",
     "@types/jquery": "^1.10.31",
     "awesome-typescript-loader": "^2.2.4",
-    "babel-core": "^5.8.14",
-    "clone": "^1.0.2",
     "conventional-changelog": "^1.1.0",
     "conventional-changelog-cli": "^1.1.1",
-    "core-js": "^2.4.1",
-    "glob": "^7.0.5",
     "jasmine-core": "^2.4.1",
     "karma": "^1.2.0",
     "karma-chrome-launcher": "~0.1.0",
@@ -86,20 +72,15 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-script-launcher": "~0.1.0",
     "karma-systemjs": "^0.7.2",
-    "lodash": "^4.5.1",
-    "parallelshell": "^2.0.0",
-    "remap-istanbul": "^0.6.3",
     "rxjs": "5.0.0-beta.12",
     "shelljs": "^0.7.0",
     "systemjs": "^0.18.4",
     "tslint": "=2.5.0",
     "typedoc": "github:jasongrout/typedoc#ts2",
     "typedoc-plugin-external-module-name": "^1.0.2",
-    "typescript": "~2.0.2",
-    "watch": "^0.18.0",
+    "typescript": "~2.0.3",
     "webpack": "1.x",
     "webpack-dev-server": "1.x",
-    "yargs": "^4.2.0",
     "zone.js": "^0.6.21"
   }
 }
