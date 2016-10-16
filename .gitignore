@@ -1,11 +1,5 @@
-# master only
-build
-build_packages
-site
-
 # common
 node_modules
-bower_components
 .DS_Store
 *~
 .tscache
@@ -18,5 +12,7 @@ idea-out
 *.ipr
 *.iws
 
-# generate doc to _doc; copy to proper gh-pages dir
 _doc
+_bundles
+lib
+lib-esm

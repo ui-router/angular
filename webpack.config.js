@@ -1,7 +1,4 @@
-// <package>/../../src/ is copied to <package>/src
-// This config is then copied to <package>/src/webpack.config.js
-
-var pkg = require('../bower.json');
+var pkg = require('./package.json');
 var banner = pkg.description + '\n' +
     '@version v' + pkg.version + '\n' +
     '@link ' + pkg.homepage + '\n' +
@@ -10,28 +7,24 @@ var banner = pkg.description + '\n' +
 var webpack = require('webpack');
 module.exports = {
   entry: {
-    "angular-ui-router": "./ng1.ts",
-    "angular-ui-router.min": "./ng1.ts",
-    "stateEvents": "./ng1/legacy/stateEvents.ts",
-    "stateEvents.min": "./ng1/legacy/stateEvents.ts"
+    "ui-router-ng2": "./src/ng2.ts",
+    "ui-router-ng2.min": "./src/ng2.ts"
   },
 
   output: {
-    path: __dirname + "/../release",
+    path: __dirname + "/_bundles",
     filename: "[name].js",
     libraryTarget: "umd",
-    library: "angular-ui-router",
+    library: "ui-router-ng2",
     umdNamedDefine: true
   },
 
   devtool: 'source-map',
 
   resolve: {
-    modulesDirectories: ['../../node_modules'],
+    modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.ts']
   },
-
-  externals: [ 'angular' ],
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
@@ -50,5 +43,11 @@ module.exports = {
     compilerOptions: {
       declaration: false
     }
+  },
+ 
+  externals: {
+    "rxjs/Rx": { root: 'rxjs/Rx', amd: 'rxjs/Rx', commonjs2: 'rxjs/Rx', commonjs: 'rxjs/Rx' },
+    "@angular/core": { root: '@angular/core', amd: '@angular/core', commonjs2: '@angular/core', commonjs: '@angular/core' },
+    "@angular/common": { root: '@angular/common', amd: '@angular/common', commonjs2: '@angular/common', commonjs: '@angular/common' }
   }
 };
