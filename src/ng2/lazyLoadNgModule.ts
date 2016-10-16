@@ -1,4 +1,4 @@
-/** @module ng2 */ /** */
+/** @module core */ /** */
 import {NgModuleFactoryLoader, NgModuleRef, Injector, NgModuleFactory, Type, Compiler} from "@angular/core";
 import {Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString} from "ui-router-core";
 import {RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN} from "./uiRouterNgModule";
@@ -11,6 +11,24 @@ export type NgModuleToLoad = string | ModuleTypeCallback;
  * Returns a function which lazy loads a nested module
  *
  * Use this function as a [[StateDeclaration.lazyLoad]] property to lazy load an NgModule and its state.
+ *
+ * Example using `System.import()`:
+ * ```js
+ * {
+ *   name: 'home',
+ *   url: '/home',
+ *   lazyLoad: loadNgModule(() => System.import('./home.module').then(result => result.HomeModule))
+ * }
+ * ```
+ *
+ * Example using `NgModuleFactoryLoader`:
+ * ```js
+ * {
+ *   name: 'home',
+ *   url: '/home',
+ *   lazyLoad: loadNgModule('./home.module')
+ * }
+ * ```
  *
  * @param moduleToLoad
  *    If a string, it should be the path to the NgModule code, which will then be loaded by the `NgModuleFactoryLoader`.
@@ -49,6 +67,7 @@ export function loadNgModule(moduleToLoad: NgModuleToLoad): (transition: Transit
  * - Compiles the component type (if not running with AOT)
  * - Returns the NgModuleFactory resulting from compilation (or direct loading if using AOT) as a Promise
  *
+ * @internalapi
  */
 export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Injector): Promise<NgModuleFactory<any>> {
   if (isString(moduleToLoad)) {
@@ -75,6 +94,8 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
  * Find the *newly loaded state* with the same name as the *placeholder state*.
  * The NgModule's Injector (and ComponentFactoryResolver) will be added to that state.
  * The Injector/Factory are used when creating Components for the `replacement` state and all its children.
+ *
+ * @internalapi
  */
 export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any>): LazyLoadResult {
   let injector = ng2Module.injector;

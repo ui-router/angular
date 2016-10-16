@@ -1,4 +1,4 @@
-/** @module ng2_directives */ /** */
+/** @module directives */ /** */
 import {UIRouter, UIRouterGlobals} from "ui-router-core";
 import {Directive, Inject, Input} from "@angular/core";
 import {Optional} from "@angular/core";
@@ -12,7 +12,10 @@ import {Subscription, ReplaySubject} from "rxjs/Rx";
 import {TargetState} from "ui-router-core";
 import "../rx";
 
-/** @hidden */
+/**
+ * @internalapi
+ * # blah blah blah
+ */
 @Directive({ selector: 'a[uiSref]' })
 export class AnchorUISref {
   constructor(public _el: ElementRef, public _renderer: Renderer) { }
@@ -67,26 +70,58 @@ export class AnchorUISref {
   host: { '(click)': 'go()' }
 })
 export class UISref {
+  /**
+   * `@Input('uiSref')` The name of the state to link to
+   *
+   * ```html
+   * <a uiSref="hoome">Home</a>
+   * ```
+   */
   @Input('uiSref') state: string;
+
+  /**
+   * `@Input('uiParams')` The parameter values to use (as key/values)
+   *
+   * ```html
+   * <a uiSref="book" [uiParams]="{ bookId: book.id }">Book {{ book.name }}</a>
+   * ```
+   */
   @Input('uiParams') params: any;
-  @Input('uiOptions') options: any;
 
+  /**
+   * `@Input('uiOptions')` The transition options
+   *
+   * ```html
+   * <a uiSref="books" [uiOptions]="{ reload: true }">Book {{ book.name }}</a>
+   * ```
+   */
+  @Input('uiOptions') options: TransitionOptions;
+
+  /**
+   * An observable (ReplaySubject) of the state this UISref is targeting.
+   * When the UISref is clicked, it will transition to this [[TargetState]].
+   */
   public targetState$ = new ReplaySubject<TargetState>(1);
-  private _emit: boolean = false;
 
+  /** @internalapi */
+  private _emit: boolean = false;
+  /** @internalapi */
   private _statesSub: Subscription;
 
   constructor(
-      private _router: UIRouter,
-      @Inject(UIView.PARENT_INJECT) public parent: ParentUIViewInject,
-      @Optional() private _anchorUISref: AnchorUISref,
+      /** @internalapi */ private _router: UIRouter,
+      /** @internalapi */ @Inject(UIView.PARENT_INJECT) public parent: ParentUIViewInject,
+      /** @internalapi */ @Optional() private _anchorUISref: AnchorUISref,
       @Inject(Globals) _globals: UIRouterGlobals
   ) {
     this._statesSub = _globals.states$.subscribe(() => this.update())
   }
 
+  /** @internalapi */
   set "uiSref"(val: string) { this.state = val; this.update(); }
+  /** @internalapi */
   set "uiParams"(val: Obj) { this.params = val; this.update(); }
+  /** @internalapi */
   set "uiOptions"(val: TransitionOptions) { this.options = val; this.update(); }
 
   ngOnInit() {
@@ -122,6 +157,7 @@ export class UISref {
     return extend(defaultOpts, this.options || {});
   }
 
+  /** When triggered by a (click) event, this function transitions to the UISref's target state */
   go() {
     this._router.stateService.go(this.state, this.params, this.getOptions());
     return false;

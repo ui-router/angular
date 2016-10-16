@@ -1,4 +1,4 @@
-/** @module ng2 */ /** */
+/** @module state */ /** */
 import {StateDeclaration, _ViewDeclaration} from "ui-router-core";
 import {Transition} from "ui-router-core";
 import {Type, OpaqueToken} from "@angular/core";
@@ -8,9 +8,8 @@ import {HookResult} from "ui-router-core";
  * The StateDeclaration object is used to define a state or nested state.
  * It should be registered with the [[StateRegistry]].
  *
- * @example
+ * #### Example:
  * ```js
- *
  * import {FoldersComponent} from "./folders";
  *
  * // StateDeclaration object
@@ -44,9 +43,8 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    *
    *  Targets three named ui-views in the parent state's template
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * views: {
    *   header: {component: HeaderComponent},
    *   body: {component: BodyComponent},
@@ -54,9 +52,8 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * }
    * ```
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * // Targets named ui-view="header" in the template of the ancestor state 'top'
    * // and the named `ui-view="body" from the parent state's template.
    * views: {
@@ -74,9 +71,8 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    *
    * Addresses without an `@` are anchored to the parent state.
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * // target the `<div ui-view='foo'></div>` created in the parent state's view
    * views: { foo: {...} }
    * ```
@@ -99,9 +95,8 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * You can address a `ui-view` absolutely, using dotted notation, by prefixing the address with a `!`.  Dotted
    * addresses map to the hierarchy of `ui-view`s active in the DOM:
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * // absolutely target the `<div ui-view='nested'></div>`... which was created
    * // in the unnamed/$default root `<ui-view></ui-view>`
    * views: { '!$default.nested': {...} }
@@ -112,18 +107,16 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * Absolute addressing is actually relative addressing, only anchored to the unnamed root state.  You can also use
    * relative addressing anchored to any state, in order to target a target deeply nested `ui-views`:
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    *
    * // target the `<div ui-view='bar'></div>`... which was created inside the
    * // `<div ui-view='bar'></div>`... which was created inside the parent state's template.
    * views: { 'foo.bar': {...} }
    * ```
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * // target the `<div ui-view='bar'></div>`...  which was created in
    * // `<div ui-view='foo'></div>`... which was created in a template crom the state `baz.qux`
    * views: { 'foo.bar@baz.qux': {...} }
@@ -147,9 +140,8 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
    *
    * ### The component class which will be used for this view.
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * .state('profile', {
    *   // Use the <my-profile></my-profile> component for the Unnamed view
    *   component: MyProfileComponent,
@@ -239,9 +231,8 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
    * Any component bindings that are omitted from this map get the default behavior of mapping to a resolve of the
    * same name.
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * $stateProvider.state('foo', {
    *   resolve: {
    *     foo: function(FooService) { return FooService.get(); },

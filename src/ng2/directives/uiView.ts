@@ -1,4 +1,4 @@
-/** @module ng2_directives */ /** */
+/** @module directives */ /** */
 import {
     Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type,
     ReflectiveInjector, ViewChild, Injector, Inject
@@ -16,18 +16,26 @@ import {MergeInjector} from "../mergeInjector";
 /** @hidden */
 let id = 0;
 
-// These are provide()d as the string UIView.PARENT_INJECT
+/** @internalapi These are provide()d as the string UIView.PARENT_INJECT */
 export interface ParentUIViewInject {
   context: ViewContext;
   fqn: string;
 }
 
+/** @internalapi */
 interface InputMapping {
   token: string;
   prop: string;
 }
 
-/** @hidden */
+/**
+ * Given a component class, gets the inputs of styles:
+ *
+ * - @Input('foo') _foo
+ * - `inputs: ['foo']`
+ *
+ * @internalapi
+ */
 const ng2ComponentInputs = (ng2CompClass: Type<any>) => {
   /** Get "@Input('foo') _foo" inputs */
   let props = reflector.propMetadata(ng2CompClass);
@@ -66,9 +74,8 @@ const ng2ComponentInputs = (ng2CompClass: Type<any>) => {
  * is filled in by a view (as defined by a [[Ng2ViewDeclaration]] inside a [[Ng2StateDeclaration]]) when the view's
  * state has been activated.
  *
- * @example
+ * #### Example:
  * ```js
- *
  * // This app has two states, 'foo' and 'bar'
  * stateRegistry.register({ name: 'foo', url: '/foo', component: FooComponent });
  * stateRegistry.register({ name: 'bar', url: '/bar', component: BarComponent });
@@ -85,9 +92,8 @@ const ng2ComponentInputs = (ng2CompClass: Type<any>) => {
  * an unnamed `ui-view` is internally named `$default`*.   When a `ui-view` has a name, it will be filled in
  * by a matching named view.
  *
- * @example
+ * #### Example:
  * ```js
- *
  * stateRegistry.register({
  *   name: 'foo',
  *   url: '/foo',

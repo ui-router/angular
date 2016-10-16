@@ -1,9 +1,4 @@
-/**
- * Main entry point for angular 2.x build
- * @module ng2
- */
-/** for typedoc */
-
+/** @module ng2 */ /** for typedoc */
 export * from "ui-router-core";
 import "ui-router-core/lib/justjs";
 

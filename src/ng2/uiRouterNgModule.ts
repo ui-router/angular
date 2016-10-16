@@ -1,4 +1,4 @@
-/** @module ng2 */ /** */
+/** @module core */ /** */
 import {Ng2StateDeclaration} from "./interface";
 import {NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Type} from "@angular/core";
 import {_UIROUTER_DIRECTIVES} from "./directives/directives";
@@ -91,9 +91,8 @@ export class UIRouterModule {
    * This function creates an [Angular 2 NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
    * with UI-Router support.
    *
-   * @example
+   * #### Example:
    * ```js
-   *
    * var homeState = { name: 'home', url: '/home', component: Home };
    * var aboutState = { name: 'about', url: '/about', component: About };
    *
@@ -119,8 +118,8 @@ export class UIRouterModule {
 
 }
 
-
-export function makeProviders(module: StatesModule, forRoot: boolean): Provider[] {
+/** @hidden */
+function makeProviders(module: StatesModule, forRoot: boolean): Provider[] {
   let providers: Provider[] = [module.configClass]
       .filter(identity)
       .map(configClass => ({ provide: configClass, useClass: configClass }));
@@ -215,6 +214,9 @@ export interface StatesModule {
   configClass?: Type<any>;
 }
 
+/** @hidden */
 export const UIROUTER_ROOT_MODULE = new OpaqueToken("UIRouter Root Module");
+
+/** @hidden */
 export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");
 

@@ -1,4 +1,4 @@
-/** @module ng2_directives */ /** */
+/** @module directives */ /** */
 import {Directive, Input, ElementRef, Host, Renderer} from "@angular/core";
 import {UISrefStatus, SrefStatus} from "./uiSrefStatus";
 import {Subscription} from "rxjs/Rx";
@@ -80,10 +80,6 @@ import {Subscription} from "rxjs/Rx";
  *   </li>
  * </ul>
  * ```
- *
- * ---
- *
- * As
  */
 @Directive({
   selector: '[uiSrefActive],[uiSrefActiveEq]'

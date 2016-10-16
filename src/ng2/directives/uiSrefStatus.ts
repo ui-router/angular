@@ -1,4 +1,4 @@
-/** @module ng2_directives */ /** */
+/** @module directives */ /** */
 import {Directive, Output, EventEmitter, ContentChildren, QueryList, Inject} from "@angular/core";
 import {UISref} from "./uiSref";
 import {PathNode} from "ui-router-core";
@@ -11,10 +11,11 @@ import {Param} from "ui-router-core";
 import {PathFactory} from "ui-router-core";
 import {Subscription, Observable, BehaviorSubject} from "rxjs/Rx";
 
+/** @internalapi */
 interface TransEvt { evt: string, trans: Transition }
 
 /**
- * uiSref status booleans 
+ * UISref status emitted from [[UISrefStatus]]
  */
 export interface SrefStatus {
   /** The sref's target state (or one of its children) is currently active */
@@ -27,6 +28,7 @@ export interface SrefStatus {
   exiting: boolean;
 }
 
+/** @internalapi */
 const inactiveStatus: SrefStatus = {
   active: false,
   exact: false,
@@ -39,6 +41,8 @@ const inactiveStatus: SrefStatus = {
  *
  * The predicate returns true when the target state (and param values)
  * match the (tail of) the path, and the path's param values
+ *
+ * @internalapi
  */
 const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
   if (!target.exists()) return () => false;
@@ -61,6 +65,8 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
  * Given basePath: [a, b], appendPath: [c, d]),
  * Expands the path to [c], [c, d]
  * Then appends each to [a,b,] and returns: [a, b, c], [a, b, c, d]
+ *
+ * @internalapi
  */
 function spreadToSubPaths(basePath: PathNode[], appendPath: PathNode[]): PathNode[][] {
   return appendPath.map(node => basePath.concat(PathFactory.subPath(appendPath, n => n.state === node.state)));
@@ -71,6 +77,8 @@ function spreadToSubPaths(basePath: PathNode[], appendPath: PathNode[]): PathNod
  * and a UISref Target State, return a SrefStatus object
  * which represents the current status of that Sref: 
  * active, activeEq (exact match), entering, exiting
+ *
+ * @internalapi
  */
 function getSrefStatus(event: TransEvt, srefTarget: TargetState): SrefStatus {
   const pathMatchesTarget = pathMatches(srefTarget);
@@ -106,6 +114,7 @@ function getSrefStatus(event: TransEvt, srefTarget: TargetState): SrefStatus {
   } as SrefStatus;
 }
 
+/** @internalapi */
 function mergeSrefStatus(left: SrefStatus, right: SrefStatus) {
   return {
     active:   left.active   || right.active,
@@ -118,11 +127,17 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus) {
 /**
  * A directive which emits events when a paired [[UISref]] status changes.
  *
- * This directive is primarily used by the [[UISrefActive]]/[[UISrefActiveEq]] directives to monitor `UISref`(s).
- * This directive shares the same attribute selectors as `UISrefActive/Eq`, so it is created whenever a `UISrefActive/Eq` is created.
+ * This directive is primarily used by the [[UISrefActive]] directives to monitor `UISref`(s).
  *
- * Most apps should simply use [[UISrefActive]], but some advanced components may want to process the
- * `uiSrefStatus` events directly.
+ * This directive shares two attribute selectors with `UISrefActive`:
+ *
+ * - `[uiSrefActive]`
+ * - `[uiSrefActiveEq]`.
+ *
+ * Thus, whenever a `UISrefActive` directive is created, a `UISrefStatus` directive is also created.
+ *
+ * Most apps should simply use `UISrefActive`, but some advanced components may want to process the
+ * [[SrefStatus]] events directly.
  *
  * ```js
  * <li (uiSrefStatus)="onSrefStatusChanged($event)">
