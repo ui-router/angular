@@ -4,6 +4,7 @@
 src
 config
 test
+scripts
 
 node_modules
 

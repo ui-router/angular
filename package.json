@@ -50,7 +50,7 @@
   "main": "lib/ng2.js",
   "typings": "lib/ng2.d.ts",
   "dependencies": {
-    "ui-router-core": "=1.0.0"
+    "ui-router-core": "=1.0.1"
   },
   "peerDependencies": {
     "@angular/core": "^2.0.0",
