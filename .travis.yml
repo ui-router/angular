@@ -5,8 +5,6 @@ node_js:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm install -g karma
-  - npm install -g typescript
   - ./nodeserver.sh > /dev/null &
 
 matrix:
@@ -26,10 +24,16 @@ env:
 script:
   - echo "CORE_BRANCH = x${CORE_BRANCH}x";
   - >
-    if [ "x${CORE_BRANCH}x" != "xx" ] ; then 
-      git clone --depth=10 --branch="${CORE_BRANCH}" https://github.com/ui-router/core.git ui-router-core && npm install ./ui-router-core ;
+    if [ "x${CORE_BRANCH}x" != "xx" ] ; then
+      echo "Installing ui-router-core from ${CORE_BRANCH}" && \
+      git clone --depth=10 --branch="${CORE_BRANCH}" https://github.com/ui-router/core.git ui-router-core && \
+      pushd ui-router-core && \
+      npm install && \
+      npm run build && \
+      popd && \
+      npm install ./ui-router-core ;
     fi
-  - npm run build
+  - npm run build && npm test
 
 sudo: false
 
