@@ -29,7 +29,7 @@ script:
     if [ "x${CORE_BRANCH}x" != "xx" ] ; then 
       git clone --depth=10 --branch="${CORE_BRANCH}" https://github.com/ui-router/core.git ui-router-core && npm install ./ui-router-core ;
     fi
-  - npm test
+  - npm run build
 
 sudo: false
 
