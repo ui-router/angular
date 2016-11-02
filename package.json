@@ -6,8 +6,7 @@
     "clean": "shx rm -rf lib lib-esm _bundles _doc",
     "build": "npm run clean && tsc && tsc -p tsconfig.esm.json && webpack",
     "test": "karma start config/karma.ng2.js",
-    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --external-aliases internalapi,external --navigation-label-globals ui-router-ng2",
-    "prepublish": "npm run build"
+    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --external-aliases internalapi,external --navigation-label-globals ui-router-ng2"
   },
   "homepage": "https://ui-router.github.io/ng2",
   "contributors": [
@@ -53,16 +52,16 @@
     "ui-router-core": "=1.0.1"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0",
-    "@angular/common": "^2.0.0"
+    "@angular/core": "~2.0.0",
+    "@angular/common": "~2.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/compiler": "^2.0.0",
-    "@angular/core": "^2.0.0",
-    "@angular/platform-browser": "^2.0.0",
-    "@angular/platform-browser-dynamic": "^2.0.0",
-    "@angular/platform-server": "^2.0.0",
+    "@angular/common": "~2.0.0",
+    "@angular/compiler": "~2.0.0",
+    "@angular/core": "~2.0.0",
+    "@angular/platform-browser": "~2.0.0",
+    "@angular/platform-browser-dynamic": "~2.0.0",
+    "@angular/platform-server": "~2.0.0",
     "@types/jasmine": "^2.2.34",
     "@types/jquery": "^1.10.31",
     "awesome-typescript-loader": "^2.2.4",
