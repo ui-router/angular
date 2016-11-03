@@ -41,11 +41,11 @@ Please keep in mind that the issue tracker is for *issues*. Please do *not* post
 
 # Developing
 
-UI-Router uses <code>npm</code> and <code>webpack</code>.
+`ui-router-ng2` uses <code>npm</code> and <code>webpack</code>.
 
 ## Fetch the source code
 
-The code for Angular UI-Router is split into two source repositories:
+The code for `ui-router-ng2` is split into two source repositories:
 
 * [UI-Router Core](https://github.com/ui-router/core) (`ui-router-core` on npm)
 * [UI-Router for Angular 2](https://github.com/ui-router/ng2) (`ui-router-ng2` on npm)
