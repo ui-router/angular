@@ -33,7 +33,7 @@ script:
       popd && \
       npm install ./ui-router-core ;
     fi
-  - npm run build && npm test
+  - npm run build
 
 sudo: false
 
