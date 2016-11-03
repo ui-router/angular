@@ -2,41 +2,33 @@
 # Report an Issue
 
 Help us make UI-Router better! If you think you might have found a bug, or some other weirdness, start by making sure
-it hasn't already been reported. You can [search through existing issues](https://github.com/angular-ui/ui-router/search?q=wat%3F&type=Issues)
+it hasn't already been reported. You can [search through existing ui-router-ng2 issues](https://github.com/ui-router/ng2?search?q=wat%3F&type=Issues) and [ui-router-core issues](https://github.com/ui-router/core?search?q=wat%3F&type=Issues)
 to see if someone's reported one similar to yours.
 
 If not, then [create a plunkr](http://bit.ly/UIR-Plunk) that demonstrates the problem (try to use as little code
 as possible: the more minimalist, the faster we can debug it).
 
-Next, [create a new issue](https://github.com/angular-ui/ui-router/issues/new) that briefly explains the problem,
+Next, [create a new issue](https://github.com/ui-router/ng2/issues/new) that briefly explains the problem,
 and provides a bit of background as to the circumstances that triggered it. Don't forget to include the link to
 that plunkr you created!
 
 **Note**: If you're unsure how a feature is used, or are encountering some unexpected behavior that you aren't sure
 is a bug, it's best to talk it out on
-[StackOverflow](http://stackoverflow.com/questions/ask?tags=angularjs,angular-ui-router) before reporting it. This
+[StackOverflow](http://stackoverflow.com/questions/ask?tags=angular2,ui-router-ng2) before reporting it. This
 keeps development streamlined, and helps us focus on building great software.
 
 
 Issues only! |
 -------------|
-Please keep in mind that the issue tracker is for *issues*. Please do *not* post an issue if you need help or support. Instead, see one of the above-mentioned forums or [IRC](irc://irc.freenode.net/#angularjs). |
-
-####Purple Labels
-A purple label means that **you** need to take some further action.
- - ![Not Actionable - Need Info](ngdoc_assets/incomplete.png): Your issue is not specific enough, or there is no clear action that we can take. Please clarify and refine your issue.
- - ![Plunkr Please](ngdoc_assets/example.png): Please [create a plunkr](http://bit.ly/UIR-Plunk)
- - ![StackOverflow](ngdoc_assets/so.png): We suspect your issue is really a help request, or could be answered by the community.  Please ask your question on [StackOverflow](http://stackoverflow.com/questions/ask?tags=angularjs,angular-ui-router).  If you determine that is an actual issue, please explain why.
-
-If your issue gets labeled with purple label, no further action will be taken until you respond to the label appropriately.
+Please keep in mind that the issue tracker is for *issues*. Please do *not* post an issue if you need help or support. Instead, use StackOverflow. |
 
 # Contribute
 
 **(1)** See the **[Developing](#developing)** section below, to get the development version of UI-Router up and running on your local machine.
 
-**(2)** Check out the [roadmap](https://github.com/angular-ui/ui-router/milestones) to see where the project is headed, and if your feature idea fits with where we're headed.
+**(2)** Check out the [roadmap](https://github.com/ui-router/ng2/milestones) to see where the project is headed, and if your feature idea fits with where we're headed.
 
-**(3)** If you're not sure, [open an RFC](https://github.com/angular-ui/ui-router/issues/new?title=RFC:%20My%20idea) to get some feedback on your idea.
+**(3)** If you're not sure, [open an RFC](https://github.com/ui-router/ng2/issues/new?title=RFC:%20My%20idea) to get some feedback on your idea.
 
 **(4)** Finally, commit some code and open a pull request. Code & commits should abide by the following rules:
 
@@ -56,23 +48,23 @@ UI-Router uses <code>npm</code> and <code>webpack</code>.
 The code for Angular UI-Router is split into two source repositories:
 
 * [UI-Router Core](https://github.com/ui-router/core) (`ui-router-core` on npm)
-* [UI-Router for Angular 1](https://github.com/angular-ui/ui-router) (`angular-ui-router` on npm)
+* [UI-Router for Angular 2](https://github.com/ui-router/ng2) (`ui-router-ng2` on npm)
 
 Clone both repositories into directories next to each other.
 
 ```
-git clone https://github.com/angular-ui/ui-router.git angular-ui-router
+git clone https://github.com/ui-router/ng2.git angular-ui-router
 git clone https://github.com/ui-router/core.git ui-router-core
 ```
 
 ## Install dependencies
 
-Use `npm` to install the development dependencies for each repositor.
+Use `npm` to install the development dependencies for each repository.
 
 ```
 cd ui-router-core
 npm install
-cd ../angular-ui-router
+cd ../ui-router-ng2
 npm install
 cd ..
 ```
@@ -80,26 +72,25 @@ cd ..
 ## Link the directories
 
 This step is necessary if you need to modify any code in `ui-router-core`.
-Using `npm`, link `ui-router-core` into `angular-ui-router` 
+Using `npm`, link `ui-router-core` into `ui-router-ng2` 
 
 ```
 cd ui-router-core
 npm link
-cd ../angular-ui-router
+cd ../ui-router-ng2
 npm link ui-router-core
 cd ..
 ```
 
-After executing these steps, `angular-ui-router` will be built using your local copy of `ui-router-core`.
+After executing these steps, `ui-router-ng2` will be built using your local copy of `ui-router-core`.
 
 ## Develop 
 
 * `npm run build`: Perform a full build.
-* `npm test`: Runs the `angular-ui-router` test suite (against Angular 1.2 through 1.5).
-* `npm run watch`: Continuously runs the tests when source or tests change.
+* `npm run watch`: Continuously builds and runs tests when source or tests change.
 
-If you make changes in `ui-router-core`, run these scripts before rebuilding or re-testing `angular-ui-router`:
+If you make changes in `ui-router-core`, run these scripts before rebuilding or re-testing `ui-router-ng2`:
 
 * `npm run build`: Compiles `ui-router-core` code
-* `npm test`: Runs the `ui-router-core` test suite
+* `npm run watch`: Continuously builds the `ui-router-core` code when sources change.
 
