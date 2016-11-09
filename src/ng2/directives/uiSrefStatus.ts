@@ -1,4 +1,4 @@
-/** @module directives */ /** */
+/** @ng2api @module directives */ /** */
 import {Directive, Output, EventEmitter, ContentChildren, QueryList, Inject} from "@angular/core";
 import {UISref} from "./uiSref";
 import {PathNode} from "ui-router-core";

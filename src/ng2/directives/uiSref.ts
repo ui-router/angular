@@ -1,4 +1,4 @@
-/** @module directives */ /** */
+/** @ng2api @module directives */ /** */
 import {UIRouter, UIRouterGlobals} from "ui-router-core";
 import {Directive, Inject, Input} from "@angular/core";
 import {Optional} from "@angular/core";

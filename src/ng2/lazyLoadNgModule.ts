@@ -1,4 +1,4 @@
-/** @module core */ /** */
+/** @ng2api @module core */ /** */
 import {NgModuleFactoryLoader, NgModuleRef, Injector, NgModuleFactory, Type, Compiler} from "@angular/core";
 import {Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString} from "ui-router-core";
 import {RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN} from "./uiRouterNgModule";

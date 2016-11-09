@@ -1,4 +1,4 @@
-/** @module directives */ /** */
+/** @ng2api @module directives */ /** */
 import {
     Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type,
     ReflectiveInjector, ViewChild, Injector, Inject

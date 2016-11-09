@@ -1,4 +1,4 @@
-/** @module ng2 */ /** for typedoc */
+/** @ng2api @module ng2 */ /** for typedoc */
 export * from "ui-router-core";
 import "ui-router-core/lib/justjs";
 

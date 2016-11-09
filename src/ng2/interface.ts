@@ -1,4 +1,4 @@
-/** @module state */ /** */
+/** @ng2api @module state */ /** */
 import {StateDeclaration, _ViewDeclaration} from "ui-router-core";
 import {Transition} from "ui-router-core";
 import {Type, OpaqueToken} from "@angular/core";
