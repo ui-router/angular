@@ -1,5 +1,6 @@
 /** @module ng2 */ /** */
-import {Observable, ReplaySubject} from "rxjs/Rx";
+import {Observable} from "rxjs/Observable";
+import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Transition} from "ui-router-core";
 import {UIRouter} from "ui-router-core";
 import {StateDeclaration} from "ui-router-core";
