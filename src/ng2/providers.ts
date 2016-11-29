@@ -6,7 +6,7 @@
  * - [quick start repository](http://github.com/ui-router/quickstart-ng2)
  *
  * Getting started:
- * 
+ *
  * - Use npm. Add a dependency on latest `ui-router-ng2`
  * - Import UI-Router classes directly from `"ui-router-ng2"`
  *
@@ -111,9 +111,7 @@ import {NATIVE_INJECTOR_TOKEN} from "ui-router-core";
  * Creates a UIRouter instance and configures it for Angular 2, then invokes router bootstrap.
  * This function is used as an Angular 2 `useFactory` Provider.
  */
-let uiRouterFactory = (
-    location: UIRouterLocation,
-    injector: Injector) => {
+export function uiRouterFactory(location: UIRouterLocation, injector: Injector) {
 
   let rootModules: RootModule[] = injector.get(UIROUTER_ROOT_MODULE);
   let modules: StatesModule[] = injector.get(UIROUTER_MODULE_TOKEN);
@@ -167,20 +165,30 @@ let uiRouterFactory = (
   return router;
 };
 
+export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null, context: r.root() } as ParentUIViewInject; }
+
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] =  [
   { provide: UIRouter, useFactory: uiRouterFactory, deps: [UIRouterLocation, Injector] },
   { provide: UIRouterLocation, useClass: UIRouterLocation },
-  { provide: UIView.PARENT_INJECT, useFactory: (r: StateRegistry) => { return { fqn: null, context: r.root() } as ParentUIViewInject }, deps: [StateRegistry]},
+  { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry]},
 ];
 
+export function fnStateService(r: UIRouter) { return r.stateService; }
+export function fnTransitionService(r: UIRouter) { return r.transitionService; }
+export function fnUrlMatcherFactory(r: UIRouter) { return r.urlMatcherFactory; }
+export function fnUrlRouter(r: UIRouter) { return r.urlRouter; }
+export function fnViewService(r: UIRouter) { return r.viewService; }
+export function fnStateRegistry(r: UIRouter) { return r.stateRegistry; }
+export function fnGlobals(r: any) { return r.globals; }
+
 export const _UIROUTER_SERVICE_PROVIDERS: Provider[] = [
-  { provide: StateService,      useFactory: (r: UIRouter) => r.stateService     , deps: [UIRouter]},
-  { provide: TransitionService, useFactory: (r: UIRouter) => r.transitionService, deps: [UIRouter]},
-  { provide: UrlMatcherFactory, useFactory: (r: UIRouter) => r.urlMatcherFactory, deps: [UIRouter]},
-  { provide: UrlRouter,         useFactory: (r: UIRouter) => r.urlRouter        , deps: [UIRouter]},
-  { provide: ViewService,       useFactory: (r: UIRouter) => r.viewService      , deps: [UIRouter]},
-  { provide: StateRegistry,     useFactory: (r: UIRouter) => r.stateRegistry    , deps: [UIRouter]},
-  { provide: Globals,           useFactory: (r: UIRouter) => r.globals          , deps: [UIRouter]},
+  { provide: StateService,      useFactory: fnStateService, deps: [UIRouter]},
+  { provide: TransitionService, useFactory: fnTransitionService, deps: [UIRouter]},
+  { provide: UrlMatcherFactory, useFactory: fnUrlMatcherFactory, deps: [UIRouter]},
+  { provide: UrlRouter,         useFactory: fnUrlRouter, deps: [UIRouter]},
+  { provide: ViewService,       useFactory: fnViewService, deps: [UIRouter]},
+  { provide: StateRegistry,     useFactory: fnStateRegistry, deps: [UIRouter]},
+  { provide: Globals,           useFactory: fnGlobals, deps: [UIRouter]},
 ];
 
 /**
@@ -189,4 +197,3 @@ export const _UIROUTER_SERVICE_PROVIDERS: Provider[] = [
  * @deprecated use [[UIRouterModule.forRoot]]
  */
 export const UIROUTER_PROVIDERS: Provider[] = _UIROUTER_INSTANCE_PROVIDERS.concat(_UIROUTER_SERVICE_PROVIDERS);
-

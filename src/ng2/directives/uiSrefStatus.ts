@@ -75,7 +75,7 @@ function spreadToSubPaths(basePath: PathNode[], appendPath: PathNode[]): PathNod
 /**
  * Given a TransEvt (Transition event: started, success, error)
  * and a UISref Target State, return a SrefStatus object
- * which represents the current status of that Sref: 
+ * which represents the current status of that Sref:
  * active, activeEq (exact match), entering, exiting
  *
  * @internalapi

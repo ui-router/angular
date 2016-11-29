@@ -9,6 +9,24 @@ import {identity} from "ui-router-core";
 import {LocationStrategy, HashLocationStrategy, PathLocationStrategy} from "@angular/common";
 import {_UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS} from "./providers";
 
+export function makeRootProviders(module: StatesModule): Provider[] {
+    return [
+        { provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true},
+        { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
+        { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
+    ];
+}
+
+export function makeChildProviders(module: StatesModule): Provider[] {
+    return [
+        { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
+        { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
+    ];
+}
+
+export function locationStrategy(useHash) {
+    return { provide: LocationStrategy, useClass: useHash ? HashLocationStrategy : PathLocationStrategy };
+}
 
 /**
  * Creates UI-Router Modules
@@ -75,14 +93,13 @@ export class UIRouterModule {
    * @returns an `NgModule` which provides the [[UIRouter]] singleton instance
    */
   static forRoot(config: RootModule = {}): ModuleWithProviders {
-    let locationStrategy = config.useHash ? HashLocationStrategy : PathLocationStrategy;
     return {
       ngModule: UIRouterModule,
       providers: [
         _UIROUTER_INSTANCE_PROVIDERS,
         _UIROUTER_SERVICE_PROVIDERS,
-        { provide: LocationStrategy, useClass: locationStrategy },
-        ...makeProviders(config, true),
+        locationStrategy(config.useHash),
+        ...makeRootProviders(config),
       ]
     }
   }
@@ -114,23 +131,10 @@ export class UIRouterModule {
   static forChild(module: StatesModule = {}): ModuleWithProviders {
     return {
       ngModule: UIRouterModule,
-      providers: makeProviders(module, false),
+      providers: makeChildProviders(module),
     }
   }
 
-}
-
-/** @hidden */
-function makeProviders(module: StatesModule, forRoot: boolean): Provider[] {
-  let providers: Provider[] = [module.configClass]
-      .filter(identity)
-      .map(configClass => ({ provide: configClass, useClass: configClass }));
-
-  if (forRoot) providers.push({ provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true});
-  providers.push({ provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true });
-  providers.push({ provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true });
-
-  return providers;
 }
 
 /**
