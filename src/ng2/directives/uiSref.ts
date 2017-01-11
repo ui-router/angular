@@ -8,7 +8,8 @@ import {UIView, ParentUIViewInject} from "./uiView";
 import {extend, Obj} from "ui-router-core";
 import {TransitionOptions} from "ui-router-core";
 import {Globals} from "ui-router-core";
-import {Subscription, ReplaySubject} from "rxjs/Rx";
+import {ReplaySubject} from 'rxjs/ReplaySubject';
+import {Subscription} from 'rxjs/Subscription';
 import {TargetState} from "ui-router-core";
 import "../rx";
 
@@ -30,7 +31,7 @@ export class AnchorUISref {
  * ### Purpose
  *
  * This directive is applied to anchor tags (`<a>`) or any other clickable element.  It is a state reference (or sref --
- * similar to an href).  When clicked, the directive will transition to that state by calling [[StateService.go]], 
+ * similar to an href).  When clicked, the directive will transition to that state by calling [[StateService.go]],
  * and optionally supply state parameter values and transition options.
  *
  * When this directive is on an anchor tag, it will also add an `href` attribute to the anchor.
@@ -38,9 +39,9 @@ export class AnchorUISref {
  * ### Selector
  *
  * - `[uiSref]`: The directive is created as an attribute on an element, e.g., `<a uiSref></a>`
- * 
+ *
  * ### Inputs
- * 
+ *
  * - `uiSref`: the target state's name, e.g., `uiSref="foostate"`.  If a component template uses a relative `uiSref`,
  * e.g., `uiSref=".child"`, the reference is relative to that component's state.
  *
