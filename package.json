@@ -6,7 +6,7 @@
     "clean": "shx rm -rf lib lib-esm _bundles _doc",
     "build": "npm run clean && node_modules/.bin/ngc && node_modules/.bin/ngc -p tsconfig.esm.json && webpack",
     "test": "karma start config/karma.ng2.js",
-    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --external-aliases internalapi,external --navigation-label-globals ui-router-ng2"
+    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2"
   },
   "homepage": "https://ui-router.github.io/ng2",
   "contributors": [
@@ -52,8 +52,8 @@
     "ui-router-core": "=1.0.1"
   },
   "peerDependencies": {
-    "@angular/core": "~2.0.0",
-    "@angular/common": "~2.0.0"
+    "@angular/core": "^2.0.0",
+    "@angular/common": "^2.0.0"
   },
   "devDependencies": {
     "@angular/common": "^2.3.1",

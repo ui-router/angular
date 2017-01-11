@@ -1,4 +1,4 @@
-/** @module directives */ /** */
+/** @ng2api @module directives */ /** */
 import {Directive, Output, EventEmitter, ContentChildren, QueryList, Inject} from "@angular/core";
 import {UISref} from "./uiSref";
 import {PathNode} from "ui-router-core";
@@ -9,7 +9,9 @@ import {anyTrueR, tail, unnestR, Predicate} from "ui-router-core";
 import {Globals, UIRouterGlobals} from "ui-router-core";
 import {Param} from "ui-router-core";
 import {PathFactory} from "ui-router-core";
-import {Subscription, Observable, BehaviorSubject} from "rxjs/Rx";
+import {Subscription} from "rxjs/Subscription";
+import {Observable} from "rxjs/Observable";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 /** @internalapi */
 interface TransEvt { evt: string, trans: Transition }

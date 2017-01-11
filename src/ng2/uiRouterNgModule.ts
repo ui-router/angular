@@ -1,4 +1,4 @@
-/** @module core */ /** */
+/** @ng2api @module core */ /** */
 import {Ng2StateDeclaration} from "./interface";
 import {NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Type} from "@angular/core";
 import {CommonModule} from "@angular/common";

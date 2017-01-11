@@ -1,4 +1,4 @@
-/** @module core */ /** */
+/** @ng2api @module core */ /** */
 import {NgModuleFactoryLoader, NgModuleRef, Injector, NgModuleFactory, Type, Compiler} from "@angular/core";
 import {Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString} from "ui-router-core";
 import {RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN} from "./uiRouterNgModule";
@@ -105,25 +105,39 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
   let originalName = transition.to().name;
   let originalState = uiRouter.stateRegistry.get(originalName);
 
-  let rootModules: RootModule[] = injector.get(UIROUTER_ROOT_MODULE);
-  let parentRootModules: RootModule[] = parentInjector.get(UIROUTER_ROOT_MODULE);
-  let newRootModules = rootModules.filter(module => parentRootModules.indexOf(module) === -1);
+  let newRootModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE);
 
   if (newRootModules.length) {
-    console.log(rootModules);
+    console.log(newRootModules);
     throw new Error('Lazy loaded modules should not contain a UIRouterModule.forRoot() module');
   }
 
-  let modules: StatesModule[] = injector.get(UIROUTER_MODULE_TOKEN);
-  modules.forEach(module => applyModuleConfig(uiRouter, injector, module));
+  let newModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN);
+  newModules.forEach(module => applyModuleConfig(uiRouter, injector, module));
 
   let replacementState = uiRouter.stateRegistry.get(originalName);
   if (replacementState === originalState) {
-    throw new Error(`The module that was lazy loaded by activating ${originalName} should also have a ui-router state named '${originalName}'`);
+    throw new Error(`The Future State named '${originalName}' lazy loaded an NgModule. That NgModule should also have a UIRouterModule.forChild() state named '${originalName}' to replace the Future State, but it did not.`);
   }
 
   // Supply the newly loaded states with the Injector from the lazy loaded NgModule
   replacementState.$$state().resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector));
 
   return {};
+}
+
+/**
+ * Returns the new dependency injection values from the Child Injector
+ *
+ * When a DI token is defined as multi: true, the child injector
+ * can add new values for the token.
+ *
+ * This function returns the values added by the child injector,  and excludes all values from the parent injector.
+ *
+ * @internalapi
+ */
+export function multiProviderParentChildDelta(parent: Injector, child: Injector, token: any) {
+  let childVals: RootModule[] = child.get(token);
+  let parentVals: RootModule[] = parent.get(token);
+  return childVals.filter(val => parentVals.indexOf(val) === -1);
 }
