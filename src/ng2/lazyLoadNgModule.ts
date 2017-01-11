@@ -41,7 +41,7 @@ export type NgModuleToLoad = string | ModuleTypeCallback;
  * - Returns the new states array
  */
 export function loadNgModule(moduleToLoad: NgModuleToLoad): (transition: Transition) => Promise<LazyLoadResult> {
-  return function(transition: Transition) {
+  return (transition: Transition) => {
     const ng2Injector = transition.injector().get(NATIVE_INJECTOR_TOKEN);
 
     const createModule = (factory: NgModuleFactory<any>) =>
@@ -53,7 +53,7 @@ export function loadNgModule(moduleToLoad: NgModuleToLoad): (transition: Transit
     return loadModuleFactory(moduleToLoad, ng2Injector)
         .then(createModule)
         .then(applyModule);
-  }
+  };
 }
 
 /**
@@ -80,7 +80,7 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
   const compileAsync = (moduleType: Type<any>) =>
       compiler.compileModuleAsync(moduleType);
 
-  return offlineMode ? loadChildrenPromise : loadChildrenPromise.then(compileAsync)
+  return offlineMode ? loadChildrenPromise : loadChildrenPromise.then(compileAsync);
 }
 
 /**

@@ -12,6 +12,10 @@
     "declaration": true,
     "sourceMap": true
   },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true
+  },
   "files": [
     "src/ng2.ts"
   ]
