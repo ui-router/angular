@@ -14,21 +14,8 @@ export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, option
 }
 
 export function applyRootModuleConfig(uiRouter: UIRouter, injector: Injector, config: RootModule) {
-  if (isDefined(config.deferIntercept)) {
-    uiRouter.urlRouterProvider.deferIntercept(config.deferIntercept);
-  }
-
-  if (isDefined(config.otherwise)) {
-    if (isDefined(config.otherwise['state'])) {
-      uiRouter.urlRouterProvider.otherwise(function() {
-        let { state, params } = <any> config.otherwise;
-        uiRouter.stateService.go(state, params, { source: "otherwise" });
-        return null;
-      });
-    } else {
-      uiRouter.urlRouterProvider.otherwise(<any> config.otherwise);
-    }
-  }
+  isDefined(config.deferIntercept) && uiRouter.urlService.deferIntercept(config.deferIntercept);
+  isDefined(config.otherwise)      && uiRouter.urlService.rules.otherwise(config.otherwise);
 }
 
 

@@ -1,13 +1,14 @@
-/** @ng2api @module core */ /** */
-import {Ng2StateDeclaration} from "./interface";
-import {NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Type} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {_UIROUTER_DIRECTIVES} from "./directives/directives";
-import {UIView} from "./directives/uiView";
-import {RawParams} from "ui-router-core";
-import {identity} from "ui-router-core";
-import {LocationStrategy, HashLocationStrategy, PathLocationStrategy} from "@angular/common";
-import {_UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS} from "./providers";
+/** @ng2api @module core */
+/** */
+import { Ng2StateDeclaration } from "./interface";
+import {
+  NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Type
+} from "@angular/core";
+import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from "@angular/common";
+import { _UIROUTER_DIRECTIVES } from "./directives/directives";
+import { UIView } from "./directives/uiView";
+import { UrlRuleHandlerFn, TargetState, TargetStateDef } from "ui-router-core";
+import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
 
 export function makeRootProviders(module: StatesModule): Provider[] {
     return [
@@ -157,7 +158,7 @@ export interface RootModule extends StatesModule {
   /**
    * Sets [[UrlRouterProvider.otherwise]].
    */
-  otherwise?: (string | Function | { state: string, params?: RawParams })
+  otherwise?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef)
 
   /**
    * Sets [[UrlRouterProvider.deferIntercept]]
