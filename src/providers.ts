@@ -98,6 +98,7 @@ import { UIRouterLocation } from "./location/uiRouterLocation";
 import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "./uiRouterNgModule";
 import { UIRouterRx } from "./rx";
 import { servicesPlugin } from "ui-router-core/lib/vanilla";
+import { ServicesPlugin } from "ui-router-core/lib/vanilla/interface";
 
 /**
  * This is a factory function for a UIRouter instance
@@ -123,7 +124,7 @@ export function uiRouterFactory(location: UIRouterLocation, injector: Injector) 
   router.plugin(UIRouterRx);
 
   // Add $q-like and $injector-like service APIs
-  router.plugin(servicesPlugin);
+  router.plugin<ServicesPlugin>(servicesPlugin);
 
 
   // ----------------- Monkey Patches ----------------

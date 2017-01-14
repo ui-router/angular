@@ -27,7 +27,7 @@ export class Ng2LocationServices extends BaseLocationServices {
     }
   }
 
-  dispose (router: UIRouter) {
+  dispose(router: UIRouter) {
     super.dispose(router);
   }
 }

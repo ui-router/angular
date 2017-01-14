@@ -7,8 +7,8 @@ var banner = pkg.description + '\n' +
 var webpack = require('webpack');
 module.exports = {
   entry: {
-    "ui-router-ng2": "./src/ng2.ts",
-    "ui-router-ng2.min": "./src/ng2.ts"
+    "ui-router-ng2": "./src/index.ts",
+    "ui-router-ng2.min": "./src/index.ts"
   },
 
   output: {
