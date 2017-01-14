@@ -3,7 +3,7 @@ import {Observable} from "rxjs/Observable";
 import {ReplaySubject} from "rxjs/ReplaySubject";
 import {Transition} from "ui-router-core";
 import {UIRouter} from "ui-router-core";
-import {StateDeclaration} from "ui-router-core";
+import {StateDeclaration, UIRouterPlugin} from "ui-router-core";
 
 export interface StatesChangedEvent {
   currentStates: StateDeclaration[];
@@ -21,7 +21,8 @@ declare module 'ui-router-core/lib/globals' {
 }
 
 /** Augments UIRouterGlobals with observables for transition starts, successful transitions, and state parameters */
-export class UIRouterRx {
+export class UIRouterRx implements UIRouterPlugin {
+  name = 'ui-router-rx';
   private deregisterFns: Function[] = [];
 
   constructor(router: UIRouter) {
