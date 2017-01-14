@@ -4,9 +4,10 @@
   "version": "1.0.0-beta.4",
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _doc",
-    "build": "npm run clean && ngc && ngc -m es6 -outDir lib-esm && webpack",
+    "build": "npm run clean && ngc && ngc -p tsconfig.esm.json && webpack",
     "test": "karma start config/karma.ng2.js",
-    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2"
+    "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2",
+    "prepublish": "npm run build"
   },
   "homepage": "https://ui-router.github.io/ng2",
   "contributors": [
@@ -45,9 +46,9 @@
     "node": ">4"
   },
   "license": "MIT",
-  "jsnext:main": "lib-esm/ng2.js",
-  "main": "lib/ng2.js",
-  "typings": "lib/ng2.d.ts",
+  "jsnext:main": "lib-esm/index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "dependencies": {
     "ui-router-core": "=3.1.0"
   },
@@ -89,6 +90,7 @@
     "ui-router-typedoc-themes": "^1.0.0",
     "webpack": "1.x",
     "webpack-dev-server": "1.x",
+    "webpack-visualizer-plugin": "^0.1.10",
     "zone.js": "^0.6.21"
   }
 }

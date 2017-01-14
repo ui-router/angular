@@ -5,6 +5,8 @@ var banner = pkg.description + '\n' +
     '@license MIT License, http://www.opensource.org/licenses/MIT';
 
 var webpack = require('webpack');
+var Visualizer = require('webpack-visualizer-plugin');
+
 module.exports = {
   entry: {
     "ui-router-ng2": "./src/index.ts",
@@ -30,7 +32,8 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       include: /\.min\.js$/, minimize: true
     }),
-    new webpack.BannerPlugin(banner)
+    new webpack.BannerPlugin(banner),
+    new Visualizer(),
   ],
 
   module: {
@@ -45,9 +48,33 @@ module.exports = {
     }
   },
  
-  externals: {
-    "rxjs/Rx": { root: 'rxjs/Rx', amd: 'rxjs/Rx', commonjs2: 'rxjs/Rx', commonjs: 'rxjs/Rx' },
-    "@angular/core": { root: '@angular/core', amd: '@angular/core', commonjs2: '@angular/core', commonjs: '@angular/core' },
-    "@angular/common": { root: '@angular/common', amd: '@angular/common', commonjs2: '@angular/common', commonjs: '@angular/common' }
-  }
+  externals: mkExternals([
+    'rxjs',
+    'rxjs/Rx',
+    'rxjs/Observable',
+    'rxjs/ReplaySubject',
+    'rxjs/BehaviorSubject',
+    'rxjs/Subscription',
+    'rxjs/add/observable/of',
+    'rxjs/add/observable/combineLatest',
+    'rxjs/add/observable/fromPromise',
+    'rxjs/add/operator/switchMap',
+    'rxjs/add/operator/mergeMap',
+    'rxjs/add/operator/concat',
+    'rxjs/add/operator/map',
+    '@angular/core',
+    '@angular/common',
+  ])
 };
+
+function mkExternals(names) {
+  return names.reduce(function (acc, name) { 
+    return Object.assign(acc, mkExternal(name));
+  }, {});
+}
+
+function mkExternal(name) {
+  var obj = {}
+  obj[name] = { root: name, amd: name, commonjs2: name, commonjs: name };
+  return obj;
+}

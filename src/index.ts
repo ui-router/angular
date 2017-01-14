@@ -1,6 +1,10 @@
 /** @ng2api @module ng2 */ /** for typedoc */
 export * from "ui-router-core";
 
+import "rxjs/Observable";
+import "rxjs/ReplaySubject";
+import "rxjs/BehaviorSubject";
+import "rxjs/Subscription";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/fromPromise';

@@ -17,6 +17,6 @@
     "strictMetadataEmit": true
   },
   "files": [
-    "src/ng2.ts"
+    "src/index.ts"
   ]
 }
