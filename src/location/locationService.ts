@@ -1,7 +1,7 @@
 /** @module ng2 */
 /** */
 import { UIRouter } from "ui-router-core";
-import { BaseLocationServices } from "ui-router-core/lib/vanilla";
+import { BaseLocationServices } from "ui-router-core/lib/vanilla/baseLocationService";
 import { parseUrl } from "ui-router-core/lib/vanilla/utils";
 import { PlatformLocation, LocationStrategy } from "@angular/common";
 

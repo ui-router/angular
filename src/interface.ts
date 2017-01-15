@@ -1,8 +1,9 @@
-/** @ng2api @module state */ /** */
-import {StateDeclaration, _ViewDeclaration} from "ui-router-core";
-import {Transition} from "ui-router-core";
-import {Type, OpaqueToken} from "@angular/core";
-import {HookResult} from "ui-router-core";
+/** @ng2api @module state */
+/** */
+
+import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from "ui-router-core";
+import { Type } from "@angular/core";
+import { NgModuleToLoad } from "./lazyLoad/lazyLoadNgModule";
 
 /**
  * The StateDeclaration object is used to define a state or nested state.
@@ -12,16 +13,18 @@ import {HookResult} from "ui-router-core";
  * ```js
  * import {FoldersComponent} from "./folders";
  *
+ * export function getAllFolders(FolderService) {
+ *   return FolderService.list();
+ * }
+ *
  * // StateDeclaration object
- * var foldersState = {
+ * export let foldersState = {
  *   name: 'folders',
  *   url: '/folders',
  *   component: FoldersComponent,
- *   resolve: {
- *     allfolders: function(FolderService) {
- *       return FolderService.list();
- *     }
- *   }
+ *   resolve: [
+ *     { token: 'allfolders', deps: [FolderService], resolveFn: getAllFolders }
+ *   ]
  * }
  * ```
  */
@@ -130,6 +133,72 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * the `views` object.
    */
   views?: { [key: string]: Ng2ViewDeclaration; };
+
+  /**
+   * A string or function used to lazy load an `NgModule`
+   *
+   * The `loadChildren` property should be added to a Future State (a lazy loaded state whose name ends in `.**`).
+   * The Future State is a placeholder for a tree of states that will be lazy loaded in the future.
+   *
+   * When the future state is activated, the `loadChildren` property will lazy load an `NgModule`
+   * which contains the fully loaded states.
+   * The `NgModule` should contain the fully loaded states which will be registered.
+   * The fully loaded states will replace the temporary future states once lazy loading is complete.
+   *
+   * ---
+   *
+   * When `loadChildren` is a string, it should be a relative path to the module code that will be lazy loaded.
+   * It should follow the semantics of the Angular Router's `loadChildren` property.
+   * The string will be split in half on the hash character (`#`).
+   * The first half is the path to the module.
+   * The last half is the named export of the `NgModule` inside the ES6 module.
+   *
+   * #### Example:
+   *
+   * home.module.ts
+   *
+   * ```
+   * @NgModule({... })
+   * export class HomeModule {};
+   * ```
+   *
+   * ```js
+   * var futureState = {
+   *   name: 'home.**',
+   *   url: '/home',
+   *   loadChildren: './home/home.module#HomeModule')
+   * }
+   * ```
+   *
+   *
+   * As a function, it should return a promise for the `NgModule`
+   *
+   * #### Example:
+   * ```js
+   * var futureState = {
+   *   name: 'home.**',
+   *   url: '/home',
+   *   loadChildren: () => System.import('./home/home.module')
+   *       .then(result => result.HomeModule);
+   * }
+   * ```
+   *
+   * #### Example:
+   * This shows the load function being exported for compatibility with the AoT compiler.
+   * ```js
+   * export function loadHomeModule() {
+   *   return System.import('./home/home.module')
+   *       .then(result => result.HomeModule);
+   * }
+   *
+   * var futureState = {
+   *   name: 'home.**',
+   *   url: '/home',
+   *   loadChildren: loadHomeModule
+   * }
+   * ```
+   */
+  loadChildren?: NgModuleToLoad;
 }
 
 export interface Ng2ViewDeclaration extends _ViewDeclaration {

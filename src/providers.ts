@@ -99,6 +99,7 @@ import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN }
 import { UIRouterRx } from "./rx";
 import { servicesPlugin } from "ui-router-core/lib/vanilla";
 import { ServicesPlugin } from "ui-router-core/lib/vanilla/interface";
+import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
 
 /**
  * This is a factory function for a UIRouter instance
@@ -142,6 +143,7 @@ export function uiRouterFactory(location: UIRouterLocation, injector: Injector) 
   // Apply statebuilder decorator for ng2 NgModule registration
   let registry = router.stateRegistry;
   registry.decorator('views', ng2ViewsBuilder);
+  registry.decorator('lazyLoad', ng2LazyLoadBuilder);
 
   // Prep the tree of NgModule by placing the root NgModule's Injector on the root state.
   let ng2InjectorResolvable = Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector);

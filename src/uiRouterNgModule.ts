@@ -12,8 +12,9 @@ import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./pro
 
 export function makeRootProviders(module: StatesModule): Provider[] {
     return [
-        { provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true},
+        { provide: UIROUTER_ROOT_MODULE,         useValue: module,              multi: true},
         { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
+        { provide: UIROUTER_STATES,              useValue: module.states || [], multi: true },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
     ];
 }
@@ -21,6 +22,7 @@ export function makeRootProviders(module: StatesModule): Provider[] {
 export function makeChildProviders(module: StatesModule): Provider[] {
     return [
         { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
+        { provide: UIROUTER_STATES,              useValue: module.states || [], multi: true },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
     ];
 }
@@ -221,8 +223,6 @@ export interface StatesModule {
   configClass?: Type<any>;
 }
 
-/** @hidden */
-export const UIROUTER_ROOT_MODULE = new OpaqueToken("UIRouter Root Module");
-
-/** @hidden */
-export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");
+/** @hidden */ export const UIROUTER_ROOT_MODULE  = new OpaqueToken("UIRouter Root Module");
+/** @hidden */ export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");
+/** @hidden */ export const UIROUTER_STATES       = new OpaqueToken("UIRouter States");

@@ -14,11 +14,11 @@ import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/map';
 
 export * from "./interface";
-export * from "./lazyLoadNgModule";
-export * from "./rx";
 export * from "./providers";
-export * from "./location/uiRouterLocation";
-export * from "./directives/directives";
-export * from "./statebuilders/views";
 export * from "./uiRouterNgModule";
 export * from "./uiRouterConfig";
+export * from "./directives/directives";
+export * from "./location/uiRouterLocation";
+export * from "./statebuilders/views";
+export * from "./lazyLoad/lazyLoadNgModule";
+export * from "./rx";
