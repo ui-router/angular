@@ -1,5 +1,6 @@
 # Any hidden files
 **/.*
+.*
 
 src
 config

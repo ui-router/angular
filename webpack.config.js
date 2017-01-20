@@ -24,8 +24,8 @@ module.exports = {
   devtool: 'source-map',
 
   resolve: {
-    modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.ts']
+    modules: ['node_modules'],
+    extensions: ['.js', '.ts']
   },
 
   plugins: [
@@ -38,16 +38,11 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.ts$/, loader: "awesome-typescript-loader" }
+      { test: /\.ts$/, loader: "awesome-typescript-loader" },
+      { test: /\.js$/, loader: "babel-loader" },
     ]
   },
 
-  ts: {
-    compilerOptions: {
-      declaration: false
-    }
-  },
- 
   externals: mkExternals([
     'rxjs',
     'rxjs/Rx',
@@ -74,7 +69,7 @@ function mkExternals(names) {
 }
 
 function mkExternal(name) {
-  var obj = {}
+  var obj = {};
   obj[name] = { root: name, amd: name, commonjs2: name, commonjs: name };
   return obj;
 }

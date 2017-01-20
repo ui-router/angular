@@ -68,6 +68,8 @@
     "@types/jasmine": "^2.2.34",
     "@types/jquery": "^1.10.31",
     "awesome-typescript-loader": "^2.2.4",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
     "conventional-changelog": "^1.1.0",
     "conventional-changelog-cli": "^1.1.1",
     "jasmine-core": "^2.4.1",
@@ -89,8 +91,8 @@
     "typedoc-plugin-ui-router": "^1.0.0",
     "typescript": "~2.0.3",
     "ui-router-typedoc-themes": "^1.0.0",
-    "webpack": "1.x",
-    "webpack-dev-server": "1.x",
+    "webpack": "2.2.0",
+    "webpack-dev-server": "2.2.0",
     "webpack-visualizer-plugin": "^0.1.10",
     "zone.js": "^0.6.21"
   }
