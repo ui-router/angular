@@ -21,4 +21,3 @@ export * from "./directives/directives";
 export * from "./location/uiRouterLocation";
 export * from "./statebuilders/views";
 export * from "./lazyLoad/lazyLoadNgModule";
-export * from "./rx";

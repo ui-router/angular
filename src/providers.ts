@@ -96,10 +96,10 @@ import { Ng2ViewDeclaration } from "./interface";
 import { applyRootModuleConfig, applyModuleConfig } from "./uiRouterConfig";
 import { UIRouterLocation } from "./location/uiRouterLocation";
 import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "./uiRouterNgModule";
-import { UIRouterRx } from "./rx";
 import { servicesPlugin } from "ui-router-core/lib/vanilla";
 import { ServicesPlugin } from "ui-router-core/lib/vanilla/interface";
 import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
+import { UIRouterRx } from "ui-router-rx";
 
 /**
  * This is a factory function for a UIRouter instance

@@ -50,7 +50,8 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "ui-router-core": "=3.1.1"
+    "ui-router-core": "=3.1.1",
+    "ui-router-rx": "=0.2.0"
   },
   "peerDependencies": {
     "@angular/common": "^2.0.0",

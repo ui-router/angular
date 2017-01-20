@@ -1,17 +1,10 @@
-/** @ng2api @module directives */ /** */
-import {UIRouter, UIRouterGlobals} from "ui-router-core";
-import {Directive, Inject, Input} from "@angular/core";
-import {Optional} from "@angular/core";
-import {ElementRef} from "@angular/core";
-import {Renderer} from "@angular/core";
-import {UIView, ParentUIViewInject} from "./uiView";
-import {extend, Obj} from "ui-router-core";
-import {TransitionOptions} from "ui-router-core";
-import {Globals} from "ui-router-core";
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subscription} from 'rxjs/Subscription';
-import {TargetState} from "ui-router-core";
-import "../rx";
+/** @ng2api @module directives */
+/** */
+import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, Globals, TargetState } from "ui-router-core";
+import { Directive, Inject, Input, Optional, ElementRef, Renderer } from "@angular/core";
+import { UIView, ParentUIViewInject } from "./uiView";
+import { ReplaySubject } from "rxjs/ReplaySubject";
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * @internalapi
