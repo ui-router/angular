@@ -1,12 +1,12 @@
 /** @module ng2 */ /** */
-import {UIRouter} from "ui-router-core";
+import { UIRouter, isFunction } from "ui-router-core";
 import {StatesModule, RootModule} from "./uiRouterNgModule";
 import {Injector} from "@angular/core";
 import {isDefined} from "ui-router-core";
 
-export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, options: StatesModule) {
-  if (options.configClass) {
-    injector.get(options.configClass);
+export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, options: StatesModule = {}) {
+  if (isFunction(options.config)) {
+    options.config(uiRouter, injector);
   }
 
   let states = options.states || [];
