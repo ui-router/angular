@@ -150,6 +150,8 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, platformLoca
   let ng2InjectorResolvable = Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector);
   registry.root().resolvables.push(ng2InjectorResolvable);
 
+  // Auto-flush the parameter type queue
+  router.urlMatcherFactory.$get();
 
   // ----------------- Initialize router -------------
   setTimeout(() => {
