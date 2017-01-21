@@ -1,6 +1,4 @@
 /** @ng2api @module ng2 */ /** for typedoc */
-export * from "ui-router-core";
-
 import "rxjs/Observable";
 import "rxjs/ReplaySubject";
 import "rxjs/BehaviorSubject";
@@ -13,6 +11,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/concat';
 import 'rxjs/add/operator/map';
 
+export * from "ui-router-core";
 export * from "./interface";
 export * from "./providers";
 export * from "./uiRouterNgModule";
