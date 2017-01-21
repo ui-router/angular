@@ -18,6 +18,5 @@ export * from "./providers";
 export * from "./uiRouterNgModule";
 export * from "./uiRouterConfig";
 export * from "./directives/directives";
-export * from "./location/uiRouterLocation";
 export * from "./statebuilders/views";
 export * from "./lazyLoad/lazyLoadNgModule";

@@ -94,12 +94,14 @@ import { UIView, ParentUIViewInject } from "./directives/uiView";
 import { ng2ViewsBuilder, Ng2ViewConfig } from "./statebuilders/views";
 import { Ng2ViewDeclaration } from "./interface";
 import { applyRootModuleConfig, applyModuleConfig } from "./uiRouterConfig";
-import { UIRouterLocation } from "./location/uiRouterLocation";
 import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "./uiRouterNgModule";
 import { servicesPlugin } from "ui-router-core/lib/vanilla";
 import { ServicesPlugin } from "ui-router-core/lib/vanilla/interface";
 import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
 import { UIRouterRx } from "ui-router-rx";
+import { LocationStrategy, PlatformLocation } from "@angular/common";
+import { Ng2LocationServices } from "./location/locationService";
+import { Ng2LocationConfig } from "./location/locationConfig";
 
 /**
  * This is a factory function for a UIRouter instance
@@ -107,15 +109,13 @@ import { UIRouterRx } from "ui-router-rx";
  * Creates a UIRouter instance and configures it for Angular 2, then invokes router bootstrap.
  * This function is used as an Angular 2 `useFactory` Provider.
  */
-export function uiRouterFactory(location: UIRouterLocation, injector: Injector) {
-
+export function uiRouterFactory(locationStrategy: LocationStrategy, platformLocation: PlatformLocation, injector: Injector) {
   let rootModules: RootModule[] = injector.get(UIROUTER_ROOT_MODULE);
   let modules: StatesModule[] = injector.get(UIROUTER_MODULE_TOKEN);
 
   if (rootModules.length !== 1) {
     throw new Error("Exactly one UIRouterModule.forRoot() should be in the bootstrapped app module's imports: []");
   }
-
 
   // ----------------- Create router -----------------
   // Create a new ng2 UIRouter and configure it for ng2
@@ -134,7 +134,8 @@ export function uiRouterFactory(location: UIRouterLocation, injector: Injector) 
 
 
   // ----------------- Configure for ng2 -------------
-  location.init(router);
+  router.locationService = new Ng2LocationServices(router, locationStrategy, platformLocation);
+  router.locationConfig = new Ng2LocationConfig(router, locationStrategy, platformLocation);
 
   // Apply ng2 ui-view handling code
   let viewConfigFactory = (path: PathNode[], config: Ng2ViewDeclaration) => new Ng2ViewConfig(path, config);
@@ -168,8 +169,7 @@ export function uiRouterFactory(location: UIRouterLocation, injector: Injector) 
 export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null, context: r.root() } as ParentUIViewInject; }
 
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] =  [
-  { provide: UIRouter, useFactory: uiRouterFactory, deps: [UIRouterLocation, Injector] },
-  { provide: UIRouterLocation, useClass: UIRouterLocation },
+  { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, PlatformLocation, Injector] },
   { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry]},
 ];
 
