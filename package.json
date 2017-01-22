@@ -6,6 +6,7 @@
     "clean": "shx rm -rf lib lib-esm _bundles _dec",
     "compile": "npm run clean && ngc",
     "bundle": "rollup -c && rollup -c --environment MINIFY",
+    "package": "npm run bundle",
     "build": "npm run compile && npm run bundle",
     "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2",
     "prepublish": "npm run build"
