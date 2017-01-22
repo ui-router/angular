@@ -100,18 +100,19 @@ export class UISref {
   /** @internalapi */ private _emit: boolean = false;
   /** @internalapi */ private _statesSub: Subscription;
   /** @internalapi */ private _router: UIRouter;
-  /** @internalapi */ public parent: ParentUIViewInject;
   /** @internalapi */ private _anchorUISref: AnchorUISref;
+  /** @internalapi */ public parent: ParentUIViewInject;
 
   constructor(
       _router: UIRouter,
+      @Optional() _anchorUISref: AnchorUISref,
       @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
-      @Optional() _anchorUISref: AnchorUISref
   ) {
     this._router = _router;
-    this.parent = parent;
     this._anchorUISref = _anchorUISref;
-    this._statesSub = _router.globals.states$.subscribe(() => this.update())
+    this.parent = parent;
+
+    this._statesSub = _router.globals.states$.subscribe(() => this.update());
   }
 
   /** @internalapi */

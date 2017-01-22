@@ -1,8 +1,6 @@
 /** @module ng2 */
 /** */
-import { UIRouter } from "ui-router-core";
-import { BaseLocationServices } from "ui-router-core/lib/vanilla/baseLocationService";
-import { parseUrl } from "ui-router-core/lib/vanilla/utils";
+import { UIRouter, BaseLocationServices, parseUrl } from "ui-router-core";
 import { PlatformLocation, LocationStrategy } from "@angular/common";
 
 /** A `LocationServices` that uses the browser hash "#" to get/set the current location */
