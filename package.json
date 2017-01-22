@@ -39,11 +39,12 @@
   "typings": "lib/index.d.ts",
   "dependencies": {
     "ui-router-core": "=4.0.0",
-    "ui-router-rx": "=0.2.0"
+    "ui-router-rx": "=0.2.1"
   },
   "peerDependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/core": "^2.0.0"
+    "@angular/common": "^2.3.1",
+    "@angular/core": "^2.3.1",
+    "@angular/router": "^3.3.1"
   },
   "devDependencies": {
     "@angular/common": "^2.3.1",
@@ -53,6 +54,7 @@
     "@angular/platform-browser": "^2.3.1",
     "@angular/platform-browser-dynamic": "^2.3.1",
     "@angular/platform-server": "^2.3.1",
+    "@angular/router": "^3.3.1",
     "@types/jasmine": "^2.2.34",
     "@types/jquery": "^1.10.31",
     "awesome-typescript-loader": "^2.2.4",

@@ -36,6 +36,10 @@
   dependencies:
     parse5 "^2.2.1"
 
+"@angular/router@^3.3.1":
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-3.4.4.tgz#8564889d5bf322a1a4b679bd82c053df03eabb72"
+
 "@angular/tsc-wrapped@0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-0.5.1.tgz#7a69bec999eef41903dddaaccdc862cfcface52c"
@@ -3774,13 +3778,13 @@ uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
 
-ui-router-core@=3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/ui-router-core/-/ui-router-core-3.1.1.tgz#9fccf9631bdf61d4641e333c74c3d1cc347dca18"
+ui-router-core@=4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ui-router-core/-/ui-router-core-4.0.0.tgz#83777791a452d3b585e75fc772d79c2e115b3b50"
 
-ui-router-rx@=0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/ui-router-rx/-/ui-router-rx-0.2.0.tgz#4c061da567851b35f40c4faa5d5daee0b316f23b"
+ui-router-rx@=0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/ui-router-rx/-/ui-router-rx-0.2.1.tgz#d54acdc7b7584e7d3feea3c0b0fa084bcfbdee67"
 
 ui-router-typedoc-themes@^1.0.0:
   version "1.0.2"
