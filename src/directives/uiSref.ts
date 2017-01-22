@@ -1,6 +1,6 @@
 /** @ng2api @module directives */
 /** */
-import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, Globals, TargetState } from "ui-router-core";
+import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, TargetState } from "ui-router-core";
 import { Directive, Inject, Input, Optional, ElementRef, Renderer } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";
@@ -97,18 +97,21 @@ export class UISref {
    */
   public targetState$ = new ReplaySubject<TargetState>(1);
 
-  /** @internalapi */
-  private _emit: boolean = false;
-  /** @internalapi */
-  private _statesSub: Subscription;
+  /** @internalapi */ private _emit: boolean = false;
+  /** @internalapi */ private _statesSub: Subscription;
+  /** @internalapi */ private _router: UIRouter;
+  /** @internalapi */ public parent: ParentUIViewInject;
+  /** @internalapi */ private _anchorUISref: AnchorUISref;
 
   constructor(
-      /** @internalapi */ private _router: UIRouter,
-      /** @internalapi */ @Inject(UIView.PARENT_INJECT) public parent: ParentUIViewInject,
-      /** @internalapi */ @Optional() private _anchorUISref: AnchorUISref,
-      @Inject(Globals) _globals: UIRouterGlobals
+      _router: UIRouter,
+      @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
+      @Optional() _anchorUISref: AnchorUISref
   ) {
-    this._statesSub = _globals.states$.subscribe(() => this.update())
+    this._router = _router;
+    this.parent = parent;
+    this._anchorUISref = _anchorUISref;
+    this._statesSub = _router.globals.states$.subscribe(() => this.update())
   }
 
   /** @internalapi */

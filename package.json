@@ -3,7 +3,7 @@
   "description": "State-based routing for Angular 2",
   "version": "1.0.0-beta.4",
   "scripts": {
-    "clean": "shx rm -rf lib lib-esm _bundles _doc",
+    "clean": "shx rm -rf lib lib-esm _bundles _dec",
     "compile": "npm run clean && ngc",
     "build": "npm run compile && webpack",
     "test": "karma start config/karma.ng2.js",
@@ -51,7 +51,7 @@
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "ui-router-core": "=3.1.1",
+    "ui-router-core": "=4.0.0",
     "ui-router-rx": "=0.2.0"
   },
   "peerDependencies": {

@@ -6,7 +6,7 @@ import {Transition} from "ui-router-core";
 import {TargetState} from "ui-router-core";
 import {State} from "ui-router-core";
 import {anyTrueR, tail, unnestR, Predicate} from "ui-router-core";
-import {Globals, UIRouterGlobals} from "ui-router-core";
+import {UIRouterGlobals} from "ui-router-core";
 import {Param} from "ui-router-core";
 import {PathFactory} from "ui-router-core";
 import {Subscription} from "rxjs/Subscription";
@@ -184,11 +184,12 @@ export class UISrefStatus {
   /** The current status */
   status: SrefStatus;
 
-  private _subscription: Subscription;
-  private _srefChangesSub: Subscription;
-  private _srefs$: BehaviorSubject<UISref[]>;
-
-  constructor(@Inject(Globals) private _globals: UIRouterGlobals) {
+  /** @internalapi */ private _subscription: Subscription;
+  /** @internalapi */ private _srefChangesSub: Subscription;
+  /** @internalapi */ private _srefs$: BehaviorSubject<UISref[]>;
+  /** @internalapi */ private _globals: UIRouterGlobals;
+  constructor(_globals: UIRouterGlobals) {
+    this._globals = _globals;
     this.status = Object.assign({}, inactiveStatus);
   }
 

@@ -88,7 +88,7 @@
 import { Injector, Provider } from "@angular/core";
 import {
   UIRouter, PathNode, StateRegistry, StateService, TransitionService, UrlMatcherFactory, UrlRouter, ViewService,
-  UrlService, Globals, services, Resolvable, NATIVE_INJECTOR_TOKEN
+  UrlService, UIRouterGlobals, services, Resolvable, NATIVE_INJECTOR_TOKEN
 } from "ui-router-core";
 import { UIView, ParentUIViewInject } from "./directives/uiView";
 import { ng2ViewsBuilder, Ng2ViewConfig } from "./statebuilders/views";
@@ -192,7 +192,7 @@ export const _UIROUTER_SERVICE_PROVIDERS: Provider[] = [
   { provide: UrlService,        useFactory: fnUrlService,         deps: [UIRouter]},
   { provide: ViewService,       useFactory: fnViewService,        deps: [UIRouter]},
   { provide: StateRegistry,     useFactory: fnStateRegistry,      deps: [UIRouter]},
-  { provide: Globals,           useFactory: fnGlobals,            deps: [UIRouter]},
+  { provide: UIRouterGlobals,   useFactory: fnGlobals,            deps: [UIRouter]},
 ];
 
 /**
