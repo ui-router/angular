@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _dec",
     "compile": "npm run clean && ngc",
-    "build": "npm run compile && webpack",
+    "build": "npm run compile && rollup -c && rollup -c --environment MINIFY",
     "test": "karma start config/karma.ng2.js",
     "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2",
     "prepublish": "npm run build"
@@ -81,6 +81,13 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-script-launcher": "~0.1.0",
     "karma-systemjs": "^0.7.2",
+    "rollup": "^0.41.4",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-progress": "^0.2.1",
+    "rollup-plugin-sourcemaps": "^0.4.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-plugin-visualizer": "^0.2.0",
     "rxjs": "5.0.0-beta.12",
     "shelljs": "^0.7.0",
     "shx": "^0.1.4",
