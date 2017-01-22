@@ -10,7 +10,7 @@
     "sourceMap": false
   },
   "files": [
-    "src/ng2.ts",
+    "src/index.ts",
     "../ui-router-core/src/index.ts",
     "node_modules/typescript/lib/lib.es6.d.ts"
   ]
