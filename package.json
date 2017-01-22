@@ -5,29 +5,16 @@
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _dec",
     "compile": "npm run clean && ngc",
-    "build": "npm run compile && rollup -c && rollup -c --environment MINIFY",
-    "test": "karma start config/karma.ng2.js",
+    "bundle": "rollup -c && rollup -c --environment MINIFY",
+    "build": "npm run compile && npm run bundle",
     "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2",
     "prepublish": "npm run build"
   },
   "homepage": "https://ui-router.github.io/ng2",
   "contributors": [
     {
-      "name": "Nate Abele",
-      "email": "nate@radify.io",
-      "web": "https://radify.io"
-    },
-    {
       "name": "Chris Thielen",
       "web": "https://github.com/christopherthielen"
-    },
-    {
-      "name": "Tim Kindberg",
-      "web": "https://github.com/timkindberg"
-    },
-    {
-      "name": "Karsten Sperling",
-      "web": "https://github.com/ksperling"
     }
   ],
   "maintainers": [
