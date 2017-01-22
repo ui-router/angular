@@ -10,11 +10,11 @@ import { UIView } from "./directives/uiView";
 import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter } from "ui-router-core";
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
 
-// import { ROUTES } from "@angular/router/src/router_config_loader";
+import { ROUTES } from "@angular/router/src/router_config_loader";
 /** @hidden */ export const UIROUTER_ROOT_MODULE  = new OpaqueToken("UIRouter Root Module");
 /** @hidden */ export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");
 /** @hidden */ export const UIROUTER_STATES       = new OpaqueToken("UIRouter States");
-/** @hidden */ export const ROUTES = UIROUTER_STATES;
+// /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
 export function makeRootProviders(module: StatesModule): Provider[] {
     return [
