@@ -3,7 +3,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "module": "commonjs",
+    "module": "es6",
     "target": "es5",
     "lib": [ "es6", "dom" ],
     "allowSyntheticDefaultImports": true,
@@ -17,6 +17,6 @@
     "strictMetadataEmit": true
   },
   "files": [
-    "src/ng2.ts"
+    "src/index.ts"
   ]
 }

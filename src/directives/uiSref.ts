@@ -1,17 +1,10 @@
-/** @ng2api @module directives */ /** */
-import {UIRouter, UIRouterGlobals} from "ui-router-core";
-import {Directive, Inject, Input} from "@angular/core";
-import {Optional} from "@angular/core";
-import {ElementRef} from "@angular/core";
-import {Renderer} from "@angular/core";
-import {UIView, ParentUIViewInject} from "./uiView";
-import {extend, Obj} from "ui-router-core";
-import {TransitionOptions} from "ui-router-core";
-import {Globals} from "ui-router-core";
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subscription} from 'rxjs/Subscription';
-import {TargetState} from "ui-router-core";
-import "../rx";
+/** @ng2api @module directives */
+/** */
+import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, TargetState } from "ui-router-core";
+import { Directive, Inject, Input, Optional, ElementRef, Renderer } from "@angular/core";
+import { UIView, ParentUIViewInject } from "./uiView";
+import { ReplaySubject } from "rxjs/ReplaySubject";
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * @internalapi
@@ -104,18 +97,22 @@ export class UISref {
    */
   public targetState$ = new ReplaySubject<TargetState>(1);
 
-  /** @internalapi */
-  private _emit: boolean = false;
-  /** @internalapi */
-  private _statesSub: Subscription;
+  /** @internalapi */ private _emit: boolean = false;
+  /** @internalapi */ private _statesSub: Subscription;
+  /** @internalapi */ private _router: UIRouter;
+  /** @internalapi */ private _anchorUISref: AnchorUISref;
+  /** @internalapi */ public parent: ParentUIViewInject;
 
   constructor(
-      /** @internalapi */ private _router: UIRouter,
-      /** @internalapi */ @Inject(UIView.PARENT_INJECT) public parent: ParentUIViewInject,
-      /** @internalapi */ @Optional() private _anchorUISref: AnchorUISref,
-      @Inject(Globals) _globals: UIRouterGlobals
+      _router: UIRouter,
+      @Optional() _anchorUISref: AnchorUISref,
+      @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
   ) {
-    this._statesSub = _globals.states$.subscribe(() => this.update())
+    this._router = _router;
+    this._anchorUISref = _anchorUISref;
+    this.parent = parent;
+
+    this._statesSub = _router.globals.states$.subscribe(() => this.update());
   }
 
   /** @internalapi */

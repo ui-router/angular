@@ -1,18 +1,26 @@
-/** @ng2api @module core */ /** */
-import {Ng2StateDeclaration} from "./interface";
-import {NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Type} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {_UIROUTER_DIRECTIVES} from "./directives/directives";
-import {UIView} from "./directives/uiView";
-import {RawParams} from "ui-router-core";
-import {identity} from "ui-router-core";
-import {LocationStrategy, HashLocationStrategy, PathLocationStrategy} from "@angular/common";
-import {_UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS} from "./providers";
+/** @ng2api @module core */
+/** */
+import { Ng2StateDeclaration } from "./interface";
+import {
+  NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector
+} from "@angular/core";
+import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from "@angular/common";
+import { _UIROUTER_DIRECTIVES } from "./directives/directives";
+import { UIView } from "./directives/uiView";
+import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter } from "ui-router-core";
+import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
+
+import { ROUTES } from "@angular/router/src/router_config_loader";
+/** @hidden */ export const UIROUTER_ROOT_MODULE  = new OpaqueToken("UIRouter Root Module");
+/** @hidden */ export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");
+/** @hidden */ export const UIROUTER_STATES       = new OpaqueToken("UIRouter States");
+// /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
 export function makeRootProviders(module: StatesModule): Provider[] {
     return [
-        { provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true},
+        { provide: UIROUTER_ROOT_MODULE,         useValue: module,              multi: true},
         { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
+        { provide: ROUTES,                       useValue: module.states || [], multi: true },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
     ];
 }
@@ -20,6 +28,7 @@ export function makeRootProviders(module: StatesModule): Provider[] {
 export function makeChildProviders(module: StatesModule): Provider[] {
     return [
         { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
+        { provide: ROUTES,                       useValue: module.states || [], multi: true },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
     ];
 }
@@ -157,7 +166,7 @@ export interface RootModule extends StatesModule {
   /**
    * Sets [[UrlRouterProvider.otherwise]].
    */
-  otherwise?: (string | Function | { state: string, params?: RawParams })
+  otherwise?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef)
 
   /**
    * Sets [[UrlRouterProvider.deferIntercept]]
@@ -180,48 +189,45 @@ export interface StatesModule {
   /**
    * A UI-Router Module's imperative configuration
    *
-   * If a UI-Router Module needs to perform some configuration (such as registering parameter types or Transition Hooks)
-   * a `configClass` should be supplied.
+   * If a UI-Router Module needs to perform some configuration (such as registering
+   * parameter types or Transition Hooks) a `configFn` should be supplied.
+   * The function will be passed the `UIRouter` instance and the module's `Injector`
    *
-   * Mark the class as `@Injectable()` and inject any required dependencies.
-   * When the module is being loaded, an instance will be created and injected.
-   *
-   * Example:
+   * #### Example:
    * ```js
-   * @Injectable()
-   * export class MyUIRouterConfig {
-   *   // The constructor may be injected
-   *   constructor(uiRouter: UIRouter) {
-   *     const requireAuthentication = (transition: Transition) => {
-   *       let injector = transition.injector();
-   *       if (!injector.get(AuthService).isAuthenticated()) {
-   *         return uiRouter.stateService.target('login');
-   *       }
-   *     }
+   * import { Injector } from "@angular/core";
+   * import { UIRouter } from "ui-router-ng2";
+   * import { requireAuthHook } from "./requireAuthHook";
+   * import { MyService } from "./myService";
    *
-   *     uiRouter.transitionService.onBefore({ to: (state) => state.requiresAuth }, requireAuthentication);
+   * export function configureMyModule(uiRouter: UIRouter, injector: Injector) {
+   *   // Get UIRouter services off the UIRouter object
+   *   let urlConfig = uiRouter.urlService.config;
+   *   let transitionService = uiRouter.transitionService;
+   *   uiRouter.trace.enable("TRANSITION");
    *
-   *     let builtInStringType = urlMatcherFactory.type('string');
-   *     let slugType = Object.assign({}, builtInStringType, { encode: (str) => str, decode: (str) => str });
-   *     uiRouter.urlMatcherFactory.type('slug', slugType);
-   *   }
+   *   transitionService.onBefore({ to: (state) => state.requiresAuth }, requireAuthHook);
+   *
+   *   // Create a slug type based on the string type
+   *   let builtInStringType = urlConfig.type('string');
+   *   let slugType = Object.assign({}, builtInStringType, { encode: (str) => str, decode: (str) => str });
+   *   urlConfig.type('slug', slugType);
+   *
+   *   // Inject arbitrary services from DI using the Injector argument
+   *   let myService: MyService = injector.get(MyService)
+   *   myService.useFastMode();
    * }
    * ```
    *
    * ```js
    * @NgModule({
    *   imports: [
-   *     UIRouterModule.forChild({ states: STATES, configClass: MyUIRouterConfig });
+   *     UIRouterModule.forChild({ states: STATES, config: configureMyModule });
    *   ]
    * })
    * class MyModule {}
    * ```
    */
-  configClass?: Type<any>;
+  config?: (uiRouterInstance: UIRouter, injector: Injector) => any;
 }
 
-/** @hidden */
-export const UIROUTER_ROOT_MODULE = new OpaqueToken("UIRouter Root Module");
-
-/** @hidden */
-export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");

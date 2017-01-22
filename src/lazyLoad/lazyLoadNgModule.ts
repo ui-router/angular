@@ -1,38 +1,66 @@
-/** @ng2api @module core */ /** */
-import {NgModuleFactoryLoader, NgModuleRef, Injector, NgModuleFactory, Type, Compiler} from "@angular/core";
-import {Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString} from "ui-router-core";
-import {RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN} from "./uiRouterNgModule";
-import {applyModuleConfig} from "./uiRouterConfig";
+/** @ng2api @module core */
+/** */
+import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from "@angular/core";
+import { Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString } from "ui-router-core";
+import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "../uiRouterNgModule";
+import { applyModuleConfig } from "../uiRouterConfig";
 
+/**
+ * A function that returns an NgModule, or a promise for an NgModule
+ *
+ * #### Example:
+ * ```js
+ * export function loadFooModule() {
+ *   return System.import('../foo/foo.module').then(result => result.FooModule);
+ * }
+ * ```
+ */
 export type ModuleTypeCallback = () => Type<any> | Promise<Type<any>>;
+/**
+ * A string or a function which lazy loads a module
+ *
+ * If a string, should conform to the Angular Router `loadChildren` string.
+ * #### Example:
+ * ```
+ * var ngModuleToLoad = './foo/foo.module#FooModule'
+ * ```
+ *
+ * For functions, see: [[ModuleTypeCallback]]
+ */
 export type NgModuleToLoad = string | ModuleTypeCallback;
 
 /**
  * Returns a function which lazy loads a nested module
  *
- * Use this function as a [[StateDeclaration.lazyLoad]] property to lazy load an NgModule and its state.
+ * This is primarily used by the [[ng2LazyLoadBuilder]] when processing [[Ng2StateDeclaration.loadChildren]].
  *
- * Example using `System.import()`:
+ * It could also be used manually as a [[StateDeclaration.lazyLoad]] property to lazy load an `NgModule` and its state(s).
+ *
+ * #### Example:
+ * Using `System.import()` and named export of `HomeModule`
  * ```js
- * {
- *   name: 'home',
+ * declare var System;
+ * var futureState = {
+ *   name: 'home.**',
  *   url: '/home',
- *   lazyLoad: loadNgModule(() => System.import('./home.module').then(result => result.HomeModule))
+ *   lazyLoad: loadNgModule(() => System.import('./home/home.module').then(result => result.HomeModule))
  * }
  * ```
  *
- * Example using `NgModuleFactoryLoader`:
+ * #### Example:
+ * Using a path (string) to the module
  * ```js
- * {
- *   name: 'home',
+ * var futureState = {
+ *   name: 'home.**',
  *   url: '/home',
- *   lazyLoad: loadNgModule('./home.module')
+ *   lazyLoad: loadNgModule('./home/home.module#HomeModule')
  * }
  * ```
  *
- * @param moduleToLoad
- *    If a string, it should be the path to the NgModule code, which will then be loaded by the `NgModuleFactoryLoader`.
- *    If a function, the function should load the NgModule code and return a reference to the `NgModule` class being loaded.
+ *
+ * @param moduleToLoad a path (string) to the NgModule to load.
+ *    Or a function which loads the NgModule code which should
+ *    return a reference to  the `NgModule` class being loaded (or a `Promise` for it).
  *
  * @returns A function which takes a transition, which:
  * - Gets the Injector (scoped properly for the destination state)
@@ -76,10 +104,13 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
 
   const compiler: Compiler = ng2Injector.get(Compiler);
   const offlineMode = compiler instanceof Compiler;
-  const loadChildrenPromise = Promise.resolve(moduleToLoad());
+
+  const unwrapEsModuleDefault = x =>
+      x && x.__esModule && x['default'] ? x['default'] : x;
   const compileAsync = (moduleType: Type<any>) =>
       compiler.compileModuleAsync(moduleType);
 
+  const loadChildrenPromise = Promise.resolve(moduleToLoad()).then(unwrapEsModuleDefault);
   return offlineMode ? loadChildrenPromise : loadChildrenPromise.then(compileAsync);
 }
 
@@ -101,23 +132,31 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
   let injector = ng2Module.injector;
   let parentInjector = <Injector> ng2Module.injector['parent'];
   let uiRouter: UIRouter = injector.get(UIRouter);
+  let registry = uiRouter.stateRegistry;
 
   let originalName = transition.to().name;
-  let originalState = uiRouter.stateRegistry.get(originalName);
+  let originalState = registry.get(originalName);
+  // Check if it's a future state (ends with .**)
+  let isFuture = /^(.*)\.\*\*$/.exec(originalName);
+  // Final name (without the .**)
+  let replacementName = isFuture && isFuture[1];
 
   let newRootModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE);
-
   if (newRootModules.length) {
     console.log(newRootModules);
     throw new Error('Lazy loaded modules should not contain a UIRouterModule.forRoot() module');
   }
 
-  let newModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN);
-  newModules.forEach(module => applyModuleConfig(uiRouter, injector, module));
+  let newChildModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN);
+  newChildModules.forEach(module => applyModuleConfig(uiRouter, injector, module));
 
-  let replacementState = uiRouter.stateRegistry.get(originalName);
-  if (replacementState === originalState) {
-    throw new Error(`The Future State named '${originalName}' lazy loaded an NgModule. That NgModule should also have a UIRouterModule.forChild() state named '${originalName}' to replace the Future State, but it did not.`);
+  let replacementState = registry.get(replacementName);
+  if (!replacementState || replacementState === originalState) {
+    throw new Error(`The Future State named '${originalName}' lazy loaded an NgModule. ` +
+        `The lazy loaded NgModule must have a state named '${replacementName}' ` +
+        `which replaces the (placeholder) '${originalName}' Future State. ` +
+        `Add a '${replacementName}' state to the lazy loaded NgModule ` +
+        `using UIRouterModule.forChild({ states: CHILD_STATES }).`);
   }
 
   // Supply the newly loaded states with the Injector from the lazy loaded NgModule
