@@ -70,6 +70,7 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-script-launcher": "~0.1.0",
     "karma-systemjs": "^0.7.2",
+    "readline-sync": "^1.4.5",
     "rollup": "^0.41.4",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
