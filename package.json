@@ -31,7 +31,7 @@
     "url": "https://github.com/ui-router/ng2/issues"
   },
   "engines": {
-    "node": ">4"
+    "node": ">6"
   },
   "license": "MIT",
   "main": "_bundles/ui-router-ng2.js",
