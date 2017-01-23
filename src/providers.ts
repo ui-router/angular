@@ -98,7 +98,7 @@ import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN }
 import { servicesPlugin, ServicesPlugin } from "ui-router-core";
 import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
 import { UIRouterRx } from "ui-router-rx";
-import { LocationStrategy, PlatformLocation } from "@angular/common";
+import { LocationStrategy } from "@angular/common";
 import { Ng2LocationServices } from "./location/locationService";
 import { Ng2LocationConfig } from "./location/locationConfig";
 
@@ -108,7 +108,7 @@ import { Ng2LocationConfig } from "./location/locationConfig";
  * Creates a UIRouter instance and configures it for Angular 2, then invokes router bootstrap.
  * This function is used as an Angular 2 `useFactory` Provider.
  */
-export function uiRouterFactory(locationStrategy: LocationStrategy, platformLocation: PlatformLocation, injector: Injector) {
+export function uiRouterFactory(locationStrategy: LocationStrategy, injector: Injector) {
   let rootModules: RootModule[] = injector.get(UIROUTER_ROOT_MODULE);
   let modules: StatesModule[] = injector.get(UIROUTER_MODULE_TOKEN);
 
@@ -133,8 +133,8 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, platformLoca
 
 
   // ----------------- Configure for ng2 -------------
-  router.locationService = new Ng2LocationServices(router, locationStrategy, platformLocation);
-  router.locationConfig = new Ng2LocationConfig(router, locationStrategy, platformLocation);
+  router.locationService = new Ng2LocationServices(router, locationStrategy);
+  router.locationConfig = new Ng2LocationConfig(router, locationStrategy);
 
   // Apply ng2 ui-view handling code
   let viewConfigFactory = (path: PathNode[], config: Ng2ViewDeclaration) => new Ng2ViewConfig(path, config);
@@ -170,7 +170,7 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, platformLoca
 export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null, context: r.root() } as ParentUIViewInject; }
 
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] =  [
-  { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, PlatformLocation, Injector] },
+  { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, Injector] },
   { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry]},
 ];
 
