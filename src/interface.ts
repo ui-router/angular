@@ -2,7 +2,7 @@
 /** */
 
 import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from "ui-router-core";
-import { Type } from "@angular/core";
+import { Type, Component } from "@angular/core";
 import { NgModuleToLoad } from "./lazyLoad/lazyLoadNgModule";
 
 /**
@@ -293,36 +293,36 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
    *
    * When using a [[component]] declaration (`component: MyComponent`), each input binding for the component is supplied
    * data from a resolve of the same name, by default.  You may supply data from a different resolve name by mapping it here.
+   * This might be useful if you want to reuse the same resolve value with various components with different input binding names.
    *
    * Each key in this object is the name of one of the component's input bindings.
    * Each value is the name of the resolve that should be provided to that binding.
    *
-   * Any component bindings that are omitted from this map get the default behavior of mapping to a resolve of the
-   * same name.
+   * Any component bindings that are omitted from this map get the default behavior of mapping to a resolve of the * same name.
    *
    * #### Example:
    * ```js
-   * $stateProvider.state('foo', {
-   *   resolve: {
-   *     foo: function(FooService) { return FooService.get(); },
-   *     bar: function(BarService) { return BarService.get(); }
-   *   },
-   *   component: 'Baz',
-   *   // The component's `baz` binding gets data from the `bar` resolve
-   *   // The component's `foo` binding gets data from the `foo` resolve (default behavior)
+   * export const fooState = {
+   *   name: 'foo',
+   *   component: MyComponent,
+   *   resolve: [
+   *     { token: 'users', deps: [UserService], resolveFn: getUsers }
+   *   ],
    *   bindings: {
-   *     baz: 'bar'
+   *     resolveData: 'users'
    *   }
-   * });
+   * }
    *
-   * app.component('Baz', {
-   *   templateUrl: 'baz.html',
-   *   controller: 'BazController',
-   *   bindings: {
-   *     foo: '<', // foo binding
-   *     baz: '<'  // baz binding
-   *   }
-   * });
+   * export function getUsers(userservice) {
+   *   return userservice.getUsers();
+   * }
+   *
+   * @Component() {
+   * }
+   * class MyComponent {
+   *   @Input() resolveData;
+   *   constructor() { }
+   * }
    * ```
    *
    */
@@ -330,74 +330,54 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
 }
 
 /**
- * @hidden
- *
  * The shape of a controller for a view (and/or component), defining the controller callbacks.
  *
- * A view in UI-Router is comprised of either a `component` ([[Ng2ViewDeclaration.component]]) or a combination of a
- * `template` (or `templateProvider`) and a `controller` (or `controllerProvider`).
- *
- * The `controller` object (or the `component`'s controller object) can define component-level controller callbacks,
- * which UI-Router will call at the appropriate times.  These callbacks are similar to Transition Hooks
- * ([[IHookRegistry]]), but are only called if the view is currently active.
+ * A UI-Router view has an Angular `Component` (see [[Ng2ViewDeclaration.component]]).
+ * The `Component` may define component-level hooks which UI-Router will call at the appropriate times.
+ * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
  *
  * This interface defines the UI-Router component callbacks.
- *
- * TODO: this should extend the ng2 Component interface
  */
-export interface Ng2Component {
+export interface Ng2Component extends Component {
   /**
-   * This callback is called when parameter values have changed.
+   * This callback is called when the a routed component's state is about to be exited.
    *
-   * This callback can be used to respond to changing parameter values in the current state, or in parent/child states.
-   * This callback is especially handy when using dynamic parameters ([[ParamDeclaration.dynamic]])
-   *
-   * Called when:
-   * - The view is still active
-   * - A new transition has completed successfully
-   * - The state for the view (controller) was not reloaded
-   * - At least one parameter value was changed
-   *
-   * Called with:
-   * @param newValues an object containing the changed parameter values
-   * @param $transition$ the new Transition which triggered this callback
-   *
-   * @example:
-   * ```js
-   *
-   * angular.module('foo').controller('FancyCtrl', function() {
-   *   this.uiOnParamsChanged = function(newParams) {
-   *     console.log("new params: ", newParams);
-   *   }
-   * });
-   * ```
-   */
-  uiOnParamsChanged(newValues: any, $transition$: Transition): void;
-
-  /**
-   * This callback is called when the view's state is about to be exited.
+   * The callback can be used to cancel or alter the new Transition that would otherwise exit the component's state.
    *
    * This callback is used to inform a view that it is about to be exited, due to a new [[Transition]].
    * The callback can ask for user confirmation, and cancel or alter the new Transition.  The callback should
    * return a value, or a promise for a value.  If a promise is returned, the new Transition waits until the
    * promise settles.
    *
-   *
    * Called when:
-   * - The view is still active
+   * - The component is still active inside a `ui-view`
    * - A new Transition is about to run
    * - The new Transition will exit the view's state
    *
    * Called with:
-   * - This callback is injected in the new Transition's context
+   * - The `Transition` that is about to exit the component's state
    *
-   * Relevant return Values:
-   * - `false`: The transition is cancelled.
-   * - A rejected promise: The transition is cancelled.
-   * - [[TargetState]]: The transition is redirected to the new target state.
-   * - Anything else: the transition will continue normally (the state and view will be deactivated)
+   * #### Example:
+   * ```js
+   * @Component({
+   *   template: '<input type="text">'
+   * })
+   * class MyComponent {
+   *   dirty = true;
    *
-   * @return a value, or a promise for a value.
+   *   constructor(public confirmService: confirmService) {
+   *
+   *   }
+   *
+   *   uiCanExit(newTransition: Transition) {
+   *     if (this.dirty && newTransition.to() !== 'logout') {
+   *       return this.confirmService.confirm("Exit without saving changes?");
+   *     }
+   *   }
+   * }
+   * ```
+   *
+   * @return a hook result which may cancel or alter the pending Transition (see [[HookResult]])
    */
-  uiCanExit(): HookResult;
+  uiCanExit(newTransition?: Transition): HookResult;
 }

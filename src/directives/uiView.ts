@@ -5,13 +5,16 @@ import {
 } from '@angular/core';
 import {ReflectorReader, reflector} from '../private_import_core';
 
-import {UIRouter} from "ui-router-core";
+import {
+  UIRouter, isFunction, Transition, parse, HookResult, TransitionHookFn, State, prop, StateDeclaration
+} from "ui-router-core";
 import {trace} from "ui-router-core";
 import {ViewContext, ViewConfig, ActiveUIView} from "ui-router-core";
 import {Ng2ViewConfig} from "../statebuilders/views";
 import {ResolveContext, NATIVE_INJECTOR_TOKEN} from "ui-router-core";
 import {flattenR} from "ui-router-core";
 import {MergeInjector} from "../mergeInjector";
+import { Subscription } from 'rxjs/Subscription';
 
 /** @hidden */
 let id = 0;
@@ -134,8 +137,13 @@ export class UIView {
   @ViewChild('componentTarget', {read: ViewContainerRef}) componentTarget: ViewContainerRef;
   @Input('name') name: string;
   @Input('ui-view') set _name(val: string) { this.name = val; }
+  /** The reference to the component currently inside the viewport */
   componentRef: ComponentRef<any>;
-  deregister: Function;
+  /** Deregisters the ui-view from the view service */
+  deregisterUIView: Function;
+  /** Deregisters the master uiCanExit transition hook */
+  deregisterHook: Function;
+  /** Data about the this UIView */
   uiViewData: ActiveUIView = <any> {};
   parent: ParentUIViewInject;
 
@@ -150,8 +158,9 @@ export class UIView {
   }
 
   ngOnInit() {
-    let parentFqn = this.parent.fqn;
-    let name = this.name || '$default';
+    const router = this.router;
+    const parentFqn = this.parent.fqn;
+    const name = this.name || '$default';
 
     this.uiViewData = {
       $type: 'ng2',
@@ -163,7 +172,31 @@ export class UIView {
       config: undefined
     };
 
-    this.deregister = this.router.viewService.registerUIView(this.uiViewData);
+    this.deregisterHook = router.transitionService.onBefore({}, trans => this.applyUiCanExitHook(trans));
+    this.deregisterUIView = router.viewService.registerUIView(this.uiViewData);
+  }
+
+  /**
+   * For each transition, checks the component loaded in the ui-view for:
+   *
+   * - has a uiCanExit() component hook
+   * - is being exited
+   *
+   * If both are true, adds the uiCanExit component function as a hook to that singular Transition.
+   */
+  applyUiCanExitHook(trans: Transition) {
+    const instance = this.componentRef && this.componentRef.instance;
+    const uiCanExitFn: TransitionHookFn = instance && instance.uiCanExit;
+
+    if (isFunction(uiCanExitFn)) {
+      const state: StateDeclaration = parse("uiViewData.config.viewDecl.$context.self")(this);
+
+      if (trans.exiting().indexOf(state) !== -1) {
+        trans.onStart({}, function(trans) {
+          return uiCanExitFn.call(instance, trans);
+        });
+      }
+    }
   }
 
   disposeLast() {
@@ -172,7 +205,8 @@ export class UIView {
   }
 
   ngOnDestroy() {
-    if (this.deregister) this.deregister();
+    if (this.deregisterUIView) this.deregisterUIView();
+    if (this.deregisterHook) this.deregisterHook();
     this.disposeLast();
   }
 
@@ -214,8 +248,6 @@ export class UIView {
 
     // Wire resolves to @Input()s
     this.applyInputBindings(this.componentRef, context, componentClass);
-
-    // TODO: wire uiCanExit and uiOnParamsChanged callbacks
   }
 
   /**
