@@ -1,5 +1,5 @@
 /**
- * The UI-Router Angular 2 directives:
+ * The UI-Router for Angular directives:
  *
  * - [[UIView]]: A viewport for routed components
  * - [[UISref]]: A state ref to a target state; navigates when clicked

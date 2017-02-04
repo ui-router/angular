@@ -41,7 +41,7 @@ export function locationStrategy(useHash) {
  * Creates UI-Router Modules
  *
  * This class has two static factory methods which create UIRouter Modules.
- * A UI-Router Module is an [Angular 2 NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
+ * A UI-Router Module is an [Angular NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
  * with support for UI-Router.
  *
  * ### UIRouter Directives
@@ -68,7 +68,7 @@ export class UIRouterModule {
   /**
    * Creates a UI-Router Module for the root (bootstrapped) application module to import
    *
-   * This factory function creates an [Angular 2 NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
+   * This factory function creates an [Angular NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
    * with UI-Router support.
    *
    * The `forRoot` module should be added to the `imports:` of the `NgModule` being bootstrapped.
@@ -116,7 +116,7 @@ export class UIRouterModule {
   /**
    * Creates an `NgModule` for a UIRouter module
    *
-   * This function creates an [Angular 2 NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
+   * This function creates an [Angular NgModule](https://angular.io/docs/ts/latest/guide/ngmodule.html)
    * with UI-Router support.
    *
    * #### Example:

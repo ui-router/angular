@@ -1,6 +1,6 @@
-# UI-Router for Angular 2 &nbsp;[![Build Status](https://travis-ci.org/ui-router/ng2.svg?branch=master)](https://travis-ci.org/ui-router/ng2)
+# UI-Router for Angular &nbsp;[![Build Status](https://travis-ci.org/ui-router/ng2.svg?branch=master)](https://travis-ci.org/ui-router/ng2)
 
-### ui-router-ng2: State based routing for Angular (2+)
+### ui-router-ng2: State based routing for Angular (v2+)
 
 ---
 **[Tutorials](https://ui-router.github.io/tutorials/)** |

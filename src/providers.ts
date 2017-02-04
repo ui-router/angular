@@ -1,5 +1,5 @@
 /**
- * # UI-Router for Angular 2
+ * # UI-Router for Angular (v2+)
  *
  * - [ui-router-ng2 home page](https://ui-router.github.io/ng2)
  * - [tutorials](https://ui-router.github.io/tutorial/ng2/helloworld)
@@ -105,8 +105,8 @@ import { Ng2LocationConfig } from "./location/locationConfig";
 /**
  * This is a factory function for a UIRouter instance
  *
- * Creates a UIRouter instance and configures it for Angular 2, then invokes router bootstrap.
- * This function is used as an Angular 2 `useFactory` Provider.
+ * Creates a UIRouter instance and configures it for Angular, then invokes router bootstrap.
+ * This function is used as an Angular `useFactory` Provider.
  */
 export function uiRouterFactory(locationStrategy: LocationStrategy, injector: Injector) {
   let rootModules: RootModule[] = injector.get(UIROUTER_ROOT_MODULE);

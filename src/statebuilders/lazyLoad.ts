@@ -5,7 +5,7 @@ import { BuilderFunction, State } from "ui-router-core";
 import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
 
 /**
- * This is a [[StateBuilder.builder]] function for ngModule lazy loading in angular2.
+ * This is a [[StateBuilder.builder]] function for ngModule lazy loading in Angular.
  *
  * When the [[StateBuilder]] builds a [[State]] object from a raw [[StateDeclaration]], this builder
  * decorates the `lazyLoad` property for states that have a [[Ng2StateDeclaration.ngModule]] declaration.

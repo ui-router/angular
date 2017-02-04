@@ -8,7 +8,7 @@ import {services} from "ui-router-core";
 import {ViewService} from "ui-router-core";
 
 /**
- * This is a [[StateBuilder.builder]] function for angular2 `views`.
+ * This is a [[StateBuilder.builder]] function for Angular `views`.
  *
  * When the [[StateBuilder]] builds a [[State]] object from a raw [[StateDeclaration]], this builder
  * handles the `views` property with logic specific to ui-router-ng2.
