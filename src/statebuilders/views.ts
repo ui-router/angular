@@ -18,7 +18,7 @@ import {ViewService} from "ui-router-core";
  */
 export function ng2ViewsBuilder(state: State) {
   let views: { [key: string]: Ng2ViewDeclaration } = {},
-      viewsObject = state.views || {"$default": pick(state, "component")};
+      viewsObject = state.views || {"$default": pick(state, ["component", "bindings"])};
 
   forEach(viewsObject, function (config: Ng2ViewDeclaration, name: string) {
     name = name || "$default"; // Account for views: { "": { template... } }
