@@ -6,7 +6,7 @@ import {
 import {ReflectorReader, reflector} from '../private_import_core';
 
 import {
-  UIRouter, isFunction, Transition, parse, HookResult, TransitionHookFn, State, prop, StateDeclaration
+  UIRouter, isFunction, Transition, parse, HookResult, TransitionHookFn, State, prop, StateDeclaration, inArray
 } from "ui-router-core";
 import {trace} from "ui-router-core";
 import {ViewContext, ViewConfig, ActiveUIView} from "ui-router-core";
@@ -283,15 +283,22 @@ export class UIView {
    */
   applyInputBindings(ref: ComponentRef<any>, context: ResolveContext, componentClass) {
     let bindings = this.uiViewData.config.viewDecl['bindings'] || {};
-
-    var addResolvable = (tuple: InputMapping) => ({
-      prop: tuple.prop,
-      resolvable: context.getResolvable(bindings[tuple.prop] || tuple.token)
-    });
+    let explicitBoundProps = Object.keys(bindings);
 
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']
-    let inputTuples = ng2ComponentInputs(componentClass);
-    inputTuples.map(addResolvable)
+    let explicitInputTuples = explicitBoundProps
+        .reduce((acc, key) => acc.concat([{ prop: key, token: bindings[key] }]), []);
+    let implicitInputTuples = ng2ComponentInputs(componentClass)
+        .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
+
+
+    const addResolvable = (tuple: InputMapping) => ({
+      prop: tuple.prop,
+      resolvable: context.getResolvable(tuple.token),
+    });
+
+    explicitInputTuples.concat(implicitInputTuples)
+        .map(addResolvable)
         .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
         .forEach(tuple => { ref.instance[tuple.prop] = tuple.resolvable.data });
 
