@@ -1,16 +1,4 @@
 /** @ng2api @module ng2 */ /** for typedoc */
-import "rxjs/Observable";
-import "rxjs/ReplaySubject";
-import "rxjs/BehaviorSubject";
-import "rxjs/Subscription";
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/observable/fromPromise';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/concat';
-import 'rxjs/add/operator/map';
-
 export * from "ui-router-core";
 export * from "./interface";
 export * from "./providers";

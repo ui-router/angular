@@ -1,17 +1,20 @@
-/** @ng2api @module directives */ /** */
-import {Directive, Output, EventEmitter, ContentChildren, QueryList, Inject} from "@angular/core";
-import {UISref} from "./uiSref";
-import {PathNode} from "ui-router-core";
-import {Transition} from "ui-router-core";
-import {TargetState} from "ui-router-core";
-import {State} from "ui-router-core";
-import {anyTrueR, tail, unnestR, Predicate} from "ui-router-core";
-import {UIRouterGlobals} from "ui-router-core";
-import {Param} from "ui-router-core";
-import {PathFactory} from "ui-router-core";
-import {Subscription} from "rxjs/Subscription";
-import {Observable} from "rxjs/Observable";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+/** @ng2api @module directives */
+/** */
+import { Directive, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
+import { UISref } from './uiSref';
+import {
+  PathNode, Transition, TargetState, State, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathFactory
+} from 'ui-router-core';
+
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/fromPromise';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/concat';
+import 'rxjs/add/operator/switchMap';
 
 /** @internalapi */
 interface TransEvt { evt: string, trans: Transition }
