@@ -110,7 +110,7 @@ export class UIRouterModule {
         locationStrategy(config.useHash),
         ...makeRootProviders(config),
       ]
-    }
+    };
   }
 
   /**
@@ -141,7 +141,7 @@ export class UIRouterModule {
     return {
       ngModule: UIRouterModule,
       providers: makeChildProviders(module),
-    }
+    };
   }
 
 }
@@ -161,12 +161,12 @@ export interface RootModule extends StatesModule {
    *
    * Defaults to `false`
    */
-  useHash?: boolean
+  useHash?: boolean;
 
   /**
    * Sets [[UrlRouterProvider.otherwise]].
    */
-  otherwise?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef)
+  otherwise?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef);
 
   /**
    * Sets [[UrlRouterProvider.deferIntercept]]
