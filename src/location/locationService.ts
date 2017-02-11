@@ -3,7 +3,7 @@
 import { UIRouter, BaseLocationServices, parseUrl } from "ui-router-core";
 import { LocationStrategy } from "@angular/common";
 
-/** A `LocationServices` that uses the browser hash "#" to get/set the current location */
+/** A `LocationServices` that delegates to the Angular LocationStrategy */
 export class Ng2LocationServices extends BaseLocationServices {
   constructor(router: UIRouter, private _locationStrategy: LocationStrategy) {
     super(router, true);
