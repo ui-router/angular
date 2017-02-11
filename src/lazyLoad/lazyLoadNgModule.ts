@@ -1,7 +1,9 @@
 /** @ng2api @module core */
 /** */
 import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from "@angular/core";
-import { Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString } from "ui-router-core";
+import {
+  Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString, unnestR, inArray
+} from "ui-router-core";
 import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "../uiRouterNgModule";
 import { applyModuleConfig } from "../uiRouterConfig";
 
@@ -159,15 +161,18 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
         `using UIRouterModule.forChild({ states: CHILD_STATES }).`);
   }
 
-  // Supply the newly loaded states with the Injector from the lazy loaded NgModule
-  replacementState.$$state().resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector));
-  newChildModules.forEach(module => {
-    (module.states || []).forEach(state => {
-      if (state.name && state.name.indexOf(replacementName) !== 0) {
-        registry.get(state.name).$$state().resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector));
-      }
-    });
-  });
+  // Supply the newly loaded states with the Injector from the lazy loaded NgModule.
+  // If a tree of states is lazy loaded, only add the injector to the root of the lazy loaded tree.
+  // The children will get the injector by resolve inheritance.
+  let newStates = newChildModules.map(module => module.states)
+      .reduce(unnestR, [])
+      .map(state => state.$$state());
+
+  let newParentStates = newStates.filter(state => !inArray(newStates, state.parent));
+
+  // Add the Injector to the top of the lazy loaded state tree as a resolve
+  newParentStates.forEach(state => state.resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector)));
+
 
   return {};
 }
