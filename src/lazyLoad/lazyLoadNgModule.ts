@@ -161,6 +161,13 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
 
   // Supply the newly loaded states with the Injector from the lazy loaded NgModule
   replacementState.$$state().resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector));
+  newChildModules.forEach(module => {
+    (module.states || []).forEach(state => {
+      if (state.name && state.name.indexOf(replacementName) !== 0) {
+        registry.get(state.name).$$state().resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector));
+      }
+    });
+  });
 
   return {};
 }
