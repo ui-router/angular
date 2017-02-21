@@ -200,7 +200,7 @@ export interface StatesModule {
    * import { requireAuthHook } from "./requireAuthHook";
    * import { MyService } from "./myService";
    *
-   * export function configureMyModule(uiRouter: UIRouter, injector: Injector) {
+   * export function configureMyModule(uiRouter: UIRouter, injector: Injector, options: StatesModule) {
    *   // Get UIRouter services off the UIRouter object
    *   let urlConfig = uiRouter.urlService.config;
    *   let transitionService = uiRouter.transitionService;
@@ -228,6 +228,6 @@ export interface StatesModule {
    * class MyModule {}
    * ```
    */
-  config?: (uiRouterInstance: UIRouter, injector: Injector) => any;
+  config?: (uiRouterInstance: UIRouter, injector: Injector, options: StatesModule) => any;
 }
 
