@@ -3,10 +3,10 @@ import {
     Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type,
     ReflectiveInjector, ViewChild, Injector, Inject
 } from '@angular/core';
-import {ReflectorReader, reflector} from '../private_import_core';
+import {ReflectorReader} from '@angular/core/src/reflection/reflector_reader';
 
 import {
-  UIRouter, isFunction, Transition, parse, HookResult, TransitionHookFn, State, prop, StateDeclaration, inArray
+  UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray
 } from "ui-router-core";
 import {trace} from "ui-router-core";
 import {ViewContext, ViewConfig, ActiveUIView} from "ui-router-core";
@@ -14,7 +14,7 @@ import {Ng2ViewConfig} from "../statebuilders/views";
 import {ResolveContext, NATIVE_INJECTOR_TOKEN} from "ui-router-core";
 import {flattenR} from "ui-router-core";
 import {MergeInjector} from "../mergeInjector";
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 
 /** @hidden */
 let id = 0;
@@ -39,7 +39,7 @@ interface InputMapping {
  *
  * @internalapi
  */
-const ng2ComponentInputs = (ng2CompClass: Type<any>) => {
+const ng2ComponentInputs = (reflector: ReflectorReader, ng2CompClass: Type<any>) => {
   /** Get "@Input('foo') _foo" inputs */
   let props = reflector.propMetadata(ng2CompClass);
   let _props = Object.keys(props || {})
@@ -152,7 +152,8 @@ export class UIView {
   constructor(
       public router: UIRouter,
       @Inject(UIView.PARENT_INJECT) parent,
-      public viewContainerRef: ViewContainerRef
+      public viewContainerRef: ViewContainerRef,
+      private reflector: ReflectorReader
   ) {
     this.parent = parent;
   }
@@ -288,7 +289,7 @@ export class UIView {
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']
     let explicitInputTuples = explicitBoundProps
         .reduce((acc, key) => acc.concat([{ prop: key, token: bindings[key] }]), []);
-    let implicitInputTuples = ng2ComponentInputs(componentClass)
+    let implicitInputTuples = ng2ComponentInputs(this.reflector, componentClass)
         .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
 
 
