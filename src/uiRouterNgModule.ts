@@ -191,7 +191,8 @@ export interface StatesModule {
    *
    * If a UI-Router Module needs to perform some configuration (such as registering
    * parameter types or Transition Hooks) a `configFn` should be supplied.
-   * The function will be passed the `UIRouter` instance and the module's `Injector`
+   * The function will be passed the `UIRouter` instance, the module's `Injector`,
+   * and the module object.
    *
    * #### Example:
    * ```js
@@ -200,7 +201,7 @@ export interface StatesModule {
    * import { requireAuthHook } from "./requireAuthHook";
    * import { MyService } from "./myService";
    *
-   * export function configureMyModule(uiRouter: UIRouter, injector: Injector, options: StatesModule) {
+   * export function configureMyModule(uiRouter: UIRouter, injector: Injector, module: StatesModule) {
    *   // Get UIRouter services off the UIRouter object
    *   let urlConfig = uiRouter.urlService.config;
    *   let transitionService = uiRouter.transitionService;
@@ -228,6 +229,6 @@ export interface StatesModule {
    * class MyModule {}
    * ```
    */
-  config?: (uiRouterInstance: UIRouter, injector: Injector, options: StatesModule) => any;
+  config?: (uiRouterInstance: UIRouter, injector: Injector, module: StatesModule) => any;
 }
 
