@@ -2,9 +2,10 @@
 /** */
 import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from "@angular/core";
 import {
-  Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString, unnestR, inArray
+  Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString, unnestR, inArray, StateObject,
+  uniqR
 } from "ui-router-core";
-import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "../uiRouterNgModule";
+import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, StatesModule } from "../uiRouterNgModule";
 import { applyModuleConfig } from "../uiRouterConfig";
 
 /**
@@ -143,14 +144,20 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
   // Final name (without the .**)
   let replacementName = isFuture && isFuture[1];
 
-  let newRootModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE);
+  let newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE)
+      .reduce(uniqR, []) as RootModule[];
+  let newChildModules= multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
+      .reduce(uniqR, []) as StatesModule[];
+
   if (newRootModules.length) {
     console.log(newRootModules);
     throw new Error('Lazy loaded modules should not contain a UIRouterModule.forRoot() module');
   }
 
-  let newChildModules: RootModule[] = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN);
-  newChildModules.forEach(module => applyModuleConfig(uiRouter, injector, module));
+  let newStateObjects: StateObject[] = newChildModules
+      .map(module => applyModuleConfig(uiRouter, injector, module))
+      .reduce(unnestR, [])
+      .reduce(uniqR, []);
 
   let replacementState = registry.get(replacementName);
   if (!replacementState || replacementState === originalState) {
@@ -164,15 +171,10 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
   // Supply the newly loaded states with the Injector from the lazy loaded NgModule.
   // If a tree of states is lazy loaded, only add the injector to the root of the lazy loaded tree.
   // The children will get the injector by resolve inheritance.
-  let newStates = newChildModules.map(module => module.states)
-      .reduce(unnestR, [])
-      .map(state => state.$$state());
-
-  let newParentStates = newStates.filter(state => !inArray(newStates, state.parent));
+  let newParentStates = newStateObjects.filter(state => !inArray(newStateObjects, state.parent));
 
   // Add the Injector to the top of the lazy loaded state tree as a resolve
   newParentStates.forEach(state => state.resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector)));
-
 
   return {};
 }

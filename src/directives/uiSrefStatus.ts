@@ -3,7 +3,7 @@
 import { Directive, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
 import { UISref } from './uiSref';
 import {
-  PathNode, Transition, TargetState, State, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathFactory
+  PathNode, Transition, TargetState, StateObject, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathFactory
 } from 'ui-router-core';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -53,7 +53,7 @@ const inactiveStatus: SrefStatus = {
  */
 const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
   if (!target.exists()) return () => false;
-  let state: State = target.$state();
+  let state: StateObject = target.$state();
   let targetParamVals = target.params();
   let targetPath: PathNode[] = PathFactory.buildPath(target);
   let paramSchema: Param[] = targetPath.map(node => node.paramSchema)

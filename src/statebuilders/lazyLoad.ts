@@ -1,7 +1,7 @@
 /** @module ng2 */
 /** */
 import { LazyLoadResult, Transition, StateDeclaration } from "ui-router-core"; // has or is using
-import { BuilderFunction, State } from "ui-router-core";
+import { BuilderFunction, StateObject } from "ui-router-core";
 import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
 
 /**
@@ -47,7 +47,7 @@ import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
  * ```
  *
  */
-export function ng2LazyLoadBuilder(state: State, parent: BuilderFunction) {
+export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction) {
   let loadNgModuleFn = state['loadChildren'];
   return loadNgModuleFn ? loadNgModule(loadNgModuleFn) : state.lazyLoad;
 }

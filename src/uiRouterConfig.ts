@@ -1,16 +1,16 @@
 /** @module ng2 */ /** */
-import { UIRouter, isFunction } from "ui-router-core";
+import { UIRouter, isFunction, StateObject } from "ui-router-core";
 import {StatesModule, RootModule} from "./uiRouterNgModule";
 import {Injector} from "@angular/core";
 import {isDefined} from "ui-router-core";
 
-export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, options: StatesModule = {}) {
+export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, options: StatesModule = {}): StateObject[] {
   if (isFunction(options.config)) {
     options.config(uiRouter, injector);
   }
 
   let states = options.states || [];
-  states.forEach(state => uiRouter.stateRegistry.register(state));
+  return states.map(state => uiRouter.stateRegistry.register(state));
 }
 
 export function applyRootModuleConfig(uiRouter: UIRouter, injector: Injector, config: RootModule) {

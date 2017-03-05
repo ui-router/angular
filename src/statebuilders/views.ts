@@ -1,5 +1,5 @@
 /** @module ng2 */ /** */
-import {State} from "ui-router-core";
+import {StateObject} from "ui-router-core";
 import {PathNode} from "ui-router-core";
 import {pick, forEach} from "ui-router-core";
 import {ViewConfig} from "ui-router-core";
@@ -16,7 +16,7 @@ import {ViewService} from "ui-router-core";
  * If no `views: {}` property exists on the [[StateDeclaration]], then it creates the `views` object and
  * applies the state-level configuration to a view named `$default`.
  */
-export function ng2ViewsBuilder(state: State) {
+export function ng2ViewsBuilder(state: StateObject) {
   let views: { [key: string]: Ng2ViewDeclaration } = {},
       viewsObject = state.views || {"$default": pick(state, ["component", "bindings"])};
 
