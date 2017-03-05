@@ -1,5 +1,5 @@
 /** @module ng2 */ /** */
-import { State, StateObject } from "ui-router-core";
+import {StateObject} from "ui-router-core";
 import {PathNode} from "ui-router-core";
 import {pick, forEach} from "ui-router-core";
 import {ViewConfig} from "ui-router-core";

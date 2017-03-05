@@ -1,20 +1,16 @@
-/** @ng2api @module directives */ /** */
+/** @ng2api @module directives */
+/** */
 import {
-    Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type,
-    ReflectiveInjector, ViewChild, Injector, Inject
+  Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type, ReflectiveInjector, ViewChild,
+  Injector, Inject
 } from '@angular/core';
-import {ReflectorReader, reflector} from '../private_import_core';
-
+import { reflector } from '../private_import_core';
 import {
-  UIRouter, isFunction, Transition, parse, HookResult, TransitionHookFn, State, prop, StateDeclaration, inArray
-} from "ui-router-core";
-import {trace} from "ui-router-core";
-import {ViewContext, ViewConfig, ActiveUIView} from "ui-router-core";
-import {Ng2ViewConfig} from "../statebuilders/views";
-import {ResolveContext, NATIVE_INJECTOR_TOKEN} from "ui-router-core";
-import {flattenR} from "ui-router-core";
-import {MergeInjector} from "../mergeInjector";
-import { Subscription } from 'rxjs/Subscription';
+  UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray, trace, ViewContext, ViewConfig,
+  ActiveUIView, ResolveContext, NATIVE_INJECTOR_TOKEN, flattenR
+} from 'ui-router-core';
+import { Ng2ViewConfig } from '../statebuilders/views';
+import { MergeInjector } from '../mergeInjector';
 
 /** @hidden */
 let id = 0;
@@ -39,7 +35,7 @@ interface InputMapping {
  *
  * @internalapi
  */
-const ng2ComponentInputs = (ng2CompClass: Type<any>) => {
+const ng2ComponentInputs = (ng2CompClass: Type<any>, component: any) => {
   /** Get "@Input('foo') _foo" inputs */
   let props = reflector.propMetadata(ng2CompClass);
   let _props = Object.keys(props || {})
@@ -61,7 +57,12 @@ const ng2ComponentInputs = (ng2CompClass: Type<any>) => {
       .reduce(flattenR, [])
       .map(input => ({ token: input, prop: input }));
 
-  return _props.concat(inputs) as InputMapping[];
+  /** Get @ResolveData('foo') _foo" inputs */
+  let __inputs = component.__inputs || {};
+  let resolves = Object.keys(__inputs)
+      .map(key => ({ token: key, prop: __inputs[key] }));
+
+  return _props.concat(inputs).concat(resolves) as InputMapping[];
 };
 
 /**
@@ -282,15 +283,16 @@ export class UIView {
    * to the resolve data.
    */
   applyInputBindings(ref: ComponentRef<any>, context: ResolveContext, componentClass) {
-    let bindings = this.uiViewData.config.viewDecl['bindings'] || {};
-    let explicitBoundProps = Object.keys(bindings);
+    const component = ref.instance;
+    const bindings = this.uiViewData.config.viewDecl['bindings'] || {};
+    const explicitBoundProps = Object.keys(bindings);
 
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']
-    let explicitInputTuples = explicitBoundProps
+    const explicitInputTuples = explicitBoundProps
         .reduce((acc, key) => acc.concat([{ prop: key, token: bindings[key] }]), []);
-    let implicitInputTuples = ng2ComponentInputs(componentClass)
-        .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
 
+    const implicitInputTuples = ng2ComponentInputs(componentClass, component)
+        .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
 
     const addResolvable = (tuple: InputMapping) => ({
       prop: tuple.prop,
@@ -300,7 +302,7 @@ export class UIView {
     explicitInputTuples.concat(implicitInputTuples)
         .map(addResolvable)
         .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
-        .forEach(tuple => { ref.instance[tuple.prop] = tuple.resolvable.data });
+        .forEach(tuple => { component[tuple.prop] = tuple.resolvable.data });
 
     // Initiate change detection for the newly created component
     ref.changeDetectorRef.detectChanges();
