@@ -6,7 +6,7 @@ import {isDefined} from "ui-router-core";
 
 export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, options: StatesModule = {}): StateObject[] {
   if (isFunction(options.config)) {
-    options.config(uiRouter, injector);
+    options.config(uiRouter, injector, options);
   }
 
   let states = options.states || [];
