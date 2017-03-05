@@ -22,7 +22,7 @@ uglifyOpts.output.comments = (node, comment) =>
 comment.type === 'comment2' && /@license/i.test(comment.value);
 
 let plugins = [
-  nodeResolve({jsnext: true}),
+  nodeResolve({ jsnext: true }),
   progress(),
   sourcemaps(),
   commonjs(),
@@ -41,9 +41,14 @@ function onwarn(warning) {
 }
 
 function isExternal(id) {
+  // ui-router-core and ui-router-rx should be external
   // All rxjs and @angular/* should be external
   // except for @angular/router/src/router_config_loader
-  let externals = [ /^rxjs/, /^@angular\/(?!router\/src\/router_config_loader)/, ];
+  let externals = [
+    /^ui-router-(core|rx)/,
+    /^rxjs/,
+    /^@angular\/(?!router\/src\/router_config_loader)/,
+  ];
   return externals.map(regex => regex.exec(id)).reduce((acc, val) => acc || !!val, false);
 }
 
@@ -89,6 +94,8 @@ const CONFIG = {
     'rxjs/operator/filter': 'Rx.Observable.prototype',
     'rxjs/operator/concatMap': 'Rx.Observable.prototype',
     
+    'ui-router-core': 'ui-router-core',
+    'ui-router-rx': 'ui-router-rx',
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',
   }
