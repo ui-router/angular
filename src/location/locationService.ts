@@ -1,13 +1,18 @@
 /** @module ng2 */
 /** */
-import { UIRouter, BaseLocationServices, parseUrl } from "ui-router-core";
-import { LocationStrategy } from "@angular/common";
+import { BaseLocationServices, parseUrl, UIRouter } from 'ui-router-core';
+import { LocationStrategy } from '@angular/common';
 
 /** A `LocationServices` that delegates to the Angular LocationStrategy */
 export class Ng2LocationServices extends BaseLocationServices {
   constructor(router: UIRouter, private _locationStrategy: LocationStrategy) {
     super(router, true);
-    this._locationStrategy.onPopState(this._listener);
+    
+    this._locationStrategy.onPopState((evt) => {
+      if (evt.type !== 'hashchange') {
+        this._listener(evt);
+      }
+    });
   }
 
   _get() {
