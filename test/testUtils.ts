@@ -1,13 +1,12 @@
-import {pick, extend, forEach, omit} from "../src/core";
-import {map} from "../src/common/common";
-
+import { forEach, map, omit, pick } from 'ui-router-core';
+import { TestBed } from '@angular/core/testing';
 let stateProps = ["resolve", "resolvePolicy", "data", "template", "templateUrl", "url", "name", "params"];
 
 export function tree2Array(tree, inheritName) {
 
   function processState(parent, state, name) {
-    var substates = omit.apply(null, [state].concat(stateProps));
-    var thisState = pick.apply(null, [state].concat(stateProps));
+    let substates = omit.apply(null, [state].concat(stateProps));
+    let thisState = pick.apply(null, [state].concat(stateProps));
     thisState.name = name;
     if (!inheritName) thisState.parent = parent;
 
@@ -27,19 +26,19 @@ export function tree2Array(tree, inheritName) {
 }
 
 export function PromiseResult(promise?) {
-  var self = this, _promise: Promise;
-  var resolve, reject, complete;
+  let self = this, _promise: Promise<any>;
+  let resolve, reject, complete;
 
   this.setPromise = function(promise) {
     if (_promise) {
       throw new Error("Already have with'd a promise.");
     }
 
-    var onfulfilled = (data) =>
+    let onfulfilled = (data) =>
         resolve = data || true;
-    var onrejected = (err) =>
+    let onrejected = (err) =>
         reject = err || true;
-    var done = () =>
+    let done = () =>
         complete = true;
 
     _promise = promise;

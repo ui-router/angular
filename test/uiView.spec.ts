@@ -1,7 +1,5 @@
-import "ui-router-ng2";
-
-fdescribe("foo", () => {
+describe("foo", () => {
   it("should work", () => {
-    expect(true).toBeFalsy();
+    expect(true).toBeTruthy();
   });
 });
