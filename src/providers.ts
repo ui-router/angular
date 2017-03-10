@@ -153,16 +153,14 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, injector: In
   router.urlMatcherFactory.$get();
 
   // ----------------- Initialize router -------------
-  setTimeout(() => {
-    rootModules.forEach(moduleConfig => applyRootModuleConfig(router, injector, moduleConfig));
-    modules.forEach(moduleConfig => applyModuleConfig(router, injector, moduleConfig));
+  rootModules.forEach(moduleConfig => applyRootModuleConfig(router, injector, moduleConfig));
+  modules.forEach(moduleConfig => applyModuleConfig(router, injector, moduleConfig));
 
-    // Start monitoring the URL
-    if (!router.urlRouter.interceptDeferred) {
-      router.urlService.listen();
-      router.urlService.sync();
-    }
-  });
+  // Start monitoring the URL
+  if (!router.urlRouter.interceptDeferred) {
+    router.urlService.listen();
+    router.urlService.sync();
+  }
 
   return router;
 }
