@@ -4,7 +4,7 @@ import {
   Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type, ReflectiveInjector, ViewChild,
   Injector, Inject
 } from '@angular/core';
-import { reflector } from '../private_import_core';
+import { ɵReflectorReader as ReflectorReader } from '@angular/core';
 import {
   UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray, trace, ViewContext, ViewConfig,
   ActiveUIView, ResolveContext, NATIVE_INJECTOR_TOKEN, flattenR
@@ -35,7 +35,7 @@ interface InputMapping {
  *
  * @internalapi
  */
-const ng2ComponentInputs = (ng2CompClass: Type<any>, component: any) => {
+const ng2ComponentInputs = (reflector: ReflectorReader, ng2CompClass: Type<any>, component: any) => {
   /** Get "@Input('foo') _foo" inputs */
   let props = reflector.propMetadata(ng2CompClass);
   let _props = Object.keys(props || {})
@@ -109,7 +109,7 @@ const ng2ComponentInputs = (ng2CompClass: Type<any>, component: any) => {
 @Component({
   selector: 'ui-view, [ui-view]',
   template: `
-    <template #componentTarget></template>
+    <ng-template #componentTarget></ng-template>
     <ng-content *ngIf="!componentRef"></ng-content>
   `
   // styles: [`
@@ -148,7 +148,8 @@ export class UIView {
   constructor(
       public router: UIRouter,
       @Inject(UIView.PARENT_INJECT) parent,
-      public viewContainerRef: ViewContainerRef
+      public viewContainerRef: ViewContainerRef,
+      private reflector: ReflectorReader
   ) {
     this.parent = parent;
   }
@@ -286,7 +287,7 @@ export class UIView {
     const explicitInputTuples = explicitBoundProps
         .reduce((acc, key) => acc.concat([{ prop: key, token: bindings[key] }]), []);
 
-    const implicitInputTuples = ng2ComponentInputs(componentClass, component)
+    const implicitInputTuples = ng2ComponentInputs(this.reflector, componentClass, component)
         .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
 
     const addResolvable = (tuple: InputMapping) => ({
