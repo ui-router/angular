@@ -22,7 +22,7 @@ _exec('npm run package');
 
 // then tag and push tag
 _exec(`git checkout -b ${version}-artifacts-prep`);
-_exec(`git add —-force lib lib-esm bundles`);
+_exec(`git add --force lib _bundles`);
 _exec(`git commit -m 'chore(*): commiting build files'`);
 _exec(`git tag ${version}-artifacts`);
 _exec(`git push -u origin ${version}-artifacts`);
