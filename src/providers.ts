@@ -108,10 +108,7 @@ import { Ng2LocationConfig } from "./location/locationConfig";
  * Creates a UIRouter instance and configures it for Angular, then invokes router bootstrap.
  * This function is used as an Angular `useFactory` Provider.
  */
-export function uiRouterFactory(locationStrategy: LocationStrategy, injector: Injector) {
-  let rootModules: RootModule[] = injector.get(UIROUTER_ROOT_MODULE);
-  let modules: StatesModule[] = injector.get(UIROUTER_MODULE_TOKEN);
-
+export function uiRouterFactory(locationStrategy: LocationStrategy, rootModules: RootModule[], modules: StatesModule[], injector: Injector) {
   if (rootModules.length !== 1) {
     throw new Error("Exactly one UIRouterModule.forRoot() should be in the bootstrapped app module's imports: []");
   }
@@ -168,7 +165,7 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, injector: In
 export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null, context: r.root() } as ParentUIViewInject; }
 
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] =  [
-  { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, Injector] },
+  { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, Injector] },
   { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry]},
 ];
 
