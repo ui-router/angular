@@ -190,7 +190,7 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
  * @internalapi
  */
 export function multiProviderParentChildDelta(parent: Injector, child: Injector, token: any) {
-  let childVals: RootModule[] = child.get(token);
-  let parentVals: RootModule[] = parent.get(token);
+  let childVals: RootModule[] = child.get(token, []);
+  let parentVals: RootModule[] = parent.get(token, []);
   return childVals.filter(val => parentVals.indexOf(val) === -1);
 }
