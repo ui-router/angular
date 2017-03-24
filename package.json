@@ -13,7 +13,10 @@
     "debug": "karma start --singleRun=false --autoWatch=true --autoWatchInterval=1 --browsers=Chrome",
     "package": "npm run build",
     "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name 'ui-router-ng2' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals ui-router-ng2",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "changelog": "node scripts/update_changelog.js",
+    "release": "node scripts/release.js",
+    "artifacts": "node scripts/artifact_tagging.js"
   },
   "homepage": "https://ui-router.github.io/ng2",
   "contributors": [
@@ -43,7 +46,7 @@
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "ui-router-core": "=5.0.0",
+    "ui-router-core": "=5.0.0-pre.1",
     "ui-router-rx": "=0.2.1"
   },
   "peerDependencies": {
