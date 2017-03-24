@@ -88,7 +88,7 @@
     "rollup-plugin-sourcemaps": "^0.4.1",
     "rollup-plugin-uglify": "^1.0.1",
     "rollup-plugin-visualizer": "^0.2.0",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "^5.2.0",
     "shelljs": "^0.7.0",
     "shx": "^0.1.4",
     "systemjs": "^0.18.4",
@@ -97,11 +97,11 @@
     "typedoc-plugin-external-module-name": "^1.0.2",
     "typedoc-plugin-internal-external": "^1.0.0",
     "typedoc-plugin-ui-router": "^1.0.0",
-    "typescript": "~2.0.3",
+    "typescript": "^2.2.1",
     "ui-router-typedoc-themes": "^1.0.0",
     "webpack": "^2.2.0",
     "webpack-dev-server": "2.2.0",
     "webpack-visualizer-plugin": "^0.1.10",
-    "zone.js": "^0.6.21"
+    "zone.js": "^0.8.5"
   }
 }
