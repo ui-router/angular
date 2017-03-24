@@ -7,6 +7,7 @@ export * from "./uiRouterNgModule";
 export * from "./uiRouterConfig";
 export * from "./directives/directives";
 export * from "./statebuilders/views";
+export * from "./statebuilders/lazyLoad";
 export * from "./lazyLoad/lazyLoadNgModule";
 
 export * from "ui-router-core";
