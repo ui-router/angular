@@ -53,7 +53,7 @@ The code for `ui-router-ng2` is split into two source repositories:
 Clone both repositories into directories next to each other.
 
 ```
-git clone https://github.com/ui-router/ng2.git angular-ui-router
+git clone https://github.com/ui-router/ng2.git ui-router-ng2
 git clone https://github.com/ui-router/core.git ui-router-core
 ```
 
@@ -72,7 +72,7 @@ cd ..
 ## Link the directories
 
 This step is necessary if you need to modify any code in `ui-router-core`.
-Using `npm`, link `ui-router-core` into `ui-router-ng2` 
+Using `npm`, link `ui-router-core` into `ui-router-ng2`
 
 ```
 cd ui-router-core
@@ -84,7 +84,7 @@ cd ..
 
 After executing these steps, `ui-router-ng2` will be built using your local copy of `ui-router-core`.
 
-## Develop 
+## Develop
 
 * `npm run build`: Perform a full build.
 * `npm run watch`: Continuously builds and runs tests when source or tests change.
