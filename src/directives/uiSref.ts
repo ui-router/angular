@@ -14,7 +14,11 @@ import { Subscription } from "rxjs/Subscription";
 export class AnchorUISref {
   constructor(public _el: ElementRef, public _renderer: Renderer) { }
   update(href: string) {
-    this._renderer.setElementProperty(this._el.nativeElement, 'href', href);
+    if (href && href != '') {
+      this._renderer.setElementProperty(this._el.nativeElement, 'href', href);
+    } else {
+      this._el.nativeElement.removeAttribute('href');
+    }
   }
 }
 
