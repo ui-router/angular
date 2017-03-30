@@ -72,7 +72,7 @@ cd ..
 ## Link the directories
 
 This step is necessary if you need to modify any code in `ui-router-core`.
-Using `npm`, link `ui-router-core` into `ui-router-ng2` 
+Using `npm`, link `ui-router-core` into `ui-router-ng2`
 
 ```
 cd ui-router-core
@@ -84,7 +84,7 @@ cd ..
 
 After executing these steps, `ui-router-ng2` will be built using your local copy of `ui-router-core`.
 
-## Develop 
+## Develop
 
 * `npm run build`: Perform a full build.
 * `npm run watch`: Continuously builds and runs tests when source or tests change.
