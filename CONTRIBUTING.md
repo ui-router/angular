@@ -53,7 +53,7 @@ The code for `ui-router-ng2` is split into two source repositories:
 Clone both repositories into directories next to each other.
 
 ```
-git clone https://github.com/ui-router/ng2.git angular-ui-router
+git clone https://github.com/ui-router/ng2.git ui-router-ng2
 git clone https://github.com/ui-router/core.git ui-router-core
 ```
 
