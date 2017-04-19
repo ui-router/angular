@@ -1,11 +1,9 @@
 /** @module ng2 */
 /**
- * @Kamshak It's imported like this in @angular/compiler as well.
- * Was going to mark it injectable as in
- * https://github.com/angular/angular/blob/42a287fabf6b035d51e00cf3006c27fec00f054a/modules/%40angular/compiler/src/ng_module_resolver.ts
- * but unfortunately not all platforms (namely browser-dynamic) provide it.
+ * @roypeled It's imported like this in @angular/compiler as well.
+ * https://github.com/angular/angular/blob/e951612af2ea4bfe03cd1957decb316f507900fe/packages/compiler/src/ng_module_resolver.ts
  */
 
-import { __core_private__ as r} from '@angular/core';
-export type ReflectorReader = typeof r._ReflectorReader;
-export var reflector: typeof r.reflector = r.reflector;
+import { ɵreflector as r, ɵReflectorReader as rr} from '@angular/core';
+export type ReflectorReader = typeof rr;
+export var reflector: typeof r = r;
