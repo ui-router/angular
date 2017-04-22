@@ -1,3 +1,335 @@
+<a name="1.0.0-beta.5"></a>
+# [1.0.0-beta.5](https://github.com/ui-router/ng2/compare/1.0.0-beta.4...1.0.0-beta.5) (2017-04-22)
+
+
+### Bug Fixes
+
+* **bindings:** Make `bindings:` work on a state declaration (as well as a view declaration) ([a21c479](https://github.com/ui-router/ng2/commit/a21c479))
+* **bundle:** Only bundle ui-router-ng2 code (do not bundle ui-router-core) ([a285218](https://github.com/ui-router/ng2/commit/a285218))
+* **bundle:** work around rollup bug https://github.com/rollup/rollup/issues/1322 ([89884b9](https://github.com/ui-router/ng2/commit/89884b9))
+* **lazyLoad:** Supply native injector to lazy loaded states ([ebce639](https://github.com/ui-router/ng2/commit/ebce639))
+* **Ng2LocationServices:** Ignore duplicated 'hashchange' event in favor of 'popstate' event ([82a3e2e](https://github.com/ui-router/ng2/commit/82a3e2e))
+* **NgModule:** De-dupe states loaded from NgModule ([ffe85cb](https://github.com/ui-router/ng2/commit/ffe85cb))
+* **package.json:** Fix engines in package.json ([b2d828a](https://github.com/ui-router/ng2/commit/b2d828a))
+* **rxjs:** Fix missing RxJS operators in tree-shaked apps ([5f03719](https://github.com/ui-router/ng2/commit/5f03719))
+* **rxjs:** import rxjs operators. ([26a74ef](https://github.com/ui-router/ng2/commit/26a74ef))
+* **uiSref:** avoid empty links ([#26](https://github.com/ui-router/ng2/issues/26)) ([5f6870d](https://github.com/ui-router/ng2/commit/5f6870d))
+
+
+### Features
+
+* **bindings:** Apply explicit bindings even when no `[@Input](https://github.com/Input)()` found. ([4351c53](https://github.com/ui-router/ng2/commit/4351c53))
+* **config:** Pass the module object to the module config function ([e9705b0](https://github.com/ui-router/ng2/commit/e9705b0))
+* **Ng2LocationConfig:** use BrowserLocationConfig. ([7e0aef6](https://github.com/ui-router/ng2/commit/7e0aef6))
+* **uiCanExit:** Add `uiCanExit` hook for routed components ([633573e](https://github.com/ui-router/ng2/commit/633573e))
+
+### Reverts
+
+* **ResolveData:** Remove [@ResolveData](https://github.com/ResolveData) decorator ([0c8226d](https://github.com/ui-router/ng2/commit/0c8226d))
+
+### BREAKING CHANGES
+
+## **bundle:** We no longer bundle the core nor rx code in the UMD bundle.
+
+Previously, the `ui-router-ng2` bundle included the code from `ui-router-core` and `ui-router-rx`.
+Now, each UMD bundle must be included separately.
+
+This change is most likely to affect:
+
+- SystemJS projects
+- projects that do not bundle (but ship pre-built UMD bundles)
+- Users of ui-router plugins that import ui-router-core, such as sticky-states.
+
+
+### @ui-router/core changes
+# [5.0.0](https://github.com/ui-router/core/compare/4.0.0...5.0.0) (2017-04-22)
+
+This release of `@uirouter/angular` updates `@uirouter/core` from `4.0.0` to `5.0.0`.
+Here are the changes from core:
+
+### Bug Fixes
+
+* **BrowserLocationConfig:** fixed protocol + port value ([#38](https://github.com/ui-router/core/issues/38)) ([5559382](https://github.com/ui-router/core/commit/5559382))
+* **lazyLoad:** Wait for future state to be replaced before registering lazy children ([4bdce47](https://github.com/ui-router/core/commit/4bdce47))
+* **noImplicitAny:** Fix noimplicitany compliance ([1a6cdfc](https://github.com/ui-router/core/commit/1a6cdfc))
+* **redirect:** Do not update URL after redirect with { location: false } ([652a760](https://github.com/ui-router/core/commit/652a760))
+* **tfs:** Rename $q.ts and $injector.ts files, removing leading dollar signs ([cb653ee](https://github.com/ui-router/core/commit/cb653ee))
+* **trace:** Re-add transitionStart trace ([b019036](https://github.com/ui-router/core/commit/b019036))
+* **TransitionHook:** Do not process transition hooks after router has been disposed. ([666c6d7](https://github.com/ui-router/core/commit/666c6d7))
+* **TransitionHook:** Transition hooks no longer expose the internal StateObject ([2b0e48b](https://github.com/ui-router/core/commit/2b0e48b))
+* **typings:** Allow strictNullChecks for HookMatchCriteria ([d92d4d5](https://github.com/ui-router/core/commit/d92d4d5))
+* **ui-sref:** Improve performance of generating hrefs ([c3967bd](https://github.com/ui-router/core/commit/c3967bd))
+* **view:** Do not throw when uiView doesn't have a state context ([f76ee2a](https://github.com/ui-router/core/commit/f76ee2a))
+* **view:** Update views in order of ui-view depth and also by state depth ([46dea2b](https://github.com/ui-router/core/commit/46dea2b))
+
+
+### Features
+
+* **abort:** Add API to manually abort/cancel a transition ([39f8a53](https://github.com/ui-router/core/commit/39f8a53))
+* **common:** Perf improvements in hot functions: ([4193244](https://github.com/ui-router/core/commit/4193244))
+* **core:** Switch to [@uirouter/core](https://github.com/uirouter/core) npm module ([e3f389f](https://github.com/ui-router/core/commit/e3f389f))
+* **defaultErrorHandler:** Do not invoke default error handler for ABORTED transitions ([b07a24b](https://github.com/ui-router/core/commit/b07a24b))
+* **Globals:** implement Disposable and delete global transition data ([a794018](https://github.com/ui-router/core/commit/a794018))
+* **onBefore:** Run onBefore hooks asynchronously. ([30b82aa](https://github.com/ui-router/core/commit/30b82aa))
+* **onEnter/Exit/Retain:** Use onExit/onEnter/onRetain from StateObject, not state.self ([bc1f554](https://github.com/ui-router/core/commit/bc1f554))
+* **Rejection:** Add $id to ease debugging of transition rejections ([d456d54](https://github.com/ui-router/core/commit/d456d54))
+* **State:** Switch Internal State Object to prototypally inherit from the State Declaration ([027c995](https://github.com/ui-router/core/commit/027c995)), closes [#34](https://github.com/ui-router/core/issues/34)
+* **StateObject:** Rename internal `State` object to `StateObject` ([feceaf9](https://github.com/ui-router/core/commit/feceaf9))
+* **StateRegistry:** improve perf for: `.register()` and `StateMatcher.find()` misses ([fdb3ab9](https://github.com/ui-router/core/commit/fdb3ab9))
+* **Transition:** Ignore duplicate transitions (double clicks) ([bd1bd0b](https://github.com/ui-router/core/commit/bd1bd0b))
+* **Transition:** Improve supersede logic: Do not supersede if the new trans is aborted before onStart ([3141a8f](https://github.com/ui-router/core/commit/3141a8f))
+* **Transition:** Run hooks synchronously in current stack, when possible ([953e618](https://github.com/ui-router/core/commit/953e618))
+* **Transition:** Normalize all transition errors to a Rejection. ([a7464bb](https://github.com/ui-router/core/commit/a7464bb))
+* **UrlService:** (`UrlRouter`) improve perf of registering Url Rules and sorting Url Rules ([64fbfff](https://github.com/ui-router/core/commit/64fbfff))
+* **UrlService:** Add `rules.initial("/home")` to config initial state (like otherwise) ([bbe4209](https://github.com/ui-router/core/commit/bbe4209))
+
+
+### BREAKING CHANGES
+
+## **TransitionHook:** Transition hooks no longer expose the internal `State` object (now named `StateObject`)
+
+#### Before:
+
+```js
+import { State } from "ui-router-core";
+const match = { to: (state: State) => state.data.auth };
+transitionsvc.onEnter(match, (trans: Transition, state: State) => {
+  // state is the internal State object
+  if (state.includes["foo"]) { // internal ui-router API
+    return false;
+  }
+}
+```
+
+#### Now:
+
+```js
+import { StateDeclaration } from "ui-router-core";
+const match = { to: (state: StateDeclaration) => state.data.auth };
+transitionsvc.onEnter(match, (trans: Transition, state: StateDeclaration) => {
+  // state === the state object you registered
+  // Access internal ui-router API using $$state()
+  if (state.$$state().includes["foo"]) {
+    return false;
+  }
+}
+```
+
+#### Motivation:
+
+The `State` object (now named `StateObject`) is an internal API and should not be exposed via any public APIs.
+If you depend on the internal APIs, you can still access the internal object by calling `state.$$state()`.
+
+#### BC Likelihood
+
+How likely is this BC to affect me?
+
+Medium: You will likely be affected you 1) have transition hooks, 2) are using typescript and/or 3) use the internal ui-router State API.
+
+#### BC Severity
+
+How severe is this BC?
+
+Low: Access to the internal api is still available using `$$state()`.
+
+
+
+
+## **StateObject:** Renamed internal API `State` object to `StateObject`
+
+#### Before:
+
+```
+import {State} from "ui-router-core";
+```
+
+#### Now:
+
+```
+import {StateObject} from "ui-router-core";
+```
+
+#### Motivation:
+
+We'd like to use the `State` name/symbol as a public API.
+Some day (not today) it will likely be an ES7/TS decorator for ES6/TS state definition classes, i.e:
+
+```js
+@State("foo")
+export class FooState implements StateDeclaration {
+  url = "/foo";
+  component = FooComponent;
+
+  @Resolve({ deps: [FooService] })
+  fooData(fooService) {
+    return fooService.getFoos();
+  }
+}
+```
+
+#### BC Likelihood
+
+How likely is this to affect me?
+
+Low: This only affects code that imports the internal API symbol `State`.
+You will likely be affected you 1) import that symbol, 2) are using typescript and 3) explicitly
+typed a variable such as `let internalStateObject = state.$$state();`
+
+#### BC Severity
+
+How severe is this change?
+
+Low: Find all places where `State` is imported and rename to `StateObject`
+
+
+## **Transition:** All Transition errors are now wrapped in a Rejection object.
+
+#### Before:
+
+Previously, if a transition hook returned a rejected promise:
+```js
+.onStart({}, () => Promise.reject('reject transition'));
+```
+
+In `onError` or `transtion.promise.catch()`, the raw rejection was returned:
+```js
+.onError({}, (trans, err) => err === 'reject transition')
+```
+
+#### Now:
+
+Now, the error is wrapped in a Rejection object.
+
+- The detail (thrown error or rejected value) is still available as `.detail`.
+
+```js
+.onError({}, (trans, err) =>
+    err instanceof Rejection && err.detail === 'reject transition')
+```
+
+- The Rejection object indicates the `.type` of transition rejection (ABORTED, ERROR, SUPERSEDED and/or redirection).
+```js
+.onError({}, (trans, err) => {
+  err.type === RejectType.ABORTED === 3
+});
+```
+
+#### Motivation:
+
+Errors *thrown from* a hook and rejection values *returned from* a hook can now be processed in the same way.
+
+#### BC Likelihood
+
+How likely is this to affect me?
+
+Medium: apps which have onError handlers for rejected values
+
+#### BC Severity
+
+How severe is this change?
+
+Low: Find all error handlers (or .catch/.then chains) that do not understand Rejection. Add `err.detail` processing.
+
+
+## **onBefore:** `onBefore` hooks are now run asynchronously like all the other hooks.
+
+#### Old behavior
+
+Previously, the `onBefore` hooks were run in the same stackframe as `transitionTo`.
+If they threw an error, it could be caught using try/catch.
+
+```js
+transitionService.onBefore({ to: 'foo' }), () => { throw new Error('doh'); });
+try {
+  stateService.go('foo');
+} catch (error) {
+  // handle error
+}
+```
+
+#### New behavior
+
+Now, `onBefore` hooks are processed asynchronously.
+To handle errors, use any of the async error handling paradigms:
+
+- Chain off the promise
+  ```js
+  transitionService.onBefore({ to: 'foo' }), () => { throw new Error('doh'); });
+  stateService.go('foo').catch(error => { //handle error });
+  ```
+- Define an error handler
+  ```js
+  transitionService.onBefore({ to: 'foo' }), () => { throw new Error('doh'); });
+  transitionService.onError({ to: 'foo' }), () => { // handle error });
+  stateService.go('foo');
+  ```
+- Use the global defaultErrorHandler
+  ```js
+  transitionService.onBefore({ to: 'foo' }), () => { throw new Error('doh'); });
+  stateService.go('foo');
+  stateService.defaultErrorHandler(error => { // global error handler });
+  ```
+
+#### Motivation
+
+Why introduce a BC?
+
+- No subtle behavior differences by hook type
+- Simpler code and mental model
+- Fewer edge cases to account for
+
+#### BC Liklihood
+
+How likely is this to affect my app?
+
+Very Low: Apps that registered onBefore hooks and depend on
+synchronous execution are affected.
+
+#### BC Severity
+
+How severe is this BC?
+
+Low: Switch to asynchronous handling, such as chaining off the
+transition promise
+
+
+## **defaultErrorHandler:** ABORTED transitions do not invoke the `defaultErrorHandler`
+
+Returning `false` from a transition hook will abort the transition.
+
+#### Old behavior
+
+Previously, this case was considered an error and was logged by
+`defaultErrorHandler`.
+After your feedback, we agree that this is not typically an error.
+
+#### New behavior
+
+Now, aborted transitions do not trigger the `defaultErrorHandler`
+
+#### Motivation:
+
+> Why introduce a BC?
+
+Most users do not consider ABORT to be an error.  The default error
+handler should match this assumption.
+
+#### BC liklihood
+
+> How likely am I to be affected?
+
+Low: Most users do not consider ABORT to be an error. For most users
+this will not be a BC.
+
+#### BC severity
+
+> How severe is this BC?
+
+Low: Users who want to handle all transition rejections can
+register a `.onError` handler and filter/process accordingly.
+
+
+
 <a name="1.0.0-beta.4"></a>
 # [1.0.0-beta.4](https://github.com/ui-router/ng2/compare/1.0.0-beta.3...1.0.0-beta.4) (2017-01-22)
 
