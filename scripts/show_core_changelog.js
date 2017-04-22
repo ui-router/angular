@@ -5,12 +5,14 @@ var shelljs = require('shelljs');
 var path = require('path');
 var fs = require('fs');
 
-var CORE_PKG = 'ui-router-core';
-var CORE_DIR = path.join(__dirname, "..", "..", CORE_PKG);
+var CORE = `core`;
+var CORE_PKG = `@uirouter/${CORE}`;
+var CORE_DIR = path.join(__dirname, "..", "..", CORE);
 var SHOWCHANGELOG_SCRIPT = path.join(CORE_DIR, "scripts", "show_changelog.js");
 
 var currentPackage = require('../package.json');
 if (!currentPackage.dependencies || !currentPackage.dependencies[CORE_PKG]) {
+  console.error(stringify(currentPackage.dependencies));
   throw new Error("No dependency on " + CORE_PKG + " found in package.json.")
 }
 
@@ -33,15 +35,17 @@ gitSemverTags(function (err, val) {
     try {
       prevPackage = JSON.parse(prevRaw);
     } catch (error) {
-      console.error("Unable to parse previous package.json");
+      console.error("Unable to parse previous package.json in ${val[0]}");
       console.error(prevRaw);
       throw error;
     }
 
     if (!prevPackage.dependencies) {
-      throw new Error("previous package.json has no `dependencies` key.");
+      console.error(stringify(prevPackage));
+      throw new Error(`previous package.json in ${val[0]} has no "dependencies" key.`);
     } else if (!prevPackage.dependencies[CORE_PKG]) {
-      throw new Error("previous package.json has no `dependencies['ui-router-core']` key.");
+      console.error(stringify(prevPackage.dependencies));
+      throw new Error(`previous package.json in ${val[0]} has no "dependencies['${CORE_PKG}']" key.`);
     }
 
     fromTag = prevPackage.dependencies[CORE_PKG].replace(/[=~^]/, "");
@@ -53,3 +57,8 @@ gitSemverTags(function (err, val) {
   shelljs.config.silent = false;
   shelljs.exec("node " + SHOWCHANGELOG_SCRIPT + " " + fromTag + " " + toTag)
 });
+
+
+function stringify(object) {
+  return JSON.stringify(object, null, 2);
+}

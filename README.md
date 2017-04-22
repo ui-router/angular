@@ -1,6 +1,6 @@
 # UI-Router for Angular &nbsp;[![Build Status](https://travis-ci.org/ui-router/ng2.svg?branch=master)](https://travis-ci.org/ui-router/ng2)
 
-### ui-router-ng2: State based routing for Angular (v2+)
+### @uirouter/angular: State based routing for Angular (v2+)
 
 ---
 **[Tutorials](https://ui-router.github.io/tutorials/)** |
@@ -9,11 +9,11 @@
 **[Sample App](http://ui-router.github.io/resources/sampleapp/) |**
 **[Report an Issue](https://github.com/ui-router/ng2/blob/master/CONTRIBUTING.md#report-an-issue) |**
 **[Contribute](https://github.com/ui-router/ng2/blob/master/CONTRIBUTING.md#contribute) |**
-**[Help!](http://stackoverflow.com/questions/ask?tags=ui-router-ng2)**
+**[Help!](http://stackoverflow.com/questions/ask?tags=@uirouter/angular)**
 
 ---
 
-ui-router-ng2 is a client-side [Single Page Application](https://en.wikipedia.org/wiki/Single-page_application) 
+@uirouter/angular is a client-side [Single Page Application](https://en.wikipedia.org/wiki/Single-page_application)
 routing framework for [Angular](http://angular.io).  
   
 Routing frameworks for SPAs update the browser's URL as the user navigates through the app.  Conversely, this allows 

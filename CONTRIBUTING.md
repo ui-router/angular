@@ -2,7 +2,7 @@
 # Report an Issue
 
 Help us make UI-Router better! If you think you might have found a bug, or some other weirdness, start by making sure
-it hasn't already been reported. You can [search through existing ui-router-ng2 issues](https://github.com/ui-router/ng2?search?q=wat%3F&type=Issues) and [ui-router-core issues](https://github.com/ui-router/core?search?q=wat%3F&type=Issues)
+it hasn't already been reported. You can [search through existing @uirouter/angular issues](https://github.com/ui-router/ng2?search?q=wat%3F&type=Issues) and [@uirouter/core issues](https://github.com/ui-router/core?search?q=wat%3F&type=Issues)
 to see if someone's reported one similar to yours.
 
 If not, then [create a plunkr](http://bit.ly/UIR-Plunk) that demonstrates the problem (try to use as little code
@@ -14,7 +14,7 @@ that plunkr you created!
 
 **Note**: If you're unsure how a feature is used, or are encountering some unexpected behavior that you aren't sure
 is a bug, it's best to talk it out on
-[StackOverflow](http://stackoverflow.com/questions/ask?tags=angular2,ui-router-ng2) before reporting it. This
+[StackOverflow](http://stackoverflow.com/questions/ask?tags=angular2,@uirouter/angular) before reporting it. This
 keeps development streamlined, and helps us focus on building great software.
 
 
@@ -47,14 +47,16 @@ Please keep in mind that the issue tracker is for *issues*. Please do *not* post
 
 The code for `ui-router-ng2` is split into two source repositories:
 
-* [UI-Router Core](https://github.com/ui-router/core) (`ui-router-core` on npm)
+* [UI-Router Core](https://github.com/ui-router/core) (`@uirouter/core` on npm)
 * [UI-Router for Angular 2](https://github.com/ui-router/ng2) (`ui-router-ng2` on npm)
 
 Clone both repositories into directories next to each other.
 
 ```
-git clone https://github.com/ui-router/ng2.git ui-router-ng2
-git clone https://github.com/ui-router/core.git ui-router-core
+mkdir uirouter
+cd uirouter
+git clone https://github.com/ui-router/ng2.git
+git clone https://github.com/ui-router/core.git
 ```
 
 ## Install dependencies
@@ -62,35 +64,36 @@ git clone https://github.com/ui-router/core.git ui-router-core
 Use `npm` to install the development dependencies for each repository.
 
 ```
-cd ui-router-core
+cd core
 npm install
-cd ../ui-router-ng2
+cd ../ng2
 npm install
 cd ..
 ```
 
 ## Link the directories
 
-This step is necessary if you need to modify any code in `ui-router-core`.
-Using `npm`, link `ui-router-core` into `ui-router-ng2`
+This step is necessary if you need to modify any code in `@uirouter/core`.
+Using `npm`, link `@uirouter/core` into `ui-router-ng2`
 
 ```
-cd ui-router-core
+cd core
 npm link
-cd ../ui-router-ng2
-npm link ui-router-core
+cd ../ng2
+npm link @uirouter/core
 cd ..
 ```
 
-After executing these steps, `ui-router-ng2` will be built using your local copy of `ui-router-core`.
+After executing these steps, your local copy of `@uirouter/angular` will be built using your local copy of `@uirouter/core`
+instead of the prebuilt version specified in `package.json`.
 
 ## Develop
 
 * `npm run build`: Perform a full build.
 * `npm run watch`: Continuously builds and runs tests when source or tests change.
 
-If you make changes in `ui-router-core`, run these scripts before rebuilding or re-testing `ui-router-ng2`:
+If you make changes in `@uirouter/core`, run these scripts before rebuilding or re-testing `@uirouter/angular`:
 
-* `npm run build`: Compiles `ui-router-core` code
-* `npm run watch`: Continuously builds the `ui-router-core` code when sources change.
+* `npm run build`: Compiles `@uirouter/core` code
+* `npm run watch`: Continuously builds the `@uirouter/core` code when sources change.
 

@@ -197,7 +197,7 @@ export interface StatesModule {
    * #### Example:
    * ```js
    * import { Injector } from "@angular/core";
-   * import { UIRouter } from "ui-router-ng2";
+   * import { UIRouter } from "@uirouter/angular";
    * import { requireAuthHook } from "./requireAuthHook";
    * import { MyService } from "./myService";
    *

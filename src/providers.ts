@@ -1,17 +1,17 @@
 /**
  * # UI-Router for Angular (v2+)
  *
- * - [ui-router-ng2 home page](https://ui-router.github.io/ng2)
+ * - [@uirouter/angular home page](https://ui-router.github.io/ng2)
  * - [tutorials](https://ui-router.github.io/tutorial/ng2/helloworld)
  * - [quick start repository](http://github.com/ui-router/quickstart-ng2)
  *
  * Getting started:
  *
- * - Use npm. Add a dependency on latest `ui-router-ng2`
- * - Import UI-Router classes directly from `"ui-router-ng2"`
+ * - Use npm. Add a dependency on latest `@uirouter/angular`
+ * - Import UI-Router classes directly from `"@uirouter/angular"`
  *
  * ```js
- * import {StateRegistry} from "ui-router-ng2";
+ * import {StateRegistry} from "@uirouter/angular";
  * ```
  *
  * - Create application states (as defined by [[Ng2StateDeclaration]]).
@@ -71,7 +71,7 @@
  * Pass the class to [[UIRouterModule.forRoot]] or [[UIRouterModule.forChild]].
  *
  * ```js
- * import {UIRouter} from "ui-router-ng2";
+ * import {UIRouter} from "@uirouter/angular";
  *
  * @ Injectable()
  * export class MyUIRouterConfig {

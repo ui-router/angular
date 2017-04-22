@@ -54,7 +54,7 @@ function isExternal(id) {
 }
 
 const CONFIG = {
-  moduleName: 'ui-router-ng2',
+  moduleName: '@uirouter/angular',
   entry: 'lib/index.js',
   dest: '_bundles/ui-router-ng2' + extension,
 

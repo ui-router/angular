@@ -22,7 +22,7 @@ import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
  * ```
  * would build a state with a `lazyLoad` function like:
  * ```js
- * import { loadNgModule } from "ui-router-ng2";
+ * import { loadNgModule } from "@uirouter/angular";
  * var decl = {
  *   lazyLoad: loadNgModule(() => System.import('./childModule.ts')
  * }
@@ -39,7 +39,7 @@ import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
  * ```
  * would build a state with a `lazyLoad` function like:
  * ```js
- * import { loadNgModule } from "ui-router-ng2";
+ * import { loadNgModule } from "@uirouter/angular";
  * var decl = {
  *   lazyLoad: () => System.import('third-party-library')
  *       .then(() => loadNgModule(() => System.import('./childModule.ts'))

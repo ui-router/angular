@@ -10,7 +10,7 @@ System.config({
         'rxjs': 'node_modules/rxjs/bundles/Rx.js',
         '@angular': 'node_modules/@angular',
 
-        'ui-router-ng2': 'src/index.ts'
+        '@uirouter/angular': 'src/index.ts'
     },
     map: {
         '@uirouter/core': 'node_modules/@uirouter/core/lib',

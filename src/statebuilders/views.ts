@@ -11,7 +11,7 @@ import {ViewService} from "@uirouter/core";
  * This is a [[StateBuilder.builder]] function for Angular `views`.
  *
  * When the [[StateBuilder]] builds a [[State]] object from a raw [[StateDeclaration]], this builder
- * handles the `views` property with logic specific to ui-router-ng2.
+ * handles the `views` property with logic specific to @uirouter/angular.
  *
  * If no `views: {}` property exists on the [[StateDeclaration]], then it creates the `views` object and
  * applies the state-level configuration to a view named `$default`.

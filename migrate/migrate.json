@@ -1,0 +1,4 @@
+{
+  "old": "ui-router-ng2",
+  "new": "@uirouter/angular"
+}

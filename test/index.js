@@ -15,7 +15,7 @@ require('zone.js/dist/fake-async-test');
 // Init testing harness
 require('./bootstrap');
 
-// Add ui-router-ng2
+// Add @uirouter/angular
 require('../src/index');
 
 var testsContext = require['context'](".", true, /\.spec$/);
