@@ -4,7 +4,7 @@ import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactory
 import {
   Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString, unnestR, inArray, StateObject,
   uniqR
-} from "ui-router-core";
+} from "@uirouter/core";
 import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, StatesModule } from "../uiRouterNgModule";
 import { applyModuleConfig } from "../uiRouterConfig";
 

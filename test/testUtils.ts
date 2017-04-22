@@ -1,4 +1,4 @@
-import { forEach, map, omit, pick } from 'ui-router-core';
+import { forEach, map, omit, pick } from '@uirouter/core';
 import { TestBed } from '@angular/core/testing';
 let stateProps = ["resolve", "resolvePolicy", "data", "template", "templateUrl", "url", "name", "params"];
 

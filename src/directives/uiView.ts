@@ -8,7 +8,7 @@ import { reflector } from '../private_import_core';
 import {
   UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray, trace, ViewContext, ViewConfig,
   ActiveUIView, ResolveContext, NATIVE_INJECTOR_TOKEN, flattenR
-} from 'ui-router-core';
+} from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
 

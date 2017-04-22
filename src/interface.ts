@@ -1,7 +1,7 @@
 /** @ng2api @module state */
 /** */
 
-import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from "ui-router-core";
+import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from "@uirouter/core";
 import { Type, Component } from "@angular/core";
 import { NgModuleToLoad } from "./lazyLoad/lazyLoadNgModule";
 

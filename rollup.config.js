@@ -41,11 +41,12 @@ function onwarn(warning) {
 }
 
 function isExternal(id) {
-  // ui-router-core and ui-router-rx should be external
+  // @uirouter/core and ui-router-rx should be external
   // All rxjs and @angular/* should be external
   // except for @angular/router/src/router_config_loader
   let externals = [
-    /^ui-router-(core|rx)/,
+    /^ui-router-rx/,
+    /^@uirouter\/core/,
     /^rxjs/,
     /^@angular\/(?!router\/src\/router_config_loader)/,
   ];
@@ -94,7 +95,7 @@ const CONFIG = {
     'rxjs/operator/filter': 'Rx.Observable.prototype',
     'rxjs/operator/concatMap': 'Rx.Observable.prototype',
     
-    'ui-router-core': 'ui-router-core',
+    '@uirouter/core': '@uirouter/core',
     'ui-router-rx': 'ui-router-rx',
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',

@@ -1,7 +1,7 @@
 import { async, inject, TestBed } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UIView } from '../../src/directives/uiView';
-import { memoryLocationPlugin, UIRouter } from 'ui-router-core';
+import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
 import { NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
 
 declare var System;
