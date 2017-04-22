@@ -47,7 +47,7 @@
   "typings": "lib/index.d.ts",
   "dependencies": {
     "@uirouter/core": "5.0.0",
-    "ui-router-rx": "=0.2.1"
+    "@uirouter/rx": "=0.3.1"
   },
   "peerDependencies": {
     "@angular/common": "^2.3.1",

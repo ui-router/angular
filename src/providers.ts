@@ -97,7 +97,7 @@ import { applyRootModuleConfig, applyModuleConfig } from "./uiRouterConfig";
 import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "./uiRouterNgModule";
 import { servicesPlugin, ServicesPlugin } from "@uirouter/core";
 import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
-import { UIRouterRx } from "ui-router-rx";
+import { UIRouterRx } from "@uirouter/rx";
 import { LocationStrategy } from "@angular/common";
 import { Ng2LocationServices } from "./location/locationService";
 import { Ng2LocationConfig } from "./location/locationConfig";
