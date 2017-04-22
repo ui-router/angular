@@ -1,7 +1,6 @@
 /** @ng2api @module ng2 */ /** for typedoc */
 
 export * from "./interface";
-export * from "./decorators/index";
 export * from "./providers";
 export * from "./uiRouterNgModule";
 export * from "./uiRouterConfig";

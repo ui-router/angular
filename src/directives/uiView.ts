@@ -57,12 +57,7 @@ const ng2ComponentInputs = (ng2CompClass: Type<any>, component: any) => {
       .reduce(flattenR, [])
       .map(input => ({ token: input, prop: input }));
 
-  /** Get @ResolveData('foo') _foo" inputs */
-  let __inputs = component.__inputs || {};
-  let resolves = Object.keys(__inputs)
-      .map(key => ({ token: key, prop: __inputs[key] }));
-
-  return _props.concat(inputs).concat(resolves) as InputMapping[];
+  return _props.concat(inputs) as InputMapping[];
 };
 
 /**
