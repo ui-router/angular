@@ -39,7 +39,7 @@ var config = {
     configFile: 'config/system.config.js',
     files: [
         'src/**/*.ts',
-        'node_modules/ui-router-core/lib/**/*'
+        'node_modules/@uirouter/core/lib/**/*'
     ]
   },
   exclude: []

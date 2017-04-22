@@ -3,8 +3,8 @@
 import { Directive, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
 import { UISref } from './uiSref';
 import {
-  PathNode, Transition, TargetState, StateObject, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathFactory
-} from 'ui-router-core';
+  PathNode, Transition, TargetState, StateObject, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathUtils
+} from '@uirouter/core';
 
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -55,7 +55,7 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
   if (!target.exists()) return () => false;
   let state: StateObject = target.$state();
   let targetParamVals = target.params();
-  let targetPath: PathNode[] = PathFactory.buildPath(target);
+  let targetPath: PathNode[] = PathUtils.buildPath(target);
   let paramSchema: Param[] = targetPath.map(node => node.paramSchema)
       .reduce(unnestR, [])
       .filter((param: Param) => targetParamVals.hasOwnProperty(param.id));
@@ -63,7 +63,7 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
   return (path: PathNode[]) => {
     let tailNode = tail(path);
     if (!tailNode || tailNode.state !== state) return false;
-    let paramValues = PathFactory.paramValues(path);
+    let paramValues = PathUtils.paramValues(path);
     return Param.equals(paramSchema, paramValues, targetParamVals);
   };
 };
@@ -76,7 +76,7 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
  * @internalapi
  */
 function spreadToSubPaths(basePath: PathNode[], appendPath: PathNode[]): PathNode[][] {
-  return appendPath.map(node => basePath.concat(PathFactory.subPath(appendPath, n => n.state === node.state)));
+  return appendPath.map(node => basePath.concat(PathUtils.subPath(appendPath, n => n.state === node.state)));
 }
 
 /**

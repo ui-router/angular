@@ -10,4 +10,4 @@ export * from "./statebuilders/views";
 export * from "./statebuilders/lazyLoad";
 export * from "./lazyLoad/lazyLoadNgModule";
 
-export * from "ui-router-core";
+export * from "@uirouter/core";

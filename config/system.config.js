@@ -13,12 +13,12 @@ System.config({
         'ui-router-ng2': 'src/index.ts'
     },
     map: {
-        'ui-router-core': 'node_modules/ui-router-core/lib',
+        '@uirouter/core': 'node_modules/@uirouter/core/lib',
     },
     packages: {
         'src': { defaultExtension: 'ts' },
 
-        'ui-router-core':       { main: 'index.js', defaultExtension: 'js' },
+        '@uirouter/core':       { main: 'index.js', defaultExtension: 'js' },
         '@angular/core':        { main: 'index.js', defaultExtension: 'js' },
         '@angular/compiler':    { main: 'index.js', defaultExtension: 'js' },
         '@angular/common':      { main: 'index.js', defaultExtension: 'js' },

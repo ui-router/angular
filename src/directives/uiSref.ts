@@ -1,6 +1,6 @@
 /** @ng2api @module directives */
 /** */
-import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, TargetState } from "ui-router-core";
+import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
 import { Directive, Inject, Input, Optional, ElementRef, Renderer } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";

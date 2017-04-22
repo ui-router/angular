@@ -89,13 +89,13 @@ import { Injector, Provider } from "@angular/core";
 import {
   UIRouter, PathNode, StateRegistry, StateService, TransitionService, UrlMatcherFactory, UrlRouter, ViewService,
   UrlService, UIRouterGlobals, services, Resolvable, NATIVE_INJECTOR_TOKEN
-} from "ui-router-core";
+} from "@uirouter/core";
 import { UIView, ParentUIViewInject } from "./directives/uiView";
 import { ng2ViewsBuilder, Ng2ViewConfig } from "./statebuilders/views";
 import { Ng2ViewDeclaration } from "./interface";
 import { applyRootModuleConfig, applyModuleConfig } from "./uiRouterConfig";
 import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "./uiRouterNgModule";
-import { servicesPlugin, ServicesPlugin } from "ui-router-core";
+import { servicesPlugin, ServicesPlugin } from "@uirouter/core";
 import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
 import { UIRouterRx } from "ui-router-rx";
 import { LocationStrategy } from "@angular/common";

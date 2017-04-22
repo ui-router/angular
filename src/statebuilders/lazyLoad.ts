@@ -1,7 +1,7 @@
 /** @module ng2 */
 /** */
-import { LazyLoadResult, Transition, StateDeclaration } from "ui-router-core"; // has or is using
-import { BuilderFunction, StateObject } from "ui-router-core";
+import { LazyLoadResult, Transition, StateDeclaration } from "@uirouter/core"; // has or is using
+import { BuilderFunction, StateObject } from "@uirouter/core";
 import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
 
 /**

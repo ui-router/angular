@@ -7,7 +7,7 @@ import {
 import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from "@angular/common";
 import { _UIROUTER_DIRECTIVES } from "./directives/directives";
 import { UIView } from "./directives/uiView";
-import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter } from "ui-router-core";
+import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter } from "@uirouter/core";
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
 
 import { ROUTES } from "@angular/router/src/router_config_loader";
