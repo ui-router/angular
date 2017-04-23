@@ -1,6 +1,7 @@
 <a name="1.0.0-beta.5"></a>
 # [1.0.0-beta.5](https://github.com/ui-router/ng2/compare/1.0.0-beta.4...1.0.0-beta.5) (2017-04-22)
 
+# NOTICE: The npm package changed to `@uirouter/angular`
 
 ### Bug Fixes
 
