@@ -40,4 +40,8 @@ _exec(`npm publish`);
 _exec(`git tag ${version}`);
 _exec(`git push origin ${version}`);
 
-console.log("\n\nAPI docs generated (but not deployed) at ./_docs");
+console.log("\n\nAPI docs generated (but not deployed) at ./_docs.");
+console.log("Run this command to generate docs:");
+console.log("\n\nnpm run docs\n\n");
+console.log("Run this command to publish artifacts tag:");
+console.log("\n\nnpm run artifacts\n");
