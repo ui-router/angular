@@ -1,5 +1,5 @@
 {
-  "name": "ui-router-ng2",
+  "name": "@uirouter/angular",
   "description": "State-based routing for Angular 2",
   "version": "1.0.0-beta.5",
   "scripts": {
