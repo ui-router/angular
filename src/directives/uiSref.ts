@@ -1,7 +1,7 @@
 /** @ng2api @module directives */
 /** */
 import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
-import { Directive, Inject, Input, Optional, ElementRef, Renderer } from "@angular/core";
+import { Directive, Inject, Input, Optional, ElementRef, Renderer2 } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { Subscription } from "rxjs/Subscription";
@@ -12,10 +12,13 @@ import { Subscription } from "rxjs/Subscription";
  */
 @Directive({ selector: 'a[uiSref]' })
 export class AnchorUISref {
-  constructor(public _el: ElementRef, public _renderer: Renderer) { }
+  constructor(public _el: ElementRef, public _renderer: Renderer2) { }
+  openInNewTab() {
+    return this._el.nativeElement.target === '_blank';
+  }
   update(href: string) {
     if (href && href != '') {
-      this._renderer.setElementProperty(this._el.nativeElement, 'href', href);
+      this._renderer.setProperty(this._el.nativeElement, 'href', href);
     } else {
       this._el.nativeElement.removeAttribute('href');
     }
@@ -161,6 +164,10 @@ export class UISref {
 
   /** When triggered by a (click) event, this function transitions to the UISref's target state */
   go() {
+    if (this._anchorUISref && this._anchorUISref.openInNewTab()) {
+      return ;
+    }
+
     this._router.stateService.go(this.state, this.params, this.getOptions());
     return false;
   }
