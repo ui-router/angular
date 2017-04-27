@@ -7,7 +7,6 @@
     "compile": "npm run clean && ngc",
     "bundle": "rollup -c && rollup -c --environment MINIFY",
     "build": "npm run compile && npm run bundle",
-    "install": "node ./migrate/migratewarn.js",
     "travis": "npm run build && npm run noimplicitany && npm run test",
     "test": "karma start",
     "noimplicitany": "tsc --noEmit --noImplicitAny --moduleResolution node --target es6 test/noimplicitany.ts",
