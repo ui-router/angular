@@ -1,4 +1,3 @@
-/// <reference path='../typings/jasmine/jasmine.d.ts' />
 import {equals} from "@uirouter/core";
 declare var testablePromise;
 

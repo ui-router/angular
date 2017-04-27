@@ -2,9 +2,9 @@
 /** */
 import {
   Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type, ReflectiveInjector, ViewChild,
-  Injector, Inject
+  Injector, Inject, ComponentFactory
 } from '@angular/core';
-import { ɵReflectorReader as ReflectorReader } from '@angular/core';
+
 import {
   UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray, trace, ViewContext, ViewConfig,
   ActiveUIView, ResolveContext, NATIVE_INJECTOR_TOKEN, flattenR
@@ -35,29 +35,8 @@ interface InputMapping {
  *
  * @internalapi
  */
-const ng2ComponentInputs = (reflector: ReflectorReader, ng2CompClass: Type<any>, component: any) => {
-  /** Get "@Input('foo') _foo" inputs */
-  let props = reflector.propMetadata(ng2CompClass);
-  let _props = Object.keys(props || {})
-      // -> [ { key: string, anno: annotations[] } ] tuples
-      .map(key => ({ key, annoArr: props[key] }))
-      // -> flattened to [ { key: string, anno: annotation } ] tuples
-      .reduce((acc, tuple) => acc.concat(tuple.annoArr.map(anno => ({ key: tuple.key, anno }))), [])
-      // Only Inputs
-      .filter(tuple => tuple.anno instanceof Input)
-      // If they have a bindingPropertyName, i.e. "@Input('foo') _foo", then foo, else _foo
-      .map(tuple => ({ token: tuple.anno.bindingPropertyName || tuple.key, prop: tuple.key }));
-
-  /** Get "inputs: ['foo']" inputs */
-  let inputs = reflector.annotations(ng2CompClass)
-      // Find the ComponentMetadata class annotation
-      .filter(x => x instanceof Component && !!x.inputs)
-      // Get the .inputs string array
-      .map(x => x.inputs)
-      .reduce(flattenR, [])
-      .map(input => ({ token: input, prop: input }));
-
-  return _props.concat(inputs) as InputMapping[];
+const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
+  return factory.inputs.map(input => ({ prop: input.propName, token: input.templateName }));
 };
 
 /**
@@ -149,7 +128,6 @@ export class UIView {
       public router: UIRouter,
       @Inject(UIView.PARENT_INJECT) parent,
       public viewContainerRef: ViewContainerRef,
-      private reflector: ReflectorReader
   ) {
     this.parent = parent;
   }
@@ -189,7 +167,7 @@ export class UIView {
       const state: StateDeclaration = parse("uiViewData.config.viewDecl.$context.self")(this);
 
       if (trans.exiting().indexOf(state) !== -1) {
-        trans.onStart({}, function(trans) {
+        trans.onStart({}, function() {
           return uiCanExitFn.call(instance, trans);
         });
       }
@@ -244,7 +222,7 @@ export class UIView {
     this.componentRef = this.componentTarget.createComponent(compFactory, undefined, componentInjector);
 
     // Wire resolves to @Input()s
-    this.applyInputBindings(this.componentRef, context, componentClass);
+    this.applyInputBindings(compFactory, this.componentRef, context, componentClass);
   }
 
   /**
@@ -262,7 +240,7 @@ export class UIView {
     let resolvables = context.getTokens().map(token => context.getResolvable(token)).filter(r => r.resolved);
     let newProviders = resolvables.map(r => ({ provide: r.token, useValue: r.data }));
 
-    var parentInject = { context: this.uiViewData.config.viewDecl.$context, fqn: this.uiViewData.fqn };
+    let parentInject = { context: this.uiViewData.config.viewDecl.$context, fqn: this.uiViewData.fqn };
     newProviders.push({ provide: UIView.PARENT_INJECT, useValue: parentInject });
 
     let parentComponentInjector = this.viewContainerRef.injector;
@@ -278,16 +256,24 @@ export class UIView {
    * Finds component inputs which match resolves (by name) and sets the input value
    * to the resolve data.
    */
-  applyInputBindings(ref: ComponentRef<any>, context: ResolveContext, componentClass) {
+  applyInputBindings(factory: ComponentFactory<any>, ref: ComponentRef<any>, context: ResolveContext, componentClass) {
     const component = ref.instance;
     const bindings = this.uiViewData.config.viewDecl['bindings'] || {};
     const explicitBoundProps = Object.keys(bindings);
 
-    // Supply resolve data to matching @Input('prop') or inputs: ['prop']
-    const explicitInputTuples = explicitBoundProps
-        .reduce((acc, key) => acc.concat([{ prop: key, token: bindings[key] }]), []);
+    // Returns the actual component property for a renamed an input renamed using `@Input('foo') _foo`.
+    // return the `_foo` property
+    const renamedInputProp = (prop: string) => {
+      const input = factory.inputs.find(i => i.templateName === prop);
+      return input && input.propName || prop;
+    };
 
-    const implicitInputTuples = ng2ComponentInputs(this.reflector, componentClass, component)
+    // Supply resolve data to component as specified in the state's `bindings: {}`
+    const explicitInputTuples = explicitBoundProps
+        .reduce((acc, key) => acc.concat([{ prop: renamedInputProp(key), token: bindings[key] }]), []);
+
+    // Supply resolve data to matching @Input('prop') or inputs: ['prop']
+    const implicitInputTuples = ng2ComponentInputs(factory)
         .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
 
     const addResolvable = (tuple: InputMapping) => ({
@@ -298,7 +284,7 @@ export class UIView {
     explicitInputTuples.concat(implicitInputTuples)
         .map(addResolvable)
         .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
-        .forEach(tuple => { component[tuple.prop] = tuple.resolvable.data });
+        .forEach(tuple => { component[tuple.prop] = tuple.resolvable.data; });
 
     // Initiate change detection for the newly created component
     ref.changeDetectorRef.detectChanges();
