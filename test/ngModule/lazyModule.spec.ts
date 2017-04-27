@@ -4,7 +4,7 @@ import { UIView } from '../../src/directives/uiView';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
 import { NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
 
-declare var System;
+declare let System;
 
 let futureFoo = {
   name: 'foo.**',
@@ -16,19 +16,18 @@ function configFn(router: UIRouter) {
   router.plugin(memoryLocationPlugin);
 }
 
-beforeEach(() => {
-  let routerModule = UIRouterModule.forRoot({ useHash: true, states: [futureFoo], config: configFn });
-
-  TestBed.configureTestingModule({
-    declarations: [],
-    imports: [routerModule],
-    providers: [
-      { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
-    ]
-  });
-});
-
 describe('lazy loading', () => {
+  beforeEach(() => {
+    let routerModule = UIRouterModule.forRoot({ useHash: true, states: [futureFoo], config: configFn });
+
+    TestBed.configureTestingModule({
+      declarations: [],
+      imports: [routerModule],
+      providers: [
+        { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
+      ]
+    });
+  });
 
   it('should lazy load a module', async(inject([UIRouter], (router: UIRouter) => {
     const fixture = TestBed.createComponent(UIView);
@@ -46,7 +45,7 @@ describe('lazy loading', () => {
       names = stateRegistry.get().map(state => state.name).sort();
       expect(names.length).toBe(4);
       expect(names).toEqual(['', 'foo', 'foo.child1', 'foo.child2']);
-    })
+    });
   })));
 
 

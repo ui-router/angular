@@ -2,8 +2,8 @@ import { Component, DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { UIRouterModule } from '../src/uiRouterNgModule';
-import { UISref } from '../src/directives/uiSref';
+import { UIRouterModule } from '../../src/uiRouterNgModule';
+import { UISref } from '../../src/directives/uiSref';
 import { UIRouter } from '@uirouter/core';
 import { Subject } from 'rxjs/Subject';
 
@@ -34,7 +34,7 @@ describe('uiSref', () => {
       beforeEach(() => {
         fixture = TestBed.configureTestingModule({
           declarations: [TestComponent],
-          imports: [UIRouterModule]
+          imports: [UIRouterModule.forRoot({ useHash: true })]
         }).createComponent(TestComponent);
         fixture.detectChanges();
         des = fixture.debugElement.queryAll(By.directive(UISref));
@@ -61,7 +61,7 @@ describe('uiSref', () => {
         } as any;
         TestBed.configureTestingModule({
           declarations: [TestComponent],
-          imports: [UIRouterModule]
+          imports: [UIRouterModule.forRoot({ useHash: true })]
         }).overrideComponent(TestComponent, {
           set: {
             providers: [

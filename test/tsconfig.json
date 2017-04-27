@@ -15,7 +15,5 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true
   },
-  "files": [
-    "./index.js"
-  ]
+  "include": ["./**/*.ts"]
 }
