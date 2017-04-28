@@ -1,3 +1,16 @@
+<a name="1.0.0-beta.6"></a>
+# [1.0.0-beta.6](https://github.com/ui-router/ng2/compare/1.0.0-beta.5...1.0.0-beta.6) (2017-04-28)
+
+## Adds supports for Angular 4.x, removes support for Angular 2.x
+
+### Bug Fixes
+
+* **uiSref:** open new tab when a tag has target="_blank" ([d13ed47](https://github.com/ui-router/ng2/commit/d13ed47))
+
+### Features
+
+* **resolve:** auto-map resolve values to matching component inputs in AoT ([f6c552d](https://github.com/ui-router/ng2/commit/f6c552d))
+
 <a name="1.0.0-beta.5"></a>
 # [1.0.0-beta.5](https://github.com/ui-router/ng2/compare/1.0.0-beta.4...1.0.0-beta.5) (2017-04-22)
 
