@@ -31,7 +31,6 @@ if (!readlineSync.keyInYN('Ready to publish?')) {
 util.ensureCleanMaster('master');
 
 _exec('npm run package');
-_exec(`npm run docs`);
 
 // publish to npm first
 _exec(`npm publish`);
@@ -39,9 +38,7 @@ _exec(`npm publish`);
 // then tag and push tag
 _exec(`git tag ${version}`);
 _exec(`git push origin ${version}`);
+_exec(`npm run artifacts`);
 
-console.log("\n\nAPI docs generated (but not deployed) at ./_docs.");
-console.log("Run this command to generate docs:");
-console.log("\n\nnpm run docs\n\n");
-console.log("Run this command to publish artifacts tag:");
-console.log("\n\nnpm run artifacts\n");
+console.log("\n\nRun this command to publish docs:");
+console.log("\n\nnpm run publishdocs\n\n");
