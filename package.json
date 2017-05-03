@@ -13,7 +13,8 @@
     "debug": "karma start --singleRun=false --autoWatch=true --autoWatchInterval=1 --browsers=Chrome",
     "package": "npm run build",
     "docs": "typedoc --tsconfig tsconfig.typedoc.json --readme README.md --name '@uirouter/angular' --theme node_modules/ui-router-typedoc-themes/bin/default --out _doc --internal-aliases internal,coreapi,ng2api --external-aliases internalapi,external --navigation-label-globals @uirouter/angular",
-    "prepublish": "npm run build",
+    "publishdocs": "npm run docs && node --harmony scripts/publishdocs.js",
+    "prepare": "npm run build",
     "changelog": "node scripts/update_changelog.js",
     "release": "node scripts/release.js",
     "artifacts": "node scripts/artifact_tagging.js"
