@@ -47,8 +47,8 @@
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@uirouter/core": "5.0.0",
-    "@uirouter/rx": "=0.3.1"
+    "@uirouter/core": "=5.0.1",
+    "@uirouter/rx": "=0.3.2"
   },
   "peerDependencies": {
     "@angular/common": "^4.0.0",
