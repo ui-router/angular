@@ -1,6 +1,6 @@
 /** @ng2api @module directives */
 /** */
-import { UIRouter, UIRouterGlobals, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
+import { UIRouter, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
 import { Directive, Inject, Input, Optional, ElementRef, Renderer2 } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";
@@ -17,10 +17,10 @@ export class AnchorUISref {
     return this._el.nativeElement.target === '_blank';
   }
   update(href: string) {
-    if (href && href != '') {
+    if (href && href !== '') {
       this._renderer.setProperty(this._el.nativeElement, 'href', href);
     } else {
-      this._el.nativeElement.removeAttribute('href');
+      this._renderer.removeAttribute(this._el.nativeElement, 'href');
     }
   }
 }
