@@ -23,7 +23,19 @@ if (isNarrow && readlineSync.keyInYN('Widen @uirouter/core dependency from ' + c
   widen = false;
 }
 
-let tagname = `${version}+hybrid-${hybridVersion}`;
+const YYYYMMDD = (function() {
+  var year = date.getFullYear();
+
+  var month = date.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
+
+  var day  = date.getDate();
+  day = (day < 10 ? "0" : "") + day;
+
+  return year + month + day;
+})();
+
+let tagname = `SNAPSHOT-${YYYYMMDD}`;
 tagname += readlineSync.question(`Suffix for tag ${tagname} (optional)?`);
 
 if (!readlineSync.keyInYN(`Ready to publish ${tagname} tag?`)) {
@@ -36,12 +48,16 @@ util.ensureCleanMaster('master');
 _exec(`git checkout -b ${tagname}-prep`);
 
 pkg.dependencies['@uirouter/core'] = widenedDep;
+pkg.version = tagname;
+
 fs.writeFileSync("package.json", JSON.stringify(pkg, undefined, 2));
 _exec('git commit -m "Widening @uirouter/core dependency range to ' + widenedDep + '" package.json');
 
 _exec('npm run package');
 
-_exec(`git add --force lib _bundles`);
+_exec(`git add --force lib _bundles package.json`);
+_exec(`git rm yarn.lock`);
+
 _exec(`git commit -m 'chore(*): commiting build files'`);
 _exec(`git tag ${tagname}`);
 _exec(`git push -u origin ${tagname}`);
