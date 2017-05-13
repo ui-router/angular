@@ -43,7 +43,7 @@ _exec('git commit -m "Widening @uirouter/core dependency range to ' + widenedDep
 
 _exec('npm run package');
 
-_exec(`git add --force lib lib-esm release package.json`);
+_exec(`git add --force lib _bundles package.json`);
 _exec(`git rm yarn.lock`);
 
 _exec(`git commit -m 'chore(*): commiting build files'`);
