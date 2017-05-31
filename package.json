@@ -48,7 +48,8 @@
   "typings": "lib/index.d.ts",
   "dependencies": {
     "@uirouter/core": "=5.0.1",
-    "@uirouter/rx": "=0.4.1"
+    "@uirouter/rx": "=0.4.1",
+    "tslib": "^1.7.1"
   },
   "peerDependencies": {
     "@angular/common": "^4.0.0",

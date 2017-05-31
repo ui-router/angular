@@ -68,6 +68,7 @@ const CONFIG = {
   external: isExternal,
 
   globals: {
+    'tslib': 'tslib',
     'rxjs/ReplaySubject': 'Rx',
 
     // Copied these from @angular/router rollup config
@@ -94,7 +95,7 @@ const CONFIG = {
     'rxjs/operator/last': 'Rx.Observable.prototype',
     'rxjs/operator/filter': 'Rx.Observable.prototype',
     'rxjs/operator/concatMap': 'Rx.Observable.prototype',
-    
+
     '@uirouter/core': '@uirouter/core',
     'ui-router-rx': 'ui-router-rx',
     '@angular/core': 'ng.core',

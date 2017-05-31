@@ -7,7 +7,8 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "build/es5",
     "declaration": false,
-    "sourceMap": false
+    "sourceMap": false,
+    "importHelpers": true
   },
   "files": [
     "src/index.ts",
