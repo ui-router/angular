@@ -14,7 +14,6 @@ import {of} from 'rxjs/observable/of';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {switchMap} from 'rxjs/operator/switchMap';
-import {mergeMap} from 'rxjs/operator/mergeMap';
 import {map} from 'rxjs/operator/map';
 import {concat} from 'rxjs/operator/concat';
 
@@ -223,7 +222,7 @@ export class UISrefStatus {
 
     // Calculate the status of each UISref based on the transition event.
     // Reduce the statuses (if multiple) by or-ing each flag.
-    this._subscription = mergeMap.call(transEvents$, (evt: TransEvt) => {
+    this._subscription = switchMap.call(transEvents$, (evt: TransEvt) => {
       return map.call(targetStates$, (targets: TargetState[]) => {
         let statuses: SrefStatus[] = targets.map(target => getSrefStatus(evt, target));
         return statuses.reduce(mergeSrefStatus);
