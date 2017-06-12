@@ -24,6 +24,7 @@ if (isNarrow && readlineSync.keyInYN('Widen @uirouter/core dependency from ' + c
 }
 
 const YYYYMMDD = (function() {
+  var date = new Date();
   var year = date.getFullYear();
 
   var month = date.getMonth() + 1;
