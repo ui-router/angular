@@ -133,7 +133,7 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
  */
 export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any>): LazyLoadResult {
   let injector = ng2Module.injector;
-  let parentInjector = <Injector> ng2Module.injector['parent'];
+  let parentInjector = <Injector> ng2Module.injector['parent'] || ng2Module.injector['_parent'];
   let uiRouter: UIRouter = injector.get(UIRouter);
   let registry = uiRouter.stateRegistry;
 
