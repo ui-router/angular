@@ -85,10 +85,11 @@
  * @preferred @module ng2
  */
 /** */
-import { Injector, Provider } from "@angular/core";
+import { Injector, Provider, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 import {
   UIRouter, PathNode, StateRegistry, StateService, TransitionService, UrlMatcherFactory, UrlRouter, ViewService,
-  UrlService, UIRouterGlobals, services, Resolvable, NATIVE_INJECTOR_TOKEN
+  UrlService, UIRouterGlobals, services, Resolvable, NATIVE_INJECTOR_TOKEN,
 } from "@uirouter/core";
 import { UIView, ParentUIViewInject } from "./directives/uiView";
 import { ng2ViewsBuilder, Ng2ViewConfig } from "./statebuilders/views";
@@ -130,7 +131,7 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, rootModules:
 
 
   // ----------------- Configure for ng2 -------------
-  router.locationService = new Ng2LocationServices(router, locationStrategy);
+  router.locationService = new Ng2LocationServices(router, locationStrategy, isPlatformBrowser(injector.get(PLATFORM_ID)));
   router.locationConfig = new Ng2LocationConfig(router, locationStrategy);
 
   // Apply ng2 ui-view handling code
