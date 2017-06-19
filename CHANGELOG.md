@@ -1,3 +1,38 @@
+<a name="1.0.0-beta.7"></a>
+# [1.0.0-beta.7](https://github.com/ui-router/ng2/compare/1.0.0-beta.6...1.0.0-beta.7) (2017-06-19)
+
+
+### Bug Fixes
+
+* **lazyLoad:** fixed getting parent injector in angular 4.2 ([dcd1cda](https://github.com/ui-router/ng2/commit/dcd1cda))
+* **Ng2LocationServices:** Do not fireAfterUpdate when on server. ([543afcd](https://github.com/ui-router/ng2/commit/543afcd))
+* **UISrefStatus:** Fix memory leak -- take only one inner subscription  at a time. ([#120](https://github.com/ui-router/ng2/issues/120)) ([5a65d3c](https://github.com/ui-router/ng2/commit/5a65d3c)), closes [#21](https://github.com/ui-router/ng2/issues/21)
+
+
+### Features
+
+* **view:** Support shorthand for named views, `views: { viewName: Component }` ([84aec02](https://github.com/ui-router/ng2/commit/84aec02))
+
+### Changes in `@uirouter/core` from [5.0.0 to 5.0.4](https://github.com/ui-router/core/compare/5.0.0...5.0.4)
+
+### Bug Fixes
+
+* **common:** Fix implementation of 'pick' -- use hasOwnProperty ([09848a4](https://github.com/ui-router/core/commit/09848a4))
+* **common:** Re-fix implementation of 'pick' using for .. in ([f2da7f4](https://github.com/ui-router/core/commit/f2da7f4))
+* **future:** Allow future states to specify a `parent:` ([828fe1b](https://github.com/ui-router/core/commit/828fe1b))
+* **transition:** Do not ignore transitions which have states being entered or exited ([175717e](https://github.com/ui-router/core/commit/175717e))
+* **view:** only sync views which are of the same name *and type* ([c48da4a](https://github.com/ui-router/core/commit/c48da4a))
+
+
+### Features
+
+* **build:** Build and distribute UMD bundles ([0a8da85](https://github.com/ui-router/core/commit/0a8da85))
+* **invalidTransition:** Better error messaging when param values are invalid ([2a15d1a](https://github.com/ui-router/core/commit/2a15d1a))
+* **Resolvable:** Add `.value()`: returns value (WAIT) or promise (NOWAIT) ([8769449](https://github.com/ui-router/core/commit/8769449))
+* **trace:** Trace view synchronization. Allow trace.enable(...string) ([284392d](https://github.com/ui-router/core/commit/284392d))
+* **urlMatcher:** add support for multiline urls ([5b11ce0](https://github.com/ui-router/core/commit/5b11ce0))
+
+
 <a name="1.0.0-beta.6"></a>
 # [1.0.0-beta.6](https://github.com/ui-router/ng2/compare/1.0.0-beta.5...1.0.0-beta.6) (2017-04-28)
 
