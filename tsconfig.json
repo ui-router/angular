@@ -12,7 +12,8 @@
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "inlineSources": true
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
