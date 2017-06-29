@@ -47,7 +47,7 @@
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@uirouter/core": "=5.0.4",
+    "@uirouter/core": "=5.0.5",
     "@uirouter/rx": "=0.4.1",
     "tslib": "^1.7.1"
   },
@@ -99,7 +99,7 @@
     "typedoc-plugin-external-module-name": "^1.0.2",
     "typedoc-plugin-internal-external": "^1.0.0",
     "typedoc-plugin-ui-router": "^1.0.0",
-    "typescript": "^2.2.0",
+    "typescript": "~2.4.1",
     "ui-router-typedoc-themes": "^1.0.0",
     "webpack": "^2.2.0",
     "webpack-dev-server": "2.2.0",

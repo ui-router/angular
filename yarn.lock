@@ -91,9 +91,9 @@
   dependencies:
     "@types/node" "*"
 
-"@uirouter/core@=5.0.4":
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.4.tgz#798b9ec0f2cf58b234cce75fa2634b4698a44aca"
+"@uirouter/core@=5.0.5":
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.5.tgz#4fafae8b89e1bee321b0ed32e69ab66547c055c6"
 
 "@uirouter/rx@=0.4.1":
   version "0.4.1"
@@ -3941,9 +3941,13 @@ typedoc@~0.5.0:
     typedoc-default-themes "^0.4.2"
     typescript "2.2.2"
 
-typescript@2.2.2, typescript@^2.2.0:
+typescript@2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
+
+typescript@~2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.1.tgz#c3ccb16ddaa0b2314de031e7e6fee89e5ba346bc"
 
 ua-parser-js@^0.7.9:
   version "0.7.12"
