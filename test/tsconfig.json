@@ -7,6 +7,7 @@
     "target": "es5",
     "lib": [ "es6", "dom" ],
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true
