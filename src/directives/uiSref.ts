@@ -124,11 +124,11 @@ export class UISref implements OnChanges {
   }
 
   /** @internalapi */
-  set "uiSref"(val: string) { this.state = val; }
+  set "uiSref"(val: string) { this.state = val; this.update(); }
   /** @internalapi */
-  set "uiParams"(val: Obj) { this.params = val; }
+  set "uiParams"(val: Obj) { this.params = val; this.update(); }
   /** @internalapi */
-  set "uiOptions"(val: TransitionOptions) { this.options = val; }
+  set "uiOptions"(val: TransitionOptions) { this.options = val; this.update(); }
 
   ngOnInit() {
     this._emit = true;
