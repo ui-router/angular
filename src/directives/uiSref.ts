@@ -71,6 +71,7 @@ export class AnchorUISref {
   host: { '(click)': 'go()' }
 })
 export class UISref {
+
   /**
    * `@Input('uiSref')` The name of the state to link to
    *
@@ -78,7 +79,14 @@ export class UISref {
    * <a uiSref="hoome">Home</a>
    * ```
    */
-  @Input('uiSref') state: string;
+  @Input('uiSref')
+  get state(): string {
+    return this._state;
+  }
+  set state(val: string) {
+    this._state = val;
+    this.update();
+  }
 
   /**
    * `@Input('uiParams')` The parameter values to use (as key/values)
@@ -87,7 +95,14 @@ export class UISref {
    * <a uiSref="book" [uiParams]="{ bookId: book.id }">Book {{ book.name }}</a>
    * ```
    */
-  @Input('uiParams') params: any;
+  @Input('uiParams')
+  get params(): any {
+    return this._params;
+  }
+  set params(val: any) {
+    this._params = val;
+    this.update();
+  }
 
   /**
    * `@Input('uiOptions')` The transition options
@@ -96,7 +111,14 @@ export class UISref {
    * <a uiSref="books" [uiOptions]="{ reload: true }">Book {{ book.name }}</a>
    * ```
    */
-  @Input('uiOptions') options: TransitionOptions;
+  @Input('uiOptions')
+  get options(): TransitionOptions {
+    return this._options;
+  }
+  set options(val: TransitionOptions) {
+    this._options = val;
+    this.update();
+  }
 
   /**
    * An observable (ReplaySubject) of the state this UISref is targeting.
@@ -108,6 +130,9 @@ export class UISref {
   /** @internalapi */ private _statesSub: Subscription;
   /** @internalapi */ private _router: UIRouter;
   /** @internalapi */ private _anchorUISref: AnchorUISref;
+  /** @internalapi */ private _state: string;
+  /** @internalapi */ private _params: any;
+  /** @internalapi */ private _options: TransitionOptions;
   /** @internalapi */ public parent: ParentUIViewInject;
 
   constructor(
@@ -123,11 +148,11 @@ export class UISref {
   }
 
   /** @internalapi */
-  set "uiSref"(val: string) { this.state = val; this.update(); }
+  set "uiSref"(val: string) { this.state = val; }
   /** @internalapi */
-  set "uiParams"(val: Obj) { this.params = val; this.update(); }
+  set "uiParams"(val: Obj) { this.params = val; }
   /** @internalapi */
-  set "uiOptions"(val: TransitionOptions) { this.options = val; this.update(); }
+  set "uiOptions"(val: TransitionOptions) { this.options = val; }
 
   ngOnInit() {
     this._emit = true;
