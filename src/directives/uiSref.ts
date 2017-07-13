@@ -1,7 +1,7 @@
 /** @ng2api @module directives */
 /** */
 import { UIRouter, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
-import { Directive, Inject, Input, Optional, ElementRef, Renderer2 } from "@angular/core";
+import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { Subscription } from "rxjs/Subscription";
@@ -70,7 +70,7 @@ export class AnchorUISref {
   selector: '[uiSref]',
   host: { '(click)': 'go()' }
 })
-export class UISref {
+export class UISref implements OnChanges {
 
   /**
    * `@Input('uiSref')` The name of the state to link to
@@ -79,14 +79,7 @@ export class UISref {
    * <a uiSref="hoome">Home</a>
    * ```
    */
-  @Input('uiSref')
-  get state(): string {
-    return this._state;
-  }
-  set state(val: string) {
-    this._state = val;
-    this.update();
-  }
+  @Input('uiSref') state: string;
 
   /**
    * `@Input('uiParams')` The parameter values to use (as key/values)
@@ -95,14 +88,7 @@ export class UISref {
    * <a uiSref="book" [uiParams]="{ bookId: book.id }">Book {{ book.name }}</a>
    * ```
    */
-  @Input('uiParams')
-  get params(): any {
-    return this._params;
-  }
-  set params(val: any) {
-    this._params = val;
-    this.update();
-  }
+  @Input('uiParams') params: any;
 
   /**
    * `@Input('uiOptions')` The transition options
@@ -111,14 +97,7 @@ export class UISref {
    * <a uiSref="books" [uiOptions]="{ reload: true }">Book {{ book.name }}</a>
    * ```
    */
-  @Input('uiOptions')
-  get options(): TransitionOptions {
-    return this._options;
-  }
-  set options(val: TransitionOptions) {
-    this._options = val;
-    this.update();
-  }
+  @Input('uiOptions') options: TransitionOptions;
 
   /**
    * An observable (ReplaySubject) of the state this UISref is targeting.
@@ -130,9 +109,6 @@ export class UISref {
   /** @internalapi */ private _statesSub: Subscription;
   /** @internalapi */ private _router: UIRouter;
   /** @internalapi */ private _anchorUISref: AnchorUISref;
-  /** @internalapi */ private _state: string;
-  /** @internalapi */ private _params: any;
-  /** @internalapi */ private _options: TransitionOptions;
   /** @internalapi */ public parent: ParentUIViewInject;
 
   constructor(
@@ -156,6 +132,10 @@ export class UISref {
 
   ngOnInit() {
     this._emit = true;
+    this.update();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.update();
   }
 
