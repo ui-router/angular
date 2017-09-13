@@ -48,7 +48,7 @@
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@uirouter/core": "=5.0.5",
+    "@uirouter/core": "=5.0.6",
     "@uirouter/rx": "=0.4.1",
     "tslib": "^1.7.1"
   },
@@ -68,7 +68,7 @@
     "@angular/router": "^4.0.0",
     "@types/jasmine": "^2.2.34",
     "@types/jquery": "^1.10.31",
-    "@uirouter/publish-scripts": "^1.0.4",
+    "@uirouter/publish-scripts": "^1.0.7",
     "awesome-typescript-loader": "^3.1.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",

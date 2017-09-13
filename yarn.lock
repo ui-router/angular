@@ -91,16 +91,16 @@
   dependencies:
     "@types/node" "*"
 
-"@uirouter/core@=5.0.5":
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.5.tgz#4fafae8b89e1bee321b0ed32e69ab66547c055c6"
+"@uirouter/core@=5.0.6":
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.6.tgz#251e1fc4d6ce8fe47e374bb86971e68a2ef1b323"
 
 "@uirouter/publish-scripts@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-1.0.4.tgz#12de0110b88985cceb5ea0a020810ea8de8ecb38"
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-1.0.7.tgz#99ffd6aeced41e96b92ccb007342eee5d14b0a9a"
   dependencies:
     conventional-changelog "^1.1.4"
-    conventional-changelog-ui-router-core "file:../conventional-changelog-ui-router-core"
+    conventional-changelog-ui-router-core "^1.4.2"
     find-parent-dir "^0.3.0"
     git-semver-tags "^1.2.1"
     readline-sync "^1.4.7"
@@ -960,8 +960,9 @@ conventional-changelog-jshint@^0.1.0:
     compare-func "^1.3.1"
     q "^1.4.1"
 
-"conventional-changelog-ui-router-core@file:../conventional-changelog-ui-router-core":
+conventional-changelog-ui-router-core@^1.4.2:
   version "1.4.2"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-ui-router-core/-/conventional-changelog-ui-router-core-1.4.2.tgz#56d5787163f883e25d3e1f573aef563f85411df7"
   dependencies:
     compare-func "^1.3.1"
     github-url-from-git "^1.4.0"
