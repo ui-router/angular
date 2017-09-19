@@ -3,7 +3,7 @@
 import { Directive, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
 import { UISref } from './uiSref';
 import {
-  PathNode, Transition, TargetState, StateObject, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathUtils
+  PathNode, Transition, TargetState, StateObject, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathUtils, StateOrName
 } from '@uirouter/core';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -32,6 +32,8 @@ export interface SrefStatus {
   entering: boolean;
   /** A transition is exiting the sref's target state */
   exiting: boolean;
+  /** The enclosed sref(s) target state(s) */
+  targetStates: TargetState[];
 }
 
 /** @internalapi */
@@ -39,7 +41,8 @@ const inactiveStatus: SrefStatus = {
   active: false,
   exact: false,
   entering: false,
-  exiting: false
+  exiting: false,
+  targetStates: [],
 };
 
 /**
@@ -117,16 +120,18 @@ function getSrefStatus(event: TransEvt, srefTarget: TargetState): SrefStatus {
     exact: isExact(),
     entering: isStartEvent ? isEntering() : false,
     exiting: isStartEvent ? isExiting() : false,
+    targetStates: [srefTarget],
   } as SrefStatus;
 }
 
 /** @internalapi */
-function mergeSrefStatus(left: SrefStatus, right: SrefStatus) {
+function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
   return {
-    active:   left.active   || right.active,
-    exact:    left.exact    || right.exact,
+    active: left.active || right.active,
+    exact: left.exact || right.exact,
     entering: left.entering || right.entering,
-    exiting:  left.exiting  || right.exiting,
+    exiting: left.exiting || right.exiting,
+    targetStates: left.targetStates.concat(right.targetStates),
   };
 }
 
@@ -152,7 +157,7 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus) {
  * ```
  *
  * The `uiSrefStatus` event is emitted whenever an enclosed `uiSref`'s status changes.
- * The event emitted is of type [[SrefStatus]], and has boolean values for `active`, `exact`, `entering`, and `exiting`.
+ * The event emitted is of type [[SrefStatus]], and has boolean values for `active`, `exact`, `entering`, and `exiting`; also has a [[StateOrName]] `identifier`value.
  *
  * The values from this event can be captured and stored on a component (then applied, e.g., using ngClass).
  *

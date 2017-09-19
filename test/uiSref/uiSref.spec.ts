@@ -1,26 +1,41 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChildren, QueryList } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISref } from '../../src/directives/uiSref';
-import { UIRouter } from '@uirouter/core';
+import { UIRouter, TargetState, TransitionOptions } from '@uirouter/core';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from "rxjs/Subscription";
 
 describe('uiSref', () => {
   @Component({
     template: `
-      <a [uiSref]="linkA" [target]="targetA"></a>
+      <a [uiSref]="linkA" [target]="targetA" [uiParams]="linkAParams" [uiOptions]="linkAOptions"></a>
       <a [uiSref]="linkB"></a>
     `
   })
   class TestComponent {
     linkA: string;
+    linkAParams: any;
+    linkAOptions: TransitionOptions;
     targetA: string;
     linkB: string;
 
+    @ViewChildren(UISref) srefs: QueryList<UISref>;
+
+    get linkASref() {
+      return this.srefs.first;
+    }
+
+    get linkBSref() {
+      return this.srefs.toArray()[1];
+    }
+
     constructor() {
       this.linkA = null;
+      this.linkAParams = null;
+      this.linkAOptions = null;
       this.targetA = '';
       this.linkB = '';
     }
@@ -39,6 +54,7 @@ describe('uiSref', () => {
         fixture.detectChanges();
         des = fixture.debugElement.queryAll(By.directive(UISref));
       });
+
 
       it('should not bind "null" string to `href`', () => {
         expect(des[0].nativeElement.hasAttribute('href')).toBeFalsy();
@@ -113,6 +129,75 @@ describe('uiSref', () => {
           });
         });
       });
+    });
+
+    describe('when the bound values change', () => {
+      let fixture: ComponentFixture<TestComponent>;
+      let comp: TestComponent;
+      let logger: TargetState[];
+      let subscription: Subscription;
+
+      beforeEach(() => {
+        fixture = TestBed.configureTestingModule({
+          declarations: [TestComponent],
+          imports: [UIRouterModule.forRoot({ useHash: true })]
+        }).createComponent(TestComponent);
+        fixture.detectChanges();
+        comp = fixture.componentInstance;
+        logger = [];
+        subscription = comp.linkASref.targetState$.subscribe(evt => logger.push(evt));
+      });
+
+      afterEach(() => {
+        subscription.unsubscribe();
+      });
+
+      describe('when the uiSref is empty', () => {
+        it('should emit an empty target state event', () =>{
+          expect(logger.length).toBe(1);
+          expect(logger[0].name()).toBeNull();
+        });
+      })
+
+      describe('when the target state changes', () => {
+        beforeEach(() => {
+          comp.linkA = 'stateA';
+          fixture.detectChanges();
+        });
+
+        it('should emit an event', () => {
+          expect(logger.length).toBe(2);
+          expect(logger[1].name()).toBe('stateA');
+        });
+      });
+
+      describe('when the target params change', () => {
+        const params = { paramA: 'paramA' };
+
+        beforeEach(() => {
+          comp.linkAParams = params;
+          fixture.detectChanges();
+        });
+
+        it('should emit an event', () => {
+          expect(logger.length).toBe(2);
+          expect(logger[1].params()).toEqual(params);
+        });
+      });
+
+      describe('when the transition options change', () => {
+        const options: TransitionOptions = { custom: 'custom' };
+
+        beforeEach(() => {
+          comp.linkAOptions = options;
+          fixture.detectChanges();
+        });
+
+        it ('should emit an event', () => {
+          expect(logger.length).toBe(2);
+          expect(logger[1].options().custom).toEqual(options.custom);
+        });
+      })
     });
   });
 });

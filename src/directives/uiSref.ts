@@ -1,7 +1,7 @@
 /** @ng2api @module directives */
 /** */
 import { UIRouter, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
-import { Directive, Inject, Input, Optional, ElementRef, Renderer2 } from "@angular/core";
+import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { Subscription } from "rxjs/Subscription";
@@ -70,7 +70,8 @@ export class AnchorUISref {
   selector: '[uiSref]',
   host: { '(click)': 'go()' }
 })
-export class UISref {
+export class UISref implements OnChanges {
+
   /**
    * `@Input('uiSref')` The name of the state to link to
    *
@@ -131,6 +132,10 @@ export class UISref {
 
   ngOnInit() {
     this._emit = true;
+    this.update();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.update();
   }
 
