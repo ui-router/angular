@@ -42,10 +42,11 @@ describe('uiSrefStatus', () => {
       de.triggerEventHandler('click', {});
     }));
 
-    it('should emit a event with identifier equals to `foo`', () => {
-      expect(component.updated).toHaveBeenCalledWith(jasmine.objectContaining({
-        identifier: 'foo',
-      }));
+    it('should emit a event with a TargetState pointing to `foo`', () => {
+      expect(component.updated).toHaveBeenCalled();
+      const arg: SrefStatus = (component.updated as jasmine.Spy).calls.mostRecent().args[0];
+      expect(arg.targetStates.length).toEqual(1);
+      expect(arg.targetStates[0].state()).toEqual(jasmine.objectContaining({ name: 'foo' }));
     });
   });
 });

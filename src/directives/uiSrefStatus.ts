@@ -32,8 +32,8 @@ export interface SrefStatus {
   entering: boolean;
   /** A transition is exiting the sref's target state */
   exiting: boolean;
-  /** The sref's target state identifier */
-  identifier: StateOrName;
+  /** The enclosed sref(s) target state(s) */
+  targetStates: TargetState[];
 }
 
 /** @internalapi */
@@ -42,7 +42,7 @@ const inactiveStatus: SrefStatus = {
   exact: false,
   entering: false,
   exiting: false,
-  identifier: null,
+  targetStates: [],
 };
 
 /**
@@ -120,18 +120,18 @@ function getSrefStatus(event: TransEvt, srefTarget: TargetState): SrefStatus {
     exact: isExact(),
     entering: isStartEvent ? isEntering() : false,
     exiting: isStartEvent ? isExiting() : false,
-    identifier: srefTarget.identifier(),
+    targetStates: [srefTarget],
   } as SrefStatus;
 }
 
 /** @internalapi */
-function mergeSrefStatus(left: SrefStatus, right: SrefStatus) {
+function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
   return {
     active: left.active || right.active,
     exact: left.exact || right.exact,
     entering: left.entering || right.entering,
     exiting: left.exiting || right.exiting,
-    identifier: left.identifier || right.identifier,
+    targetStates: left.targetStates.concat(right.targetStates),
   };
 }
 
