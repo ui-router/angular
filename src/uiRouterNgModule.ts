@@ -2,7 +2,7 @@
 /** */
 import { Ng2StateDeclaration } from "./interface";
 import {
-  NgModule, OpaqueToken, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector
+  NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector, InjectionToken
 } from "@angular/core";
 import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from "@angular/common";
 import { _UIROUTER_DIRECTIVES } from "./directives/directives";
@@ -11,9 +11,9 @@ import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter } from "@uirout
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
 
 import { ROUTES } from "@angular/router";
-/** @hidden */ export const UIROUTER_ROOT_MODULE  = new OpaqueToken("UIRouter Root Module");
-/** @hidden */ export const UIROUTER_MODULE_TOKEN = new OpaqueToken("UIRouter Module");
-/** @hidden */ export const UIROUTER_STATES       = new OpaqueToken("UIRouter States");
+/** @hidden */ export const UIROUTER_ROOT_MODULE  = new InjectionToken("UIRouter Root Module");
+/** @hidden */ export const UIROUTER_MODULE_TOKEN = new InjectionToken("UIRouter Module");
+/** @hidden */ export const UIROUTER_STATES       = new InjectionToken("UIRouter States");
 // /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
 export function makeRootProviders(module: StatesModule): Provider[] {

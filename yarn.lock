@@ -95,7 +95,7 @@
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.6.tgz#251e1fc4d6ce8fe47e374bb86971e68a2ef1b323"
 
-"@uirouter/publish-scripts@^1.0.4":
+"@uirouter/publish-scripts@^1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-1.0.7.tgz#99ffd6aeced41e96b92ccb007342eee5d14b0a9a"
   dependencies:
