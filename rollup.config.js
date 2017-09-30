@@ -33,12 +33,13 @@ if (MINIFY) plugins.push(visualizer({ sourcemap: true }));
 
 let extension = MINIFY ? '.min.js' : '.js';
 
-// Suppress this error message... there are hundreds of them. Angular team says to ignore it.
-// https://github.com/rollup/rollup/wiki/Troubleshooting#this-is-undefined
-function onwarn(warning) {
-  if (warning.code === 'THIS_IS_UNDEFINED') return;
-  console.error(warning.message);
-}
+const onwarn = (warning) => {
+  // Suppress this error message... https://github.com/rollup/rollup/wiki/Troubleshooting#this-is-undefined
+  const ignores = ['THIS_IS_UNDEFINED'];
+  if (!ignores.some(code => code === warning.code)) {
+    console.error(warning.message);
+  }
+};
 
 function isExternal(id) {
   // @uirouter/core and ui-router-rx should be external
@@ -46,6 +47,7 @@ function isExternal(id) {
   // except for @angular/router/src/router_config_loader
   let externals = [
     /^ui-router-rx/,
+    /^@uirouter\/rx/,
     /^@uirouter\/core/,
     /^rxjs/,
     /^@angular\/(?!router\/src\/router_config_loader)/,
@@ -97,6 +99,7 @@ const CONFIG = {
     'rxjs/operator/concatMap': 'Rx.Observable.prototype',
 
     '@uirouter/core': '@uirouter/core',
+    '@uirouter/rx': '@uirouter/rx',
     'ui-router-rx': 'ui-router-rx',
     '@angular/core': 'ng.core',
     '@angular/common': 'ng.common',
