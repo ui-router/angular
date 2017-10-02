@@ -48,7 +48,7 @@
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "@uirouter/core": "=5.0.6",
+    "@uirouter/core": "5.0.9",
     "@uirouter/rx": "=0.4.1",
     "tslib": "^1.7.1"
   },
