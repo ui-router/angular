@@ -2,12 +2,12 @@
 /** */
 import { Ng2StateDeclaration } from "./interface";
 import {
-  NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector, InjectionToken
+  NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector, InjectionToken, APP_INITIALIZER, PLATFORM_ID,
 } from "@angular/core";
-import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from "@angular/common";
+import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy, isPlatformServer } from "@angular/common";
 import { _UIROUTER_DIRECTIVES } from "./directives/directives";
 import { UIView } from "./directives/uiView";
-import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter } from "@uirouter/core";
+import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from "@uirouter/core";
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
 
 import { ROUTES } from "@angular/router";
@@ -16,12 +16,27 @@ import { ROUTES } from "@angular/router";
 /** @hidden */ export const UIROUTER_STATES       = new InjectionToken("UIRouter States");
 // /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
-export function makeRootProviders(module: StatesModule): Provider[] {
+// Delay angular bootstrap until first transition is successful, for SSR.
+// See https://github.com/ui-router/angular/pull/127
+export function onTransitionReady(transitionService: TransitionService, root: RootModule[]) {
+  let mod = root[0];
+  if (!mod || !mod.deferInitialRender) {
+    return () => Promise.resolve();
+  }
+
+  return () => new Promise(resolve => {
+    const hook = trans => { trans.promise.then(resolve, resolve); };
+    transitionService.onStart({}, hook, { invokeLimit: 1 });
+  });
+}
+
+export function makeRootProviders(module: RootModule): Provider[] {
     return [
         { provide: UIROUTER_ROOT_MODULE,         useValue: module,              multi: true},
         { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
         { provide: ROUTES,                       useValue: module.states || [], multi: true },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
+        { provide: APP_INITIALIZER, useFactory: onTransitionReady, deps: [TransitionService, UIROUTER_ROOT_MODULE], multi: true },
     ];
 }
 
@@ -172,6 +187,17 @@ export interface RootModule extends StatesModule {
    * Sets [[UrlRouterProvider.deferIntercept]]
    */
   deferIntercept?: boolean;
+
+  /**
+   * Tells Angular to defer the first render until after the initial transition is complete.
+   *
+   * When `true`, adds an async `APP_INITIALIZER` which is resolved after any `onSuccess` or `onError`.
+   * The initializer stops angular from rendering the root component until after the first transition completes.
+   * This may prevent initial page flicker while the state is being loaded.
+   *
+   * Defaults to `false`
+   */
+  deferInitialRender?: boolean;
 }
 
 /**
