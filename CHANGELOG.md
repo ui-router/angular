@@ -1,5 +1,5 @@
-# 1.0.0-beta.7 (2017-10-07)
-[Compare `@uirouter/angular` versions 1.0.0-beta.7 and 1.0.0-beta.7](https://github.com/ui-router/ng2/compare/1.0.0-beta.7...1.0.0-beta.7)
+# 1.0.0-beta.8 (2017-10-07)
+[Compare `@uirouter/angular` versions 1.0.0-beta.7 and 1.0.0-beta.8](https://github.com/ui-router/ng2/compare/1.0.0-beta.7...1.0.0-beta.8)
 
 ### Bug Fixes
 
