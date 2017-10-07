@@ -1,3 +1,54 @@
+# 1.0.0-beta.7 (2017-10-07)
+[Compare `@uirouter/angular` versions 1.0.0-beta.7 and 1.0.0-beta.7](https://github.com/ui-router/ng2/compare/1.0.0-beta.7...1.0.0-beta.7)
+
+### Bug Fixes
+
+* **NgModule:** Use InjectionToken instead of OpaqueToken ([bfa604c](https://github.com/ui-router/ng2/commit/bfa604c))
+* **typescript:** Fix typescript 2.4 compatibility issue ([d0c46ce](https://github.com/ui-router/ng2/commit/d0c46ce))
+* **uiSref:** run update when input properties change ([#141](https://github.com/ui-router/ng2/issues/141)) ([9ecc6e2](https://github.com/ui-router/ng2/commit/9ecc6e2))
+
+
+### Features
+
+* **UIRouterModule:** Add deferInitialRender toggle to forRoot. Waits for initial router transition before bootstrapping the app the initial render. ([5ae9051](https://github.com/ui-router/ng2/commit/5ae9051))
+* **uiSrefStatus:** Emit all enclosed uiSref targetStates in the status object ([0687e19](https://github.com/ui-router/ng2/commit/0687e19))
+* **uiSrefStatus:** emit state/params in events ([bd67d25](https://github.com/ui-router/ng2/commit/bd67d25))
+
+
+
+## `@uirouter/core` updated from 5.0.4 to 5.0.10 (2017-10-07)
+[Compare `@uirouter/core` versions 5.0.4 and 5.0.10](https://github.com/ui-router/core/compare/5.0.4...5.0.10)
+
+### Bug Fixes
+
+* **angular/cli:** Use package.json fields: 'typings', 'main', 'jsnext:main' ([74143d9](https://github.com/ui-router/core/commit/74143d9))
+* **bundle:** Rollup: Do not warn on THIS_IS_UNDEFINED ([a4581b1](https://github.com/ui-router/core/commit/a4581b1))
+* **globals:** Use shallow copy to update the globals.params / $state.params object ([e883afc](https://github.com/ui-router/core/commit/e883afc))
+* **Injector:** When getting tokens from native injector, only throw on undefined (not on falsey values) ([ada9ca2](https://github.com/ui-router/core/commit/ada9ca2))
+* **isomorphic:** Remove use of CustomEvent. Detect root scope (global/window/self) for nodejs, browser, or web-worker. ([2d206ba](https://github.com/ui-router/core/commit/2d206ba))
+* **redirectTo:** Fix typings for redirectTo. Allow a function that returns a target state or a promise for one. ([3904487](https://github.com/ui-router/core/commit/3904487))
+* **sourceMaps:** Embed typescript sources in sourcemaps ([10558a3](https://github.com/ui-router/core/commit/10558a3))
+* **trace:** Fall back to console.log if .table is unavailable (IE) ([c8110fc](https://github.com/ui-router/core/commit/c8110fc))
+* **trace:** Support tracing of object-parameters with circular references ([2f1ae9a](https://github.com/ui-router/core/commit/2f1ae9a))
+* **typescript:** Fix strictNullCheck type error ([0ae585e](https://github.com/ui-router/core/commit/0ae585e))
+* **typescript:** Update to typescript 2.4 ([ce1669b](https://github.com/ui-router/core/commit/ce1669b))
+* **typings:** Use StateObject for parameter to hook criteria functions ([5b58566](https://github.com/ui-router/core/commit/5b58566))
+* **url:** Add CustomEvent polyfill for IE ([a50db21](https://github.com/ui-router/core/commit/a50db21))
+* **urlRouter:** Fix absolute 'href' generation by using location.hostname (not location.host) ([a28b68a](https://github.com/ui-router/core/commit/a28b68a))
+* **urlService:** Fix priority sorting of URL rules ([73a1fe0](https://github.com/ui-router/core/commit/73a1fe0))
+* **vanilla:** fix base path handling for vanilla push state ([ad61d74](https://github.com/ui-router/core/commit/ad61d74))
+* **vanilla:** Use `self` instead of `window` for webworker compat ([a4629ee](https://github.com/ui-router/core/commit/a4629ee))
+
+
+### Features
+
+* **Resolvable:** Add `.value()`: returns value (WAIT) or promise (NOWAIT) ([8769449](https://github.com/ui-router/core/commit/8769449))
+* **TargetState:** Add builder methods .withState, .withParams, and .withOptions ([6b93142](https://github.com/ui-router/core/commit/6b93142))
+* **TransitionHook:** Add hook registration option `invokeLimit` to limit the number of times a hook is invoked before being auto-deregistered. ([2cb17ef](https://github.com/ui-router/core/commit/2cb17ef))
+* **urlMatcher:** add support for multiline urls ([5b11ce0](https://github.com/ui-router/core/commit/5b11ce0))
+
+
+
 <a name="1.0.0-beta.7"></a>
 # [1.0.0-beta.7](https://github.com/ui-router/ng2/compare/1.0.0-beta.6...1.0.0-beta.7) (2017-06-19)
 
