@@ -179,9 +179,19 @@ export interface RootModule extends StatesModule {
   useHash?: boolean;
 
   /**
-   * Sets [[UrlRouterProvider.otherwise]].
+   * Configures the `otherwise` rule, which chooses the state or URL to activate when no other routes matched.
+   *
+   * See: [[UrlRulesApi.otherwise]].
    */
   otherwise?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef);
+
+  /**
+   * Configures the `initial` rule, which chooses the state or URL to activate when the
+   * application initially starts, and no other routes matched.
+   *
+   * See: [[UrlRulesApi.initial]].
+   */
+  initial?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef);
 
   /**
    * Sets [[UrlRouterProvider.deferIntercept]]
