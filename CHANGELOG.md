@@ -1,3 +1,18 @@
+# 1.0.0-beta.9 (2017-10-17)
+[Compare `@uirouter/angular` versions 1.0.0-beta.8 and 1.0.0-beta.9](https://github.com/ui-router/ng2/compare/1.0.0-beta.8...1.0.0-beta.9)
+
+### Features
+
+* **UIRouterModule:** Add `initial` property to `forRoot` to specify the initial route. ([b7b5e4f](https://github.com/ui-router/ng2/commit/b7b5e4f))
+
+
+### Updated `@uirouter/core` from 5.0.10 to 5.0.11
+[Compare `@uirouter/core` versions 5.0.10 and 5.0.11](https://github.com/ui-router/core/compare/5.0.10...5.0.11)
+
+### Bug Fixes
+
+* **ie9:** make console.bind work in ie9 ([#85](https://github.com/ui-router/core/issues/85)) ([318214b](https://github.com/ui-router/core/commit/318214b))
+
 # 1.0.0-beta.8 (2017-10-07)
 [Compare `@uirouter/angular` versions 1.0.0-beta.7 and 1.0.0-beta.8](https://github.com/ui-router/ng2/compare/1.0.0-beta.7...1.0.0-beta.8)
 
