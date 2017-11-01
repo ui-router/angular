@@ -183,12 +183,15 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
  *
  * This API is subject to change.
  */
-@Directive({ selector: '[uiSrefStatus],[uiSrefActive],[uiSrefActiveEq]' })
+@Directive({
+  selector: '[uiSrefStatus],[uiSrefActive],[uiSrefActiveEq]',
+  exportAs: 'uiSrefStatus'
+})
 export class UISrefStatus {
   /** current statuses of the state/params the uiSref directive is linking to */
   @Output("uiSrefStatus") uiSrefStatus = new EventEmitter<SrefStatus>(false);
   /** Monitor all child components for UISref(s) */
-  @ContentChildren(UISref, {descendants: true}) srefs: QueryList<UISref>;
+  @ContentChildren(UISref, {descendants: true}) private _srefs: QueryList<UISref>;
 
   /** The current status */
   status: SrefStatus;
@@ -218,8 +221,8 @@ export class UISrefStatus {
     // Watch the @ContentChildren UISref[] components and get their target states
 
     // let srefs$: Observable<UISref[]> = of(this.srefs.toArray()).concat(this.srefs.changes);
-    this._srefs$ = new BehaviorSubject(this.srefs.toArray());
-    this._srefChangesSub = this.srefs.changes.subscribe(srefs => this._srefs$.next(srefs));
+    this._srefs$ = new BehaviorSubject(this._srefs.toArray());
+    this._srefChangesSub = this._srefs.changes.subscribe(srefs => this._srefs$.next(srefs));
 
     let targetStates$: Observable<TargetState[]> =
         switchMap.call(this._srefs$, (srefs: UISref[]) =>

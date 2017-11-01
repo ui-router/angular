@@ -87,40 +87,25 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
  */
 @Component({
   selector: 'ui-view, [ui-view]',
+  exportAs: 'uiView',
   template: `
     <ng-template #componentTarget></ng-template>
-    <ng-content *ngIf="!componentRef"></ng-content>
+    <ng-content *ngIf="!_componentRef"></ng-content>
   `
-  // styles: [`
-  //   .done-true {
-  //     text-decoration: line-through;
-  //     color: grey;
-  //   }`
-  // ],
-  // template: `
-  // <div style="padding: 1em; border: 1px solid lightgrey;">
-  //
-  //   <div #content style="color: lightgrey; font-size: smaller;">
-  //     <div>ui-view #{{uiViewData?.id}} created by '{{ parentContext?.name || "(root)" }}' state</div>
-  //     <div>name: (absolute) '{{uiViewData?.fqn}}' (contextual) '{{uiViewData?.name}}@{{parentContext?.name}}' </div>
-  //     <div>currently filled by: '{{(uiViewData?.config && uiViewData?.config?.viewDecl?.$context) || 'empty...'}}'</div>
-  //   </div>
-  //
-  // </div>`
 })
 export class UIView {
-  @ViewChild('componentTarget', {read: ViewContainerRef}) componentTarget: ViewContainerRef;
+  @ViewChild('componentTarget', {read: ViewContainerRef}) _componentTarget: ViewContainerRef;
   @Input('name') name: string;
   @Input('ui-view') set _name(val: string) { this.name = val; }
   /** The reference to the component currently inside the viewport */
-  componentRef: ComponentRef<any>;
+  _componentRef: ComponentRef<any>;
   /** Deregisters the ui-view from the view service */
-  deregisterUIView: Function;
+  private _deregisterUIView: Function;
   /** Deregisters the master uiCanExit transition hook */
-  deregisterHook: Function;
+  private _deregisterHook: Function;
   /** Data about the this UIView */
-  uiViewData: ActiveUIView = <any> {};
-  parent: ParentUIViewInject;
+  private _uiViewData: ActiveUIView = <any> {};
+  private _parent: ParentUIViewInject;
 
   static PARENT_INJECT = "UIView.PARENT_INJECT";
 
@@ -129,26 +114,26 @@ export class UIView {
       @Inject(UIView.PARENT_INJECT) parent,
       public viewContainerRef: ViewContainerRef,
   ) {
-    this.parent = parent;
+    this._parent = parent;
   }
 
   ngOnInit() {
     const router = this.router;
-    const parentFqn = this.parent.fqn;
+    const parentFqn = this._parent.fqn;
     const name = this.name || '$default';
 
-    this.uiViewData = {
+    this._uiViewData = {
       $type: 'ng2',
       id: id++,
       name: name,
       fqn: parentFqn ? parentFqn + "." + name : name,
-      creationContext: this.parent.context,
-      configUpdated: this.viewConfigUpdated.bind(this),
+      creationContext: this._parent.context,
+      configUpdated: this._viewConfigUpdated.bind(this),
       config: undefined
     };
 
-    this.deregisterHook = router.transitionService.onBefore({}, trans => this.applyUiCanExitHook(trans));
-    this.deregisterUIView = router.viewService.registerUIView(this.uiViewData);
+    this._deregisterHook = router.transitionService.onBefore({}, trans => this._applyUiCanExitHook(trans));
+    this._deregisterUIView = router.viewService.registerUIView(this._uiViewData);
   }
 
   /**
@@ -159,12 +144,12 @@ export class UIView {
    *
    * If both are true, adds the uiCanExit component function as a hook to that singular Transition.
    */
-  applyUiCanExitHook(trans: Transition) {
-    const instance = this.componentRef && this.componentRef.instance;
+  private _applyUiCanExitHook(trans: Transition) {
+    const instance = this._componentRef && this._componentRef.instance;
     const uiCanExitFn: TransitionHookFn = instance && instance.uiCanExit;
 
     if (isFunction(uiCanExitFn)) {
-      const state: StateDeclaration = parse("uiViewData.config.viewDecl.$context.self")(this);
+      const state: StateDeclaration = parse("_uiViewData.config.viewDecl.$context.self")(this);
 
       if (trans.exiting().indexOf(state) !== -1) {
         trans.onStart({}, function() {
@@ -174,44 +159,44 @@ export class UIView {
     }
   }
 
-  disposeLast() {
-    if (this.componentRef) this.componentRef.destroy();
-    this.componentRef = null;
+  private _disposeLast() {
+    if (this._componentRef) this._componentRef.destroy();
+    this._componentRef = null;
   }
 
   ngOnDestroy() {
-    if (this.deregisterUIView) this.deregisterUIView();
-    if (this.deregisterHook) this.deregisterHook();
-    this.disposeLast();
+    if (this._deregisterUIView) this._deregisterUIView();
+    if (this._deregisterHook) this._deregisterHook();
+    this._disposeLast();
   }
 
   /**
    * The view service is informing us of an updated ViewConfig
    * (usually because a transition activated some state and its views)
    */
-  viewConfigUpdated(config: ViewConfig) {
+  _viewConfigUpdated(config: ViewConfig) {
     // The config may be undefined if there is nothing currently targeting this UIView.
     // Dispose the current component, if there is one
-    if (!config) return this.disposeLast();
+    if (!config) return this._disposeLast();
 
     // Only care about Ng2 configs
     if (!(config instanceof Ng2ViewConfig)) return;
 
     // The "new" viewconfig is already applied, so exit early
-    if (this.uiViewData.config === config) return;
+    if (this._uiViewData.config === config) return;
 
     // This is a new ViewConfig.  Dispose the previous component
-    this.disposeLast();
-    trace.traceUIViewConfigUpdated(this.uiViewData, config && config.viewDecl.$context);
+    this._disposeLast();
+    trace.traceUIViewConfigUpdated(this._uiViewData, config && config.viewDecl.$context);
 
-    this.applyUpdatedConfig(config);
+    this._applyUpdatedConfig(config);
   }
 
-  applyUpdatedConfig(config: Ng2ViewConfig) {
-    this.uiViewData.config = config;
+  private _applyUpdatedConfig(config: Ng2ViewConfig) {
+    this._uiViewData.config = config;
     // Create the Injector for the routed component
     let context = new ResolveContext(config.path);
-    let componentInjector = this.getComponentInjector(context);
+    let componentInjector = this._getComponentInjector(context);
 
     // Get the component class from the view declaration. TODO: allow promises?
     let componentClass = config.viewDecl.component;
@@ -219,10 +204,13 @@ export class UIView {
     // Create the component
     let compFactoryResolver = componentInjector.get(ComponentFactoryResolver);
     let compFactory = compFactoryResolver.resolveComponentFactory(componentClass);
-    this.componentRef = this.componentTarget.createComponent(compFactory, undefined, componentInjector);
+    this._componentRef = this._componentTarget.createComponent(compFactory, undefined, componentInjector);
 
     // Wire resolves to @Input()s
-    this.applyInputBindings(compFactory, this.componentRef, context, componentClass);
+    this._applyInputBindings(compFactory, this._componentRef.instance, context, componentClass);
+
+    // Initiate change detection for the newly created component
+    this._componentRef.changeDetectorRef.markForCheck();
   }
 
   /**
@@ -235,12 +223,12 @@ export class UIView {
    *
    * @returns an Injector
    */
-  getComponentInjector(context: ResolveContext): Injector {
+  private _getComponentInjector(context: ResolveContext): Injector {
     // Map resolves to "useValue: providers"
     let resolvables = context.getTokens().map(token => context.getResolvable(token)).filter(r => r.resolved);
     let newProviders = resolvables.map(r => ({ provide: r.token, useValue: r.data }));
 
-    let parentInject = { context: this.uiViewData.config.viewDecl.$context, fqn: this.uiViewData.fqn };
+    let parentInject = { context: this._uiViewData.config.viewDecl.$context, fqn: this._uiViewData.fqn };
     newProviders.push({ provide: UIView.PARENT_INJECT, useValue: parentInject });
 
     let parentComponentInjector = this.viewContainerRef.injector;
@@ -256,9 +244,8 @@ export class UIView {
    * Finds component inputs which match resolves (by name) and sets the input value
    * to the resolve data.
    */
-  applyInputBindings(factory: ComponentFactory<any>, ref: ComponentRef<any>, context: ResolveContext, componentClass) {
-    const component = ref.instance;
-    const bindings = this.uiViewData.config.viewDecl['bindings'] || {};
+  private _applyInputBindings(factory: ComponentFactory<any>, component: any, context: ResolveContext, componentClass) {
+    const bindings = this._uiViewData.config.viewDecl['bindings'] || {};
     const explicitBoundProps = Object.keys(bindings);
 
     // Returns the actual component property for a renamed an input renamed using `@Input('foo') _foo`.
@@ -285,8 +272,5 @@ export class UIView {
         .map(addResolvable)
         .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
         .forEach(tuple => { component[tuple.prop] = tuple.resolvable.data; });
-
-    // Initiate change detection for the newly created component
-    ref.changeDetectorRef.detectChanges();
   }
 }

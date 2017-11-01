@@ -68,6 +68,7 @@ export class AnchorUISref {
  */
 @Directive({
   selector: '[uiSref]',
+  exportAs: 'uiSref',
   host: { '(click)': 'go()' }
 })
 export class UISref implements OnChanges {
@@ -109,7 +110,7 @@ export class UISref implements OnChanges {
   /** @internalapi */ private _statesSub: Subscription;
   /** @internalapi */ private _router: UIRouter;
   /** @internalapi */ private _anchorUISref: AnchorUISref;
-  /** @internalapi */ public parent: ParentUIViewInject;
+  /** @internalapi */ private _parent: ParentUIViewInject;
 
   constructor(
       _router: UIRouter,
@@ -118,7 +119,7 @@ export class UISref implements OnChanges {
   ) {
     this._router = _router;
     this._anchorUISref = _anchorUISref;
-    this.parent = parent;
+    this._parent = parent;
 
     this._statesSub = _router.globals.states$.subscribe(() => this.update());
   }
@@ -145,7 +146,7 @@ export class UISref implements OnChanges {
     this.targetState$.unsubscribe();
   }
 
-  update() {
+  private update() {
     let $state = this._router.stateService;
     if (this._emit) {
       let newTarget = $state.target(this.state, this.params, this.getOptions());
@@ -160,7 +161,7 @@ export class UISref implements OnChanges {
 
   getOptions() {
     let defaultOpts: TransitionOptions = {
-      relative: this.parent && this.parent.context && this.parent.context.name,
+      relative: this._parent && this._parent.context && this._parent.context.name,
       inherit: true ,
       source: "sref"
     };
