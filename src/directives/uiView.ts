@@ -197,6 +197,9 @@ export class UIView {
     trace.traceUIViewConfigUpdated(this._uiViewData, config && config.viewDecl.$context);
 
     this._applyUpdatedConfig(config);
+
+    // Initiate change detection for the newly created component
+    this._componentRef.changeDetectorRef.markForCheck();
   }
 
   private _applyUpdatedConfig(config: Ng2ViewConfig) {
@@ -215,9 +218,6 @@ export class UIView {
 
     // Wire resolves to @Input()s
     this._applyInputBindings(compFactory, this._componentRef.instance, context, componentClass);
-
-    // Initiate change detection for the newly created component
-    this._componentRef.changeDetectorRef.markForCheck();
   }
 
   /**
