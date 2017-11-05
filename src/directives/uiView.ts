@@ -117,6 +117,13 @@ export class UIView {
     this._parent = parent;
   }
 
+  /**
+   * @returns the UI-Router `state` that is filling this uiView, or `undefined`.
+   */
+  public get state(): StateDeclaration {
+    return parse("_uiViewData.config.viewDecl.$context.self")(this);
+  }
+
   ngOnInit() {
     const router = this.router;
     const parentFqn = this._parent.fqn;
@@ -149,7 +156,7 @@ export class UIView {
     const uiCanExitFn: TransitionHookFn = instance && instance.uiCanExit;
 
     if (isFunction(uiCanExitFn)) {
-      const state: StateDeclaration = parse("_uiViewData.config.viewDecl.$context.self")(this);
+      const state: StateDeclaration = this.state;
 
       if (trans.exiting().indexOf(state) !== -1) {
         trans.onStart({}, function() {
