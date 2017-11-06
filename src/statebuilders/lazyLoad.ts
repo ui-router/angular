@@ -46,8 +46,7 @@ import {loadNgModule} from "../lazyLoad/lazyLoadNgModule";
  * ```
  *
  */
-export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction): ((transition: Transition) => Promise<LazyLoadResult>) |
-  ((transition: Transition, state: StateDeclaration) => Promise<LazyLoadResult>) {
+export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction): ((transition: Transition, state?: StateDeclaration) => Promise<LazyLoadResult>) {
   let loadNgModuleFn = state['loadChildren'];
   return loadNgModuleFn ? loadNgModule(loadNgModuleFn) : state.lazyLoad;
 }

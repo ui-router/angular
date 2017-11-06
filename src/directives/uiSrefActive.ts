@@ -1,8 +1,9 @@
 /** @ng2api @module directives */
 /** */
-import {Directive, ElementRef, Host, Input, OnDestroy, Renderer2} from "@angular/core";
+import {Directive, ElementRef, Host, Input, OnDestroy, Renderer} from "@angular/core";
 import {SrefStatus, UISrefStatus} from "./uiSrefStatus";
-import {Subscription} from "rxjs/Subscription";
+import {ReplaySubject} from "rxjs/ReplaySubject";
+import "rxjs/add/operator/takeUntil";
 
 /**
  * A directive that adds a CSS class when its associated `uiSref` link is active.
@@ -88,6 +89,7 @@ import {Subscription} from "rxjs/Subscription";
 export class UISrefActive implements OnDestroy {
 
   private _classes: string[] = [];
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   @Input('uiSrefActive') set active(val: string) {
     this._classes = val.split("\s+");
@@ -99,18 +101,17 @@ export class UISrefActive implements OnDestroy {
     this._classesEq = val.split("\s+");
   }
 
-  private _subscription: Subscription;
-
-  constructor(uiSrefStatus: UISrefStatus, rnd: Renderer2, @Host() host: ElementRef) {
-    this._subscription = uiSrefStatus.uiSrefStatus.subscribe((next: SrefStatus) => {
-      next.active ? this._classes.forEach(cls => rnd.addClass(host.nativeElement, cls)) : this._classes
-        .forEach(cls => rnd.removeClass(host.nativeElement, cls));
-      next.exact ? this._classesEq.forEach(cls => rnd.addClass(host.nativeElement, cls)) : this._classesEq
-        .forEach(cls => rnd.removeClass(host.nativeElement, cls));
-    });
+  constructor(uiSrefStatus: UISrefStatus, rnd: Renderer, @Host() host: ElementRef) {
+    uiSrefStatus.uiSrefStatus
+      .takeUntil(this.destroyed$)
+      .subscribe((next: SrefStatus) => {
+        this._classes.forEach(cls => rnd.setElementClass(host.nativeElement, cls, next.active));
+        this._classesEq.forEach(cls => rnd.setElementClass(host.nativeElement, cls, next.exact));
+      });
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
   }
 }
