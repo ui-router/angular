@@ -1,6 +1,7 @@
-/** @ng2api @module directives */ /** */
-import {Directive, Input, ElementRef, Host, Renderer} from "@angular/core";
-import {UISrefStatus, SrefStatus} from "./uiSrefStatus";
+/** @ng2api @module directives */
+/** */
+import {Directive, ElementRef, Host, Input, OnDestroy, Renderer2} from "@angular/core";
+import {SrefStatus, UISrefStatus} from "./uiSrefStatus";
 import {Subscription} from "rxjs/Subscription";
 
 /**
@@ -82,21 +83,30 @@ import {Subscription} from "rxjs/Subscription";
  * ```
  */
 @Directive({
-  selector: '[uiSrefActive],[uiSrefActiveEq]'
+  selector: '[uiSrefActive],[uiSrefActiveEq]',
 })
-export class UISrefActive {
+export class UISrefActive implements OnDestroy {
 
   private _classes: string[] = [];
-  @Input('uiSrefActive') set active(val: string) { this._classes = val.split("\s+")};
+
+  @Input('uiSrefActive') set active(val: string) {
+    this._classes = val.split("\s+");
+  }
 
   private _classesEq: string[] = [];
-  @Input('uiSrefActiveEq') set activeEq(val: string) { this._classesEq = val.split("\s+")};
+
+  @Input('uiSrefActiveEq') set activeEq(val: string) {
+    this._classesEq = val.split("\s+");
+  }
 
   private _subscription: Subscription;
-  constructor(uiSrefStatus: UISrefStatus, rnd: Renderer, @Host() host: ElementRef) {
+
+  constructor(uiSrefStatus: UISrefStatus, rnd: Renderer2, @Host() host: ElementRef) {
     this._subscription = uiSrefStatus.uiSrefStatus.subscribe((next: SrefStatus) => {
-      this._classes.forEach(cls => rnd.setElementClass(host.nativeElement, cls, next.active));
-      this._classesEq.forEach(cls => rnd.setElementClass(host.nativeElement, cls, next.exact));
+      next.active ? this._classes.forEach(cls => rnd.addClass(host.nativeElement, cls)) : this._classes
+        .forEach(cls => rnd.removeClass(host.nativeElement, cls));
+      next.exact ? this._classesEq.forEach(cls => rnd.addClass(host.nativeElement, cls)) : this._classesEq
+        .forEach(cls => rnd.removeClass(host.nativeElement, cls));
     });
   }
 

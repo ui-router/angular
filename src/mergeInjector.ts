@@ -15,17 +15,6 @@ export class MergeInjector implements Injector {
     this.injectors = injectors;
   }
 
-  /**
-   * Get the token from the first injector which contains it.
-   *
-   * Delegates to the first Injector.get().
-   * If not found, then delegates to the second Injector (and so forth).
-   * If no Injector contains the token, return the `notFoundValue`, or throw.
-   *
-   * @param token the DI token
-   * @param notFoundValue the value to return if none of the Injectors contains the token.
-   * @returns {any} the DI value
-   */
   get(token: any, notFoundValue?: any): any {
     for (let i = 0; i < this.injectors.length; i++) {
       let val = this.injectors[i].get(token, MergeInjector.NOT_FOUND);

@@ -68,7 +68,7 @@ export class AnchorUISref {
  */
 @Directive({
   selector: '[uiSref]',
-  host: { '(click)': 'go()' }
+  host: { '(click)': 'go()' },
 })
 export class UISref implements OnChanges {
 
@@ -162,7 +162,7 @@ export class UISref implements OnChanges {
     let defaultOpts: TransitionOptions = {
       relative: this.parent && this.parent.context && this.parent.context.name,
       inherit: true ,
-      source: "sref"
+      source: "sref",
     };
     return extend(defaultOpts, this.options || {});
   }

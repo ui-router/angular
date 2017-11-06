@@ -1,12 +1,9 @@
 /** @ng2api @module core */
 /** */
-import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from "@angular/core";
-import {
-  Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString, unnestR, inArray, StateObject,
-  uniqR
-} from "@uirouter/core";
-import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, StatesModule } from "../uiRouterNgModule";
-import { applyModuleConfig } from "../uiRouterConfig";
+import {Compiler, Injector, NgModuleFactory, NgModuleFactoryLoader, NgModuleRef, Type} from "@angular/core";
+import {inArray, isString, LazyLoadResult, NATIVE_INJECTOR_TOKEN, Resolvable, StateObject, Transition, UIRouter, uniqR, unnestR} from "@uirouter/core";
+import {RootModule, StatesModule, UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE} from "../uiRouterNgModule";
+import {applyModuleConfig} from "../uiRouterConfig";
 
 /**
  * A function that returns an NgModule, or a promise for an NgModule
@@ -146,7 +143,7 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
 
   let newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE)
       .reduce(uniqR, []) as RootModule[];
-  let newChildModules= multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
+  let newChildModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
       .reduce(uniqR, []) as StatesModule[];
 
   if (newRootModules.length) {
