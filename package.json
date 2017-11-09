@@ -103,7 +103,7 @@
     "typedoc-plugin-external-module-name": "^1.0.2",
     "typedoc-plugin-internal-external": "^1.0.0",
     "typedoc-plugin-ui-router": "^1.0.0",
-    "typescript": "~2.4.1",
+    "typescript": "2.4.2",
     "ui-router-typedoc-themes": "^1.0.0",
     "webpack": "^2.2.0",
     "webpack-dev-server": "2.2.0",
