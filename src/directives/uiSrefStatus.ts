@@ -1,14 +1,12 @@
 /** @ng2api @module directives */
 /** */
-import { Directive, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
-import { UISref } from './uiSref';
-import {
-  PathNode, Transition, TargetState, StateObject, anyTrueR, tail, unnestR, Predicate, UIRouterGlobals, Param, PathUtils, StateOrName
-} from '@uirouter/core';
+import {AfterContentInit, ContentChildren, Directive, EventEmitter, OnDestroy, Output, QueryList} from '@angular/core';
+import {UISref} from './uiSref';
+import {anyTrueR, Param, PathNode, PathUtils, Predicate, StateObject, tail, TargetState, Transition, UIRouterGlobals, unnestR} from '@uirouter/core';
 
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Subscription} from 'rxjs/Subscription';
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {of} from 'rxjs/observable/of';
 import {fromPromise} from 'rxjs/observable/fromPromise';
@@ -187,7 +185,7 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
   selector: '[uiSrefStatus],[uiSrefActive],[uiSrefActiveEq]',
   exportAs: 'uiSrefStatus'
 })
-export class UISrefStatus {
+export class UISrefStatus implements AfterContentInit, OnDestroy {
   /** current statuses of the state/params the uiSref directive is linking to */
   @Output("uiSrefStatus") uiSrefStatus = new EventEmitter<SrefStatus>(false);
   /** Monitor all child components for UISref(s) */

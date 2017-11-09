@@ -1,16 +1,24 @@
 /** @ng2api @module directives */
 /** */
-import {
-  Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type, ReflectiveInjector, ViewChild,
-  Injector, Inject, ComponentFactory
-} from '@angular/core';
+import {Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, Inject, Injector, Input, ViewChild, ViewContainerRef} from '@angular/core';
 
 import {
-  UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray, trace, ViewContext, ViewConfig,
-  ActiveUIView, ResolveContext, NATIVE_INJECTOR_TOKEN, flattenR
+  ActiveUIView,
+  inArray,
+  isFunction,
+  NATIVE_INJECTOR_TOKEN,
+  parse,
+  ResolveContext,
+  StateDeclaration,
+  trace,
+  Transition,
+  TransitionHookFn,
+  UIRouter,
+  ViewConfig,
+  ViewContext,
 } from '@uirouter/core';
-import { Ng2ViewConfig } from '../statebuilders/views';
-import { MergeInjector } from '../mergeInjector';
+import {Ng2ViewConfig} from '../statebuilders/views';
+import {MergeInjector} from '../mergeInjector';
 
 /** @hidden */
 let id = 0;
@@ -136,7 +144,7 @@ export class UIView {
       fqn: parentFqn ? parentFqn + "." + name : name,
       creationContext: this._parent.context,
       configUpdated: this._viewConfigUpdated.bind(this),
-      config: undefined
+      config: undefined,
     };
 
     this._deregisterHook = router.transitionService.onBefore({}, trans => this._applyUiCanExitHook(trans));
@@ -242,7 +250,7 @@ export class UIView {
     let moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
     let mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
 
-    return ReflectiveInjector.resolveAndCreate(newProviders, mergedParentInjector);
+    return Injector.create(newProviders, mergedParentInjector);
   }
 
   /**

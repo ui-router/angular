@@ -1,11 +1,7 @@
-/** @module ng2 */ /** */
-import { isFunction, StateObject } from "@uirouter/core";
-import {PathNode} from "@uirouter/core";
-import {pick, forEach} from "@uirouter/core";
-import {ViewConfig} from "@uirouter/core";
+/** @module ng2 */
+/** */
+import {forEach, isFunction, PathNode, pick, services, StateObject, ViewConfig, ViewService} from "@uirouter/core";
 import {Ng2ViewDeclaration} from "../interface";
-import {services} from "@uirouter/core";
-import {ViewService} from "@uirouter/core";
 
 /**
  * This is a [[StateBuilder.builder]] function for Angular `views`.
