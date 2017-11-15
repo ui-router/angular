@@ -1,3 +1,17 @@
+# 1.0.0-rc.0 (2017-11-15)
+[Compare `@uirouter/angular` versions 1.0.0-beta.9 and 1.0.0-rc.0](https://github.com/ui-router/ng2/compare/1.0.0-beta.9...1.0.0-rc.0)
+
+### Bug Fixes
+
+* **uiView:** Fix animations :enter trigger by using markForCheck ([3d7ce44](https://github.com/ui-router/ng2/commit/3d7ce44))
+
+
+### Features
+
+* **directives:** Export directives using `exportAs:` for use as template variables ([3d532b6](https://github.com/ui-router/ng2/commit/3d532b6))
+* **lazyLoad:** Allow loadChildren for non-future states. ([ac3cdef](https://github.com/ui-router/ng2/commit/ac3cdef))
+* **uiView:** add getter for state which is filling the uiview ([e7cb5f1](https://github.com/ui-router/ng2/commit/e7cb5f1))
+
 # 1.0.0-beta.9 (2017-10-17)
 [Compare `@uirouter/angular` versions 1.0.0-beta.8 and 1.0.0-beta.9](https://github.com/ui-router/ng2/compare/1.0.0-beta.8...1.0.0-beta.9)
 
