@@ -1,3 +1,11 @@
+# 1.0.0-rc.1 (2017-12-06)
+[Compare `@uirouter/angular` versions 1.0.0-rc.0 and 1.0.0-rc.1](https://github.com/ui-router/ng2/compare/1.0.0-rc.0...1.0.0-rc.1)
+
+### Bug Fixes
+
+* **package:** Rebuild uirouter/angular using angular 4.4.6 ([a39aed8](https://github.com/ui-router/ng2/commit/a39aed8))
+* **package.json:** npm shrinkwarp with angular 5 ([477d0f7](https://github.com/ui-router/ng2/commit/477d0f7))
+
 # 1.0.0-rc.0 (2017-11-15)
 [Compare `@uirouter/angular` versions 1.0.0-beta.9 and 1.0.0-rc.0](https://github.com/ui-router/ng2/compare/1.0.0-beta.9...1.0.0-rc.0)
 
