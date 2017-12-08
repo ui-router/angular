@@ -39,7 +39,7 @@ describe('uiSrefStatus', () => {
   describe('when click on `foo` uiSref', () => {
     beforeEach(async(() => {
       spyOn(component, 'updated');
-      de.triggerEventHandler('click', {});
+      de.triggerEventHandler('click', {button: 0, metaKey: false, ctrlKey: false});
     }));
 
     it('should emit a event with a TargetState pointing to `foo`', () => {
