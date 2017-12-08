@@ -1,7 +1,7 @@
 /** @ng2api @module directives */
 /** */
 import { UIRouter, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
-import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges } from "@angular/core";
+import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges, HostListener } from "@angular/core";
 import { UIView, ParentUIViewInject } from "./uiView";
 import { ReplaySubject } from "rxjs/ReplaySubject";
 import { Subscription } from "rxjs/Subscription";
@@ -69,7 +69,6 @@ export class AnchorUISref {
 @Directive({
   selector: '[uiSref]',
   exportAs: 'uiSref',
-  host: { '(click)': 'go()' }
 })
 export class UISref implements OnChanges {
 
@@ -169,9 +168,10 @@ export class UISref implements OnChanges {
   }
 
   /** When triggered by a (click) event, this function transitions to the UISref's target state */
-  go() {
-    if (this._anchorUISref && this._anchorUISref.openInNewTab()) {
-      return ;
+  @HostListener("click", ["$event.button", "$event.ctrlKey", "$event.metaKey"])
+  go(button: number, ctrlKey: boolean, metaKey: boolean) {
+    if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button !== 0 || ctrlKey || metaKey)) {
+      return;
     }
 
     this._router.stateService.go(this.state, this.params, this.getOptions());
