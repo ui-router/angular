@@ -104,7 +104,7 @@ describe('uiSref', () => {
 
         describe('when clicked', () => {
           beforeEach(() => {
-            des[0].triggerEventHandler('click', {});
+            des[0].triggerEventHandler('click', {button: 0, metaKey: false, ctrlKey: false});
           });
 
           it('should ignore the click event', () => {
@@ -121,7 +121,7 @@ describe('uiSref', () => {
 
         describe('when clicked', () => {
           beforeEach(() => {
-            des[0].triggerEventHandler('click', {});
+            des[0].triggerEventHandler('click', {button: 0, metaKey: false, ctrlKey: false});
           });
 
           it('should navigate to the state', () => {
