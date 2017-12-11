@@ -7,6 +7,7 @@ import { UISref } from '../../src/directives/uiSref';
 import { UIRouter, TargetState, TransitionOptions } from '@uirouter/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from "rxjs/Subscription";
+import { clickOnElement } from "../testUtils";
 
 describe('uiSref', () => {
   @Component({
@@ -104,7 +105,7 @@ describe('uiSref', () => {
 
         describe('when clicked', () => {
           beforeEach(() => {
-            des[0].triggerEventHandler('click', {button: 0, metaKey: false, ctrlKey: false});
+            clickOnElement(des[0]);
           });
 
           it('should ignore the click event', () => {
@@ -121,7 +122,7 @@ describe('uiSref', () => {
 
         describe('when clicked', () => {
           beforeEach(() => {
-            des[0].triggerEventHandler('click', {button: 0, metaKey: false, ctrlKey: false});
+            clickOnElement(des[0]);
           });
 
           it('should navigate to the state', () => {
@@ -129,6 +130,34 @@ describe('uiSref', () => {
           });
         });
       });
+
+      describe('opening in a new tab', () => {
+        beforeEach(() => {
+          comp.targetA = '';
+          fixture.detectChanges();
+        });
+
+        it('should fallback to the browser default when the button is not the left', () => {
+          clickOnElement(des[0], 1);
+          expect(uiRouterMock.stateService.go).not.toHaveBeenCalled();
+        });
+
+        it('should fallback to the browser default when the button is not set', () => {
+          clickOnElement(des[0], null);
+          expect(uiRouterMock.stateService.go).not.toHaveBeenCalled();
+        });
+
+        it('should fallback to the browser default when the meta key is pressed', () => {
+          clickOnElement(des[0], 0, true);
+          expect(uiRouterMock.stateService.go).not.toHaveBeenCalled();
+        });
+
+        it('should fallback to the browser default when the ctrl key is pressed', () => {
+          clickOnElement(des[0], 0, false, true);
+          expect(uiRouterMock.stateService.go).not.toHaveBeenCalled();
+        });
+      });
+
     });
 
     describe('when the bound values change', () => {

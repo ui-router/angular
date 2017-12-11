@@ -1,5 +1,5 @@
 import { forEach, map, omit, pick } from '@uirouter/core';
-import { TestBed } from '@angular/core/testing';
+import { DebugElement } from "@angular/core";
 let stateProps = ["resolve", "resolvePolicy", "data", "template", "templateUrl", "url", "name", "params"];
 
 export function tree2Array(tree, inheritName) {
@@ -58,4 +58,6 @@ export function PromiseResult(promise?) {
   }
 }
 
-
+export function clickOnElement(element: DebugElement, button = 0, metaKey = false, ctrlKey = false) {
+  element.triggerEventHandler('click', {button, metaKey, ctrlKey});
+}
