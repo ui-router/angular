@@ -1,4 +1,4 @@
-# UI-Router for Angular &nbsp;[![Build Status](https://travis-ci.org/ui-router/ng2.svg?branch=master)](https://travis-ci.org/ui-router/ng2)
+# UI-Router for Angular &nbsp;[![Build Status](https://travis-ci.org/ui-router/angular.svg?branch=master)](https://travis-ci.org/ui-router/angular)
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/ui-router/angular.svg)](https://greenkeeper.io/)
 
