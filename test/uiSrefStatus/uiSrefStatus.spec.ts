@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { SrefStatus, UISrefStatus } from '../../src/directives/uiSrefStatus';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
+import { clickOnElement } from "../testUtils";
 
 describe('uiSrefStatus', () => {
   @Component({
@@ -39,7 +40,7 @@ describe('uiSrefStatus', () => {
   describe('when click on `foo` uiSref', () => {
     beforeEach(async(() => {
       spyOn(component, 'updated');
-      de.triggerEventHandler('click', {button: 0, metaKey: false, ctrlKey: false});
+      clickOnElement(de);
     }));
 
     it('should emit a event with a TargetState pointing to `foo`', () => {
