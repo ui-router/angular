@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '6.6'
+- '8.9.1'
 
 before_script:
 - export DISPLAY=:99.0
@@ -21,9 +21,10 @@ script:
     git clone --depth=10 --branch="${CORE_BRANCH}" https://github.com/ui-router/core.git ui-router-core && \
     pushd ui-router-core && \
     yarn && \
-    npm run build && \
+    yarn build && \
+    CORE_PACK_FILENAME=`npm pack` && \
     popd && \
-    npm install ./ui-router-core ;
+    yarn add ./ui-router-core/${CORE_PACK_FILENAME} ;
   fi
 - npm run travis
 
