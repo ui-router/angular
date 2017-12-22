@@ -1,3 +1,34 @@
+# 1.0.0-rc.2 (2017-12-22)
+[Compare `@uirouter/angular` versions 1.0.0-rc.1 and 1.0.0-rc.2](https://github.com/ui-router/ng2/compare/1.0.0-rc.1...1.0.0-rc.2)
+
+### Bug Fixes
+
+* **package:** Bump dependency on uirouter/publish-scripts to fix npm install ([1a026d2](https://github.com/ui-router/ng2/commit/1a026d2))
+* **package:** update [@uirouter](https://github.com/uirouter)/core to version 5.0.13 ([90aa1d4](https://github.com/ui-router/ng2/commit/90aa1d4))
+
+
+### Features
+
+* **uiSref:** Add support for ctrl/middle-clicking on a uiSref generated URL ([#175](https://github.com/ui-router/ng2/issues/175)) ([973924a](https://github.com/ui-router/ng2/commit/973924a))
+
+
+### Updated `@uirouter/core` from 5.0.11 to 5.0.13
+[Compare `@uirouter/core` versions 5.0.11 and 5.0.13](https://github.com/ui-router/core/compare/5.0.11...5.0.13)
+
+### Bug Fixes
+
+* **browserLocation:** Use location.pathname (not href) or '/' when no base tag found ([db461d6](https://github.com/ui-router/core/commit/db461d6))
+* **browserLocationConfig:** If no base href found, use location.href (not empty string) ([0251424](https://github.com/ui-router/core/commit/0251424))
+* **pushStateLocation:** Fix URLs: add slash between base and path when necessary ([bfa5755](https://github.com/ui-router/core/commit/bfa5755))
+* **pushStateLocation:** When url is "" or "/", use baseHref for pushState ([042a950](https://github.com/ui-router/core/commit/042a950))
+* **resolve:** Add onFinish hook to resolve any dynamicly added resolvables ([7d1ca54](https://github.com/ui-router/core/commit/7d1ca54))
+* **urlRouter:** Update query params when resetting url via .update() ([7664cd0](https://github.com/ui-router/core/commit/7664cd0))
+
+
+### Features
+
+* **view:** Add onSync callback API to plugin API ([9544ae5](https://github.com/ui-router/core/commit/9544ae5))
+
 # 1.0.0-rc.1 (2017-12-06)
 [Compare `@uirouter/angular` versions 1.0.0-rc.0 and 1.0.0-rc.1](https://github.com/ui-router/ng2/compare/1.0.0-rc.0...1.0.0-rc.1)
 
