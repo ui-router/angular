@@ -15,16 +15,6 @@ matrix:
   allow_failures:
   - env: CORE_BRANCH=
 
-env:
-  matrix:
-    # CORE_BRANCH env variable specifies the branch of @uirouter/core to use during build/test
-    # Each CORE_BRANCH listed here will trigger a SEPARATE job in travis
-    - CORE_BRANCH=master
-
-    # If CORE_BRANCH is empty, it will use the @uirouter/core from npm dependencies
-    # (as specified in package.json)
-    - CORE_BRANCH=
-
 script:
 - echo "CORE_BRANCH = x${CORE_BRANCH}x";
 - >
@@ -47,3 +37,14 @@ git:
 notifications:
   slack:
     secure: e/lVSx31fq3lZqmG2NcL/b5vkYTHWEhuquLiRxqmLGcwOcpMU65ZmzQIqGvB8X1/WVT+A9pxPQL1E/iddC2IBUYelARsENUhZO6DbamoSaTzd5XvUKoXS3XF2GG7gf95pnXOYMJ6Jx+NE170dQ8EPAGJfjxZXX35KAz7DgQjzCG0iMNTaL1W4v8BmxmK7GaJuxERE6SzkxepeRbsHIlvDPlvMFCSn3TIIPYNAqkGEHgxJfmfnQu8V5Q9bJgi34wdqETgZfg1F8MOcvEwmcF9DazlAUI7Ie9A3YbbDKrWrNhVe7ylkGc2VKXoHZvk6etGCAH40BLDZ5uXCFHYzMAAoLo8pJUXoQ5g6Vq0jZiVY4y2LBJEhOnMcXrTOBDzKK9mlkGHAldgVZtgXvvf4WpviGgg2z2CuZBVkvlsZ2HMbpESxxrpR95kAINlnDEFJCCtcq7x4/VtI/AZ8+L3CSGKZE1/gugs5ShbjNtf0wuyWH9oIH4ZWlAVBuX21jhoexvKoE3kpGSypuUumFbkkESQ0+I6HnmvT9AkWs5KIpjScqklEEziVF3xNEh2K/Ccr/D1oH4KmfOUpx7WCgpFxaStfQhIcbdFntH823dQ+2BXgfVaC3VHZClUfvbmeHlsdDPLrhy98z9MKByA76IAE5/U52vIlFPO+ha6WitMj+XG2g0=
+
+env:
+  global:
+    secure: SwGGqOsUVNWKRjWyT3Nn+8NyCR5JQf9ep2yPJgAqExcWjjSLSPuj7WekLj8e5Aj8TUJZ3gMOQ1Pcs2WKBn8eLn/UxOAUqY259pGeHwd2T/28dt9bZO4Hzixr71fchbBwp+6ZLb8Mi/b4tsAbDX3Qz6eIxZ+h+xSNSoidOIOLmahTsKe8XI6YJllc8vY25v03tDS8M0bIOSx7Ggl75Hn1usfXEcgLbAcYhkttvezKQq6O78hut0v83FBkJXBtcDDIcHjL4o51jvYzKHhZbfAZ1eoXB03x4p6ZkFFPrh9kze173J8eN9DTGojd+ChiFqCU3O5vpkgRI61tfXoA2iT2tonCBgosO380wvE/lg4uTR8nZc+ijZPHk08MEgA44X6uYabAxntt/F731lrNKjxDU0skVlY9v3CdMsUvycjwDLz4VV4IcLwEBnQUAwVIDhQ9YtuBZGIQpfJFivqvUcFlcySq6S/GRj5PlcUJUWkw8DiWbBPLmf+bG4nACl1mpj+M73rcE6vB5q4BYZdmuGqz2T+ebdNk5U4whENeASSkBYfc2FeDB6byjKtP3vljKDErwC9dZy6qzvt8EgDBzc6rr6FgYdemAx/qXNTcVr82nPQa6BOwn3M12yBBOjQi/KkrgIifqA45so8IxXZdpUinLdKPDqpKoCrXaaVqB5kfzjU=
+  matrix:
+  # CORE_BRANCH env variable specifies the branch of @uirouter/core to use during build/test
+  # Each CORE_BRANCH listed here will trigger a SEPARATE job in travis
+  - CORE_BRANCH=master
+  # If CORE_BRANCH is empty, it will use the @uirouter/core from npm dependencies
+  # (as specified in package.json)
+  - CORE_BRANCH=
