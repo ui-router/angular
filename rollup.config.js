@@ -56,12 +56,14 @@ function isExternal(id) {
 }
 
 const CONFIG = {
-  moduleName: '@uirouter/angular',
-  entry: 'lib/index.js',
-  dest: '_bundles/ui-router-ng2' + extension,
+  input: 'lib/index.js',
+  output: {
+    name: '@uirouter/angular',
+    file: '_bundles/ui-router-ng2' + extension,
+    sourcemap: true,
+    format: 'umd',
+  },
 
-  sourceMap: true,
-  format: 'umd',
   exports: 'named',
   plugins: plugins,
   banner: banner,
