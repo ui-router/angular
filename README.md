@@ -1,5 +1,7 @@
 # UI-Router for Angular &nbsp;[![Build Status](https://travis-ci.org/ui-router/ng2.svg?branch=master)](https://travis-ci.org/ui-router/ng2)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ui-router/angular.svg)](https://greenkeeper.io/)
+
 ### @uirouter/angular: State based routing for Angular (v2+)
 
 ---
