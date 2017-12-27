@@ -19,7 +19,7 @@ script:
     pushd ui-router-core && \
     yarn && \
     yarn build && \
-    yalc publish \
+    yalc publish && \
     popd && \
     yalc add @uirouter/core ;
   fi
