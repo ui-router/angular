@@ -1,18 +1,15 @@
 language: node_js
-node_js:
-- '8.9.1'
+node_js: '8.9.1'
 
-before_script:
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- "./nodeserver.sh > /dev/null &"
-- greenkeeper-lockfile-update
+cache:
+  directories:
+  - node_modules
+  - downstream_projects
 
-before_install:
-- curl -o- -L https://yarnpkg.com/install.sh | bash
-- export PATH="$HOME/.yarn/bin:$PATH"
-- yarn global add greenkeeper-lockfile@1
+before_install: npm i -g yarn yalc greenkeeper-lockfile@1
+install: yarn --check-files
 
+before_script: greenkeeper-lockfile-update
 script:
 - echo "CORE_BRANCH = x${CORE_BRANCH}x";
 - >
@@ -22,15 +19,12 @@ script:
     pushd ui-router-core && \
     yarn && \
     yarn build && \
-    CORE_PACK_FILENAME=`npm pack` && \
+    yalc publish \
     popd && \
-    yarn add ./ui-router-core/${CORE_PACK_FILENAME} ;
+    yalc add @uirouter/core ;
   fi
 - npm run travis
-
 after_script: greenkeeper-lockfile-upload
-
-sudo: false
 
 git:
   depth: 10
