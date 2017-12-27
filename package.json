@@ -69,7 +69,7 @@
     "@angular/router": "^4.0.0",
     "@types/jasmine": "^2.2.34",
     "@types/jquery": "^3.2.17",
-    "@uirouter/publish-scripts": "2.0.8",
+    "@uirouter/publish-scripts": "2.1.0",
     "awesome-typescript-loader": "^3.1.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.2",
