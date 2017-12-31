@@ -8,7 +8,6 @@ test
 scripts
 
 node_modules
-downstream_projects
 
 tslint.json
 tsconfig.json

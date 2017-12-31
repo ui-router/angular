@@ -10,7 +10,6 @@
     "fixmaps:bundle": "tweak_sourcemap_paths -a --include '_bundles/**/*.js.map'",
     "build": "run-s compile bundle fixmaps:*",
     "release": "release --deps @uirouter/core",
-    "travis": "npm run build && npm run noimplicitany && npm run test",
     "test": "karma start",
     "test:downstream": "npm run build && test_downstream_projects",
     "noimplicitany": "tsc --noEmit --noImplicitAny --skipLibCheck --moduleResolution node --target es6 test/noimplicitany.ts",

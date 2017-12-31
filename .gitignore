@@ -1,13 +1,9 @@
 # common
 node_modules
-downstream_projects
-.DS_Store
+**/.*
 *~
-.tscache
-.baseDir.ts
 
 # webstorm files
-.idea
 idea-out
 *.iml
 *.ipr
@@ -17,4 +13,3 @@ _doc
 _bundles
 lib
 lib-esm
-stats.html
