@@ -9,7 +9,7 @@ script:
 # When CORE_BRANCH env variable is set, it will fetch, build, and test using that branch of @uirouter/core
 - if [ "x${CORE_BRANCH}x" != "xx" ] ; then ./node_modules/.bin/publish_yalc_package .downstream_cache/core https://github.com/ui-router/core.git && yalc add @uirouter/core ; fi
 # If DOWNSTREAM or DOWNSTREAM_PKGS is set, run downstream packages' tests instead
-- if [ "x${DOWNSTREAM_PKGS}${DOWNSTREAM}x" != "xx" ] ; then npm run test:downstream ; else tsc && npm test; fi
+- if [ "x${DOWNSTREAM_PKGS}${DOWNSTREAM}x" != "xx" ] ; then yarn test:downstream ; else tsc && yarn test; fi
 
 env:
   global:
