@@ -45,11 +45,9 @@ module.exports = function (karma) {
         rules: [
           {
             test: /\.ts$/,
-            loader: "awesome-typescript-loader",
+            loader: "ts-loader",
             options: {
-              noEmit: true,
-              tsconfig: "test/tsconfig.json",
-              configFileName: "test/tsconfig.json",
+              configFile: "test/tsconfig.json",
             }
           }
         ]

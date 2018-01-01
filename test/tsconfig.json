@@ -16,5 +16,6 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true
   },
-  "include": ["./**/*.ts"]
+  "include": ["./**/*.ts"],
+  "exclude": ["./ts/**/*"]
 }
