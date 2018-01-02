@@ -85,7 +85,7 @@
  * @preferred @module ng2
  */
 /** */
-import { Injector, Provider, PLATFORM_ID } from "@angular/core";
+import { Injector, Provider, PLATFORM_ID, APP_INITIALIZER } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import {
   UIRouter, PathNode, StateRegistry, StateService, TransitionService, UrlMatcherFactory, UrlRouter, ViewService,
@@ -154,13 +154,17 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, rootModules:
   rootModules.forEach(moduleConfig => applyRootModuleConfig(router, injector, moduleConfig));
   modules.forEach(moduleConfig => applyModuleConfig(router, injector, moduleConfig));
 
-  // Start monitoring the URL
-  if (!router.urlRouter.interceptDeferred) {
-    router.urlService.listen();
-    router.urlService.sync();
-  }
-
   return router;
+}
+
+// Start monitoring the URL when the app starts
+export function appInitializer(router: UIRouter) {
+  return () => {
+    if (!router.urlRouter.interceptDeferred) {
+      router.urlService.listen();
+      router.urlService.sync();
+    }
+  }
 }
 
 export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null, context: r.root() } as ParentUIViewInject; }
@@ -168,6 +172,7 @@ export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] =  [
   { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, Injector] },
   { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry]},
+  { provide: APP_INITIALIZER, useFactory: appInitializer, deps: [UIRouter], multi: true },
 ];
 
 export function fnStateService(r: UIRouter) { return r.stateService; }
