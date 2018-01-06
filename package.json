@@ -94,7 +94,7 @@
     "typescript": "~2.6.2",
     "ui-router-typedoc-themes": "^1.0.0",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "2.9.7",
+    "webpack-dev-server": "2.10.0",
     "zone.js": "^0.8.18"
   },
   "greenkeeper": {
