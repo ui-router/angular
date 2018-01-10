@@ -1,6 +1,6 @@
 /** @ng2api @module directives */
 /** */
-import { UIRouter, extend, Obj, TransitionOptions, TargetState } from '@uirouter/core';
+import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber } from '@uirouter/core';
 import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { UIView, ParentUIViewInject } from './uiView';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -170,7 +170,7 @@ export class UISref implements OnChanges {
   /** When triggered by a (click) event, this function transitions to the UISref's target state */
   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
   go(button: number, ctrlKey: boolean, metaKey: boolean) {
-    if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button || ctrlKey || metaKey)) {
+    if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button || !isNumber(button) || ctrlKey || metaKey)) {
       return;
     }
 
