@@ -10,12 +10,12 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import {of} from 'rxjs/observable/of';
-import {fromPromise} from 'rxjs/observable/fromPromise';
-import {combineLatest} from 'rxjs/observable/combineLatest';
-import {switchMap} from 'rxjs/operator/switchMap';
-import {map} from 'rxjs/operator/map';
-import {concat} from 'rxjs/operator/concat';
+import { of } from 'rxjs/observable/of';
+import { fromPromise } from 'rxjs/observable/fromPromise';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import { switchMap } from 'rxjs/operator/switchMap';
+import { map } from 'rxjs/operator/map';
+import { concat } from 'rxjs/operator/concat';
 
 /** @internalapi */
 interface TransEvt { evt: string; trans: Transition; }
@@ -191,7 +191,7 @@ export class UISrefStatus {
   /** current statuses of the state/params the uiSref directive is linking to */
   @Output('uiSrefStatus') uiSrefStatus = new EventEmitter<SrefStatus>(false);
   /** Monitor all child components for UISref(s) */
-  @ContentChildren(UISref, {descendants: true}) private _srefs: QueryList<UISref>;
+  @ContentChildren(UISref, { descendants: true }) private _srefs: QueryList<UISref>;
 
   /** The current status */
   status: SrefStatus;
@@ -209,7 +209,7 @@ export class UISrefStatus {
     // Map each transition start event to a stream of:
     // start -> (success|error)
     const transEvents$: Observable<TransEvt> = switchMap.call(this._globals.start$, (trans: Transition) => {
-      const event = (evt: string) => ({evt, trans} as TransEvt);
+      const event = (evt: string) => ({ evt, trans } as TransEvt);
 
       const transStart$ = of(event('start'));
       const transResult = trans.promise.then(() => event('success'), () => event('error'));

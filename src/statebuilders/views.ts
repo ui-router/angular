@@ -1,11 +1,11 @@
 /** @module ng2 */ /** */
 import { isFunction, StateObject } from '@uirouter/core';
-import {PathNode} from '@uirouter/core';
-import {pick, forEach} from '@uirouter/core';
-import {ViewConfig} from '@uirouter/core';
-import {Ng2ViewDeclaration} from '../interface';
-import {services} from '@uirouter/core';
-import {ViewService} from '@uirouter/core';
+import { PathNode } from '@uirouter/core';
+import { pick, forEach } from '@uirouter/core';
+import { ViewConfig } from '@uirouter/core';
+import { Ng2ViewDeclaration } from '../interface';
+import { services } from '@uirouter/core';
+import { ViewService } from '@uirouter/core';
 
 /**
  * This is a [[StateBuilder.builder]] function for Angular `views`.
@@ -18,7 +18,7 @@ import {ViewService} from '@uirouter/core';
  */
 export function ng2ViewsBuilder(state: StateObject) {
   const views: { [key: string]: Ng2ViewDeclaration } = {},
-      viewsObject = state.views || {'$default': pick(state, ['component', 'bindings'])};
+      viewsObject = state.views || { '$default': pick(state, ['component', 'bindings']) };
 
   forEach(viewsObject, function (config: Ng2ViewDeclaration, name: string) {
     name = name || '$default'; // Account for views: { "": { template... } }

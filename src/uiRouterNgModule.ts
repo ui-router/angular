@@ -32,7 +32,7 @@ export function onTransitionReady(transitionService: TransitionService, root: Ro
 
 export function makeRootProviders(module: RootModule): Provider[] {
     return [
-        { provide: UIROUTER_ROOT_MODULE,         useValue: module,              multi: true},
+        { provide: UIROUTER_ROOT_MODULE,         useValue: module,              multi: true },
         { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
         { provide: ROUTES,                       useValue: module.states || [], multi: true },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },

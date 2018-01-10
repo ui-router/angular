@@ -1,5 +1,5 @@
 /** @module ng2 */ /** */
-import {Injector} from '@angular/core';
+import { Injector } from '@angular/core';
 
 /**
  * Merge two injectors

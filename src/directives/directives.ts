@@ -9,10 +9,10 @@
  * @preferred
  * @module directives
  */ /** */
-import {UISref, AnchorUISref} from './uiSref';
-import {UISrefActive} from './uiSrefActive';
-import {UIView} from './uiView';
-import {UISrefStatus} from './uiSrefStatus';
+import { UISref, AnchorUISref } from './uiSref';
+import { UISrefActive } from './uiSrefActive';
+import { UIView } from './uiView';
+import { UISrefStatus } from './uiSrefStatus';
 
 export * from './uiView';
 export * from './uiSref';

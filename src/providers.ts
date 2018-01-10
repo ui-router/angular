@@ -171,7 +171,7 @@ export function parentUIViewInjectFactory(r: StateRegistry) { return { fqn: null
 
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] =  [
   { provide: UIRouter, useFactory: uiRouterFactory, deps: [LocationStrategy, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, Injector] },
-  { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry]},
+  { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry] },
   { provide: APP_INITIALIZER, useFactory: appInitializer, deps: [UIRouter], multi: true },
 ];
 
@@ -185,14 +185,14 @@ export function fnStateRegistry(r: UIRouter) { return r.stateRegistry; }
 export function fnGlobals(r: any) { return r.globals; }
 
 export const _UIROUTER_SERVICE_PROVIDERS: Provider[] = [
-  { provide: StateService,      useFactory: fnStateService,       deps: [UIRouter]},
-  { provide: TransitionService, useFactory: fnTransitionService,  deps: [UIRouter]},
-  { provide: UrlMatcherFactory, useFactory: fnUrlMatcherFactory,  deps: [UIRouter]},
-  { provide: UrlRouter,         useFactory: fnUrlRouter,          deps: [UIRouter]},
-  { provide: UrlService,        useFactory: fnUrlService,         deps: [UIRouter]},
-  { provide: ViewService,       useFactory: fnViewService,        deps: [UIRouter]},
-  { provide: StateRegistry,     useFactory: fnStateRegistry,      deps: [UIRouter]},
-  { provide: UIRouterGlobals,   useFactory: fnGlobals,            deps: [UIRouter]},
+  { provide: StateService,      useFactory: fnStateService,       deps: [UIRouter] },
+  { provide: TransitionService, useFactory: fnTransitionService,  deps: [UIRouter] },
+  { provide: UrlMatcherFactory, useFactory: fnUrlMatcherFactory,  deps: [UIRouter] },
+  { provide: UrlRouter,         useFactory: fnUrlRouter,          deps: [UIRouter] },
+  { provide: UrlService,        useFactory: fnUrlService,         deps: [UIRouter] },
+  { provide: ViewService,       useFactory: fnViewService,        deps: [UIRouter] },
+  { provide: StateRegistry,     useFactory: fnStateRegistry,      deps: [UIRouter] },
+  { provide: UIRouterGlobals,   useFactory: fnGlobals,            deps: [UIRouter] },
 ];
 
 /**
