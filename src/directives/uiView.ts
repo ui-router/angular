@@ -94,6 +94,8 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
   `
 })
 export class UIView {
+  static PARENT_INJECT = "UIView.PARENT_INJECT";
+
   @ViewChild('componentTarget', {read: ViewContainerRef}) _componentTarget: ViewContainerRef;
   @Input('name') name: string;
   @Input('ui-view') set _name(val: string) { this.name = val; }
@@ -106,8 +108,6 @@ export class UIView {
   /** Data about the this UIView */
   private _uiViewData: ActiveUIView = <any> {};
   private _parent: ParentUIViewInject;
-
-  static PARENT_INJECT = "UIView.PARENT_INJECT";
 
   constructor(
       public router: UIRouter,
