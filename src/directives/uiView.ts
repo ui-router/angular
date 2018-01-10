@@ -94,7 +94,7 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
   `
 })
 export class UIView {
-  static PARENT_INJECT = "UIView.PARENT_INJECT";
+  static PARENT_INJECT = 'UIView.PARENT_INJECT';
 
   @ViewChild('componentTarget', {read: ViewContainerRef}) _componentTarget: ViewContainerRef;
   @Input('name') name: string;
@@ -121,7 +121,7 @@ export class UIView {
    * @returns the UI-Router `state` that is filling this uiView, or `undefined`.
    */
   public get state(): StateDeclaration {
-    return parse("_uiViewData.config.viewDecl.$context.self")(this);
+    return parse('_uiViewData.config.viewDecl.$context.self')(this);
   }
 
   ngOnInit() {
@@ -133,7 +133,7 @@ export class UIView {
       $type: 'ng2',
       id: id++,
       name: name,
-      fqn: parentFqn ? parentFqn + "." + name : name,
+      fqn: parentFqn ? parentFqn + '.' + name : name,
       creationContext: this._parent.context,
       configUpdated: this._viewConfigUpdated.bind(this),
       config: undefined

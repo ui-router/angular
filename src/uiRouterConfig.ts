@@ -1,8 +1,8 @@
 /** @module ng2 */ /** */
-import { UIRouter, isFunction, StateObject } from "@uirouter/core";
-import {StatesModule, RootModule} from "./uiRouterNgModule";
-import {Injector} from "@angular/core";
-import {isDefined} from "@uirouter/core";
+import { UIRouter, isFunction, StateObject } from '@uirouter/core';
+import {StatesModule, RootModule} from './uiRouterNgModule';
+import {Injector} from '@angular/core';
+import {isDefined} from '@uirouter/core';
 
 export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, module: StatesModule = {}): StateObject[] {
   if (isFunction(module.config)) {

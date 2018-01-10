@@ -189,7 +189,7 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
 })
 export class UISrefStatus {
   /** current statuses of the state/params the uiSref directive is linking to */
-  @Output("uiSrefStatus") uiSrefStatus = new EventEmitter<SrefStatus>(false);
+  @Output('uiSrefStatus') uiSrefStatus = new EventEmitter<SrefStatus>(false);
   /** Monitor all child components for UISref(s) */
   @ContentChildren(UISref, {descendants: true}) private _srefs: QueryList<UISref>;
 
@@ -211,8 +211,8 @@ export class UISrefStatus {
     const transEvents$: Observable<TransEvt> = switchMap.call(this._globals.start$, (trans: Transition) => {
       const event = (evt: string) => ({evt, trans} as TransEvt);
 
-      const transStart$ = of(event("start"));
-      const transResult = trans.promise.then(() => event("success"), () => event("error"));
+      const transStart$ = of(event('start'));
+      const transResult = trans.promise.then(() => event('success'), () => event('error'));
       const transFinish$ = fromPromise(transResult);
 
       return concat.call(transStart$, transFinish$);

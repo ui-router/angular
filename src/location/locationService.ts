@@ -22,7 +22,7 @@ export class Ng2LocationServices extends BaseLocationServices {
 
   _set(state: any, title: string, url: string, replace: boolean): any {
     const { path, search, hash } = parseUrl(url);
-    const urlWithHash = path + (hash ? "#" + hash : "");
+    const urlWithHash = path + (hash ? '#' + hash : '');
 
     if (replace) {
       this._locationStrategy.replaceState(state, title, urlWithHash, search);

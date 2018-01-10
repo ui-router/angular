@@ -1,5 +1,5 @@
 /** @module ng2 */ /** */
-import {Injector} from "@angular/core";
+import {Injector} from '@angular/core';
 
 /**
  * Merge two injectors
@@ -11,7 +11,7 @@ export class MergeInjector implements Injector {
   static NOT_FOUND = {};
   private injectors: Injector[];
   constructor(...injectors: Injector[]) {
-    if (injectors.length < 2) throw new Error("pass at least two injectors");
+    if (injectors.length < 2) throw new Error('pass at least two injectors');
     this.injectors = injectors;
   }
 

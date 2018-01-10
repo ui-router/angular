@@ -1,9 +1,9 @@
 /** @ng2api @module state */
 /** */
 
-import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from "@uirouter/core";
-import { Type, Component } from "@angular/core";
-import { NgModuleToLoad } from "./lazyLoad/lazyLoadNgModule";
+import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from '@uirouter/core';
+import { Type, Component } from '@angular/core';
+import { NgModuleToLoad } from './lazyLoad/lazyLoadNgModule';
 
 /**
  * The StateDeclaration object is used to define a state or nested state.

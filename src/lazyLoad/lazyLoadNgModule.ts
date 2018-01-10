@@ -1,12 +1,12 @@
 /** @ng2api @module core */
 /** */
-import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from "@angular/core";
+import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from '@angular/core';
 import {
   Transition, LazyLoadResult, UIRouter, Resolvable, NATIVE_INJECTOR_TOKEN, isString, unnestR, inArray, StateObject,
   uniqR, StateDeclaration
-} from "@uirouter/core";
-import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, StatesModule } from "../uiRouterNgModule";
-import { applyModuleConfig } from "../uiRouterConfig";
+} from '@uirouter/core';
+import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, StatesModule } from '../uiRouterNgModule';
+import { applyModuleConfig } from '../uiRouterConfig';
 
 /**
  * A function that returns an NgModule, or a promise for an NgModule

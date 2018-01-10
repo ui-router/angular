@@ -9,15 +9,15 @@
  * @preferred
  * @module directives
  */ /** */
-import {UISref, AnchorUISref} from "./uiSref";
-import {UISrefActive} from "./uiSrefActive";
-import {UIView} from "./uiView";
-import {UISrefStatus} from "./uiSrefStatus";
+import {UISref, AnchorUISref} from './uiSref';
+import {UISrefActive} from './uiSrefActive';
+import {UIView} from './uiView';
+import {UISrefStatus} from './uiSrefStatus';
 
-export * from "./uiView";
-export * from "./uiSref";
-export * from "./uiSrefStatus";
-export * from "./uiSrefActive";
+export * from './uiView';
+export * from './uiSref';
+export * from './uiSrefStatus';
+export * from './uiSrefActive';
 
 /** @internalapi */
 export const _UIROUTER_DIRECTIVES = [UISref, AnchorUISref, UIView, UISrefActive, UISrefStatus];

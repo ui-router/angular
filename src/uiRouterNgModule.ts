@@ -1,19 +1,19 @@
 /** @ng2api @module core */
 /** */
-import { Ng2StateDeclaration } from "./interface";
+import { Ng2StateDeclaration } from './interface';
 import {
   NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector, InjectionToken, APP_INITIALIZER, PLATFORM_ID,
-} from "@angular/core";
-import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy, isPlatformServer } from "@angular/common";
-import { _UIROUTER_DIRECTIVES } from "./directives/directives";
-import { UIView } from "./directives/uiView";
-import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from "@uirouter/core";
-import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
+} from '@angular/core';
+import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy, isPlatformServer } from '@angular/common';
+import { _UIROUTER_DIRECTIVES } from './directives/directives';
+import { UIView } from './directives/uiView';
+import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
+import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
 
-import { ROUTES } from "@angular/router";
-/** @hidden */ export const UIROUTER_ROOT_MODULE  = new InjectionToken("UIRouter Root Module");
-/** @hidden */ export const UIROUTER_MODULE_TOKEN = new InjectionToken("UIRouter Module");
-/** @hidden */ export const UIROUTER_STATES       = new InjectionToken("UIRouter States");
+import { ROUTES } from '@angular/router';
+/** @hidden */ export const UIROUTER_ROOT_MODULE  = new InjectionToken('UIRouter Root Module');
+/** @hidden */ export const UIROUTER_MODULE_TOKEN = new InjectionToken('UIRouter Module');
+/** @hidden */ export const UIROUTER_STATES       = new InjectionToken('UIRouter States');
 // /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
 // Delay angular bootstrap until first transition is successful, for SSR.

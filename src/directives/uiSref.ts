@@ -1,10 +1,10 @@
 /** @ng2api @module directives */
 /** */
-import { UIRouter, extend, Obj, TransitionOptions, TargetState } from "@uirouter/core";
-import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges, HostListener } from "@angular/core";
-import { UIView, ParentUIViewInject } from "./uiView";
-import { ReplaySubject } from "rxjs/ReplaySubject";
-import { Subscription } from "rxjs/Subscription";
+import { UIRouter, extend, Obj, TransitionOptions, TargetState } from '@uirouter/core';
+import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges, HostListener } from '@angular/core';
+import { UIView, ParentUIViewInject } from './uiView';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * @internalapi
@@ -124,11 +124,11 @@ export class UISref implements OnChanges {
   }
 
   /** @internalapi */
-  set "uiSref"(val: string) { this.state = val; this.update(); }
+  set 'uiSref'(val: string) { this.state = val; this.update(); }
   /** @internalapi */
-  set "uiParams"(val: Obj) { this.params = val; this.update(); }
+  set 'uiParams'(val: Obj) { this.params = val; this.update(); }
   /** @internalapi */
-  set "uiOptions"(val: TransitionOptions) { this.options = val; this.update(); }
+  set 'uiOptions'(val: TransitionOptions) { this.options = val; this.update(); }
 
   ngOnInit() {
     this._emit = true;
@@ -162,13 +162,13 @@ export class UISref implements OnChanges {
     const defaultOpts: TransitionOptions = {
       relative: this._parent && this._parent.context && this._parent.context.name,
       inherit: true ,
-      source: "sref"
+      source: 'sref'
     };
     return extend(defaultOpts, this.options || {});
   }
 
   /** When triggered by a (click) event, this function transitions to the UISref's target state */
-  @HostListener("click", ["$event.button", "$event.ctrlKey", "$event.metaKey"])
+  @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
   go(button: number, ctrlKey: boolean, metaKey: boolean) {
     if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button != 0 || ctrlKey || metaKey)) {
       return;

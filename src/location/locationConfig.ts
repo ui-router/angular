@@ -1,8 +1,8 @@
 /** @module ng2 */
 /** */
 
-import { UIRouter, is, BrowserLocationConfig } from "@uirouter/core";
-import { LocationStrategy, PathLocationStrategy } from "@angular/common";
+import { UIRouter, is, BrowserLocationConfig } from '@uirouter/core';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 export class Ng2LocationConfig extends BrowserLocationConfig {
   constructor(router: UIRouter, private _locationStrategy: LocationStrategy) {

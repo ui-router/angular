@@ -85,23 +85,23 @@
  * @preferred @module ng2
  */
 /** */
-import { Injector, Provider, PLATFORM_ID, APP_INITIALIZER } from "@angular/core";
-import { isPlatformBrowser } from "@angular/common";
+import { Injector, Provider, PLATFORM_ID, APP_INITIALIZER } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {
   UIRouter, PathNode, StateRegistry, StateService, TransitionService, UrlMatcherFactory, UrlRouter, ViewService,
   UrlService, UIRouterGlobals, services, Resolvable, NATIVE_INJECTOR_TOKEN,
-} from "@uirouter/core";
-import { UIView, ParentUIViewInject } from "./directives/uiView";
-import { ng2ViewsBuilder, Ng2ViewConfig } from "./statebuilders/views";
-import { Ng2ViewDeclaration } from "./interface";
-import { applyRootModuleConfig, applyModuleConfig } from "./uiRouterConfig";
-import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from "./uiRouterNgModule";
-import { servicesPlugin, ServicesPlugin } from "@uirouter/core";
-import { ng2LazyLoadBuilder } from "./statebuilders/lazyLoad";
-import { UIRouterRx } from "@uirouter/rx";
-import { LocationStrategy } from "@angular/common";
-import { Ng2LocationServices } from "./location/locationService";
-import { Ng2LocationConfig } from "./location/locationConfig";
+} from '@uirouter/core';
+import { UIView, ParentUIViewInject } from './directives/uiView';
+import { ng2ViewsBuilder, Ng2ViewConfig } from './statebuilders/views';
+import { Ng2ViewDeclaration } from './interface';
+import { applyRootModuleConfig, applyModuleConfig } from './uiRouterConfig';
+import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from './uiRouterNgModule';
+import { servicesPlugin, ServicesPlugin } from '@uirouter/core';
+import { ng2LazyLoadBuilder } from './statebuilders/lazyLoad';
+import { UIRouterRx } from '@uirouter/rx';
+import { LocationStrategy } from '@angular/common';
+import { Ng2LocationServices } from './location/locationService';
+import { Ng2LocationConfig } from './location/locationConfig';
 
 /**
  * This is a factory function for a UIRouter instance
@@ -136,7 +136,7 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, rootModules:
 
   // Apply ng2 ui-view handling code
   const viewConfigFactory = (path: PathNode[], config: Ng2ViewDeclaration) => new Ng2ViewConfig(path, config);
-  router.viewService._pluginapi._viewConfigFactory("ng2", viewConfigFactory);
+  router.viewService._pluginapi._viewConfigFactory('ng2', viewConfigFactory);
 
   // Apply statebuilder decorator for ng2 NgModule registration
   const registry = router.stateRegistry;
