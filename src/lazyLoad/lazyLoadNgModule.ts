@@ -149,7 +149,7 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
       .reduce(uniqR, []) as StatesModule[];
 
   if (newRootModules.length) {
-    console.log(newRootModules);
+    console.log(newRootModules); // tslint:disable-line:no-console
     throw new Error('Lazy loaded modules should not contain a UIRouterModule.forRoot() module');
   }
 
