@@ -23,7 +23,7 @@ export function ng2ViewsBuilder(state: StateObject) {
   forEach(viewsObject, function (config: Ng2ViewDeclaration, name: string) {
     name = name || '$default'; // Account for views: { "": { template... } }
     if (isFunction(config)) config = { component: config as any };
-    if (Object.keys(config).length == 0) return;
+    if (Object.keys(config).length === 0) return;
 
     config.$type = 'ng2';
     config.$context = state;
