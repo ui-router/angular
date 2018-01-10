@@ -1,3 +1,19 @@
+# 1.0.0-rc.3 (2018-01-10)
+[Compare `@uirouter/angular` versions 1.0.0-rc.2 and 1.0.0-rc.3](https://github.com/ui-router/ng2/compare/1.0.0-rc.2...1.0.0-rc.3)
+
+### Bug Fixes
+
+* **hooks:** Use an APP_INITIALIZER to sync/listen to the URL ([f1d390f](https://github.com/ui-router/ng2/commit/f1d390f))
+
+
+### Updated `@uirouter/core` from 5.0.13 to 5.0.14
+[Compare `@uirouter/core` versions 5.0.13 and 5.0.14](https://github.com/ui-router/core/compare/5.0.13...5.0.14)
+
+### Bug Fixes
+
+* **trace:** Fix null reference in uiview name sort function ([59cb067](https://github.com/ui-router/core/commit/59cb067))
+* **treeChanges:** apply toParams to 'retained' path ([#72](https://github.com/ui-router/core/issues/72)) ([cf63d11](https://github.com/ui-router/core/commit/cf63d11))
+
 # 1.0.0-rc.2 (2017-12-22)
 [Compare `@uirouter/angular` versions 1.0.0-rc.1 and 1.0.0-rc.2](https://github.com/ui-router/ng2/compare/1.0.0-rc.1...1.0.0-rc.2)
 
