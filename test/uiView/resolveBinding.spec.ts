@@ -38,7 +38,7 @@ describe('uiView', () => {
         ],
       };
 
-      let routerModule = UIRouterModule.forRoot({ useHash: true, states: [manyResolves] });
+      const routerModule = UIRouterModule.forRoot({ useHash: true, states: [manyResolves] });
 
       fixture = TestBed.configureTestingModule({
         declarations: [ManyResolvesComponent],

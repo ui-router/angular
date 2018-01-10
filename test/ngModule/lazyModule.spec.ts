@@ -6,25 +6,25 @@ import { NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
 
 declare let System;
 
-let futureFoo = {
+const futureFoo = {
   name: 'foo.**',
   url: '/foo',
   loadChildren: () => System.import('./foo/foo.module').then(x => x.FooModule)
 };
 
-let futureBar = {
+const futureBar = {
   name: 'bar.**',
   url: '/bar',
   loadChildren: () => System.import('./foo/foo.module').then(x => x.FooModule)
 };
 
-let augment1 = {
+const augment1 = {
   name: 'augment1',
   url: '/augment1',
   loadChildren: () => System.import('./augment/augment.module').then(x => x.AugmentModule)
 };
 
-let augment2 = {
+const augment2 = {
   name: 'augment1.augment2',
   url: '/augment2',
 };
@@ -35,7 +35,7 @@ function configFn(router: UIRouter) {
 
 describe('lazy loading', () => {
   beforeEach(() => {
-    let routerModule = UIRouterModule.forRoot({ useHash: true, states: [], config: configFn });
+    const routerModule = UIRouterModule.forRoot({ useHash: true, states: [], config: configFn });
 
     TestBed.configureTestingModule({
       declarations: [],
@@ -47,7 +47,7 @@ describe('lazy loading', () => {
   });
 
   it('should lazy load a module', async(inject([UIRouter], (router: UIRouter) => {
-    let { stateRegistry, stateService, globals } = router;
+    const { stateRegistry, stateService, globals } = router;
     stateRegistry.register(futureFoo);
 
     const fixture = TestBed.createComponent(UIView);
@@ -68,14 +68,14 @@ describe('lazy loading', () => {
   })));
 
   it('should throw if no future state replacement is lazy loaded', async(inject([UIRouter], (router: UIRouter) => {
-    let { stateRegistry, stateService } = router;
+    const { stateRegistry, stateService } = router;
     stateService.defaultErrorHandler(() => null);
     stateRegistry.register(futureBar);
 
     const fixture = TestBed.createComponent(UIView);
     fixture.detectChanges();
 
-    let names = stateRegistry.get().map(state => state.name).sort();
+    const names = stateRegistry.get().map(state => state.name).sort();
     expect(names.length).toBe(2);
     expect(names).toEqual(['', 'bar.**']);
 
@@ -86,21 +86,21 @@ describe('lazy loading', () => {
   })));
 
   it('should support loadChildren on non-future state (manual state cleanup)', async(inject([UIRouter], (router: UIRouter) => {
-    let { stateRegistry, stateService } = router;
+    const { stateRegistry, stateService } = router;
     stateRegistry.register(augment1);
     stateRegistry.register(augment2);
 
     const fixture = TestBed.createComponent(UIView);
     fixture.detectChanges();
 
-    let names = stateRegistry.get().map(state => state.name).sort();
+    const names = stateRegistry.get().map(state => state.name).sort();
     expect(names).toEqual(['', 'augment1', 'augment1.augment2']);
 
     const wait = (delay) => new Promise(resolve => setTimeout(resolve, delay));
     stateService.go('augment1.augment2').then(() => {
       fixture.detectChanges();
       expect(stateService.current.name).toBe('augment1.augment2');
-      expect(fixture.debugElement.nativeElement.textContent.replace(/\s+/g, " ").trim()).toBe('Component 1 Component 2');
+      expect(fixture.debugElement.nativeElement.textContent.replace(/\s+/g, ' ').trim()).toBe('Component 1 Component 2');
     })
   })));
 

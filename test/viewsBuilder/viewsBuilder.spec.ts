@@ -55,7 +55,7 @@ describe('views statebuilder', () => {
       }
     };
 
-    let actual = ng2ViewsBuilder(state);
+    const actual = ng2ViewsBuilder(state);
     expect(actual).toEqual(expectedViews)
   });
 
@@ -80,7 +80,7 @@ describe('views statebuilder', () => {
       }
     };
 
-    let actual = ng2ViewsBuilder(state);
+    const actual = ng2ViewsBuilder(state);
     expect(actual).toEqual(expectedViews)
   });
 
@@ -99,7 +99,7 @@ describe('views statebuilder', () => {
         $type: 'ng2',
         $name: 'header',
         $uiViewName: 'header',
-        $uiViewContextAnchor: "",
+        $uiViewContextAnchor: '',
         $context: state,
         component: Cmp,
       },
@@ -107,13 +107,13 @@ describe('views statebuilder', () => {
         $type: 'ng2',
         $name: 'footer',
         $uiViewName: 'footer',
-        $uiViewContextAnchor: "",
+        $uiViewContextAnchor: '',
         $context: state,
         component: Cmp2,
       }
     };
 
-    let actual = ng2ViewsBuilder(state);
+    const actual = ng2ViewsBuilder(state);
     expect(actual).toEqual(expectedViews)
   });
 
@@ -132,7 +132,7 @@ describe('views statebuilder', () => {
         $type: 'ng2',
         $name: 'header',
         $uiViewName: 'header',
-        $uiViewContextAnchor: "",
+        $uiViewContextAnchor: '',
         $context: state,
         component: Cmp,
       },
@@ -140,13 +140,13 @@ describe('views statebuilder', () => {
         $type: 'ng2',
         $name: 'footer',
         $uiViewName: 'footer',
-        $uiViewContextAnchor: "",
+        $uiViewContextAnchor: '',
         $context: state,
         component: Cmp2,
       }
     };
 
-    let actual = ng2ViewsBuilder(state);
+    const actual = ng2ViewsBuilder(state);
     expect(actual).toEqual(expectedViews)
   });
 });

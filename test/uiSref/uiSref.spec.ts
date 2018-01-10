@@ -6,8 +6,8 @@ import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISref } from '../../src/directives/uiSref';
 import { UIRouter, TargetState, TransitionOptions } from '@uirouter/core';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from "rxjs/Subscription";
-import { clickOnElement } from "../testUtils";
+import { Subscription } from 'rxjs/Subscription';
+import { clickOnElement } from '../testUtils';
 
 describe('uiSref', () => {
   @Component({
@@ -182,7 +182,7 @@ describe('uiSref', () => {
       });
 
       describe('when the uiSref is empty', () => {
-        it('should emit an empty target state event', () =>{
+        it('should emit an empty target state event', () => {
           expect(logger.length).toBe(1);
           expect(logger[0].name()).toBeNull();
         });

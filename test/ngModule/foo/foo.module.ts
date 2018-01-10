@@ -17,13 +17,13 @@ export const child2 = { name: 'foo.child2', url: '/child2', component: Child2Com
 
 @NgModule({
   declarations: [FooComponent, Child1Component, Child2Component],
-  imports: [UIRouterModule.forChild({ states: [ foo, child1, child2 ]})],
+  imports: [UIRouterModule.forChild({ states: [ foo, child1, child2 ] })],
 })
 export class FooModule {}
 
 @NgModule({
   declarations: [FooComponent, Child1Component, Child2Component],
-  imports: [UIRouterModule.forChild({ states: [ child1, child2, foo ]})],
+  imports: [UIRouterModule.forChild({ states: [ child1, child2, foo ] })],
 })
 export class FooModuleOutOfOrder {}
 

@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { SrefStatus, UISrefStatus } from '../../src/directives/uiSrefStatus';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
-import { clickOnElement } from "../testUtils";
+import { clickOnElement } from '../testUtils';
 
 describe('uiSrefStatus', () => {
   @Component({
