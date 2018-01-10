@@ -116,7 +116,7 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, rootModules:
 
   // ----------------- Create router -----------------
   // Create a new ng2 UIRouter and configure it for ng2
-  let router = new UIRouter();
+  const router = new UIRouter();
 
   // Add RxJS plugin
   router.plugin(UIRouterRx);
@@ -135,16 +135,16 @@ export function uiRouterFactory(locationStrategy: LocationStrategy, rootModules:
   router.locationConfig = new Ng2LocationConfig(router, locationStrategy);
 
   // Apply ng2 ui-view handling code
-  let viewConfigFactory = (path: PathNode[], config: Ng2ViewDeclaration) => new Ng2ViewConfig(path, config);
+  const viewConfigFactory = (path: PathNode[], config: Ng2ViewDeclaration) => new Ng2ViewConfig(path, config);
   router.viewService._pluginapi._viewConfigFactory("ng2", viewConfigFactory);
 
   // Apply statebuilder decorator for ng2 NgModule registration
-  let registry = router.stateRegistry;
+  const registry = router.stateRegistry;
   registry.decorator('views', ng2ViewsBuilder);
   registry.decorator('lazyLoad', ng2LazyLoadBuilder);
 
   // Prep the tree of NgModule by placing the root NgModule's Injector on the root state.
-  let ng2InjectorResolvable = Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector);
+  const ng2InjectorResolvable = Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector);
   registry.root().resolvables.push(ng2InjectorResolvable);
 
   // Auto-flush the parameter type queue

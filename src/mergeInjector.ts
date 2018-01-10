@@ -28,7 +28,7 @@ export class MergeInjector implements Injector {
    */
   get(token: any, notFoundValue?: any): any {
     for (let i = 0; i < this.injectors.length; i++) {
-      let val = this.injectors[i].get(token, MergeInjector.NOT_FOUND);
+      const val = this.injectors[i].get(token, MergeInjector.NOT_FOUND);
       if (val !== MergeInjector.NOT_FOUND) return val;
     }
 

@@ -205,15 +205,15 @@ export class UIView {
   private _applyUpdatedConfig(config: Ng2ViewConfig) {
     this._uiViewData.config = config;
     // Create the Injector for the routed component
-    let context = new ResolveContext(config.path);
-    let componentInjector = this._getComponentInjector(context);
+    const context = new ResolveContext(config.path);
+    const componentInjector = this._getComponentInjector(context);
 
     // Get the component class from the view declaration. TODO: allow promises?
-    let componentClass = config.viewDecl.component;
+    const componentClass = config.viewDecl.component;
 
     // Create the component
-    let compFactoryResolver = componentInjector.get(ComponentFactoryResolver);
-    let compFactory = compFactoryResolver.resolveComponentFactory(componentClass);
+    const compFactoryResolver = componentInjector.get(ComponentFactoryResolver);
+    const compFactory = compFactoryResolver.resolveComponentFactory(componentClass);
     this._componentRef = this._componentTarget.createComponent(compFactory, undefined, componentInjector);
 
     // Wire resolves to @Input()s
@@ -232,15 +232,15 @@ export class UIView {
    */
   private _getComponentInjector(context: ResolveContext): Injector {
     // Map resolves to "useValue: providers"
-    let resolvables = context.getTokens().map(token => context.getResolvable(token)).filter(r => r.resolved);
-    let newProviders = resolvables.map(r => ({ provide: r.token, useValue: r.data }));
+    const resolvables = context.getTokens().map(token => context.getResolvable(token)).filter(r => r.resolved);
+    const newProviders = resolvables.map(r => ({ provide: r.token, useValue: r.data }));
 
-    let parentInject = { context: this._uiViewData.config.viewDecl.$context, fqn: this._uiViewData.fqn };
+    const parentInject = { context: this._uiViewData.config.viewDecl.$context, fqn: this._uiViewData.fqn };
     newProviders.push({ provide: UIView.PARENT_INJECT, useValue: parentInject });
 
-    let parentComponentInjector = this.viewContainerRef.injector;
-    let moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
-    let mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
+    const parentComponentInjector = this.viewContainerRef.injector;
+    const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
+    const mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
 
     return ReflectiveInjector.resolveAndCreate(newProviders, mergedParentInjector);
   }

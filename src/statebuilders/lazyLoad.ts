@@ -48,6 +48,6 @@ import { loadNgModule } from "../lazyLoad/lazyLoadNgModule";
  *
  */
 export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction) {
-  let loadNgModuleFn = state['loadChildren'];
+  const loadNgModuleFn = state['loadChildren'];
   return loadNgModuleFn ? loadNgModule(loadNgModuleFn) : state.lazyLoad;
 }

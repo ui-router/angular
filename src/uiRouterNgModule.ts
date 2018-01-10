@@ -19,7 +19,7 @@ import { ROUTES } from "@angular/router";
 // Delay angular bootstrap until first transition is successful, for SSR.
 // See https://github.com/ui-router/angular/pull/127
 export function onTransitionReady(transitionService: TransitionService, root: RootModule[]) {
-  let mod = root[0];
+  const mod = root[0];
   if (!mod || !mod.deferInitialRender) {
     return () => Promise.resolve();
   }

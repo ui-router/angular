@@ -55,17 +55,17 @@ const inactiveStatus: SrefStatus = {
  */
 const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
   if (!target.exists()) return () => false;
-  let state: StateObject = target.$state();
-  let targetParamVals = target.params();
-  let targetPath: PathNode[] = PathUtils.buildPath(target);
-  let paramSchema: Param[] = targetPath.map(node => node.paramSchema)
+  const state: StateObject = target.$state();
+  const targetParamVals = target.params();
+  const targetPath: PathNode[] = PathUtils.buildPath(target);
+  const paramSchema: Param[] = targetPath.map(node => node.paramSchema)
       .reduce(unnestR, [])
       .filter((param: Param) => targetParamVals.hasOwnProperty(param.id));
 
   return (path: PathNode[]) => {
-    let tailNode = tail(path);
+    const tailNode = tail(path);
     if (!tailNode || tailNode.state !== state) return false;
-    let paramValues = PathUtils.paramValues(path);
+    const paramValues = PathUtils.paramValues(path);
     return Param.equals(paramSchema, paramValues, targetParamVals);
   };
 };
@@ -93,9 +93,9 @@ function getSrefStatus(event: TransEvt, srefTarget: TargetState): SrefStatus {
   const pathMatchesTarget = pathMatches(srefTarget);
   const tc = event.trans.treeChanges();
 
-  let isStartEvent = event.evt === 'start';
-  let isSuccessEvent = event.evt === 'success';
-  let activePath: PathNode[] = isSuccessEvent ? tc.to : tc.from;
+  const isStartEvent = event.evt === 'start';
+  const isSuccessEvent = event.evt === 'success';
+  const activePath: PathNode[] = isSuccessEvent ? tc.to : tc.from;
 
   const isActive = () =>
       spreadToSubPaths([], activePath)
@@ -208,12 +208,12 @@ export class UISrefStatus {
   ngAfterContentInit() {
     // Map each transition start event to a stream of:
     // start -> (success|error)
-    let transEvents$: Observable<TransEvt> = switchMap.call(this._globals.start$, (trans: Transition) => {
+    const transEvents$: Observable<TransEvt> = switchMap.call(this._globals.start$, (trans: Transition) => {
       const event = (evt: string) => ({evt, trans} as TransEvt);
 
-      let transStart$ = of(event("start"));
-      let transResult = trans.promise.then(() => event("success"), () => event("error"));
-      let transFinish$ = fromPromise(transResult);
+      const transStart$ = of(event("start"));
+      const transResult = trans.promise.then(() => event("success"), () => event("error"));
+      const transFinish$ = fromPromise(transResult);
 
       return concat.call(transStart$, transFinish$);
     });
@@ -224,7 +224,7 @@ export class UISrefStatus {
     this._srefs$ = new BehaviorSubject(this._srefs.toArray());
     this._srefChangesSub = this._srefs.changes.subscribe(srefs => this._srefs$.next(srefs));
 
-    let targetStates$: Observable<TargetState[]> =
+    const targetStates$: Observable<TargetState[]> =
         switchMap.call(this._srefs$, (srefs: UISref[]) =>
             combineLatest<TargetState[]>(srefs.map(sref => sref.targetState$)));
 
@@ -232,7 +232,7 @@ export class UISrefStatus {
     // Reduce the statuses (if multiple) by or-ing each flag.
     this._subscription = switchMap.call(transEvents$, (evt: TransEvt) => {
       return map.call(targetStates$, (targets: TargetState[]) => {
-        let statuses: SrefStatus[] = targets.map(target => getSrefStatus(evt, target));
+        const statuses: SrefStatus[] = targets.map(target => getSrefStatus(evt, target));
         return statuses.reduce(mergeSrefStatus);
       });
     }).subscribe(this._setStatus.bind(this));

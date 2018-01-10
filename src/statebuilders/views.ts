@@ -17,7 +17,7 @@ import {ViewService} from "@uirouter/core";
  * applies the state-level configuration to a view named `$default`.
  */
 export function ng2ViewsBuilder(state: StateObject) {
-  let views: { [key: string]: Ng2ViewDeclaration } = {},
+  const views: { [key: string]: Ng2ViewDeclaration } = {},
       viewsObject = state.views || {"$default": pick(state, ["component", "bindings"])};
 
   forEach(viewsObject, function (config: Ng2ViewDeclaration, name: string) {
@@ -29,7 +29,7 @@ export function ng2ViewsBuilder(state: StateObject) {
     config.$context = state;
     config.$name = name;
 
-    let normalized = ViewService.normalizeUIViewTarget(config.$context, config.$name);
+    const normalized = ViewService.normalizeUIViewTarget(config.$context, config.$name);
     config.$uiViewName = normalized.uiViewName;
     config.$uiViewContextAnchor = normalized.uiViewContextAnchor;
 

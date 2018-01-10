@@ -146,20 +146,20 @@ export class UISref implements OnChanges {
   }
 
   private update() {
-    let $state = this._router.stateService;
+    const $state = this._router.stateService;
     if (this._emit) {
-      let newTarget = $state.target(this.state, this.params, this.getOptions());
+      const newTarget = $state.target(this.state, this.params, this.getOptions());
       this.targetState$.next(newTarget);
     }
 
     if (this._anchorUISref) {
-      let href = $state.href(this.state, this.params, this.getOptions());
+      const href = $state.href(this.state, this.params, this.getOptions());
       this._anchorUISref.update(href);
     }
   }
 
   getOptions() {
-    let defaultOpts: TransitionOptions = {
+    const defaultOpts: TransitionOptions = {
       relative: this._parent && this._parent.context && this._parent.context.name,
       inherit: true ,
       source: "sref"

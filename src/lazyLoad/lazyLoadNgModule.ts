@@ -132,20 +132,20 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
  * @internalapi
  */
 export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any>, parentInjector: Injector, lazyLoadState: StateDeclaration): LazyLoadResult {
-  let injector = ng2Module.injector;
-  let uiRouter: UIRouter = injector.get(UIRouter);
-  let registry = uiRouter.stateRegistry;
+  const injector = ng2Module.injector;
+  const uiRouter: UIRouter = injector.get(UIRouter);
+  const registry = uiRouter.stateRegistry;
 
-  let originalName = lazyLoadState.name;
-  let originalState = registry.get(originalName);
+  const originalName = lazyLoadState.name;
+  const originalState = registry.get(originalName);
   // Check if it's a future state (ends with .**)
-  let isFuture = /^(.*)\.\*\*$/.exec(originalName);
+  const isFuture = /^(.*)\.\*\*$/.exec(originalName);
   // Final name (without the .**)
-  let replacementName = isFuture && isFuture[1];
+  const replacementName = isFuture && isFuture[1];
 
-  let newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE)
+  const newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE)
       .reduce(uniqR, []) as RootModule[];
-  let newChildModules= multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
+  const newChildModules= multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
       .reduce(uniqR, []) as StatesModule[];
 
   if (newRootModules.length) {
@@ -153,13 +153,13 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
     throw new Error('Lazy loaded modules should not contain a UIRouterModule.forRoot() module');
   }
 
-  let newStateObjects: StateObject[] = newChildModules
+  const newStateObjects: StateObject[] = newChildModules
       .map(module => applyModuleConfig(uiRouter, injector, module))
       .reduce(unnestR, [])
       .reduce(uniqR, []);
 
   if (isFuture) {
-    let replacementState = registry.get(replacementName);
+    const replacementState = registry.get(replacementName);
     if (!replacementState || replacementState === originalState) {
       throw new Error(`The Future State named '${originalName}' lazy loaded an NgModule. ` +
           `The lazy loaded NgModule must have a state named '${replacementName}' ` +
@@ -172,7 +172,7 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
   // Supply the newly loaded states with the Injector from the lazy loaded NgModule.
   // If a tree of states is lazy loaded, only add the injector to the root of the lazy loaded tree.
   // The children will get the injector by resolve inheritance.
-  let newParentStates = newStateObjects.filter(state => !inArray(newStateObjects, state.parent));
+  const newParentStates = newStateObjects.filter(state => !inArray(newStateObjects, state.parent));
 
   // Add the Injector to the top of the lazy loaded state tree as a resolve
   newParentStates.forEach(state => state.resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector)));
@@ -191,7 +191,7 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
  * @internalapi
  */
 export function multiProviderParentChildDelta(parent: Injector, child: Injector, token: any) {
-  let childVals: RootModule[] = child.get(token, []);
-  let parentVals: RootModule[] = parent.get(token, []);
+  const childVals: RootModule[] = child.get(token, []);
+  const parentVals: RootModule[] = parent.get(token, []);
   return childVals.filter(val => parentVals.indexOf(val) === -1);
 }

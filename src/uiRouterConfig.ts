@@ -9,7 +9,7 @@ export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, module
     module.config(uiRouter, injector, module);
   }
 
-  let states = module.states || [];
+  const states = module.states || [];
   return states.map(state => uiRouter.stateRegistry.register(state));
 }
 
