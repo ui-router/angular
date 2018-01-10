@@ -41,7 +41,7 @@ export function ng2ViewsBuilder(state: StateObject) {
 let id = 0;
 export class Ng2ViewConfig implements ViewConfig {
   $id: number = id++;
-  loaded: boolean = true;
+  loaded = true;
 
   constructor(public path: PathNode[], public viewDecl: Ng2ViewDeclaration) { }
 

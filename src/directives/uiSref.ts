@@ -105,7 +105,7 @@ export class UISref implements OnChanges {
    */
   public targetState$ = new ReplaySubject<TargetState>(1);
 
-  /** @internalapi */ private _emit: boolean = false;
+  /** @internalapi */ private _emit = false;
   /** @internalapi */ private _statesSub: Subscription;
   /** @internalapi */ private _router: UIRouter;
   /** @internalapi */ private _anchorUISref: AnchorUISref;
