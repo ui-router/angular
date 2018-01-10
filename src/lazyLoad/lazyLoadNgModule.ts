@@ -145,7 +145,7 @@ export function applyNgModule(transition: Transition, ng2Module: NgModuleRef<any
 
   const newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE)
       .reduce(uniqR, []) as RootModule[];
-  const newChildModules= multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
+  const newChildModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN)
       .reduce(uniqR, []) as StatesModule[];
 
   if (newRootModules.length) {
