@@ -49,9 +49,7 @@
   "typings": "lib/index.d.ts",
   "dependencies": {
     "@uirouter/core": "5.0.14",
-    "@uirouter/rx": "0.4.5",
-    "ts-loader": "^3.2.0",
-    "tslib": "^1.7.1"
+    "@uirouter/rx": "0.4.5"
   },
   "peerDependencies": {
     "@angular/common": "^4.0.0 || ^5.0.0",
@@ -86,6 +84,8 @@
     "rxjs": "5.5.6",
     "shelljs": "0.7.0",
     "shx": "0.2.2",
+    "ts-loader": "^3.2.0",
+    "tslib": "^1.7.1",
     "tslint": "5.8.0",
     "typedoc": "~0.9.0",
     "typedoc-plugin-external-module-name": "1.0.2",
