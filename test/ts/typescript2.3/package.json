@@ -8,7 +8,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@angular/common": "latest",
+    "@angular/core": "latest",
     "@uirouter/angular": "latest",
+    "rxjs": "latest",
     "typescript": "2.3"
   },
   "devDependencies": {}
