@@ -1,3 +1,22 @@
+# 1.0.0 (2018-01-31)
+[Compare `@uirouter/angular` versions 1.0.0-rc.3 and 1.0.0](https://github.com/ui-router/ng2/compare/1.0.0-rc.3...1.0.0)
+
+
+### Updated `@uirouter/core` from 5.0.14 to 5.0.16
+[Compare `@uirouter/core` versions 5.0.14 and 5.0.16](https://github.com/ui-router/core/compare/5.0.14...5.0.16)
+
+### Bug Fixes
+
+* **common:** Fix signature of  for objects (make target optional) ([61d0afc](https://github.com/ui-router/core/commit/61d0afc))
+* **core:** Fix memory leak of resolve data from ALL transitions ever ([7f2aed1](https://github.com/ui-router/core/commit/7f2aed1))
+* **pathNode:** add backwards compat for PathNode.clone(). Add retainedWithToParams to treeChanges interface. ([4833a32](https://github.com/ui-router/core/commit/4833a32))
+
+
+### Features
+
+* **common:** Add map-in-place support to map() ([12bc7d8](https://github.com/ui-router/core/commit/12bc7d8))
+* **common:** Add onEvict() callback registry for queues with max length ([c19d007](https://github.com/ui-router/core/commit/c19d007))
+
 # 1.0.0-rc.3 (2018-01-10)
 [Compare `@uirouter/angular` versions 1.0.0-rc.2 and 1.0.0-rc.3](https://github.com/ui-router/ng2/compare/1.0.0-rc.2...1.0.0-rc.3)
 
