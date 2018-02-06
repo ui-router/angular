@@ -58,54 +58,52 @@ const CONFIG = {
     file: '_bundles/ui-router-ng2' + extension,
     sourcemap: true,
     format: 'umd',
+    exports: 'named',
+    banner: banner,
+    globals: {
+      'tslib': 'tslib',
+      'rxjs/ReplaySubject': 'Rx',
+
+      // Copied these from @angular/router rollup config
+      'rxjs/BehaviorSubject': 'Rx',
+      'rxjs/Observable': 'Rx',
+      'rxjs/Subject': 'Rx',
+      'rxjs/Subscription': 'Rx',
+      'rxjs/util/EmptyError': 'Rx',
+
+      'rxjs/observable/combineLatest': 'Rx.Observable',
+      'rxjs/observable/forkJoin': 'Rx.Observable',
+      'rxjs/observable/from': 'Rx.Observable',
+      'rxjs/observable/fromPromise': 'Rx.Observable',
+      'rxjs/observable/of': 'Rx.Observable',
+
+      'rxjs/operator/catch': 'Rx.Observable.prototype',
+      'rxjs/operator/concat': 'Rx.Observable.prototype',
+      'rxjs/operator/concatAll': 'Rx.Observable.prototype',
+      'rxjs/operator/concatMap': 'Rx.Observable.prototype',
+      'rxjs/operator/every': 'Rx.Observable.prototype',
+      'rxjs/operator/filter': 'Rx.Observable.prototype',
+      'rxjs/operator/first': 'Rx.Observable.prototype',
+      'rxjs/operator/last': 'Rx.Observable.prototype',
+      'rxjs/operator/map': 'Rx.Observable.prototype',
+      'rxjs/operator/mergeAll': 'Rx.Observable.prototype',
+      'rxjs/operator/mergeMap': 'Rx.Observable.prototype',
+      'rxjs/operator/reduce': 'Rx.Observable.prototype',
+      'rxjs/operator/switchMap': 'Rx.Observable.prototype',
+      'rxjs/operator/toPromise': 'Rx.Observable.prototype',
+
+      '@uirouter/core': '@uirouter/core',
+      '@uirouter/rx': '@uirouter/rx',
+      'ui-router-rx': 'ui-router-rx',
+      '@angular/core': 'ng.core',
+      '@angular/common': 'ng.common',
+      '@angular/router': 'ng.router',
+    },
   },
 
-  exports: 'named',
   plugins: plugins,
-  banner: banner,
-
   onwarn: onwarn,
   external: isExternal,
-
-  globals: {
-    'tslib': 'tslib',
-    'rxjs/ReplaySubject': 'Rx',
-
-    // Copied these from @angular/router rollup config
-    'rxjs/BehaviorSubject': 'Rx',
-    'rxjs/Observable': 'Rx',
-    'rxjs/Subject': 'Rx',
-    'rxjs/Subscription': 'Rx',
-    'rxjs/util/EmptyError': 'Rx',
-
-    'rxjs/observable/combineLatest': 'Rx.Observable',
-    'rxjs/observable/forkJoin': 'Rx.Observable',
-    'rxjs/observable/from': 'Rx.Observable',
-    'rxjs/observable/fromPromise': 'Rx.Observable',
-    'rxjs/observable/of': 'Rx.Observable',
-
-    'rxjs/operator/catch': 'Rx.Observable.prototype',
-    'rxjs/operator/concat': 'Rx.Observable.prototype',
-    'rxjs/operator/concatAll': 'Rx.Observable.prototype',
-    'rxjs/operator/concatMap': 'Rx.Observable.prototype',
-    'rxjs/operator/every': 'Rx.Observable.prototype',
-    'rxjs/operator/filter': 'Rx.Observable.prototype',
-    'rxjs/operator/first': 'Rx.Observable.prototype',
-    'rxjs/operator/last': 'Rx.Observable.prototype',
-    'rxjs/operator/map': 'Rx.Observable.prototype',
-    'rxjs/operator/mergeAll': 'Rx.Observable.prototype',
-    'rxjs/operator/mergeMap': 'Rx.Observable.prototype',
-    'rxjs/operator/reduce': 'Rx.Observable.prototype',
-    'rxjs/operator/switchMap': 'Rx.Observable.prototype',
-    'rxjs/operator/toPromise': 'Rx.Observable.prototype',
-
-    '@uirouter/core': '@uirouter/core',
-    '@uirouter/rx': '@uirouter/rx',
-    'ui-router-rx': 'ui-router-rx',
-    '@angular/core': 'ng.core',
-    '@angular/common': 'ng.common',
-    '@angular/router': 'ng.router',
-  }
 };
 
 export default CONFIG;
