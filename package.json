@@ -66,7 +66,7 @@
     "@angular/router": "^4.0.0",
     "@types/jasmine": "2.8.6",
     "@types/jquery": "3.3.0",
-    "@uirouter/publish-scripts": "^2.3.1",
+    "@uirouter/publish-scripts": "2.3.1",
     "jasmine-core": "2.99.0",
     "karma": "2.0.0",
     "karma-chrome-launcher": "2.2.0",
