@@ -125,8 +125,9 @@
   version "5.0.16"
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.16.tgz#c6f9e2041df1b6ad3bc28b089e55241a1cb4610f"
 
-"@uirouter/publish-scripts@file:.yalc/@uirouter/publish-scripts":
-  version "2.2.10-20dc33e9"
+"@uirouter/publish-scripts@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.1.tgz#0b380d81ae410f950010bdf964dd402b03cb30f4"
   dependencies:
     conventional-changelog "^1.1.4"
     conventional-changelog-ui-router-core "^1.4.2"
@@ -141,10 +142,10 @@
     tmp "^0.0.33"
     tweak-sourcemap-paths "0.0.3"
     typedoc "0.8.0"
-    typedoc-plugin-external-module-name "^1.1.1"
-    typedoc-plugin-internal-external "^1.0.10"
-    typedoc-plugin-ui-router "^1.0.6"
-    ui-router-typedoc-themes "^1.0.2"
+    typedoc-plugin-external-module-name "1.1.1"
+    typedoc-plugin-internal-external "1.0.10"
+    typedoc-plugin-ui-router "1.0.6"
+    ui-router-typedoc-themes "1.0.2"
     yargs "^9.0.1"
 
 "@uirouter/rx@0.4.5":
@@ -5629,15 +5630,15 @@ typedoc-default-themes@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.5.0.tgz#6dc2433e78ed8bea8e887a3acde2f31785bd6227"
 
-typedoc-plugin-external-module-name@^1.1.1:
+typedoc-plugin-external-module-name@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/typedoc-plugin-external-module-name/-/typedoc-plugin-external-module-name-1.1.1.tgz#0ef2d6a760b42c703519c474258b6f062983aa83"
 
-typedoc-plugin-internal-external@^1.0.10:
+typedoc-plugin-internal-external@1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/typedoc-plugin-internal-external/-/typedoc-plugin-internal-external-1.0.10.tgz#df9fd6ee1743f009c39b8746a3c26edc36ce8bcd"
 
-typedoc-plugin-ui-router@^1.0.6:
+typedoc-plugin-ui-router@1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/typedoc-plugin-ui-router/-/typedoc-plugin-ui-router-1.0.6.tgz#6d452d499d1bd35701ebfdeb2beee670d8530e8b"
 
@@ -5699,7 +5700,7 @@ uglifyjs-webpack-plugin@^0.4.6:
     uglify-js "^2.8.29"
     webpack-sources "^1.0.1"
 
-ui-router-typedoc-themes@^1.0.2:
+ui-router-typedoc-themes@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/ui-router-typedoc-themes/-/ui-router-typedoc-themes-1.0.2.tgz#3274960b8ee61e026b405ce3afcd9a2925992861"
 
