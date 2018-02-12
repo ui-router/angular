@@ -87,10 +87,10 @@ import { Subscription } from 'rxjs/Subscription';
 export class UISrefActive {
 
   private _classes: string[] = [];
-  @Input('uiSrefActive') set active(val: string) { this._classes = val.split('\s+')};
+  @Input('uiSrefActive') set active(val: string) { this._classes = val.split(/\s+/)};
 
   private _classesEq: string[] = [];
-  @Input('uiSrefActiveEq') set activeEq(val: string) { this._classesEq = val.split('\s+')};
+  @Input('uiSrefActiveEq') set activeEq(val: string) { this._classesEq = val.split(/\s+/)};
 
   private _subscription: Subscription;
   constructor(uiSrefStatus: UISrefStatus, rnd: Renderer, @Host() host: ElementRef) {
