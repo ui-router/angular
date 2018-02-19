@@ -75,7 +75,7 @@
     "karma-script-launcher": "1.0.0",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "2.0.2",
-    "rollup": "0.56.1",
+    "rollup": "0.56.2",
     "rollup-plugin-commonjs": "8.3.0",
     "rollup-plugin-node-resolve": "3.0.3",
     "rollup-plugin-sourcemaps": "0.4.2",
