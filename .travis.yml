@@ -1,6 +1,8 @@
 language: node_js
 node_js: 8.9.1
-before_install: yarn global add greenkeeper-lockfile@1 yalc
+before_install: 
+- sh -e /etc/init.d/xvfb start
+- yarn global add greenkeeper-lockfile@1 yalc
 install: yarn --check-files
 before_script: greenkeeper-lockfile-update && greenkeeper-lockfile-upload
 script:
