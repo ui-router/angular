@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISref } from '../../src/directives/uiSref';
-import { UIRouter, TargetState, TransitionOptions } from '@uirouter/core';
+import { UIRouter, TargetState, TransitionOptions, StateService } from '@uirouter/core';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { clickOnElement } from '../testUtils';
@@ -46,6 +46,7 @@ describe('uiSref', () => {
     describe('when the uiSref is empty', () => {
       let des: DebugElement[];
       let fixture: ComponentFixture<TestComponent>;
+      let gospy: jasmine.Spy;
 
       beforeEach(() => {
         fixture = TestBed.configureTestingModule({
@@ -54,12 +55,22 @@ describe('uiSref', () => {
         }).createComponent(TestComponent);
         fixture.detectChanges();
         des = fixture.debugElement.queryAll(By.directive(UISref));
+        const stateService = fixture.debugElement.injector.get(StateService);
+        gospy = spyOn(stateService, "go");
       });
 
 
       it('should not bind "null" string to `href`', () => {
         expect(des[0].nativeElement.hasAttribute('href')).toBeFalsy();
         expect(des[1].nativeElement.hasAttribute('href')).toBeFalsy();
+      });
+
+      it('should ignore the click event', () => {
+        clickOnElement(des[0]);
+        expect(gospy).not.toHaveBeenCalled();
+
+        clickOnElement(des[1]);
+        expect(gospy).not.toHaveBeenCalled();
       });
     });
 
@@ -117,6 +128,7 @@ describe('uiSref', () => {
       describe('when target is not _blank', () => {
         beforeEach(() => {
           comp.targetA = '';
+          comp.linkA = 'state';
           fixture.detectChanges();
         });
 

@@ -170,7 +170,7 @@ export class UISref implements OnChanges {
   /** When triggered by a (click) event, this function transitions to the UISref's target state */
   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
   go(button: number, ctrlKey: boolean, metaKey: boolean) {
-    if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button || !isNumber(button) || ctrlKey || metaKey)) {
+    if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button || !isNumber(button) || ctrlKey || metaKey) || !this.state) {
       return;
     }
 
