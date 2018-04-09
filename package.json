@@ -20,7 +20,7 @@
     "artifacts": "artifact_tagging",
     "precommit": "pretty-quick --staged"
   },
-  "homepage": "https://ui-router.github.io/ng2",
+  "homepage": "https://ui-router.github.io/angular",
   "contributors": [
     {
       "name": "Chris Thielen",
@@ -35,10 +35,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ui-router/ng2.git"
+    "url": "https://github.com/ui-router/angular.git"
   },
   "bugs": {
-    "url": "https://github.com/ui-router/ng2/issues"
+    "url": "https://github.com/ui-router/angular/issues"
   },
   "engines": {
     "node": ">=6.0.0"
@@ -65,35 +65,35 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "@angular/router": "^4.0.0",
-    "@types/jasmine": "2.8.6",
-    "@types/jquery": "3.3.1",
-    "@uirouter/publish-scripts": "2.3.1",
+    "@types/jasmine": "^2.8.6",
+    "@types/jquery": "^3.3.1",
+    "@uirouter/publish-scripts": "^2.3.1",
     "husky": "^0.14.3",
-    "jasmine-core": "2.99.1",
-    "karma": "2.0.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-jasmine": "1.1.1",
+    "jasmine-core": "^2.99.1",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1",
     "karma-mocha-reporter": "^2.2.5",
-    "karma-sourcemap-loader": "0.3.7",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-super-dots-reporter": "^0.1.0",
-    "karma-webpack": "3.0.0",
+    "karma-webpack": "^3.0.0",
     "prettier": "^1.11.1",
     "pretty-quick": "^1.4.1",
-    "rollup": "0.57.1",
-    "rollup-plugin-commonjs": "9.1.0",
-    "rollup-plugin-node-resolve": "3.3.0",
-    "rollup-plugin-sourcemaps": "0.4.2",
-    "rollup-plugin-uglify": "3.0.0",
-    "rxjs": "5.5.8",
-    "shelljs": "0.8.1",
-    "shx": "0.2.2",
-    "ts-loader": "3.5.0",
-    "tslib": "1.9.0",
-    "tslint": "5.9.1",
-    "typescript": "2.7.2",
-    "webpack": "3.11.0",
-    "webpack-dev-server": "3.1.1",
-    "zone.js": "0.8.20"
+    "rollup": "^0.57.1",
+    "rollup-plugin-commonjs": "^9.1.0",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "rollup-plugin-uglify": "^3.0.0",
+    "rxjs": "^5.5.8",
+    "shelljs": "^0.8.1",
+    "shx": "^0.2.2",
+    "ts-loader": "^3.5.0",
+    "tslib": "^1.9.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-server": "^3.1.1",
+    "zone.js": "^0.8.20"
   },
   "greenkeeper": {
     "ignore": [
