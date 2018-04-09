@@ -2,18 +2,31 @@
 /** */
 import { Ng2StateDeclaration } from './interface';
 import {
-  NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS, Provider, Injector, InjectionToken, APP_INITIALIZER, PLATFORM_ID,
+  NgModule,
+  ModuleWithProviders,
+  ANALYZE_FOR_ENTRY_COMPONENTS,
+  Provider,
+  Injector,
+  InjectionToken,
+  APP_INITIALIZER,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy, isPlatformServer } from '@angular/common';
+import {
+  CommonModule,
+  LocationStrategy,
+  HashLocationStrategy,
+  PathLocationStrategy,
+  isPlatformServer,
+} from '@angular/common';
 import { _UIROUTER_DIRECTIVES } from './directives/directives';
 import { UIView } from './directives/uiView';
 import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
 
 import { ROUTES } from '@angular/router';
-/** @hidden */ export const UIROUTER_ROOT_MODULE  = new InjectionToken('UIRouter Root Module');
+/** @hidden */ export const UIROUTER_ROOT_MODULE = new InjectionToken('UIRouter Root Module');
 /** @hidden */ export const UIROUTER_MODULE_TOKEN = new InjectionToken('UIRouter Module');
-/** @hidden */ export const UIROUTER_STATES       = new InjectionToken('UIRouter States');
+/** @hidden */ export const UIROUTER_STATES = new InjectionToken('UIRouter States');
 // /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
 // Delay angular bootstrap until first transition is successful, for SSR.
@@ -24,32 +37,40 @@ export function onTransitionReady(transitionService: TransitionService, root: Ro
     return () => Promise.resolve();
   }
 
-  return () => new Promise(resolve => {
-    const hook = trans => { trans.promise.then(resolve, resolve); };
-    transitionService.onStart({}, hook, { invokeLimit: 1 });
-  });
+  return () =>
+    new Promise(resolve => {
+      const hook = trans => {
+        trans.promise.then(resolve, resolve);
+      };
+      transitionService.onStart({}, hook, { invokeLimit: 1 });
+    });
 }
 
 export function makeRootProviders(module: RootModule): Provider[] {
-    return [
-        { provide: UIROUTER_ROOT_MODULE,         useValue: module,              multi: true },
-        { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
-        { provide: ROUTES,                       useValue: module.states || [], multi: true },
-        { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
-        { provide: APP_INITIALIZER, useFactory: onTransitionReady, deps: [TransitionService, UIROUTER_ROOT_MODULE], multi: true },
-    ];
+  return [
+    { provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true },
+    { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
+    { provide: ROUTES, useValue: module.states || [], multi: true },
+    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: onTransitionReady,
+      deps: [TransitionService, UIROUTER_ROOT_MODULE],
+      multi: true,
+    },
+  ];
 }
 
 export function makeChildProviders(module: StatesModule): Provider[] {
-    return [
-        { provide: UIROUTER_MODULE_TOKEN,        useValue: module,              multi: true },
-        { provide: ROUTES,                       useValue: module.states || [], multi: true },
-        { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
-    ];
+  return [
+    { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
+    { provide: ROUTES, useValue: module.states || [], multi: true },
+    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
+  ];
 }
 
 export function locationStrategy(useHash) {
-    return { provide: LocationStrategy, useClass: useHash ? HashLocationStrategy : PathLocationStrategy };
+  return { provide: LocationStrategy, useClass: useHash ? HashLocationStrategy : PathLocationStrategy };
 }
 
 /**
@@ -124,7 +145,7 @@ export class UIRouterModule {
         _UIROUTER_SERVICE_PROVIDERS,
         locationStrategy(config.useHash),
         ...makeRootProviders(config),
-      ]
+      ],
     };
   }
 
@@ -158,7 +179,6 @@ export class UIRouterModule {
       providers: makeChildProviders(module),
     };
   }
-
 }
 
 /**
@@ -183,7 +203,7 @@ export interface RootModule extends StatesModule {
    *
    * See: [[UrlRulesApi.otherwise]].
    */
-  otherwise?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef);
+  otherwise?: string | UrlRuleHandlerFn | TargetState | TargetStateDef;
 
   /**
    * Configures the `initial` rule, which chooses the state or URL to activate when the
@@ -191,7 +211,7 @@ export interface RootModule extends StatesModule {
    *
    * See: [[UrlRulesApi.initial]].
    */
-  initial?: (string | UrlRuleHandlerFn | TargetState | TargetStateDef);
+  initial?: string | UrlRuleHandlerFn | TargetState | TargetStateDef;
 
   /**
    * Sets [[UrlRouterProvider.deferIntercept]]
@@ -267,4 +287,3 @@ export interface StatesModule {
    */
   config?: (uiRouterInstance: UIRouter, injector: Injector, module: StatesModule) => any;
 }
-

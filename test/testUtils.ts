@@ -3,7 +3,6 @@ import { DebugElement } from '@angular/core';
 const stateProps = ['resolve', 'resolvePolicy', 'data', 'template', 'templateUrl', 'url', 'name', 'params'];
 
 export function tree2Array(tree, inheritName) {
-
   function processState(parent, state, name) {
     const substates = omit.apply(null, [state].concat(stateProps));
     const thisState = pick.apply(null, [state].concat(stateProps));
@@ -15,7 +14,7 @@ export function tree2Array(tree, inheritName) {
 
   function processChildren(parent, substates) {
     let states = [];
-    forEach(substates, function (value, key) {
+    forEach(substates, function(value, key) {
       if (inheritName && parent.name) key = `${parent.name}.${key}`;
       states = states.concat(processState(parent, value, key));
     });

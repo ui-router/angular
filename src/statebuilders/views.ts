@@ -18,9 +18,9 @@ import { ViewService } from '@uirouter/core';
  */
 export function ng2ViewsBuilder(state: StateObject) {
   const views: { [key: string]: Ng2ViewDeclaration } = {},
-      viewsObject = state.views || { '$default': pick(state, ['component', 'bindings']) };
+    viewsObject = state.views || { $default: pick(state, ['component', 'bindings']) };
 
-  forEach(viewsObject, function (config: Ng2ViewDeclaration, name: string) {
+  forEach(viewsObject, function(config: Ng2ViewDeclaration, name: string) {
     name = name || '$default'; // Account for views: { "": { template... } }
     if (isFunction(config)) config = { component: config as any };
     if (Object.keys(config).length === 0) return;
@@ -43,7 +43,7 @@ export class Ng2ViewConfig implements ViewConfig {
   $id: number = id++;
   loaded = true;
 
-  constructor(public path: PathNode[], public viewDecl: Ng2ViewDeclaration) { }
+  constructor(public path: PathNode[], public viewDecl: Ng2ViewDeclaration) {}
 
   load() {
     return services.$q.when(this);

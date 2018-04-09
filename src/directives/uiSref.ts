@@ -1,7 +1,17 @@
 /** @ng2api @module directives */
 /** */
 import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber } from '@uirouter/core';
-import { Directive, Inject, Input, Optional, ElementRef, Renderer2, OnChanges, SimpleChanges, HostListener } from '@angular/core';
+import {
+  Directive,
+  Inject,
+  Input,
+  Optional,
+  ElementRef,
+  Renderer2,
+  OnChanges,
+  SimpleChanges,
+  HostListener,
+} from '@angular/core';
 import { UIView, ParentUIViewInject } from './uiView';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,7 +22,7 @@ import { Subscription } from 'rxjs/Subscription';
  */
 @Directive({ selector: 'a[uiSref]' })
 export class AnchorUISref {
-  constructor(public _el: ElementRef, public _renderer: Renderer2) { }
+  constructor(public _el: ElementRef, public _renderer: Renderer2) {}
   openInNewTab() {
     return this._el.nativeElement.target === '_blank';
   }
@@ -71,7 +81,6 @@ export class AnchorUISref {
   exportAs: 'uiSref',
 })
 export class UISref implements OnChanges {
-
   /**
    * `@Input('uiSref')` The name of the state to link to
    *
@@ -112,9 +121,9 @@ export class UISref implements OnChanges {
   /** @internalapi */ private _parent: ParentUIViewInject;
 
   constructor(
-      _router: UIRouter,
-      @Optional() _anchorUISref: AnchorUISref,
-      @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
+    _router: UIRouter,
+    @Optional() _anchorUISref: AnchorUISref,
+    @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
   ) {
     this._router = _router;
     this._anchorUISref = _anchorUISref;
@@ -124,11 +133,20 @@ export class UISref implements OnChanges {
   }
 
   /** @internalapi */
-  set 'uiSref'(val: string) { this.state = val; this.update(); }
+  set uiSref(val: string) {
+    this.state = val;
+    this.update();
+  }
   /** @internalapi */
-  set 'uiParams'(val: Obj) { this.params = val; this.update(); }
+  set uiParams(val: Obj) {
+    this.params = val;
+    this.update();
+  }
   /** @internalapi */
-  set 'uiOptions'(val: TransitionOptions) { this.options = val; this.update(); }
+  set uiOptions(val: TransitionOptions) {
+    this.options = val;
+    this.update();
+  }
 
   ngOnInit() {
     this._emit = true;
@@ -161,8 +179,8 @@ export class UISref implements OnChanges {
   getOptions() {
     const defaultOpts: TransitionOptions = {
       relative: this._parent && this._parent.context && this._parent.context.name,
-      inherit: true ,
-      source: 'sref'
+      inherit: true,
+      source: 'sref',
     };
     return extend(defaultOpts, this.options || {});
   }
@@ -170,7 +188,11 @@ export class UISref implements OnChanges {
   /** When triggered by a (click) event, this function transitions to the UISref's target state */
   @HostListener('click', ['$event.button', '$event.ctrlKey', '$event.metaKey'])
   go(button: number, ctrlKey: boolean, metaKey: boolean) {
-    if (this._anchorUISref && (this._anchorUISref.openInNewTab() || button || !isNumber(button) || ctrlKey || metaKey) || !this.state) {
+    if (
+      (this._anchorUISref &&
+        (this._anchorUISref.openInNewTab() || button || !isNumber(button) || ctrlKey || metaKey)) ||
+      !this.state
+    ) {
       return;
     }
 

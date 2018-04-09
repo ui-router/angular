@@ -20,15 +20,19 @@ describe('uiSrefStatus', () => {
   let de: DebugElement;
   let fixture: ComponentFixture<TestComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestComponent],
-      imports: [UIRouterModule.forRoot({
-        states: [{ name: 'foo' }],
-        useHash: true,
-      })]
-    }).compileComponents();
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [TestComponent],
+        imports: [
+          UIRouterModule.forRoot({
+            states: [{ name: 'foo' }],
+            useHash: true,
+          }),
+        ],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);
@@ -38,10 +42,12 @@ describe('uiSrefStatus', () => {
   });
 
   describe('when click on `foo` uiSref', () => {
-    beforeEach(async(() => {
-      spyOn(component, 'updated');
-      clickOnElement(de);
-    }));
+    beforeEach(
+      async(() => {
+        spyOn(component, 'updated');
+        clickOnElement(de);
+      }),
+    );
 
     it('should emit a event with a TargetState pointing to `foo`', () => {
       expect(component.updated).toHaveBeenCalled();

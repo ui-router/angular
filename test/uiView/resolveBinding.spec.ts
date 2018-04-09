@@ -7,7 +7,6 @@ import { By } from '@angular/platform-browser';
 import { UIRouter } from '@uirouter/core';
 
 describe('uiView', () => {
-
   describe('should map resolve data to inputs', () => {
     @Component({ template: `<h3>hey</h3> ` })
     class ManyResolvesComponent {
@@ -21,7 +20,7 @@ describe('uiView', () => {
     let fixture: ComponentFixture<UIView>;
     let router: UIRouter;
 
-    beforeEach((done) => {
+    beforeEach(done => {
       const manyResolves: Ng2StateDeclaration = {
         name: 'manyResolves',
         component: ManyResolvesComponent,

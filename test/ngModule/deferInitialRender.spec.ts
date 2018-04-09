@@ -2,29 +2,33 @@ import { async, inject, TestBed } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UIView } from '../../src/directives/uiView';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
-import { ApplicationInitStatus, Component, NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
+import {
+  ApplicationInitStatus,
+  Component,
+  NgModule,
+  NgModuleFactoryLoader,
+  SystemJsNgModuleLoader,
+} from '@angular/core';
 import { Ng2StateDeclaration } from '../../src/interface';
 
 const timeout = (delay?: number) => new Promise(resolve => setTimeout(resolve, delay));
 const configFn = (router: UIRouter) => router.plugin(memoryLocationPlugin);
 
 @Component({ selector: 'home', template: 'HOME' })
-export class HomeComponent { }
+export class HomeComponent {}
 
 @Component({ selector: 'home', template: '<h1>APP</h1><ui-view></ui-view>' })
-export class AppComponent { }
+export class AppComponent {}
 
 const setupTests = (deferInitialRender: boolean) => {
   let resolve;
-  const promise = new Promise<any>(_resolve => resolve = _resolve);
+  const promise = new Promise<any>(_resolve => (resolve = _resolve));
 
   const homeState: Ng2StateDeclaration = {
     name: 'home',
     component: HomeComponent,
     url: '/home',
-    resolve: [
-      { token: 'data', resolveFn: () => promise },
-    ]
+    resolve: [{ token: 'data', resolveFn: () => promise }],
   };
 
   const routerModule = UIRouterModule.forRoot({
@@ -37,9 +41,7 @@ const setupTests = (deferInitialRender: boolean) => {
   TestBed.configureTestingModule({
     declarations: [HomeComponent, AppComponent],
     imports: [routerModule],
-    providers: [
-      { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
-    ]
+    providers: [{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader }],
   });
 
   return resolve;
@@ -48,13 +50,15 @@ const setupTests = (deferInitialRender: boolean) => {
 describe('deferInitialRender == false', () => {
   let resolve, router: UIRouter, status: ApplicationInitStatus;
   beforeEach(() => {
-    resolve = setupTests(false)
+    resolve = setupTests(false);
   });
 
-  beforeEach(inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
-    router = _router;
-    status = _status;
-  }));
+  beforeEach(
+    inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
+      router = _router;
+      status = _status;
+    }),
+  );
 
   it('should not wait for initial transition', async done => {
     const { stateService } = router;
@@ -79,13 +83,15 @@ describe('deferInitialRender == false', () => {
 describe('deferInitialRender == true', () => {
   let resolve, router: UIRouter, status: ApplicationInitStatus;
   beforeEach(() => {
-    resolve = setupTests(true)
+    resolve = setupTests(true);
   });
 
-  beforeEach(inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
-    router = _router;
-    status = _status;
-  }));
+  beforeEach(
+    inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
+      router = _router;
+      status = _status;
+    }),
+  );
 
   it('should wait for initial transition', async done => {
     const { stateService } = router;
@@ -110,4 +116,3 @@ describe('deferInitialRender == true', () => {
     done();
   });
 });
-

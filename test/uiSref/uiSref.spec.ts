@@ -14,7 +14,7 @@ describe('uiSref', () => {
     template: `
       <a [uiSref]="linkA" [target]="targetA" [uiParams]="linkAParams" [uiOptions]="linkAOptions"></a>
       <a [uiSref]="linkB"></a>
-    `
+    `,
   })
   class TestComponent {
     linkA: string;
@@ -51,14 +51,13 @@ describe('uiSref', () => {
       beforeEach(() => {
         fixture = TestBed.configureTestingModule({
           declarations: [TestComponent],
-          imports: [UIRouterModule.forRoot({ useHash: true })]
+          imports: [UIRouterModule.forRoot({ useHash: true })],
         }).createComponent(TestComponent);
         fixture.detectChanges();
         des = fixture.debugElement.queryAll(By.directive(UISref));
         const stateService = fixture.debugElement.injector.get(StateService);
-        gospy = spyOn(stateService, "go");
+        gospy = spyOn(stateService, 'go');
       });
-
 
       it('should not bind "null" string to `href`', () => {
         expect(des[0].nativeElement.hasAttribute('href')).toBeFalsy();
@@ -80,24 +79,26 @@ describe('uiSref', () => {
       let uiRouterMock: UIRouter;
       let fixture: ComponentFixture<TestComponent>;
 
-      beforeEach(async(() => {
-        uiRouterMock = {
-          globals: {
-            states$: new Subject()
-          },
-          stateService: jasmine.createSpyObj('stateService', ['go', 'target', 'href'])
-        } as any;
-        TestBed.configureTestingModule({
-          declarations: [TestComponent],
-          imports: [UIRouterModule.forRoot({ useHash: true })]
-        }).overrideComponent(TestComponent, {
-          set: {
-            providers: [
-              { provide: UIRouter, useValue: uiRouterMock }
-            ]
-          }
-        }).compileComponents();
-      }));
+      beforeEach(
+        async(() => {
+          uiRouterMock = {
+            globals: {
+              states$: new Subject(),
+            },
+            stateService: jasmine.createSpyObj('stateService', ['go', 'target', 'href']),
+          } as any;
+          TestBed.configureTestingModule({
+            declarations: [TestComponent],
+            imports: [UIRouterModule.forRoot({ useHash: true })],
+          })
+            .overrideComponent(TestComponent, {
+              set: {
+                providers: [{ provide: UIRouter, useValue: uiRouterMock }],
+              },
+            })
+            .compileComponents();
+        }),
+      );
 
       beforeEach(() => {
         fixture = TestBed.createComponent(TestComponent);
@@ -169,7 +170,6 @@ describe('uiSref', () => {
           expect(uiRouterMock.stateService.go).not.toHaveBeenCalled();
         });
       });
-
     });
 
     describe('when the bound values change', () => {
@@ -181,7 +181,7 @@ describe('uiSref', () => {
       beforeEach(() => {
         fixture = TestBed.configureTestingModule({
           declarations: [TestComponent],
-          imports: [UIRouterModule.forRoot({ useHash: true })]
+          imports: [UIRouterModule.forRoot({ useHash: true })],
         }).createComponent(TestComponent);
         fixture.detectChanges();
         comp = fixture.componentInstance;
@@ -198,7 +198,7 @@ describe('uiSref', () => {
           expect(logger.length).toBe(1);
           expect(logger[0].name()).toBeNull();
         });
-      })
+      });
 
       describe('when the target state changes', () => {
         beforeEach(() => {
@@ -234,12 +234,11 @@ describe('uiSref', () => {
           fixture.detectChanges();
         });
 
-        it ('should emit an event', () => {
+        it('should emit an event', () => {
           expect(logger.length).toBe(2);
           expect(logger[1].options().custom).toEqual(options.custom);
         });
-      })
+      });
     });
   });
 });
-

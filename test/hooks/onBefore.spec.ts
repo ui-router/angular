@@ -4,12 +4,11 @@ import { memoryLocationPlugin, UIRouter, StateService } from '@uirouter/core';
 import { UIRouterModule } from '../../src';
 
 @Component({ selector: 'home', template: '<h1>APP</h1><ui-view></ui-view>' })
-export class AppComponent { }
-
+export class AppComponent {}
 
 describe('onBefore hook', () => {
   let stateService;
-  const hook = (trans) => stateService = trans.injector().get(StateService);
+  const hook = trans => (stateService = trans.injector().get(StateService));
   const hookSpy = jasmine.createSpy('hook', hook).and.callThrough();
 
   const setupTests = () => {

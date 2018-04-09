@@ -15,8 +15,6 @@ export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, module
 
 export function applyRootModuleConfig(uiRouter: UIRouter, injector: Injector, module: RootModule) {
   isDefined(module.deferIntercept) && uiRouter.urlService.deferIntercept(module.deferIntercept);
-  isDefined(module.otherwise)      && uiRouter.urlService.rules.otherwise(module.otherwise);
-  isDefined(module.initial)        && uiRouter.urlService.rules.initial(module.initial);
+  isDefined(module.otherwise) && uiRouter.urlService.rules.otherwise(module.otherwise);
+  isDefined(module.initial) && uiRouter.urlService.rules.initial(module.initial);
 }
-
-

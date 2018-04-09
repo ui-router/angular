@@ -1,13 +1,34 @@
 /** @ng2api @module directives */
 /** */
 import {
-  Component, ComponentFactoryResolver, ViewContainerRef, Input, ComponentRef, Type, ReflectiveInjector, ViewChild,
-  Injector, Inject, ComponentFactory
+  Component,
+  ComponentFactoryResolver,
+  ViewContainerRef,
+  Input,
+  ComponentRef,
+  Type,
+  ReflectiveInjector,
+  ViewChild,
+  Injector,
+  Inject,
+  ComponentFactory,
 } from '@angular/core';
 
 import {
-  UIRouter, isFunction, Transition, parse, TransitionHookFn, StateDeclaration, inArray, trace, ViewContext, ViewConfig,
-  ActiveUIView, ResolveContext, NATIVE_INJECTOR_TOKEN, flattenR
+  UIRouter,
+  isFunction,
+  Transition,
+  parse,
+  TransitionHookFn,
+  StateDeclaration,
+  inArray,
+  trace,
+  ViewContext,
+  ViewConfig,
+  ActiveUIView,
+  ResolveContext,
+  NATIVE_INJECTOR_TOKEN,
+  flattenR,
 } from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
@@ -91,14 +112,18 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
   template: `
     <ng-template #componentTarget></ng-template>
     <ng-content *ngIf="!_componentRef"></ng-content>
-  `
+  `,
 })
 export class UIView {
   static PARENT_INJECT = 'UIView.PARENT_INJECT';
 
-  @ViewChild('componentTarget', { read: ViewContainerRef }) _componentTarget: ViewContainerRef;
+  @ViewChild('componentTarget', { read: ViewContainerRef })
+  _componentTarget: ViewContainerRef;
   @Input('name') name: string;
-  @Input('ui-view') set _name(val: string) { this.name = val; }
+  @Input('ui-view')
+  set _name(val: string) {
+    this.name = val;
+  }
   /** The reference to the component currently inside the viewport */
   _componentRef: ComponentRef<any>;
   /** Deregisters the ui-view from the view service */
@@ -106,13 +131,13 @@ export class UIView {
   /** Deregisters the master uiCanExit transition hook */
   private _deregisterHook: Function;
   /** Data about the this UIView */
-  private _uiViewData: ActiveUIView = <any> {};
+  private _uiViewData: ActiveUIView = <any>{};
   private _parent: ParentUIViewInject;
 
   constructor(
-      public router: UIRouter,
-      @Inject(UIView.PARENT_INJECT) parent,
-      public viewContainerRef: ViewContainerRef,
+    public router: UIRouter,
+    @Inject(UIView.PARENT_INJECT) parent,
+    public viewContainerRef: ViewContainerRef,
   ) {
     this._parent = parent;
   }
@@ -136,7 +161,7 @@ export class UIView {
       fqn: parentFqn ? parentFqn + '.' + name : name,
       creationContext: this._parent.context,
       configUpdated: this._viewConfigUpdated.bind(this),
-      config: undefined
+      config: undefined,
     };
 
     this._deregisterHook = router.transitionService.onBefore({}, trans => this._applyUiCanExitHook(trans));
@@ -232,7 +257,10 @@ export class UIView {
    */
   private _getComponentInjector(context: ResolveContext): Injector {
     // Map resolves to "useValue: providers"
-    const resolvables = context.getTokens().map(token => context.getResolvable(token)).filter(r => r.resolved);
+    const resolvables = context
+      .getTokens()
+      .map(token => context.getResolvable(token))
+      .filter(r => r.resolved);
     const newProviders = resolvables.map(r => ({ provide: r.token, useValue: r.data }));
 
     const parentInject = { context: this._uiViewData.config.viewDecl.$context, fqn: this._uiViewData.fqn };
@@ -259,25 +287,29 @@ export class UIView {
     // return the `_foo` property
     const renamedInputProp = (prop: string) => {
       const input = factory.inputs.find(i => i.templateName === prop);
-      return input && input.propName || prop;
+      return (input && input.propName) || prop;
     };
 
     // Supply resolve data to component as specified in the state's `bindings: {}`
-    const explicitInputTuples = explicitBoundProps
-        .reduce((acc, key) => acc.concat([{ prop: renamedInputProp(key), token: bindings[key] }]), []);
+    const explicitInputTuples = explicitBoundProps.reduce(
+      (acc, key) => acc.concat([{ prop: renamedInputProp(key), token: bindings[key] }]),
+      [],
+    );
 
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']
-    const implicitInputTuples = ng2ComponentInputs(factory)
-        .filter(tuple => !inArray(explicitBoundProps, tuple.prop));
+    const implicitInputTuples = ng2ComponentInputs(factory).filter(tuple => !inArray(explicitBoundProps, tuple.prop));
 
     const addResolvable = (tuple: InputMapping) => ({
       prop: tuple.prop,
       resolvable: context.getResolvable(tuple.token),
     });
 
-    explicitInputTuples.concat(implicitInputTuples)
-        .map(addResolvable)
-        .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
-        .forEach(tuple => { component[tuple.prop] = tuple.resolvable.data; });
+    explicitInputTuples
+      .concat(implicitInputTuples)
+      .map(addResolvable)
+      .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
+      .forEach(tuple => {
+        component[tuple.prop] = tuple.resolvable.data;
+      });
   }
 }

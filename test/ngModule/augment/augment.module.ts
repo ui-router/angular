@@ -5,14 +5,15 @@ import { Ng2StateDeclaration } from '../../../src/interface';
 
 @Component({
   selector: 'component1',
-  template: '<h1>Component 1</h1><ui-view></ui-view>'
-}) export class Component1 { }
+  template: '<h1>Component 1</h1><ui-view></ui-view>',
+})
+export class Component1 {}
 
 @Component({
   selector: 'component2',
   template: '<h1>Component 2</h1>',
-}) export class Component2 { }
-
+})
+export class Component2 {}
 
 export const augment1 = { name: 'augment1', component: Component1 };
 export const augment2 = { name: 'augment1.augment2', component: Component2 };
@@ -22,7 +23,7 @@ export function config(router: UIRouter, injector: Injector, module: StatesModul
   const registry = router.stateRegistry;
 
   // copy urls from old state to new
-  states.forEach(state => state.url = registry.get(state.name).url);
+  states.forEach(state => (state.url = registry.get(state.name).url));
   registry.deregister('augment1');
   module.states = states;
 }

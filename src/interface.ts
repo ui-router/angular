@@ -132,7 +132,7 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * if _any view_ for a state is declared in the `views` object, then _all of the state's views_ must be defined in
    * the `views` object.
    */
-  views?: { [key: string]: Ng2ViewDeclaration; };
+  views?: { [key: string]: Ng2ViewDeclaration };
 
   /**
    * A string or function used to lazy load an `NgModule`

@@ -8,7 +8,7 @@ export class Ng2LocationServices extends BaseLocationServices {
   constructor(router: UIRouter, private _locationStrategy: LocationStrategy, isBrowser: boolean) {
     super(router, isBrowser);
 
-    this._locationStrategy.onPopState((evt) => {
+    this._locationStrategy.onPopState(evt => {
       if (evt.type !== 'hashchange') {
         this._listener(evt);
       }
@@ -16,8 +16,7 @@ export class Ng2LocationServices extends BaseLocationServices {
   }
 
   _get() {
-    return this._locationStrategy.path(true)
-      .replace(this._locationStrategy.getBaseHref().replace(/\/$/, ''), '');
+    return this._locationStrategy.path(true).replace(this._locationStrategy.getBaseHref().replace(/\/$/, ''), '');
   }
 
   _set(state: any, title: string, url: string, replace: boolean): any {
