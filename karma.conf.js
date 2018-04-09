@@ -64,7 +64,7 @@ module.exports = function (karma) {
     },
 
     webpackMiddleware: {
-      stats: { chunks: false },
+      stats: 'minimal',
     },
 
     files: ['test/index.js'],
