@@ -40,11 +40,11 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-server@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-server/-/platform-server-4.4.6.tgz#431248f4891a635c76ad15a17d03e9c87e1a3837"
+"@angular/platform-server@^5.2.9":
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/@angular/platform-server/-/platform-server-5.2.9.tgz#9905cc152242472da2557bf9fec73685449b92c4"
   dependencies:
-    parse5 "^3.0.1"
+    domino "^1.0.29"
     tslib "^1.7.1"
     xhr2 "^0.1.4"
 
@@ -1677,6 +1677,10 @@ domain-browser@^1.1.1:
 domain-browser@~1.1.0:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
+
+domino@^1.0.29:
+  version "1.0.30"
+  resolved "https://registry.yarnpkg.com/domino/-/domino-1.0.30.tgz#54a4154ecae968616680f8feba3cedff355c71f4"
 
 dot-prop@^3.0.0:
   version "3.0.0"
@@ -4270,12 +4274,6 @@ parse-json@^4.0.0:
 parse-ms@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parse-ms/-/parse-ms-1.0.1.tgz#56346d4749d78f23430ca0c713850aef91aa361d"
-
-parse5@^3.0.1:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.3.tgz#042f792ffdd36851551cf4e9e066b3874ab45b5c"
-  dependencies:
-    "@types/node" "*"
 
 parseqs@0.0.5:
   version "0.0.5"
