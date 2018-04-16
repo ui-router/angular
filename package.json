@@ -62,7 +62,7 @@
     "@angular/compiler-cli": "^4.0.0",
     "@angular/core": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^5.2.9",
     "@angular/platform-server": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@types/jasmine": "^2.8.6",
