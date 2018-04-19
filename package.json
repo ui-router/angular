@@ -87,7 +87,7 @@
     "rxjs": "^5.5.8",
     "shelljs": "^0.8.1",
     "shx": "^0.2.2",
-    "ts-loader": "^3.5.0",
+    "ts-loader": "^4.2.0",
     "tslib": "^1.9.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
