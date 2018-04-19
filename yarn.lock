@@ -34,9 +34,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/platform-browser@^4.0.0":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.4.6.tgz#a9839c547e1b654fa1d24a89780c8ba6ab8dcce0"
+"@angular/platform-browser@^5.2.10":
+  version "5.2.10"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-5.2.10.tgz#92883803de7362e635748a440dd5f6172fc2394a"
   dependencies:
     tslib "^1.7.1"
 

@@ -61,7 +61,7 @@
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/core": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser": "^5.2.10",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "@angular/router": "^4.0.0",
