@@ -2,6 +2,7 @@
 node_modules
 **/.*
 *~
+yarn-error.log
 
 # webstorm files
 idea-out
