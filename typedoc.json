@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
     "module": "commonjs",
-    "target": "es5",
-    "allowSyntheticDefaultImports": true,
     "outDir": "build/es5",
-    "declaration": false,
     "sourceMap": false,
-    "importHelpers": true
+    "target": "es5"
   },
   "typedoc": {
     "publishDir": "_ng2_docs",
@@ -29,10 +29,5 @@
       "external-aliases": "internalapi,external",
       "navigation-label-globals": "@uirouter/angular"
     }
-  },
-  "files": [
-    "src/index.ts",
-    "../core/src/index.ts",
-    "node_modules/typedoc/node_modules/typescript/lib/lib.es6.d.ts"
-  ]
+  }
 }
