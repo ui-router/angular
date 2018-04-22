@@ -2,36 +2,41 @@
 /** */
 import {
   Component,
+  ComponentFactory,
   ComponentFactoryResolver,
-  ViewContainerRef,
-  Input,
   ComponentRef,
-  Type,
+  Inject,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
   ReflectiveInjector,
   ViewChild,
-  Injector,
-  Inject,
-  ComponentFactory,
+  ViewContainerRef,
 } from '@angular/core';
 
 import {
-  UIRouter,
-  isFunction,
-  Transition,
-  parse,
-  TransitionHookFn,
-  StateDeclaration,
-  inArray,
-  trace,
-  ViewContext,
-  ViewConfig,
   ActiveUIView,
-  ResolveContext,
+  filter,
+  inArray,
+  isFunction,
   NATIVE_INJECTOR_TOKEN,
-  flattenR,
+  Param,
+  parse,
+  PathNode,
+  ResolveContext,
+  StateDeclaration,
+  trace,
+  Transition,
+  TransitionHookFn,
+  UIRouter,
+  unnestR,
+  ViewConfig,
+  ViewContext,
 } from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
+import { Ng2Component } from '../interface';
 
 /** @hidden */
 let id = 0;
@@ -114,22 +119,26 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
     <ng-content *ngIf="!_componentRef"></ng-content>
   `,
 })
-export class UIView {
+export class UIView implements OnInit, OnDestroy {
   static PARENT_INJECT = 'UIView.PARENT_INJECT';
 
   @ViewChild('componentTarget', { read: ViewContainerRef })
   _componentTarget: ViewContainerRef;
   @Input('name') name: string;
+
   @Input('ui-view')
   set _name(val: string) {
     this.name = val;
   }
+
   /** The reference to the component currently inside the viewport */
   _componentRef: ComponentRef<any>;
   /** Deregisters the ui-view from the view service */
   private _deregisterUIView: Function;
   /** Deregisters the master uiCanExit transition hook */
-  private _deregisterHook: Function;
+  private _deregisterUiCanExitHook: Function;
+  /** Deregisters the master uiOnParamsChanged transition hook */
+  private _deregisterUiOnParamsChangedHook: Function;
   /** Data about the this UIView */
   private _uiViewData: ActiveUIView = <any>{};
   private _parent: ParentUIViewInject;
@@ -164,7 +173,14 @@ export class UIView {
       config: undefined,
     };
 
-    this._deregisterHook = router.transitionService.onBefore({}, trans => this._applyUiCanExitHook(trans));
+    this._deregisterUiCanExitHook = router.transitionService.onBefore({}, trans => {
+      return this._invokeUiCanExitHook(trans);
+    });
+
+    this._deregisterUiOnParamsChangedHook = router.transitionService.onSuccess({}, trans =>
+      this._invokeUiOnParamsChangedHook(trans),
+    );
+
     this._deregisterUIView = router.viewService.registerUIView(this._uiViewData);
   }
 
@@ -176,7 +192,7 @@ export class UIView {
    *
    * If both are true, adds the uiCanExit component function as a hook to that singular Transition.
    */
-  private _applyUiCanExitHook(trans: Transition) {
+  private _invokeUiCanExitHook(trans: Transition) {
     const instance = this._componentRef && this._componentRef.instance;
     const uiCanExitFn: TransitionHookFn = instance && instance.uiCanExit;
 
@@ -191,6 +207,51 @@ export class UIView {
     }
   }
 
+  /**
+   * For each transition, checks if any param values changed and notify component
+   */
+  private _invokeUiOnParamsChangedHook($transition$: Transition) {
+    const instance: Ng2Component = this._componentRef && this._componentRef.instance;
+    const uiOnParamsChanged: TransitionHookFn = instance && instance.uiOnParamsChanged;
+
+    if (isFunction(uiOnParamsChanged)) {
+      const viewState: StateDeclaration = this.state;
+      const resolveContext: ResolveContext = new ResolveContext(this._uiViewData.config.path);
+      const viewCreationTrans = resolveContext.getResolvable('$transition$').data;
+
+      // Exit early if the $transition$ is the same as the view was created within.
+      // Exit early if the $transition$ will exit the state the view is for.
+      if ($transition$ === viewCreationTrans || $transition$.exiting().indexOf(viewState as StateDeclaration) !== -1)
+        return;
+
+      const toParams: { [paramName: string]: any } = $transition$.params('to');
+      const fromParams: { [paramName: string]: any } = $transition$.params('from');
+      const getNodeSchema = (node: PathNode) => node.paramSchema;
+      const toSchema: Param[] = $transition$
+        .treeChanges('to')
+        .map(getNodeSchema)
+        .reduce(unnestR, []);
+      const fromSchema: Param[] = $transition$
+        .treeChanges('from')
+        .map(getNodeSchema)
+        .reduce(unnestR, []);
+
+      // Find the to params that have different values than the from params
+      const changedToParams = toSchema.filter((param: Param) => {
+        const idx = fromSchema.indexOf(param);
+        return idx === -1 || !fromSchema[idx].type.equals(toParams[param.id], fromParams[param.id]);
+      });
+
+      // Only trigger callback if a to param has changed or is new
+      if (changedToParams.length) {
+        const changedKeys: string[] = changedToParams.map(x => x.id);
+        // Filter the params to only changed/new to params.  `$transition$.params()` may be used to get all params.
+        const newValues = filter(toParams, (val, key) => changedKeys.indexOf(key) !== -1);
+        instance.uiOnParamsChanged(newValues, $transition$);
+      }
+    }
+  }
+
   private _disposeLast() {
     if (this._componentRef) this._componentRef.destroy();
     this._componentRef = null;
@@ -198,7 +259,9 @@ export class UIView {
 
   ngOnDestroy() {
     if (this._deregisterUIView) this._deregisterUIView();
-    if (this._deregisterHook) this._deregisterHook();
+    if (this._deregisterUiCanExitHook) this._deregisterUiCanExitHook();
+    if (this._deregisterUiOnParamsChangedHook) this._deregisterUiOnParamsChangedHook();
+    this._deregisterUIView = this._deregisterUiCanExitHook = this._deregisterUiOnParamsChangedHook = null;
     this._disposeLast();
   }
 

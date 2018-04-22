@@ -340,7 +340,36 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
  */
 export interface Ng2Component extends Component {
   /**
-   * This callback is called when the a routed component's state is about to be exited.
+   * This callback is called when parameter values change
+   *
+   * This callback is used to respond dynamic parameter values changing.
+   * It is called when a transition changed one or more dynamic parameter values,
+   * and the routed component was not destroyed.
+   *
+   * It receives two parameters:
+   *
+   * - An object with (only) changed parameter values.
+   *   The keys are the parameter names and the values are the new parameter values.
+   * - The [[Transition]] which changed the parameter values.
+   *
+   * #### Example:
+   * ```js
+   * @Component({
+   *   template: '<input type="text">'
+   * })
+   * class MyComponent {
+   *   uiOnParamsChanged(newParams: { [paramName: string]: any }, trans: Transition) {
+   *     Object.keys(newParams).forEach(paramName => {
+   *       console.log(`${paramName} changed to ${newParams[paramName]}`)
+   *     });
+   *   }
+   * }
+   * ```
+   */
+  uiOnParamsChanged?(newParams: { [paramName: string]: any }, trans?: Transition): void;
+
+  /**
+   * This callback is called when the routed component's state is about to be exited.
    *
    * The callback can be used to cancel or alter the new Transition that would otherwise exit the component's state.
    *
@@ -379,5 +408,5 @@ export interface Ng2Component extends Component {
    *
    * @return a hook result which may cancel or alter the pending Transition (see [[HookResult]])
    */
-  uiCanExit(newTransition?: Transition): HookResult;
+  uiCanExit?(newTransition?: Transition): HookResult;
 }
