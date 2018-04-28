@@ -11,7 +11,7 @@
     "@angular/common": "latest",
     "@angular/core": "latest",
     "@uirouter/angular": "latest",
-    "rxjs": "latest",
+    "rxjs": "^5.0.0",
     "typescript": "2.5"
   },
   "devDependencies": {}
