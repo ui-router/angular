@@ -324,7 +324,8 @@ export class UIView implements OnInit, OnDestroy {
       .getTokens()
       .map(token => context.getResolvable(token))
       .filter(r => r.resolved);
-    const newProviders = resolvables.map(r => ({ provide: r.token, useValue: r.data }));
+
+    const newProviders = resolvables.map(r => ({ provide: r.token, useValue: context.injector().get(r.token) }));
 
     const parentInject = { context: this._uiViewData.config.viewDecl.$context, fqn: this._uiViewData.fqn };
     newProviders.push({ provide: UIView.PARENT_INJECT, useValue: parentInject });
@@ -367,12 +368,14 @@ export class UIView implements OnInit, OnDestroy {
       resolvable: context.getResolvable(tuple.token),
     });
 
+    const injector = context.injector();
+
     explicitInputTuples
       .concat(implicitInputTuples)
       .map(addResolvable)
       .filter(tuple => tuple.resolvable && tuple.resolvable.resolved)
       .forEach(tuple => {
-        component[tuple.prop] = tuple.resolvable.data;
+        component[tuple.prop] = injector.get(tuple.resolvable.token);
       });
   }
 }

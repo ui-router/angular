@@ -1,19 +1,23 @@
-import { Component, DebugElement, Input, NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UIRouterModule } from '../../src/uiRouterNgModule';
-import { Ng2StateDeclaration } from '../../src/interface';
-import { UIView } from '../../src/directives/uiView';
+import { Ng2StateDeclaration, UIRouterModule, UIView } from '../../src';
 import { By } from '@angular/platform-browser';
-import { UIRouter } from '@uirouter/core';
+import { Resolvable, UIRouter } from '@uirouter/core';
 
 describe('uiView', () => {
   describe('should map resolve data to inputs', () => {
     @Component({ template: `<h3>hey</h3> ` })
     class ManyResolvesComponent {
+      constructor(@Inject('resolve1') foo, @Inject('Resolve2') bar, @Inject('resolve5') baz) {
+        this.injectedValues = Array.from(arguments);
+      }
+
+      injectedValues: any[];
       @Input() resolve1;
       @Input() resolve2;
       @Input('resolve3') _resolve3;
       @Input('resolve4') _resolve4;
+      @Input() resolve5;
     }
 
     let comp: ManyResolvesComponent;
@@ -34,6 +38,7 @@ describe('uiView', () => {
           { token: 'Resolve2', resolveFn: () => 'resolve2' },
           { token: 'resolve3', resolveFn: () => 'resolve3' },
           { token: 'Resolve4', resolveFn: () => 'resolve4' },
+          new Resolvable('resolve5', () => 'resolve5', [], { async: 'NOWAIT' }),
         ],
       };
 
@@ -52,6 +57,8 @@ describe('uiView', () => {
       });
     });
 
+    /////////////////////////////////////////
+
     it('should bind resolve by name to component input name', () => {
       expect(comp.resolve1).toBe('resolve1');
     });
@@ -66,6 +73,27 @@ describe('uiView', () => {
 
     it('should bind resolve by name to the component input templateName specified in state `bindings`', () => {
       expect(comp._resolve4).toBe('resolve4');
+    });
+
+    it('should bind NOWAIT resolve as a promise object', () => {
+      expect(comp.resolve5).toBeDefined();
+      expect(typeof comp.resolve5.then).toBe('function');
+    });
+
+    /////////////////////////////////////////
+
+    it('should inject resolve by name to constructor', () => {
+      expect(comp.injectedValues[0]).toBe('resolve1');
+    });
+
+    it('should inject resolve by resolve name (not binding name) to the constructor', () => {
+      expect(comp.injectedValues[1]).toBe('resolve2');
+    });
+
+    it('should inject NOWAIT resolve as a promise object', () => {
+      expect(comp.injectedValues[2]).toBeDefined();
+      expect(typeof comp.injectedValues[2]).toBe('object');
+      expect(typeof comp.injectedValues[2].then).toBe('function');
     });
   });
 });
