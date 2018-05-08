@@ -1,7 +1,8 @@
 // Karma configuration file
 var karma = require('karma');
+var webpack = require('webpack');
 
-module.exports = function (karma) {
+module.exports = function(karma) {
   var config = {
     singleRun: true,
     autoWatch: false,
@@ -9,7 +10,7 @@ module.exports = function (karma) {
 
     // level of logging
     // possible values: LOG_DISABLE, LOG_ERROR, LOG_WARN, LOG_INFO, LOG_DEBUG
-    logLevel: "warn",
+    logLevel: 'warn',
     // possible values: 'dots', 'progress'
     reporters: ['super-dots', 'mocha'],
     colors: true,
@@ -27,7 +28,7 @@ module.exports = function (karma) {
     // Chrome, ChromeCanary, Firefox, Opera, Safari, PhantomJS
     browsers: ['ChromeHeadlessNoSandbox'],
     customLaunchers: {
-      ChromeHeadlessNoSandbox: { base: 'ChromeHeadless', flags: ['--no-sandbox'] }
+      ChromeHeadlessNoSandbox: { base: 'ChromeHeadless', flags: ['--no-sandbox'] },
     },
 
     frameworks: ['jasmine'],
@@ -38,7 +39,7 @@ module.exports = function (karma) {
       require('karma-super-dots-reporter'),
       require('karma-mocha-reporter'),
       require('karma-jasmine'),
-      require('karma-chrome-launcher')
+      require('karma-chrome-launcher'),
     ],
 
     webpack: {
@@ -46,21 +47,22 @@ module.exports = function (karma) {
 
       resolve: {
         modules: ['node_modules'],
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts'],
       },
 
       module: {
         rules: [
           {
             test: /\.ts$/,
-            loader: "ts-loader",
+            loader: 'ts-loader',
             options: {
-              configFile: "test/tsconfig.json",
-            }
-          }
-        ]
+              configFile: 'test/tsconfig.json',
+            },
+          },
+        ],
       },
 
+      plugins: [new webpack.ContextReplacementPlugin(/angular(\\|\/)core(\\|\/)fesm5/, __dirname + '/src')],
     },
 
     webpackMiddleware: {
@@ -72,9 +74,7 @@ module.exports = function (karma) {
     preprocessors: {
       'test/index.js': ['webpack', 'sourcemap'],
     },
-
   };
 
   karma.set(config);
 };
-

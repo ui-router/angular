@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -30,21 +30,18 @@ describe('uiSrefActive', () => {
       expect(des[0].nativeElement.classList.length).toBe(0);
     });
 
-    it(
-      'applies the class when the link is active',
-      async(() => {
-        const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
-        const router = fixture.debugElement.injector.get(UIRouter);
-        router.stateService
-          .go('statea')
-          .then(tick)
-          .then(() => {
-            const classList = des[0].nativeElement.classList;
-            expect(classList.length).toBe(1);
-            expect(classList).toContain('active');
-          });
-      }),
-    );
+    it('applies the class when the link is active', async(() => {
+      const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
+      const router = fixture.debugElement.injector.get(UIRouter);
+      router.stateService
+        .go('statea')
+        .then(tick)
+        .then(() => {
+          const classList = des[0].nativeElement.classList;
+          expect(classList.length).toBe(1);
+          expect(classList).toContain('active');
+        });
+    }));
   });
 
   describe('with multiple classes', () => {
@@ -55,20 +52,17 @@ describe('uiSrefActive', () => {
     let fixture: ComponentFixture<TestComponent>;
     beforeEach(() => (fixture = initialize(TestComponent, [{ name: 'statea' }])));
 
-    it(
-      'applies all classses when the link is active',
-      async(() => {
-        const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
-        const router = fixture.debugElement.injector.get(UIRouter);
-        router.stateService
-          .go('statea')
-          .then(tick)
-          .then(() => {
-            let classList = des[0].nativeElement.classList;
-            expect(classList).toContain(activeClasses[0]);
-            expect(classList).toContain(activeClasses[1]);
-          });
-      }),
-    );
+    it('applies all classses when the link is active', async(() => {
+      const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
+      const router = fixture.debugElement.injector.get(UIRouter);
+      router.stateService
+        .go('statea')
+        .then(tick)
+        .then(() => {
+          let classList = des[0].nativeElement.classList;
+          expect(classList).toContain(activeClasses[0]);
+          expect(classList).toContain(activeClasses[1]);
+        });
+    }));
   });
 });

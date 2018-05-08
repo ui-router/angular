@@ -13,8 +13,7 @@ import {
   HostListener,
 } from '@angular/core';
 import { UIView, ParentUIViewInject } from './uiView';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subscription } from 'rxjs/Subscription';
+import { ReplaySubject, Subscription } from 'rxjs';
 
 /**
  * @internalapi
