@@ -6,9 +6,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test",
+    "test": "npm run e2e",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "npm run build && cypress-runner run dist"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +33,7 @@
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
+    "@uirouter/cypress-runner": "^1.0.7",
     "codelyzer": "^4.0.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",

@@ -1,0 +1,7 @@
+*/cypress/fixtures
+*/cypress/plugins
+*/cypress/screenshots
+*/cypress/videos
+*/cypress/support
+**/bundle.js
+*/yarn.lock
