@@ -5,7 +5,7 @@ import { Ng2StateDeclaration } from '../../../src/interface';
 
 @Component({
   selector: 'component1',
-  template: '<h1>Component 1</h1><ui-view></ui-view>',
+  template: '<h1>Component 1</h1>&ngsp;<ui-view></ui-view>',
 })
 export class Component1 {}
 

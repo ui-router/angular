@@ -14,19 +14,10 @@ import {
   UIRouterGlobals,
   Param,
   PathUtils,
-  StateOrName,
 } from '@uirouter/core';
 
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-import { of } from 'rxjs/observable/of';
-import { fromPromise } from 'rxjs/observable/fromPromise';
-import { combineLatest } from 'rxjs/observable/combineLatest';
-import { switchMap } from 'rxjs/operator/switchMap';
-import { map } from 'rxjs/operator/map';
-import { concat } from 'rxjs/operator/concat';
+import { Subscription, Observable, BehaviorSubject, of, from, combineLatest, concat } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 
 /** @internalapi */
 interface TransEvt {
@@ -223,15 +214,17 @@ export class UISrefStatus {
   ngAfterContentInit() {
     // Map each transition start event to a stream of:
     // start -> (success|error)
-    const transEvents$: Observable<TransEvt> = switchMap.call(this._globals.start$, (trans: Transition) => {
-      const event = (evt: string) => ({ evt, trans } as TransEvt);
+    const transEvents$: Observable<TransEvt> = this._globals.start$.pipe(
+      switchMap((trans: Transition) => {
+        const event = (evt: string) => ({ evt, trans } as TransEvt);
 
-      const transStart$ = of(event('start'));
-      const transResult = trans.promise.then(() => event('success'), () => event('error'));
-      const transFinish$ = fromPromise(transResult);
+        const transStart$ = of(event('start'));
+        const transResult = trans.promise.then(() => event('success'), () => event('error'));
+        const transFinish$ = from(transResult);
 
-      return concat.call(transStart$, transFinish$);
-    });
+        return concat(transStart$, transFinish$);
+      }),
+    );
 
     // Watch the @ContentChildren UISref[] components and get their target states
 
@@ -239,19 +232,23 @@ export class UISrefStatus {
     this._srefs$ = new BehaviorSubject(this._srefs.toArray());
     this._srefChangesSub = this._srefs.changes.subscribe(srefs => this._srefs$.next(srefs));
 
-    const targetStates$: Observable<TargetState[]> = switchMap.call(this._srefs$, (srefs: UISref[]) =>
-      combineLatest<TargetState[]>(srefs.map(sref => sref.targetState$)),
+    const targetStates$: Observable<TargetState[]> = this._srefs$.pipe(
+      switchMap((srefs: UISref[]) => combineLatest<TargetState>(srefs.map(sref => sref.targetState$))),
     );
 
     // Calculate the status of each UISref based on the transition event.
     // Reduce the statuses (if multiple) by or-ing each flag.
-    this._subscription = switchMap
-      .call(transEvents$, (evt: TransEvt) => {
-        return map.call(targetStates$, (targets: TargetState[]) => {
-          const statuses: SrefStatus[] = targets.map(target => getSrefStatus(evt, target));
-          return statuses.reduce(mergeSrefStatus);
-        });
-      })
+    this._subscription = transEvents$
+      .pipe(
+        switchMap((evt: TransEvt) => {
+          return targetStates$.pipe(
+            map((targets: TargetState[]) => {
+              const statuses: SrefStatus[] = targets.map(target => getSrefStatus(evt, target));
+              return statuses.reduce(mergeSrefStatus);
+            }),
+          );
+        }),
+      )
       .subscribe(this._setStatus.bind(this));
   }
 
