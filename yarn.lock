@@ -122,9 +122,9 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@uirouter/core@5.0.18":
-  version "5.0.18"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.18.tgz#6dd85654ebc7e25eba2c1b32f069829db351abab"
+"@uirouter/core@5.0.19":
+  version "5.0.19"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.19.tgz#fe2888190393a8c92584c354e65ab8322c1b0db4"
 
 "@uirouter/publish-scripts@^2.3.4":
   version "2.3.13"
@@ -151,9 +151,9 @@
     yalc "^1.0.0-pre.21"
     yargs "^11.0.0"
 
-"@uirouter/rx@0.5.0-alpha.1":
-  version "0.5.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@uirouter/rx/-/rx-0.5.0-alpha.1.tgz#6cc0ab7e4dbe66a767a74efd42c57b5e1a34fd2c"
+"@uirouter/rx@0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@uirouter/rx/-/rx-0.5.0.tgz#a0577408488e9523732ef5985a631f7b607fed5b"
 
 JSONStream@^1.0.4:
   version "1.3.2"
