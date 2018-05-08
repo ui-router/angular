@@ -1,11 +1,11 @@
 {
-  "angular5": "./test/angular-versions/v5",
-  "angular6": "./test/angular-versions/v6",
-  "typescript2.3": "./test/typescript-versions/typescript2.3",
-  "typescript2.4": "./test/typescript-versions/typescript2.4",
-  "typescript2.5": "./test/typescript-versions/typescript2.5",
-  "typescript2.6": "./test/typescript-versions/typescript2.6",
-  "typescript2.7": "./test/typescript-versions/typescript2.7",
-  "typescript2.8": "./test/typescript-versions/typescript2.8",
+  "angular5": "./test-angular-versions/v5",
+  "angular6": "./test-angular-versions/v6",
+  "typescript2.3": "./test-typescript-versions/typescript2.3",
+  "typescript2.4": "./test-typescript-versions/typescript2.4",
+  "typescript2.5": "./test-typescript-versions/typescript2.5",
+  "typescript2.6": "./test-typescript-versions/typescript2.6",
+  "typescript2.7": "./test-typescript-versions/typescript2.7",
+  "typescript2.8": "./test-typescript-versions/typescript2.8",
   "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git"
 }

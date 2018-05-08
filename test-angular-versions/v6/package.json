@@ -5,9 +5,9 @@
     "ng": "ng",
     "start": "ng serve --prod --source-map",
     "build": "ng build --prod --source-map",
-    "test": "ng test",
+    "test": "npm run e2e",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "npm run build && cypress-runner run --path dist/angularV6"
   },
   "private": true,
   "dependencies": {
@@ -33,6 +33,7 @@
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
+    "@uirouter/cypress-runner": "^1.0.7",
     "codelyzer": "~4.2.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
