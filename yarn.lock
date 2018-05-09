@@ -127,8 +127,8 @@
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.19.tgz#fe2888190393a8c92584c354e65ab8322c1b0db4"
 
 "@uirouter/publish-scripts@^2.3.4":
-  version "2.3.14"
-  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.14.tgz#38bde108296653f39906021c2897ef517340ee98"
+  version "2.3.15"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.3.15.tgz#41c4d0955c59e4e9de34c68ccbeb16891eb38677"
   dependencies:
     conventional-changelog "^1.1.4"
     conventional-changelog-ui-router-core "^1.4.2"
