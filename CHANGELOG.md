@@ -1,3 +1,26 @@
+# 2.0.0 (2018-05-09)
+[Compare `@uirouter/angular` versions 1.1.0 and 2.0.0](https://github.com/ui-router/angular/compare/1.1.0...2.0.0)
+
+### Features
+
+* **angular:** Drop Angular v4 support, add Angular v6 support ([cdf0273](https://github.com/ui-router/angular/commit/cdf0273)), closes [#301](https://github.com/ui-router/angular/issues/301)
+* **core:** Update core to 5.0.19, rx to 0.5.0 ([be6de0d](https://github.com/ui-router/angular/commit/be6de0d))
+
+
+### BREAKING CHANGES
+
+* **angular:** RxJS v6 and Angular v5 or higher is now required to use this package.
+
+If using Angular v5, you should update to `"rxjs": "^6.0.0"` and also add `"rxjs-compat": "^6.0.0"`.
+
+
+### Updated `@uirouter/core` from 5.0.18 to 5.0.19
+[Compare `@uirouter/core` versions 5.0.18 and 5.0.19](https://github.com/ui-router/core/compare/5.0.18...5.0.19)
+
+### Bug Fixes
+
+* **enums:** Workaround angular compiler export issue https://github.com/angular/angular/issues/23759 ([38d25fa](https://github.com/ui-router/core/commit/38d25fa))
+
 # 1.1.0 (2018-05-03)
 [Compare `@uirouter/angular` versions 1.0.1 and 1.1.0](https://github.com/ui-router/angular/compare/1.0.1...1.1.0)
 
