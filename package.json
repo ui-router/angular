@@ -60,7 +60,7 @@
   "devDependencies": {
     "@angular/animations": "^6.0.0",
     "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
+    "@angular/compiler": "^6.0.0",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/core": "^5.0.0",
     "@angular/platform-browser": "^5.0.0",
