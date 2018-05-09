@@ -55,11 +55,11 @@
     tslib "^1.7.1"
     xhr2 "^0.1.4"
 
-"@angular/router@^5.0.0":
-  version "5.2.10"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-5.2.10.tgz#cb36c32de0a233a9b49789e11ca0f96c5304f25a"
+"@angular/router@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.0.0.tgz#09a5c6f6220084c3575df81e8b36cbe9fff10d1f"
   dependencies:
-    tslib "^1.7.1"
+    tslib "^1.9.0"
 
 "@types/estree@0.0.38":
   version "0.0.38"
