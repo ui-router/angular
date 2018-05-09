@@ -5,6 +5,7 @@
 src
 config
 test
+test-*-versions
 scripts
 
 node_modules
