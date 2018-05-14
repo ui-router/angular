@@ -88,7 +88,7 @@
     "rollup-plugin-uglify": "^3.0.0",
     "rxjs": "^6.1.0",
     "rxjs-compat": "^6.1.0",
-    "ts-loader": "^3.5.0",
+    "ts-loader": "^4.3.0",
     "tslib": "^1.9.0",
     "tslint": "^5.10.0",
     "typescript": "~2.7.2",
