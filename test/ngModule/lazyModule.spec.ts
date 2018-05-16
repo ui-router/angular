@@ -44,92 +44,83 @@ describe('lazy loading', () => {
     });
   });
 
-  it(
-    'should lazy load a module',
-    async(
-      inject([UIRouter], (router: UIRouter) => {
-        const { stateRegistry, stateService, globals } = router;
-        stateRegistry.register(futureFoo);
+  it('should lazy load a module', async(
+    inject([UIRouter], (router: UIRouter) => {
+      const { stateRegistry, stateService, globals } = router;
+      stateRegistry.register(futureFoo);
 
-        const fixture = TestBed.createComponent(UIView);
-        fixture.detectChanges();
+      const fixture = TestBed.createComponent(UIView);
+      fixture.detectChanges();
 
-        let names = stateRegistry
+      let names = stateRegistry
+        .get()
+        .map(state => state.name)
+        .sort();
+      expect(names.length).toBe(2);
+      expect(names).toEqual(['', 'foo.**']);
+
+      stateService.go('foo').then(() => {
+        expect(globals.current.name).toBe('foo');
+
+        names = stateRegistry
           .get()
           .map(state => state.name)
           .sort();
-        expect(names.length).toBe(2);
-        expect(names).toEqual(['', 'foo.**']);
+        expect(names.length).toBe(4);
+        expect(names).toEqual(['', 'foo', 'foo.child1', 'foo.child2']);
+      });
+    })
+  ));
 
-        stateService.go('foo').then(() => {
-          expect(globals.current.name).toBe('foo');
+  it('should throw if no future state replacement is lazy loaded', async(
+    inject([UIRouter], (router: UIRouter) => {
+      const { stateRegistry, stateService } = router;
+      stateService.defaultErrorHandler(() => null);
+      stateRegistry.register(futureBar);
 
-          names = stateRegistry
-            .get()
-            .map(state => state.name)
-            .sort();
-          expect(names.length).toBe(4);
-          expect(names).toEqual(['', 'foo', 'foo.child1', 'foo.child2']);
-        });
-      }),
-    ),
-  );
+      const fixture = TestBed.createComponent(UIView);
+      fixture.detectChanges();
 
-  it(
-    'should throw if no future state replacement is lazy loaded',
-    async(
-      inject([UIRouter], (router: UIRouter) => {
-        const { stateRegistry, stateService } = router;
-        stateService.defaultErrorHandler(() => null);
-        stateRegistry.register(futureBar);
+      const names = stateRegistry
+        .get()
+        .map(state => state.name)
+        .sort();
+      expect(names.length).toBe(2);
+      expect(names).toEqual(['', 'bar.**']);
 
-        const fixture = TestBed.createComponent(UIView);
+      const success = () => {
+        throw Error('success not expected');
+      };
+      const error = err => {
+        expect(err.detail.message).toContain("The lazy loaded NgModule must have a state named 'bar'");
+      };
+      stateService.go('bar').then(success, error);
+    })
+  ));
+
+  it('should support loadChildren on non-future state (manual state cleanup)', async(
+    inject([UIRouter], (router: UIRouter) => {
+      const { stateRegistry, stateService } = router;
+      stateRegistry.register(augment1);
+      stateRegistry.register(augment2);
+
+      const fixture = TestBed.createComponent(UIView);
+      fixture.detectChanges();
+
+      const names = stateRegistry
+        .get()
+        .map(state => state.name)
+        .sort();
+      expect(names).toEqual(['', 'augment1', 'augment1.augment2']);
+
+      const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
+      stateService.go('augment1.augment2').then(() => {
         fixture.detectChanges();
-
-        const names = stateRegistry
-          .get()
-          .map(state => state.name)
-          .sort();
-        expect(names.length).toBe(2);
-        expect(names).toEqual(['', 'bar.**']);
-
-        const success = () => {
-          throw Error('success not expected');
-        };
-        const error = err => {
-          expect(err.detail.message).toContain("The lazy loaded NgModule must have a state named 'bar'");
-        };
-        stateService.go('bar').then(success, error);
-      }),
-    ),
-  );
-
-  it(
-    'should support loadChildren on non-future state (manual state cleanup)',
-    async(
-      inject([UIRouter], (router: UIRouter) => {
-        const { stateRegistry, stateService } = router;
-        stateRegistry.register(augment1);
-        stateRegistry.register(augment2);
-
-        const fixture = TestBed.createComponent(UIView);
-        fixture.detectChanges();
-
-        const names = stateRegistry
-          .get()
-          .map(state => state.name)
-          .sort();
-        expect(names).toEqual(['', 'augment1', 'augment1.augment2']);
-
-        const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
-        stateService.go('augment1.augment2').then(() => {
-          fixture.detectChanges();
-          expect(stateService.current.name).toBe('augment1.augment2');
-          expect(fixture.debugElement.nativeElement.textContent.replace(/\s+/g, ' ').trim()).toBe(
-            'Component 1 Component 2',
-          );
-        });
-      }),
-    ),
-  );
+        expect(stateService.current.name).toBe('augment1.augment2');
+        expect(fixture.debugElement.nativeElement.textContent.replace(/\s+/g, ' ').trim()).toBe(
+          'Component 1 Component 2'
+        );
+      });
+    })
+  ));
 });

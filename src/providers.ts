@@ -124,7 +124,7 @@ export function uiRouterFactory(
   locationStrategy: LocationStrategy,
   rootModules: RootModule[],
   modules: StatesModule[],
-  injector: Injector,
+  injector: Injector
 ) {
   if (rootModules.length !== 1) {
     throw new Error("Exactly one UIRouterModule.forRoot() should be in the bootstrapped app module's imports: []");
@@ -148,7 +148,7 @@ export function uiRouterFactory(
   router.locationService = new Ng2LocationServices(
     router,
     locationStrategy,
-    isPlatformBrowser(injector.get(PLATFORM_ID)),
+    isPlatformBrowser(injector.get(PLATFORM_ID))
   );
   router.locationConfig = new Ng2LocationConfig(router, locationStrategy);
 

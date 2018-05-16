@@ -57,7 +57,7 @@ describe('deferInitialRender == false', () => {
     inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
       router = _router;
       status = _status;
-    }),
+    })
   );
 
   it('should not wait for initial transition', async done => {
@@ -90,7 +90,7 @@ describe('deferInitialRender == true', () => {
     inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
       router = _router;
       status = _status;
-    }),
+    })
   );
 
   it('should wait for initial transition', async done => {

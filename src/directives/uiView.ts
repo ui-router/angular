@@ -146,7 +146,7 @@ export class UIView implements OnInit, OnDestroy {
   constructor(
     public router: UIRouter,
     @Inject(UIView.PARENT_INJECT) parent,
-    public viewContainerRef: ViewContainerRef,
+    public viewContainerRef: ViewContainerRef
   ) {
     this._parent = parent;
   }
@@ -178,7 +178,7 @@ export class UIView implements OnInit, OnDestroy {
     });
 
     this._deregisterUiOnParamsChangedHook = router.transitionService.onSuccess({}, trans =>
-      this._invokeUiOnParamsChangedHook(trans),
+      this._invokeUiOnParamsChangedHook(trans)
     );
 
     this._deregisterUIView = router.viewService.registerUIView(this._uiViewData);
@@ -357,7 +357,7 @@ export class UIView implements OnInit, OnDestroy {
     // Supply resolve data to component as specified in the state's `bindings: {}`
     const explicitInputTuples = explicitBoundProps.reduce(
       (acc, key) => acc.concat([{ prop: renamedInputProp(key), token: bindings[key] }]),
-      [],
+      []
     );
 
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']

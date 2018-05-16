@@ -81,7 +81,7 @@ export type NgModuleToLoad = string | ModuleTypeCallback;
  * - Returns the new states array
  */
 export function loadNgModule(
-  moduleToLoad: NgModuleToLoad,
+  moduleToLoad: NgModuleToLoad
 ): (transition: Transition, stateObject: StateDeclaration) => Promise<LazyLoadResult> {
   return (transition: Transition, stateObject: StateDeclaration) => {
     const ng2Injector = transition.injector().get(NATIVE_INJECTOR_TOKEN);
@@ -142,7 +142,7 @@ export function applyNgModule(
   transition: Transition,
   ng2Module: NgModuleRef<any>,
   parentInjector: Injector,
-  lazyLoadState: StateDeclaration,
+  lazyLoadState: StateDeclaration
 ): LazyLoadResult {
   const injector = ng2Module.injector;
   const uiRouter: UIRouter = injector.get(UIRouter);
@@ -157,11 +157,11 @@ export function applyNgModule(
 
   const newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE).reduce(
     uniqR,
-    [],
+    []
   ) as RootModule[];
   const newChildModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN).reduce(
     uniqR,
-    [],
+    []
   ) as StatesModule[];
 
   if (newRootModules.length) {
@@ -182,7 +182,7 @@ export function applyNgModule(
           `The lazy loaded NgModule must have a state named '${replacementName}' ` +
           `which replaces the (placeholder) '${originalName}' Future State. ` +
           `Add a '${replacementName}' state to the lazy loaded NgModule ` +
-          `using UIRouterModule.forChild({ states: CHILD_STATES }).`,
+          `using UIRouterModule.forChild({ states: CHILD_STATES }).`
       );
     }
   }

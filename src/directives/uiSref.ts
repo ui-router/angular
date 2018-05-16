@@ -122,7 +122,7 @@ export class UISref implements OnChanges {
   constructor(
     _router: UIRouter,
     @Optional() _anchorUISref: AnchorUISref,
-    @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
+    @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject
   ) {
     this._router = _router;
     this._anchorUISref = _anchorUISref;

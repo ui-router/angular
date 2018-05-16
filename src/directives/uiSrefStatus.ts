@@ -223,7 +223,7 @@ export class UISrefStatus {
         const transFinish$ = from(transResult);
 
         return concat(transStart$, transFinish$);
-      }),
+      })
     );
 
     // Watch the @ContentChildren UISref[] components and get their target states
@@ -233,7 +233,7 @@ export class UISrefStatus {
     this._srefChangesSub = this._srefs.changes.subscribe(srefs => this._srefs$.next(srefs));
 
     const targetStates$: Observable<TargetState[]> = this._srefs$.pipe(
-      switchMap((srefs: UISref[]) => combineLatest<TargetState>(srefs.map(sref => sref.targetState$))),
+      switchMap((srefs: UISref[]) => combineLatest<TargetState>(srefs.map(sref => sref.targetState$)))
     );
 
     // Calculate the status of each UISref based on the transition event.
@@ -245,9 +245,9 @@ export class UISrefStatus {
             map((targets: TargetState[]) => {
               const statuses: SrefStatus[] = targets.map(target => getSrefStatus(evt, target));
               return statuses.reduce(mergeSrefStatus);
-            }),
+            })
           );
-        }),
+        })
       )
       .subscribe(this._setStatus.bind(this));
   }
