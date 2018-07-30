@@ -7,9 +7,10 @@
   },
   "author": "",
   "license": "MIT",
+  "comment": "Angular 6.1 doesn't work with Typescript 2.5 so pin this test to 6.0.x",
   "dependencies": {
-    "@angular/common": "latest",
-    "@angular/core": "latest",
+    "@angular/common": "~6.0.0",
+    "@angular/core": "~6.0.0",
     "@uirouter/angular": "latest",
     "rxjs": "^6.0.0",
     "typescript": "2.5"
