@@ -3,8 +3,8 @@
 
 
 "@angular/animations@^6.1.2":
-  version "6.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.1.3.tgz#c7b1cf407e5087a499532999cb412a546f9ba855"
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.1.4.tgz#ca17acd62b9328404671a569fbf3065472527174"
   dependencies:
     tslib "^1.9.0"
 
