@@ -4361,8 +4361,8 @@ rollup@^0.64.1:
     "@types/node" "*"
 
 rxjs-compat@^6.2.2:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.2.2.tgz#3c0fcdb46130cc70aa55412c2b1147905ab4680a"
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.3.1.tgz#9ad8a76110bb0f37fa7906be377909970135b909"
 
 rxjs@^6.2.2:
   version "6.2.2"
