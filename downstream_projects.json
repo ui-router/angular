@@ -7,5 +7,8 @@
   "typescript2.6": "./test-typescript-versions/typescript2.6",
   "typescript2.7": "./test-typescript-versions/typescript2.7",
   "typescript2.8": "./test-typescript-versions/typescript2.8",
+  "typescript2.9": "./test-typescript-versions/typescript2.9",
+  "typescript3.1": "./test-typescript-versions/typescript3.1",
+  "typescript3.2": "./test-typescript-versions/typescript3.2",
   "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git"
 }

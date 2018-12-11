@@ -1,7 +1,7 @@
 {
-  "name": "@uirouter/angular-test-typescript2.8",
+  "name": "@uirouter/angular-test-typescript2.9",
   "version": "1.0.0",
-  "description": "Test against Typescript 2.8",
+  "description": "Test against Typescript 2.9",
   "scripts": {
     "test": "tsc"
   },
@@ -12,7 +12,7 @@
     "@angular/core": "~6.0.0",
     "@uirouter/angular": "latest",
     "rxjs": "^6.0.0",
-    "typescript": "2.8"
+    "typescript": "2.9"
   },
   "devDependencies": {}
 }

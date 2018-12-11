@@ -1,18 +1,18 @@
 {
-  "name": "@uirouter/angular-test-typescript2.8",
+  "name": "@uirouter/angular-test-typescript3.1",
   "version": "1.0.0",
-  "description": "Test against Typescript 2.8",
+  "description": "Test against Typescript 3.1",
   "scripts": {
     "test": "tsc"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "~6.0.0",
-    "@angular/core": "~6.0.0",
+    "@angular/common": "latest",
+    "@angular/core": "latest",
     "@uirouter/angular": "latest",
     "rxjs": "^6.0.0",
-    "typescript": "2.8"
+    "typescript": "3.1"
   },
   "devDependencies": {}
 }
