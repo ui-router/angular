@@ -18,8 +18,7 @@
     "docs:publish": "generate_docs && publish_docs",
     "prepublishOnly": "npm run build",
     "changelog": "update_changelog --include-core",
-    "artifacts": "artifact_tagging",
-    "precommit": "pretty-quick --staged"
+    "artifacts": "artifact_tagging"
   },
   "homepage": "https://ui-router.github.io/angular",
   "contributors": [
@@ -70,7 +69,7 @@
     "@types/jasmine": "^2.8.8",
     "@types/jquery": "^3.3.4",
     "@uirouter/publish-scripts": "^2.3.24",
-    "husky": "^0.14.3",
+    "husky": "^1.3.1",
     "jasmine-core": "^3.2.0",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2.0",
@@ -95,5 +94,10 @@
     "webpack": "^3.11.0",
     "webpack-dev-server": "^3.1.4",
     "zone.js": "^0.8.20"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
