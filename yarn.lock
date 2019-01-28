@@ -5886,6 +5886,6 @@ yeast@0.1.2:
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
 zone.js@^0.8.20:
-  version "0.8.28"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.28.tgz#fd55df8743514b233613f8e4f5bb8e27207a48c3"
-  integrity sha512-MjwlvV0wr65IQiT0WSHedo/zUhAqtypMdTUjqroV81RohGj1XANwHuC37dwYxphTRbZBYidk0gNS0dQrU2Q3Pw==
+  version "0.8.29"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.29.tgz#8dce92aa0dd553b50bc5bfbb90af9986ad845a12"
+  integrity sha512-mla2acNCMkWXBD+c+yeUrBUrzOxYMNFdQ6FGfigGGtEVBPJx07BQeJekjt9DmH1FtZek4E9rE1eRR9qQpxACOQ==
