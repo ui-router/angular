@@ -1,3 +1,17 @@
+## 2.0.4 (2019-01-29)
+[Compare `@uirouter/angular` versions 2.0.3 and 2.0.4](https://github.com/ui-router/angular/compare/2.0.3...2.0.4)
+
+
+### Updated `@uirouter/core` from 5.0.22 to 5.0.23
+[Compare `@uirouter/core` versions 5.0.22 and 5.0.23](https://github.com/ui-router/core/compare/5.0.22...5.0.23)
+
+### Bug Fixes
+
+* **test_downstream_projects:** don't double build core while testing downstreams ([148b16b](https://github.com/ui-router/core/commit/148b16b))
+* **typescript:** Fix typing of onChange callback in UrlService ([961ed0f](https://github.com/ui-router/core/commit/961ed0f)), closes [#229](https://github.com/ui-router/core/issues/229)
+* **typescript:** Mark `params` as optional in StateService.href ([614bfb4](https://github.com/ui-router/core/commit/614bfb4)), closes [#287](https://github.com/ui-router/core/issues/287)
+* **vanilla:** Fix baseHref parsing with chrome-extension:// urls ([f11be4d](https://github.com/ui-router/core/commit/f11be4d)), closes [#304](https://github.com/ui-router/core/issues/304)
+
 ## 2.0.3 (2019-01-10)
 [Compare `@uirouter/angular` versions 2.0.2 and 2.0.3](https://github.com/ui-router/angular/compare/2.0.2...2.0.3)
 
