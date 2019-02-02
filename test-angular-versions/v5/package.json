@@ -23,8 +23,8 @@
     "@angular/router": "^5.0.0",
     "@uirouter/angular": "^1.1.0",
     "core-js": "^2.4.1",
-    "rxjs": "^6.1.0",
-    "rxjs-compat": "^6.1.0",
+    "rxjs": "~6.1.0",
+    "rxjs-compat": "~6.1.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
