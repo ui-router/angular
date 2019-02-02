@@ -12,7 +12,7 @@
     "@angular/common": "~6.0.0",
     "@angular/core": "~6.0.0",
     "@uirouter/angular": "latest",
-    "rxjs": "^6.0.0",
+    "rxjs": "~6.0.0",
     "typescript": "2.5"
   },
   "devDependencies": {}
