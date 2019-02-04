@@ -1,3 +1,10 @@
+# 3.0.0 (2019-02-04)
+[Compare `@uirouter/angular` versions 2.0.4 and 3.0.0](https://github.com/ui-router/angular/compare/2.0.4...3.0.0)
+
+### Features
+
+* **angular:** Updates for Angular 7 ([7f3132a](https://github.com/ui-router/angular/commit/7f3132a))
+
 ## 2.0.4 (2019-01-29)
 [Compare `@uirouter/angular` versions 2.0.3 and 2.0.4](https://github.com/ui-router/angular/compare/2.0.3...2.0.4)
 
