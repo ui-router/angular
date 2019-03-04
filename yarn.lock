@@ -129,9 +129,10 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
 
-"@types/node@*":
-  version "10.0.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.6.tgz#c0bce8e539bf34c1b850c13ff46bead2fecc2e58"
+"@types/node@*", "@types/node@^11.9.5":
+  version "11.10.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.10.4.tgz#3f5fc4f0f322805f009e00ab35a2ff3d6b778e42"
+  integrity sha512-wa09itaLE8L705aXd8F80jnFpxz3Y1/KRHfKsYL2bPc0XF+wEWu8sR9n5bmeu8Ba1N9z2GRNzm/YdHcghLkLKg==
 
 "@types/shelljs@^0.8.0":
   version "0.8.0"
@@ -211,10 +212,10 @@ acorn@^5.0.0:
   version "5.5.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.5.3.tgz#f473dd47e0277a08e28e9bec5aeeb04751f0b8c9"
 
-acorn@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.0.tgz#b0a3be31752c97a0f7013c5f4903b71a05db6818"
-  integrity sha512-MW/FjM+IvU9CgBzjO3UIPCE2pyEwUsoFl+VGdczOPEdxfGFjuKny/gN54mOuX7Qxmb9Rg9MCn2oKiSUeW+pjrw==
+acorn@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
+  integrity sha512-jPTiwtOxaHNaAPg/dmrJ/beuzLRnXtB0kQPQ8JpotKJgTB6rX6c8mlf315941pyjBSaPg8NHXS9fhP4u17DpGA==
 
 after@0.8.2:
   version "0.8.2"
@@ -4537,13 +4538,13 @@ rollup-pluginutils@^2.0.1, rollup-pluginutils@^2.3.3:
     micromatch "^2.3.11"
 
 rollup@^1.1.0:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.2.3.tgz#450bbbd9d3c2c9a17d23c9165cab7a659f91095a"
-  integrity sha512-hTWFogj/Z077imG9XRM1i43ffarWNToDgsqkU62eJRX4rJE213/c8+gUIf4xacfzytl0sjJZfCzzPQfZN7oIQg==
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.4.0.tgz#fdc965b4ea7948e0b8e1a9051067dce1a61b3a24"
+  integrity sha512-E5HP4rgvAqkXQNYfNHgCDnX5HDHwAPDLUVSNp8iTmT49vY34G0DxEfhjPWnqnFi7v0vQtDGkKl2hvLfmsMvmcA==
   dependencies:
     "@types/estree" "0.0.39"
-    "@types/node" "*"
-    acorn "^6.1.0"
+    "@types/node" "^11.9.5"
+    acorn "^6.1.1"
 
 run-node@^1.0.0:
   version "1.0.0"
