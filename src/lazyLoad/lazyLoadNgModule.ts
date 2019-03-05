@@ -115,13 +115,16 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
   }
 
   const compiler: Compiler = ng2Injector.get(Compiler);
-  const offlineMode = compiler instanceof Compiler;
 
   const unwrapEsModuleDefault = x => (x && x.__esModule && x['default'] ? x['default'] : x);
-  const compileAsync = (moduleType: Type<any>) => compiler.compileModuleAsync(moduleType);
 
-  const loadChildrenPromise = Promise.resolve(moduleToLoad()).then(unwrapEsModuleDefault);
-  return offlineMode ? loadChildrenPromise : loadChildrenPromise.then(compileAsync);
+  return Promise.resolve(moduleToLoad()).then(unwrapEsModuleDefault)
+    .then((t: NgModuleFactory<any> | Type<any>) => {
+      if (t instanceof NgModuleFactory) {
+        return t;
+      }
+      return compiler.compileModuleAsync(t);
+    });
 }
 
 /**
