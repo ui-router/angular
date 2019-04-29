@@ -4551,9 +4551,9 @@ run-node@^1.0.0:
   integrity sha512-kc120TBlQ3mih1LSzdAJXo4xn/GWS2ec0l3S+syHDXP9uRr0JAT8Qd3mdMuyjqCzeZktgP3try92cEgf9Nks8A==
 
 rxjs-compat@^6.3.2:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.4.0.tgz#800923c15697948e1f30f18c531b12b49451c75c"
-  integrity sha512-eo/O8RS83hJdJukCtA+IF6qnqa8FPOuVo+OPCzgVi+dbTle9KCdNv97IcQO0WwNVik7DJLKmf0F8uwzc0q40vw==
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.5.1.tgz#de928292c633a9a5f2f54a4431e6f9c468001c68"
+  integrity sha512-k0aaMAYFg+DCIUxo3yJcUamFRenWLR23e/VJCQvKOxwSd9DQlwcSn2ov+7b23rKaX4weKG7OrzEBWGqQPkQ07A==
 
 rxjs@^6.3.2:
   version "6.5.1"
