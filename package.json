@@ -52,9 +52,9 @@
     "@uirouter/rx": "0.5.0"
   },
   "peerDependencies": {
-    "@angular/common": "^5.0.0 || ^6.0.0 || ^7.0.0",
-    "@angular/core": "^5.0.0 || ^6.0.0 || ^7.0.0",
-    "@angular/router": "^5.0.0 || ^6.0.0 || ^7.0.0"
+    "@angular/common": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+    "@angular/core": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+    "@angular/router": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@angular/animations": "^6.1.2",
