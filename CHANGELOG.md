@@ -1,3 +1,10 @@
+# 4.0.0 (2019-06-14)
+[Compare `@uirouter/angular` versions 3.0.0 and 4.0.0](https://github.com/ui-router/angular/compare/3.0.0...4.0.0)
+
+### Features
+
+* **uirouter:** Add support for Angular 8 ([c141d95](https://github.com/ui-router/angular/commit/c141d95))
+
 # 3.0.0 (2019-02-04)
 [Compare `@uirouter/angular` versions 2.0.4 and 3.0.0](https://github.com/ui-router/angular/compare/2.0.4...3.0.0)
 
