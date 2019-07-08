@@ -69,7 +69,7 @@
     "@types/jasmine": "3.3.13",
     "@types/jquery": "^3.3.29",
     "@uirouter/publish-scripts": "^2.3.24",
-    "husky": "^2.4.1",
+    "husky": "^3.0.0",
     "jasmine-core": "^3.3.0",
     "karma": "^4.1.0",
     "karma-chrome-launcher": "^2.2.0",
