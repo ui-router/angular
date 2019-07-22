@@ -114,10 +114,10 @@
   version "9.12.3"
   resolved "https://registry.yarnpkg.com/@types/highlight.js/-/highlight.js-9.12.3.tgz#b672cfaac25cbbc634a0fd92c515f66faa18dbca"
 
-"@types/jasmine@3.3.13":
-  version "3.3.13"
-  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.13.tgz#d5daabb0af47bcddee40597acf6e804433bab439"
-  integrity sha512-iczmLoIiVymaD1TIr2UctxjFkNEslVE/QtNAUmpDsD71cZfZBAsPCUv1Y+8AwsfA8bLx2ccr7d95T9w/UAirlQ==
+"@types/jasmine@3.3.14":
+  version "3.3.14"
+  resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-3.3.14.tgz#593440eef2793ed6c2beddf65850f4ed3028599c"
+  integrity sha512-0mE8mLKrobGicrQqSU3GI1rE+yy0tfGWoGklhrsYVV3ZaHcQGNUs0UQ07pXIiGVHJB3fKP0qApcmApySk4wCRw==
 
 "@types/jquery@^3.3.29":
   version "3.3.30"
