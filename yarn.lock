@@ -6109,7 +6109,7 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-zone.js@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.9.1.tgz#e37c6e5c54c13fae4de26b5ffe8d8e9212da6d9b"
-  integrity sha512-GkPiJL8jifSrKReKaTZ5jkhrMEgXbXYC+IPo1iquBjayRa0q86w3Dipjn8b415jpitMExe9lV8iTsv8tk3DGag==
+zone.js@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.10.0.tgz#dbaa5cf2889e3f92f903de1d8a6edabdc8d4da69"
+  integrity sha512-dxEcxkKgOj5kNBcngPmeu9VV0PrMPd2aJXX5TDX/MKOITusSzYNjZPs1EVSsLywvdThRVwsEqUi2BAEYeuRP2Q==
