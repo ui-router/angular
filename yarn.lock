@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/animations@^6.1.2":
-  version "6.1.10"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.1.10.tgz#4ab9b9a6c25e0cca781588700daa9efc33a722e4"
+"@angular/animations@^8.2.1":
+  version "8.2.1"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-8.2.1.tgz#85e989394d8ddeac2faa3357fac97836c6c2356f"
+  integrity sha512-+E2KWj798sgby1hnC2LmK380jCZ7JLcxs5X4pM+kwJzS4T8spPTBecHRqz19C2Ea4AOSou4S1Oxs/4CCmVnj2w==
   dependencies:
     tslib "^1.9.0"
 
