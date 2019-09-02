@@ -57,7 +57,7 @@
     "@angular/router": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "^6.1.2",
+    "@angular/animations": "^8.2.4",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
     "@angular/compiler-cli": "^5.0.0",
