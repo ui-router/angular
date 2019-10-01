@@ -129,10 +129,10 @@
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
 
-"@uirouter/core@5.0.23":
-  version "5.0.23"
-  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-5.0.23.tgz#363b4bea635a1b48900dc7e65793a65a3b58a79e"
-  integrity sha512-rwFOH++z/KY8y+h0IOpQ5uC8Nim6E0EBCQrIjhVCr+XKYXgpK+VdtuOLFdogvbJ3AAi5Z7ei00qdEr7Did5CAg==
+"@uirouter/core@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-6.0.1.tgz#93b02a5d178a7ab7313f34b7b3f019a000d23396"
+  integrity sha512-mHCutiHtDDRKYmrJ92XPKDoSb2bgqaDyUpHdF4hUE+riwgkCvGdBjL8u+VDTcV3slBAk6B0LBIOIajjWkkObbQ==
 
 "@uirouter/publish-scripts@^2.3.26":
   version "2.3.26"
@@ -160,9 +160,10 @@
     yalc "^1.0.0-pre.34"
     yargs "^14.0.0"
 
-"@uirouter/rx@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@uirouter/rx/-/rx-0.5.0.tgz#a0577408488e9523732ef5985a631f7b607fed5b"
+"@uirouter/rx@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@uirouter/rx/-/rx-0.6.0.tgz#aeb616460d7c45f459504f66a8cea81c088dec61"
+  integrity sha512-+29mPy9qMOu6DveemTm8SEV5ueF5RPe5UgXST+gWg+qitExsmbaNpaSq6lL+3UJdDw+mdonGIBHt31cHD5/aEQ==
 
 JSONStream@^1.0.4:
   version "1.3.2"
