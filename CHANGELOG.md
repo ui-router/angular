@@ -1,3 +1,64 @@
+# 5.0.0 (2019-10-02)
+[Compare `@uirouter/angular` versions 4.0.0 and 5.0.0](https://github.com/ui-router/angular/compare/4.0.0...5.0.0)
+
+### Bug Fixes
+
+* **travis:** use service: xvfb instead of launching it manually.  install libgconf debian package ([309fc9b](https://github.com/ui-router/angular/commit/309fc9b))
+
+
+### Chores
+
+* **package:** update [@uirouter/core](https://github.com/uirouter/core) and [@uirouter/rx](https://github.com/uirouter/rx) to enable support for observables in resolves ([#646](https://github.com/ui-router/angular/issues/646)) ([4661bab](https://github.com/ui-router/angular/commit/4661bab))
+
+
+### BREAKING CHANGES
+
+* **package:** Removed RXWAIT async policy (which was broken) in favor of supporting custom resolve policies.  Added a custom RXWAIT policy to uirouter/rx which is included in uirouter/angular
+
+---
+
+### Updated `@uirouter/core` from 5.0.23 to 6.0.1
+[Compare `@uirouter/core` versions 5.0.23 and 6.0.1](https://github.com/ui-router/core/compare/5.0.23...6.0.1)
+
+### Bug Fixes
+
+* **resolve:** remove unnecessary generics from CustomAsyncPolicy ([#452](https://github.com/ui-router/core/issues/452)) ([61f4ee9](https://github.com/ui-router/core/commit/61f4ee9))
+* **travis:** use service: xvfb instead of launching it manually ([1271fcd](https://github.com/ui-router/core/commit/1271fcd))
+* **travis:** use service: xvfb instead of launching it manually.  install libgconf debian package ([ac1ef4b](https://github.com/ui-router/core/commit/ac1ef4b))
+
+
+### Features
+
+* **resolve:** Remove RXWAIT async policy in favour of allowing user defined async policy function ([#366](https://github.com/ui-router/core/issues/366)) ([0ad87f6](https://github.com/ui-router/core/commit/0ad87f6))
+
+
+### BREAKING CHANGES in core
+
+* **resolve:** RXWAIT async policy has been removed, but it never worked in the first place
+
+---
+
+
+### Updated `@uirouter/rx` from 0.5.0 to 0.6.0
+[Compare `@uirouter/rx` versions 0.5.0 and 0.6.0](https://github.com/ui-router/rx/compare/0.5.0...0.6.0)
+
+### Bug Fixes
+
+* **travis:** use service: xvfb instead of launching it manually.  install libgconf debian package ([eace3a9](https://github.com/ui-router/rx/commit/eace3a9))
+
+
+### Features
+
+* add rxwait custom async policy ([dca4929](https://github.com/ui-router/rx/commit/dca4929))
+* add rxwait custom async policy ([ab1aaa4](https://github.com/ui-router/rx/commit/ab1aaa4))
+* **package:** require uirouter/core >=6.0.0 via peerDependency ([9bacfa4](https://github.com/ui-router/rx/commit/9bacfa4))
+
+
+### BREAKING CHANGES in rx
+
+* **package:** this version of uirouter/rx depends on uirouter/core version 6 and greater.
+Because this package now provides an async resolve policy for Observables, this package now has a peerDependency on uirouter/core version >=6.0.0
+
 # 4.0.0 (2019-06-14)
 [Compare `@uirouter/angular` versions 3.0.0 and 4.0.0](https://github.com/ui-router/angular/compare/3.0.0...4.0.0)
 
