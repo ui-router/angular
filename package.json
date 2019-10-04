@@ -4,22 +4,17 @@
   "description": "State-based routing for Angular",
   "version": "5.0.0",
   "scripts": {
-    "clean": "shx rm -rf lib lib-esm _bundles _doc",
+    "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",
-    "bundle": "rollup -c && rollup -c --environment MINIFY",
-    "fixmaps:lib": "tweak_sourcemap_paths -a --include 'lib/**/*.js.map' 'lib-esm/**/*.js.map'",
-    "fixmaps:bundle": "tweak_sourcemap_paths -a --include '_bundles/**/*.js.map'",
-    "build": "run-s compile bundle fixmaps:*",
+    "build": "ng-packagr -p package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
     "test": "karma start",
     "test:downstream": "test_downstream_projects",
     "debug": "karma start --singleRun=false --autoWatch=true --autoWatchInterval=1 --browsers=Chrome",
-    "package": "npm run build",
     "docs": "generate_docs",
     "docs:publish": "generate_docs && publish_docs",
-    "prepublishOnly": "npm run build",
-    "changelog": "update_changelog --include-core",
-    "artifacts": "artifact_tagging"
+    "prepublishOnly": "echo && echo DO NOT RUN npm publish.  Instead, run npm run release && echo && echo && false",
+    "changelog": "update_changelog --include-core"
   },
   "homepage": "https://ui-router.github.io/angular",
   "contributors": [
@@ -45,9 +40,7 @@
     "node": ">=6.0.0"
   },
   "license": "MIT",
-  "main": "_bundles/ui-router-ng2.js",
-  "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "distDir": "dist",
   "ngPackage": {
     "lib": {
       "entryFile": "src/index.ts"
