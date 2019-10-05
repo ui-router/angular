@@ -1,6 +1,6 @@
 /** @ng2api @module directives */
 /** */
-import { Directive, Output, EventEmitter, ContentChildren, QueryList } from '@angular/core';
+import { Directive, Output, EventEmitter, ContentChildren, QueryList, Host, Self, Optional } from '@angular/core';
 import { UISref } from './uiSref';
 import {
   PathNode,
@@ -14,10 +14,12 @@ import {
   UIRouterGlobals,
   Param,
   PathUtils,
+  identity,
+  uniqR,
 } from '@uirouter/core';
 
 import { Subscription, Observable, BehaviorSubject, of, from, combineLatest, concat } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, tap } from 'rxjs/operators';
 
 /** @internalapi */
 interface TransEvt {
@@ -206,8 +208,10 @@ export class UISrefStatus {
   /** @internalapi */ private _srefChangesSub: Subscription;
   /** @internalapi */ private _srefs$: BehaviorSubject<UISref[]>;
   /** @internalapi */ private _globals: UIRouterGlobals;
-  constructor(_globals: UIRouterGlobals) {
+  /** @internalapi */ private _hostUiSref: UISref;
+  constructor(@Host() @Self() @Optional() _hostUiSref: UISref, _globals: UIRouterGlobals) {
     this._globals = _globals;
+    this._hostUiSref = _hostUiSref;
     this.status = Object.assign({}, inactiveStatus);
   }
 
@@ -226,11 +230,15 @@ export class UISrefStatus {
       })
     );
 
-    // Watch the @ContentChildren UISref[] components and get their target states
+    const withHostSref = (childrenSrefs: UISref[]) =>
+      childrenSrefs
+        .concat(this._hostUiSref)
+        .filter(identity)
+        .reduce(uniqR, []);
 
-    // let srefs$: Observable<UISref[]> = of(this.srefs.toArray()).concat(this.srefs.changes);
-    this._srefs$ = new BehaviorSubject(this._srefs.toArray());
-    this._srefChangesSub = this._srefs.changes.subscribe(srefs => this._srefs$.next(srefs));
+    // Watch the @ContentChildren UISref[] components and get their target states
+    this._srefs$ = new BehaviorSubject(withHostSref(this._srefs.toArray()));
+    this._srefChangesSub = this._srefs.changes.subscribe(srefs => this._srefs$.next(withHostSref(srefs)));
 
     const targetStates$: Observable<TargetState[]> = this._srefs$.pipe(
       switchMap((srefs: UISref[]) => combineLatest<TargetState[]>(srefs.map(sref => sref.targetState$)))
