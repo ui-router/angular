@@ -68,7 +68,7 @@
     "@angular/router": "^5.0.0",
     "@types/jasmine": "3.4.0",
     "@types/jquery": "^3.3.29",
-    "@uirouter/publish-scripts": "^2.3.27",
+    "@uirouter/publish-scripts": "^2.3.30",
     "husky": "^3.0.0",
     "jasmine-core": "^3.3.0",
     "karma": "^4.1.0",
