@@ -1,5 +1,4 @@
 {
-  "angular5": "./test-angular-versions/v5",
   "angular6": "./test-angular-versions/v6",
   "angular7": "./test-angular-versions/v7",
   "angular8": "./test-angular-versions/v8",
