@@ -2,6 +2,7 @@
   "packageDir": "./dist",
   "projects": {
     "angular8": "./test-angular-versions/v8",
+    "angular9": "./test-angular-versions/v9",
     "typescript3.4": "./test-typescript-versions/typescript3.4",
     "typescript3.5": "./test-typescript-versions/typescript3.5",
     "typescript3.6": "./test-typescript-versions/typescript3.6",
