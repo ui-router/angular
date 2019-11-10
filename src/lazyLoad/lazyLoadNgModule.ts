@@ -23,7 +23,7 @@ import { applyModuleConfig } from '../uiRouterConfig';
  * #### Example:
  * ```js
  * export function loadFooModule() {
- *   return System.import('../foo/foo.module').then(result => result.FooModule);
+ *   return import('../foo/foo.module').then(result => result.FooModule);
  * }
  * ```
  */
@@ -49,13 +49,13 @@ export type NgModuleToLoad = string | ModuleTypeCallback;
  * It could also be used manually as a [[StateDeclaration.lazyLoad]] property to lazy load an `NgModule` and its state(s).
  *
  * #### Example:
- * Using `System.import()` and named export of `HomeModule`
+ * Using `import()` and named export of `HomeModule`
  * ```js
  * declare var System;
  * var futureState = {
  *   name: 'home.**',
  *   url: '/home',
- *   lazyLoad: loadNgModule(() => System.import('./home/home.module').then(result => result.HomeModule))
+ *   lazyLoad: loadNgModule(() => import('./home/home.module').then(result => result.HomeModule))
  * }
  * ```
  *
@@ -118,7 +118,8 @@ export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Inj
 
   const unwrapEsModuleDefault = x => (x && x.__esModule && x['default'] ? x['default'] : x);
 
-  return Promise.resolve(moduleToLoad()).then(unwrapEsModuleDefault)
+  return Promise.resolve(moduleToLoad())
+    .then(unwrapEsModuleDefault)
     .then((t: NgModuleFactory<any> | Type<any>) => {
       if (t instanceof NgModuleFactory) {
         return t;

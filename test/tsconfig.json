@@ -3,7 +3,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "module": "es6",
+    "module": "esnext",
     "target": "es5",
     "lib": ["es6", "dom"],
     "allowSyntheticDefaultImports": true,

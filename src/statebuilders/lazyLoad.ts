@@ -17,14 +17,14 @@ import { loadNgModule } from '../lazyLoad/lazyLoadNgModule';
  * A state that has a `ngModule`
  * ```js
  * var decl = {
- *   ngModule: () => System.import('./childModule.ts')
+ *   ngModule: () => import('./childModule.ts')
  * }
  * ```
  * would build a state with a `lazyLoad` function like:
  * ```js
  * import { loadNgModule } from "@uirouter/angular";
  * var decl = {
- *   lazyLoad: loadNgModule(() => System.import('./childModule.ts')
+ *   lazyLoad: loadNgModule(() => import('./childModule.ts')
  * }
  * ```
  *
@@ -33,16 +33,16 @@ import { loadNgModule } from '../lazyLoad/lazyLoadNgModule';
  * #### Example:
  * ```js
  * var decl = {
- *   lazyLoad: () => System.import('third-party-library'),
- *   ngModule: () => System.import('./childModule.ts')
+ *   lazyLoad: () => import('third-party-library'),
+ *   ngModule: () => import('./childModule.ts')
  * }
  * ```
  * would build a state with a `lazyLoad` function like:
  * ```js
  * import { loadNgModule } from "@uirouter/angular";
  * var decl = {
- *   lazyLoad: () => System.import('third-party-library')
- *       .then(() => loadNgModule(() => System.import('./childModule.ts'))
+ *   lazyLoad: () => import('third-party-library')
+ *       .then(() => loadNgModule(() => import('./childModule.ts'))
  * }
  * ```
  *

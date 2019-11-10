@@ -9,19 +9,19 @@ declare let System;
 const futureFoo = {
   name: 'foo.**',
   url: '/foo',
-  loadChildren: () => System.import('./foo/foo.module').then(x => x.FooModule),
+  loadChildren: () => import('./foo/foo.module').then(x => x.FooModule),
 };
 
 const futureBar = {
   name: 'bar.**',
   url: '/bar',
-  loadChildren: () => System.import('./foo/foo.module').then(x => x.FooModule),
+  loadChildren: () => import('./foo/foo.module').then(x => x.FooModule),
 };
 
 const augment1 = {
   name: 'augment1',
   url: '/augment1',
-  loadChildren: () => System.import('./augment/augment.module').then(x => x.AugmentModule),
+  loadChildren: () => import('./augment/augment.module').then(x => x.AugmentModule),
 };
 
 const augment2 = {
