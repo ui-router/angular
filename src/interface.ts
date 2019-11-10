@@ -3,7 +3,7 @@
 
 import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from '@uirouter/core';
 import { Type, Component } from '@angular/core';
-import { NgModuleToLoad } from './lazyLoad/lazyLoadNgModule';
+import { ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';
 
 /**
  * The StateDeclaration object is used to define a state or nested state.
@@ -155,7 +155,7 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * }
    * ```
    */
-  loadChildren?: NgModuleToLoad;
+  loadChildren?: ModuleTypeCallback;
 }
 
 export interface Ng2ViewDeclaration extends _ViewDeclaration {

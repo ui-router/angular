@@ -28,18 +28,6 @@ import { applyModuleConfig } from '../uiRouterConfig';
  * ```
  */
 export type ModuleTypeCallback = () => Type<any> | Promise<Type<any>>;
-/**
- * A string or a function which lazy loads a module
- *
- * If a string, should conform to the Angular Router `loadChildren` string.
- * #### Example:
- * ```
- * var ngModuleToLoad = './foo/foo.module#FooModule'
- * ```
- *
- * For functions, see: [[ModuleTypeCallback]]
- */
-export type NgModuleToLoad = string | ModuleTypeCallback;
 
 /**
  * Returns a function which lazy loads a nested module
@@ -81,7 +69,7 @@ export type NgModuleToLoad = string | ModuleTypeCallback;
  * - Returns the new states array
  */
 export function loadNgModule(
-  moduleToLoad: NgModuleToLoad
+  moduleToLoad: ModuleTypeCallback
 ): (transition: Transition, stateObject: StateDeclaration) => Promise<LazyLoadResult> {
   return (transition: Transition, stateObject: StateDeclaration) => {
     const ng2Injector = transition.injector().get(NATIVE_INJECTOR_TOKEN);
@@ -109,7 +97,10 @@ export function loadNgModule(
  *
  * @internalapi
  */
-export function loadModuleFactory(moduleToLoad: NgModuleToLoad, ng2Injector: Injector): Promise<NgModuleFactory<any>> {
+export function loadModuleFactory(
+  moduleToLoad: ModuleTypeCallback,
+  ng2Injector: Injector
+): Promise<NgModuleFactory<any>> {
   if (isString(moduleToLoad)) {
     return ng2Injector.get(NgModuleFactoryLoader).load(moduleToLoad);
   }
