@@ -1,4 +1,5 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@uirouter/angular",
   "description": "State-based routing for Angular",
   "version": "5.0.0",
@@ -47,6 +48,11 @@
   "main": "_bundles/ui-router-ng2.js",
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/index.ts"
+    }
+  },
   "dependencies": {
     "@uirouter/core": "^6.0.1",
     "@uirouter/rx": "^0.6.0"
@@ -78,6 +84,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-super-dots-reporter": "^0.2.0",
     "karma-webpack": "^3.0.5",
+    "ng-packagr": "^5.3.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "rollup": "^1.15.5",
