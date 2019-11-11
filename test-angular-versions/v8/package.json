@@ -1,13 +1,14 @@
 {
-  "name": "v8",
+  "name": "AngularV8",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "npm run e2e",
     "lint": "ng lint",
-    "e2e": "npm run build && cypress-runner run --path dist/v8"
+    "test": "npm run test:dev && npm run test:prod",
+    "test:dev": "ng build && cypress-runner run --path dist/v8",
+    "test:prod": "ng build --prod && cypress-runner run --path dist/v8"
   },
   "private": true,
   "dependencies": {
