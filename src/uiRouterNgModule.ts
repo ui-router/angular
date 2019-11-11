@@ -23,11 +23,9 @@ import { UIView } from './directives/uiView';
 import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
 
-import { ROUTES } from '@angular/router';
 /** @hidden */ export const UIROUTER_ROOT_MODULE = new InjectionToken('UIRouter Root Module');
 /** @hidden */ export const UIROUTER_MODULE_TOKEN = new InjectionToken('UIRouter Module');
 /** @hidden */ export const UIROUTER_STATES = new InjectionToken('UIRouter States');
-// /** @hidden */ export const ROUTES = UIROUTER_STATES;
 
 // Delay angular bootstrap until first transition is successful, for SSR.
 // See https://github.com/ui-router/angular/pull/127
@@ -50,7 +48,6 @@ export function makeRootProviders(module: RootModule): Provider[] {
   return [
     { provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true },
     { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
-    { provide: ROUTES, useValue: module.states || [], multi: true },
     { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
     {
       provide: APP_INITIALIZER,
@@ -64,7 +61,6 @@ export function makeRootProviders(module: RootModule): Provider[] {
 export function makeChildProviders(module: StatesModule): Provider[] {
   return [
     { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
-    { provide: ROUTES, useValue: module.states || [], multi: true },
     { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
   ];
 }

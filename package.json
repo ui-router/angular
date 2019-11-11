@@ -1,24 +1,20 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@uirouter/angular",
   "description": "State-based routing for Angular",
   "version": "5.0.0",
   "scripts": {
-    "clean": "shx rm -rf lib lib-esm _bundles _doc",
+    "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",
-    "bundle": "rollup -c && rollup -c --environment MINIFY",
-    "fixmaps:lib": "tweak_sourcemap_paths -a --include 'lib/**/*.js.map' 'lib-esm/**/*.js.map'",
-    "fixmaps:bundle": "tweak_sourcemap_paths -a --include '_bundles/**/*.js.map'",
-    "build": "run-s compile bundle fixmaps:*",
+    "build": "ng-packagr -p package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
     "test": "karma start",
     "test:downstream": "test_downstream_projects",
     "debug": "karma start --singleRun=false --autoWatch=true --autoWatchInterval=1 --browsers=Chrome",
-    "package": "npm run build",
     "docs": "generate_docs",
     "docs:publish": "generate_docs && publish_docs",
-    "prepublishOnly": "npm run build",
-    "changelog": "update_changelog --include-core",
-    "artifacts": "artifact_tagging"
+    "prepublishOnly": "echo && echo DO NOT RUN npm publish.  Instead, run npm run release && echo && echo && false",
+    "changelog": "update_changelog --include-core"
   },
   "homepage": "https://ui-router.github.io/angular",
   "contributors": [
@@ -44,31 +40,33 @@
     "node": ">=6.0.0"
   },
   "license": "MIT",
-  "main": "_bundles/ui-router-ng2.js",
-  "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "dependencies": {
+  "distDir": "dist",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/index.ts"
+    }
+  },
+  "peerDependencies": {
+    "@angular/common": ">=8.0.0",
+    "@angular/core": ">=8.0.0",
     "@uirouter/core": "^6.0.1",
     "@uirouter/rx": "^0.6.0"
   },
-  "peerDependencies": {
-    "@angular/common": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
-    "@angular/core": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
-    "@angular/router": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0"
-  },
   "devDependencies": {
-    "@angular/animations": "^6.1.2",
-    "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
-    "@angular/compiler-cli": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/platform-browser": "^5.0.0",
-    "@angular/platform-browser-dynamic": "^5.0.0",
-    "@angular/platform-server": "^5.0.0",
-    "@angular/router": "^5.0.0",
+    "@angular/animations": "^8.2.5",
+    "@angular/common": "^8.2.5",
+    "@angular/compiler": "^8.2.5",
+    "@angular/compiler-cli": "^8.2.5",
+    "@angular/core": "^8.2.5",
+    "@angular/platform-browser": "^8.2.5",
+    "@angular/platform-browser-dynamic": "^8.2.5",
+    "@angular/platform-server": "^8.2.5",
+    "@angular/router": "^8.2.5",
     "@types/jasmine": "3.4.0",
     "@types/jquery": "^3.3.29",
+    "@uirouter/core": "^6.0.1",
     "@uirouter/publish-scripts": "^2.3.37",
+    "@uirouter/rx": "^0.6.0",
     "husky": "^3.0.0",
     "jasmine-core": "^3.3.0",
     "karma": "^4.1.0",
@@ -78,6 +76,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-super-dots-reporter": "^0.2.0",
     "karma-webpack": "^3.0.5",
+    "ng-packagr": "^5.3.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "rollup": "^1.15.5",
@@ -85,15 +84,15 @@
     "rollup-plugin-node-resolve": "^5.0.2",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-uglify": "^6.0.0",
-    "rxjs": "^6.3.2",
+    "rxjs": "^6.5.3",
     "rxjs-compat": "^6.3.2",
     "ts-loader": "^3.5.0",
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
-    "typescript": "^3.2.4",
+    "typescript": "~3.5.3",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^3.1.4",
-    "zone.js": "^0.10.2"
+    "zone.js": "~0.9.1"
   },
   "husky": {
     "hooks": {

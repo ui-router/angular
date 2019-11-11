@@ -122,7 +122,7 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
 export class UIView implements OnInit, OnDestroy {
   static PARENT_INJECT = 'UIView.PARENT_INJECT';
 
-  @ViewChild('componentTarget', { read: ViewContainerRef })
+  @ViewChild('componentTarget', { read: ViewContainerRef, static: true })
   _componentTarget: ViewContainerRef;
   @Input('name') name: string;
 
