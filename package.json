@@ -2,7 +2,7 @@
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@uirouter/angular",
   "description": "State-based routing for Angular",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",

@@ -1,3 +1,65 @@
+# 6.0.0 (2019-11-12)
+[Compare `@uirouter/angular` versions 5.0.0 and 6.0.0](https://github.com/ui-router/angular/compare/5.0.0...6.0.0)
+
+This release supports Angular 9 and removes the dependency on `@angular/router`
+There are some *BREAKING CHANGES*, see below.
+
+### Bug Fixes
+
+* **ivy:** Inject host UISref separately to account for behavior change in [@ContentChildren](https://github.com/ContentChildren) ([ebd2e40](https://github.com/ui-router/angular/commit/ebd2e40)), closes [/github.com/angular/angular/issues/8277#issuecomment-323678013](https://github.com//github.com/angular/angular/issues/8277/issues/issuecomment-323678013)
+* fix(angular8): Add static: true to ViewChild
+* fix(lazyLoad): Remove dependency on angular/router in favor of using ivy
+Ivy supports lazy loading of modules without depending on the ROUTES token from angular/router.
+
+### Features
+
+* **lazyLoad:** Remove NgModuleToLoad type (string based lazy module loading) ([2f1506c](https://github.com/ui-router/angular/commit/2f1506c))
+* Ivy support (#674) ([00e9d6a](https://github.com/ui-router/angular/commit/00e9d6a)), closes [#674](https://github.com/ui-router/angular/issues/674)
+
+
+### BREAKING CHANGES
+
+####  UIRouter for Angular v6.0.0 now requires Angular 8 or higher
+
+If you are not yet on Angular 8, please use `@uirouter/angular` v5.x
+
+#### `@uirouter/core` and `@uirouter/rx` packages are now `peerDependencies`.
+
+You will need to explicitly install the correct versions of `@uirouter/core` and `@uirouter/rx` into your project.
+
+before:
+
+```
+dependencies: {
+  "@uirouter/angular": "5.0.0"
+}
+```
+
+after (example -- versions will vary):
+```
+dependencies: {
+  "@uirouter/angular": "6.0.0"
+  "@uirouter/core": "6.0.1",
+  "@uirouter/rx": "0.6.0",
+}
+```
+
+Or, use this command to automatically install peerDependencies:
+
+
+```
+npx check-peer-dependencies --install
+```
+
+#### Removed string based lazy module loading via loadChildren
+
+Previously, we supported `loadChildren: './lazymodule/lazy.module.ts#LazyModule'`
+
+This lazy load mechanism is deprecated in Angular 8 in favor of:
+`loadChildren: import('./lazymodule/lazy.module).then(x => x.LazyModule)`
+
+Migrate your `loadChildren`(s) to the `import()` style.
+
 # 5.0.0 (2019-10-02)
 [Compare `@uirouter/angular` versions 4.0.0 and 5.0.0](https://github.com/ui-router/angular/compare/4.0.0...5.0.0)
 
