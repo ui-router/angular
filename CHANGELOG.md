@@ -1,3 +1,10 @@
+## 6.0.1 (2019-11-24)
+[Compare `@uirouter/angular` versions 6.0.0 and 6.0.1](https://github.com/ui-router/angular/compare/6.0.0...6.0.1)
+
+### Bug Fixes
+
+* **package:** Change angular peerDependency semver to match 9.0.0-next/rc ([#681](https://github.com/ui-router/angular/issues/681)) ([ca4acfb](https://github.com/ui-router/angular/commit/ca4acfb)) (Allows this package to be used with Angular 9.0.0-rc without warnings)
+
 # 6.0.0 (2019-11-12)
 [Compare `@uirouter/angular` versions 5.0.0 and 6.0.0](https://github.com/ui-router/angular/compare/5.0.0...6.0.0)
 
