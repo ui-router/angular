@@ -65,7 +65,7 @@
     "@types/jasmine": "3.4.0",
     "@types/jquery": "^3.3.29",
     "@uirouter/core": "^6.0.1",
-    "@uirouter/publish-scripts": "^2.3.38",
+    "@uirouter/publish-scripts": "^2.3.39",
     "@uirouter/rx": "^0.6.0",
     "husky": "^3.0.0",
     "jasmine-core": "^3.3.0",
