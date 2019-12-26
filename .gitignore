@@ -15,3 +15,5 @@ _bundles
 lib
 lib-esm
 dist
+
+!.github
