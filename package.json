@@ -59,7 +59,7 @@
     "@angular/core": "^8.2.5",
     "@angular/platform-browser": "^8.2.5",
     "@angular/platform-browser-dynamic": "^8.2.5",
-    "@types/jasmine": "3.4.0",
+    "@types/jasmine": "3.5.0",
     "@types/jquery": "^3.3.29",
     "@uirouter/core": "^6.0.1",
     "@uirouter/publish-scripts": "^2.3.42",
