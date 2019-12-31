@@ -64,6 +64,7 @@
     "@uirouter/core": "^6.0.1",
     "@uirouter/publish-scripts": "^2.3.44",
     "@uirouter/rx": "^0.6.0",
+    "core-js": "^3.6.1",
     "husky": "^3.0.0",
     "jasmine-core": "^3.3.0",
     "karma": "^4.1.0",
