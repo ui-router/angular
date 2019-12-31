@@ -1,11 +1,11 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
+import { inject, TestBed } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
-import { UIView } from '../../src/directives/uiView';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
 import {
+  APP_INITIALIZER,
   ApplicationInitStatus,
   Component,
-  NgModule,
   NgModuleFactoryLoader,
   SystemJsNgModuleLoader,
 } from '@angular/core';
@@ -21,8 +21,9 @@ export class HomeComponent {}
 export class AppComponent {}
 
 const setupTests = (deferInitialRender: boolean) => {
-  let resolve;
-  const promise = new Promise<any>(_resolve => (resolve = _resolve));
+  let resolveData, resolveAppInitializer;
+  const promise = new Promise<any>(_resolve => (resolveData = _resolve));
+  const appInitializer = new Promise<any>(_resolve => (resolveAppInitializer = _resolve));
 
   const homeState: Ng2StateDeclaration = {
     name: 'home',
@@ -41,30 +42,34 @@ const setupTests = (deferInitialRender: boolean) => {
   TestBed.configureTestingModule({
     declarations: [HomeComponent, AppComponent],
     imports: [routerModule],
-    providers: [{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader }],
+    providers: [
+      { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
+      { provide: APP_INITIALIZER, useValue: () => appInitializer, multi: true },
+    ],
   });
 
-  return resolve;
+  return { resolveData, resolveAppInitializer };
 };
 
 describe('deferInitialRender == false', () => {
-  let resolve, router: UIRouter, status: ApplicationInitStatus;
+  let resolveData, resolveAppInitializer, router: UIRouter, status: ApplicationInitStatus;
   beforeEach(() => {
-    resolve = setupTests(false);
+    const resolves = setupTests(false);
+    resolveData = resolves.resolveData;
+    resolveAppInitializer = resolves.resolveAppInitializer;
   });
 
-  beforeEach(
-    inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
-      router = _router;
-      status = _status;
-    })
-  );
+  beforeEach(inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
+    router = _router;
+    status = _status;
+  }));
 
   it('should not wait for initial transition', async done => {
     const { stateService } = router;
     const fixture = TestBed.createComponent(AppComponent);
 
     expect(status.done).toBe(false);
+    resolveAppInitializer();
     const goPromise = stateService.go('home');
 
     fixture.detectChanges();
@@ -74,30 +79,32 @@ describe('deferInitialRender == false', () => {
     await timeout();
     expect(status.done).toBe(true);
 
-    resolve();
+    resolveData();
     await goPromise;
     done();
   });
 });
 
 describe('deferInitialRender == true', () => {
-  let resolve, router: UIRouter, status: ApplicationInitStatus;
+  let resolveData, resolveAppInitializer, router: UIRouter, status: ApplicationInitStatus;
   beforeEach(() => {
-    resolve = setupTests(true);
+    const resolves = setupTests(true);
+    resolveData = resolves.resolveData;
+    resolveAppInitializer = resolves.resolveAppInitializer;
   });
 
-  beforeEach(
-    inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
-      router = _router;
-      status = _status;
-    })
-  );
+  beforeEach(inject([UIRouter, ApplicationInitStatus], (_router, _status) => {
+    router = _router;
+    status = _status;
+  }));
 
   it('should wait for initial transition', async done => {
     const { stateService } = router;
     const fixture = TestBed.createComponent(AppComponent);
 
     expect(status.done).toBe(false);
+    resolveAppInitializer();
+
     const goPromise = stateService.go('home');
 
     fixture.detectChanges();
@@ -105,7 +112,7 @@ describe('deferInitialRender == true', () => {
     expect(status.done).toBe(false);
 
     await timeout();
-    resolve();
+    resolveData();
 
     await goPromise;
     expect(status.done).toBe(false);
