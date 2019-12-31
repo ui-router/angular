@@ -83,7 +83,11 @@ describe('uiSref', () => {
           globals: {
             states$: new Subject(),
           },
-          stateService: jasmine.createSpyObj('stateService', ['go', 'target', 'href']),
+          stateService: {
+            go: jest.fn(),
+            target: jest.fn(),
+            href: jest.fn(),
+          },
         } as any;
         TestBed.configureTestingModule({
           declarations: [TestComponent],
@@ -176,10 +180,12 @@ describe('uiSref', () => {
       let subscription: Subscription;
 
       beforeEach(() => {
+        debugger;
         fixture = TestBed.configureTestingModule({
           declarations: [TestComponent],
           imports: [UIRouterModule.forRoot({ useHash: true })],
         }).createComponent(TestComponent);
+        debugger;
         fixture.detectChanges();
         comp = fixture.componentInstance;
         logger = [];

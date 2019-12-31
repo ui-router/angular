@@ -8,9 +8,9 @@
     "compile": "npm run clean && ngc",
     "build": "ng-packagr -p package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
-    "test": "karma start",
+    "test": "jest --rootDir test",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --rootDir test --runInBand",
     "test:downstream": "test_downstream_projects",
-    "debug": "karma start --singleRun=false --autoWatch=true --autoWatchInterval=1 --browsers=Chrome",
     "docs": "generate_docs",
     "docs:publish": "generate_docs && publish_docs",
     "prepublishOnly": "echo && echo DO NOT RUN npm publish.  Instead, run npm run release && echo && echo && false",
@@ -41,11 +41,6 @@
   },
   "license": "MIT",
   "distDir": "dist",
-  "ngPackage": {
-    "lib": {
-      "entryFile": "src/index.ts"
-    }
-  },
   "peerDependencies": {
     "@angular/common": "^8.0.0 || ^9.0.0 || ^9.0.0-next",
     "@angular/core": "^8.0.0 || ^9.0.0 || ^9.0.0-next",
@@ -60,21 +55,16 @@
     "@angular/platform-browser": "^8.2.5",
     "@angular/platform-browser-dynamic": "^8.2.5",
     "@types/jasmine": "3.5.0",
+    "@types/jest": "^24.0.25",
     "@types/jquery": "^3.3.29",
     "@uirouter/core": "^6.0.1",
     "@uirouter/publish-scripts": "^2.3.44",
     "@uirouter/rx": "^0.6.0",
     "core-js": "^3.6.1",
     "husky": "^3.0.0",
-    "jasmine-core": "^3.3.0",
-    "karma": "^4.1.0",
-    "karma-chrome-launcher": "^3.0.0",
-    "karma-jasmine": "^2.0.1",
-    "karma-mocha-reporter": "^2.2.5",
-    "karma-sourcemap-loader": "^0.3.7",
-    "karma-super-dots-reporter": "^0.2.0",
-    "karma-webpack": "^4.0.2",
     "ng-packagr": "=5.3.0",
+    "jest": "^24.9.0",
+    "jest-preset-angular": "^8.0.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.1",
     "rollup": "^1.15.5",
@@ -88,9 +78,16 @@
     "tslib": "^1.9.3",
     "tslint": "^5.11.0",
     "typescript": "~3.5.3",
-    "webpack": "^4.41.5",
-    "webpack-dev-server": "^3.1.4",
     "zone.js": "~0.10.2"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/index.ts"
+    }
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": ["./setupJest.ts"]
   },
   "husky": {
     "hooks": {
