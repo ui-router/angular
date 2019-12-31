@@ -103,10 +103,11 @@ import {
   NATIVE_INJECTOR_TOKEN,
 } from '@uirouter/core';
 import { UIView, ParentUIViewInject } from './directives/uiView';
+import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from './injectionTokens';
 import { ng2ViewsBuilder, Ng2ViewConfig } from './statebuilders/views';
 import { Ng2ViewDeclaration } from './interface';
 import { applyRootModuleConfig, applyModuleConfig } from './uiRouterConfig';
-import { RootModule, StatesModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN } from './uiRouterNgModule';
+import { RootModule, StatesModule } from './uiRouterNgModule';
 import { servicesPlugin, ServicesPlugin } from '@uirouter/core';
 import { ng2LazyLoadBuilder } from './statebuilders/lazyLoad';
 import { UIRouterRx } from '@uirouter/rx';
