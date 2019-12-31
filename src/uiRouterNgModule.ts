@@ -1,4 +1,5 @@
 /** @ng2api @module core */
+import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from './injectionTokens';
 /** */
 import { Ng2StateDeclaration } from './interface';
 import {
@@ -7,25 +8,13 @@ import {
   ANALYZE_FOR_ENTRY_COMPONENTS,
   Provider,
   Injector,
-  InjectionToken,
   APP_INITIALIZER,
-  PLATFORM_ID,
 } from '@angular/core';
-import {
-  CommonModule,
-  LocationStrategy,
-  HashLocationStrategy,
-  PathLocationStrategy,
-  isPlatformServer,
-} from '@angular/common';
+import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { _UIROUTER_DIRECTIVES } from './directives/directives';
 import { UIView } from './directives/uiView';
 import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
-
-/** @hidden */ export const UIROUTER_ROOT_MODULE = new InjectionToken('UIRouter Root Module');
-/** @hidden */ export const UIROUTER_MODULE_TOKEN = new InjectionToken('UIRouter Module');
-/** @hidden */ export const UIROUTER_STATES = new InjectionToken('UIRouter States');
 
 // Delay angular bootstrap until first transition is successful, for SSR.
 // See https://github.com/ui-router/angular/pull/127

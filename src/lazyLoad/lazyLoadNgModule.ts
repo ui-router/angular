@@ -14,7 +14,8 @@ import {
   uniqR,
   StateDeclaration,
 } from '@uirouter/core';
-import { RootModule, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, StatesModule } from '../uiRouterNgModule';
+import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from '../injectionTokens';
+import { RootModule, StatesModule } from '../uiRouterNgModule';
 import { applyModuleConfig } from '../uiRouterConfig';
 
 /**
