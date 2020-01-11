@@ -8,7 +8,11 @@
     "module": "commonjs",
     "outDir": "build/es5",
     "sourceMap": false,
-    "target": "es5"
+    "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "@uirouter/core": ["@uirouter/core/src"]
+    }
   },
   "typedoc": {
     "publishDir": "_ng2_docs",
