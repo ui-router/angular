@@ -1,4 +1,4 @@
-/** @module ng2 */ /** */
+/** @packageDocumentation @module ng2 */
 import { Injector } from '@angular/core';
 
 /**

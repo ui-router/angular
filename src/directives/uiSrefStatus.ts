@@ -1,5 +1,4 @@
-/** @ng2api @module directives */
-/** */
+/** @packageDocumentation @ng2api @module directives */
 import { Directive, Output, EventEmitter, ContentChildren, QueryList, Host, Self, Optional } from '@angular/core';
 import { UISref } from './uiSref';
 import {
@@ -223,7 +222,10 @@ export class UISrefStatus {
         const event = (evt: string) => ({ evt, trans } as TransEvt);
 
         const transStart$ = of(event('start'));
-        const transResult = trans.promise.then(() => event('success'), () => event('error'));
+        const transResult = trans.promise.then(
+          () => event('success'),
+          () => event('error')
+        );
         const transFinish$ = from(transResult);
 
         return concat(transStart$, transFinish$);

@@ -1,5 +1,4 @@
-/** @ng2api @module core */
-/** */
+/** @packageDocumentation @ng2api @module core */
 import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from '@angular/core';
 import {
   Transition,

@@ -1,4 +1,4 @@
-/** @ng2api @module ng2 */ /** for typedoc */
+/** @packageDocumentation @ng2api @module ng2 */
 
 export * from './interface';
 export * from './providers';

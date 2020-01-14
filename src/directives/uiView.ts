@@ -1,5 +1,4 @@
-/** @ng2api @module directives */
-/** */
+/** @packageDocumentation @ng2api @module directives */
 import {
   Component,
   ComponentFactory,

@@ -1,4 +1,4 @@
-/** @module ng2 */ /** */
+/** @packageDocumentation @module ng2 */
 import { isFunction, StateObject } from '@uirouter/core';
 import { PathNode } from '@uirouter/core';
 import { pick, forEach } from '@uirouter/core';

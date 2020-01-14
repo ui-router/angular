@@ -1,4 +1,4 @@
-/** @module ng2 */ /** */
+/** @packageDocumentation @module ng2 */
 import { UIRouter, isFunction, StateObject } from '@uirouter/core';
 import { StatesModule, RootModule } from './uiRouterNgModule';
 import { Injector } from '@angular/core';

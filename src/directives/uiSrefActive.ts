@@ -1,4 +1,4 @@
-/** @ng2api @module directives */ /** */
+/** @packageDocumentation @ng2api @module directives */
 import { Directive, Input, ElementRef, Host, Renderer2 } from '@angular/core';
 import { UISrefStatus, SrefStatus } from './uiSrefStatus';
 import { Subscription } from 'rxjs';

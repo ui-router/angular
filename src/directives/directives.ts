@@ -5,9 +5,7 @@
  * - [[UISref]]: A state ref to a target state; navigates when clicked
  * - [[UISrefActive]]: (and `UISrefActiveEq`) Adds a css class when a UISref's target state (or a child state) is active
  *
- * @ng2api
- * @preferred
- * @module directives
+ * @packageDocumentation @ng2api @preferred @module directives
  */ /** */
 import { UISref, AnchorUISref } from './uiSref';
 import { UISrefActive } from './uiSrefActive';

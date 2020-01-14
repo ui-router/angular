@@ -82,9 +82,8 @@
  * }
  * ```
  *
- * @preferred @module ng2
+ * @packageDocumentation @preferred @module ng2
  */
-/** */
 import { Injector, Provider, PLATFORM_ID, APP_INITIALIZER } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {

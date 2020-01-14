@@ -1,6 +1,5 @@
-/** @ng2api @module core */
+/** @packageDocumentation @ng2api @module core */
 import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from './injectionTokens';
-/** */
 import { Ng2StateDeclaration } from './interface';
 import {
   NgModule,

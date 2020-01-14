@@ -1,5 +1,4 @@
-/** @ng2api @module directives */
-/** */
+/** @packageDocumentation @ng2api @module directives */
 import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber } from '@uirouter/core';
 import {
   Directive,
