@@ -8,8 +8,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@angular/common": "latest",
-    "@angular/core": "latest",
+    "@angular/common": "^8",
+    "@angular/core": "^8",
     "@uirouter/angular": "latest",
     "rxjs": "^6.0.0",
     "typescript": "3.4"
