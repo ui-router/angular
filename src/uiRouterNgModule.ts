@@ -122,7 +122,7 @@ export class UIRouterModule {
    * @param config declarative UI-Router configuration
    * @returns an `NgModule` which provides the [[UIRouter]] singleton instance
    */
-  static forRoot(config: RootModule = {}): ModuleWithProviders {
+  static forRoot(config: RootModule = {}): ModuleWithProviders<UIRouterModule> {
     return {
       ngModule: UIRouterModule,
       providers: [
@@ -158,7 +158,7 @@ export class UIRouterModule {
    * @param module UI-Router module options
    * @returns an `NgModule`
    */
-  static forChild(module: StatesModule = {}): ModuleWithProviders {
+  static forChild(module: StatesModule = {}): ModuleWithProviders<UIRouterModule> {
     return {
       ngModule: UIRouterModule,
       providers: makeChildProviders(module),

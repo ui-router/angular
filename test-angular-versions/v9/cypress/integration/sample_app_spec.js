@@ -1,4 +1,4 @@
-describe('Angular v8 app', () => {
+describe('Angular v9 app', () => {
   beforeEach(() => {
     window.sessionStorage.clear();
   });
