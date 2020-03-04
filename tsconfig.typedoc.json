@@ -11,7 +11,8 @@
     "target": "es5",
     "baseUrl": ".",
     "paths": {
-      "@uirouter/core": ["@uirouter/core/src"]
+      "@uirouter/core": ["@uirouter/core/src"],
+      "@uirouter/rx": ["@uirouter/rx/src/index.typedoc"]
     }
   },
   "typedoc": {
@@ -21,6 +22,11 @@
         "package": "@uirouter/core",
         "repo": "https://github.com/ui-router/core.git",
         "entry": "src/index.ts"
+      },
+      {
+        "package": "@uirouter/rx",
+        "repo": "https://github.com/ui-router/rx.git",
+        "entry": "src/index.typedoc.ts"
       }
     ],
     "generateOptions": {
