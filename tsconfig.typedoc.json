@@ -20,7 +20,7 @@
       }
     ],
     "generateOptions": {
-      "tsconfig": "typedoc.json",
+      "tsconfig": "tsconfig.typedoc.json",
       "readme": "README.md",
       "name": "@uirouter/angular",
       "theme": "node_modules/ui-router-typedoc-themes/bin/default",
