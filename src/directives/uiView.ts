@@ -36,7 +36,6 @@ import {
 } from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
-import { Ng2Component } from '../interface';
 
 /** @hidden */
 let id = 0;
@@ -211,7 +210,7 @@ export class UIView implements OnInit, OnDestroy {
    * For each transition, checks if any param values changed and notify component
    */
   private _invokeUiOnParamsChangedHook($transition$: Transition) {
-    const instance: Ng2Component = this._componentRef && this._componentRef.instance;
+    const instance = this._componentRef && this._componentRef.instance;
     const uiOnParamsChanged: TransitionHookFn = instance && instance.uiOnParamsChanged;
 
     if (isFunction(uiOnParamsChanged)) {

@@ -2,7 +2,7 @@
 /** */
 
 import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from '@uirouter/core';
-import { Type, Component } from '@angular/core';
+import { Type } from '@angular/core';
 import { ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';
 
 /**
@@ -286,18 +286,13 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
   bindings?: { [key: string]: string };
 }
 
-/**
- * The shape of a controller for a view (and/or component), defining the controller callbacks.
- *
- * A UI-Router view has an Angular `Component` (see [[Ng2ViewDeclaration.component]]).
- * The `Component` may define component-level hooks which UI-Router will call at the appropriate times.
- * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
- *
- * This interface defines the UI-Router component callbacks.
- */
-export interface Ng2Component extends Component {
+export interface UiOnParamsChanged {
   /**
-   * This callback is called when parameter values change
+   * A UI-Router view has an Angular `Component` (see [[Ng2ViewDeclaration.component]]).
+   * The `Component` may define component-level hooks which UI-Router will call at the appropriate times.
+   * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
+   *
+   * The uiOnParamsChanged callback is called when parameter values change.
    *
    * This callback is used to respond dynamic parameter values changing.
    * It is called when a transition changed one or more dynamic parameter values,
@@ -323,10 +318,16 @@ export interface Ng2Component extends Component {
    * }
    * ```
    */
-  uiOnParamsChanged?(newParams: { [paramName: string]: any }, trans?: Transition): void;
+  uiOnParamsChanged(newParams: { [paramName: string]: any }, trans?: Transition): void;
+}
 
+export interface UiOnExit {
   /**
-   * This callback is called when the routed component's state is about to be exited.
+   * A UI-Router view has an Angular `Component` (see [[Ng2ViewDeclaration.component]]).
+   * The `Component` may define component-level hooks which UI-Router will call at the appropriate times.
+   * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
+   *
+   * The uiCanExit callback is called when the routed component's state is about to be exited.
    *
    * The callback can be used to cancel or alter the new Transition that would otherwise exit the component's state.
    *
@@ -365,5 +366,5 @@ export interface Ng2Component extends Component {
    *
    * @return a hook result which may cancel or alter the pending Transition (see [[HookResult]])
    */
-  uiCanExit?(newTransition?: Transition): HookResult;
+  uiCanExit(newTransition?: Transition): HookResult;
 }
