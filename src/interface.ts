@@ -2,7 +2,7 @@
 /** */
 
 import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from '@uirouter/core';
-import { Type, Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';
 
 /**
@@ -286,6 +286,89 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
   bindings?: { [key: string]: string };
 }
 
+export interface UiOnParamsChanged {
+  /**
+   * A UI-Router view has an Angular `Component` (see [[Ng2ViewDeclaration.component]]).
+   * The `Component` may define component-level hooks which UI-Router will call at the appropriate times.
+   * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
+   *
+   * The uiOnParamsChanged callback is called when parameter values change.
+   *
+   * This callback is used to respond dynamic parameter values changing.
+   * It is called when a transition changed one or more dynamic parameter values,
+   * and the routed component was not destroyed.
+   *
+   * It receives two parameters:
+   *
+   * - An object with (only) changed parameter values.
+   *   The keys are the parameter names and the values are the new parameter values.
+   * - The [[Transition]] which changed the parameter values.
+   *
+   * #### Example:
+   * ```js
+   * @Component({
+   *   template: '<input type="text">'
+   * })
+   * class MyComponent {
+   *   uiOnParamsChanged(newParams: { [paramName: string]: any }, trans: Transition) {
+   *     Object.keys(newParams).forEach(paramName => {
+   *       console.log(`${paramName} changed to ${newParams[paramName]}`)
+   *     });
+   *   }
+   * }
+   * ```
+   */
+  uiOnParamsChanged(newParams: { [paramName: string]: any }, trans?: Transition): void;
+}
+
+export interface UiOnExit {
+  /**
+   * A UI-Router view has an Angular `Component` (see [[Ng2ViewDeclaration.component]]).
+   * The `Component` may define component-level hooks which UI-Router will call at the appropriate times.
+   * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
+   *
+   * The uiCanExit callback is called when the routed component's state is about to be exited.
+   *
+   * The callback can be used to cancel or alter the new Transition that would otherwise exit the component's state.
+   *
+   * This callback is used to inform a view that it is about to be exited, due to a new [[Transition]].
+   * The callback can ask for user confirmation, and cancel or alter the new Transition.  The callback should
+   * return a value, or a promise for a value.  If a promise is returned, the new Transition waits until the
+   * promise settles.
+   *
+   * Called when:
+   * - The component is still active inside a `ui-view`
+   * - A new Transition is about to run
+   * - The new Transition will exit the view's state
+   *
+   * Called with:
+   * - The `Transition` that is about to exit the component's state
+   *
+   * #### Example:
+   * ```js
+   * @Component({
+   *   template: '<input type="text">'
+   * })
+   * class MyComponent {
+   *   dirty = true;
+   *
+   *   constructor(public confirmService: confirmService) {
+   *
+   *   }
+   *
+   *   uiCanExit(newTransition: Transition) {
+   *     if (this.dirty && newTransition.to() !== 'logout') {
+   *       return this.confirmService.confirm("Exit without saving changes?");
+   *     }
+   *   }
+   * }
+   * ```
+   *
+   * @return a hook result which may cancel or alter the pending Transition (see [[HookResult]])
+   */
+  uiCanExit(newTransition?: Transition): HookResult;
+}
+
 /**
  * The shape of a controller for a view (and/or component), defining the controller callbacks.
  *
@@ -294,6 +377,8 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
  * These callbacks are similar to Transition Hooks ([[IHookRegistry]]), but are only called if the view/component is currently active.
  *
  * This interface defines the UI-Router component callbacks.
+ *
+ * @deprecated This interface has been replaced by UiOnExit and UiOnParamsChanged.
  */
 export interface Ng2Component extends Component {
   /**
