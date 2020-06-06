@@ -1,3 +1,16 @@
+## 6.0.2 (2020-06-06)
+[Compare `@uirouter/angular` versions 6.0.1 and 6.0.2](https://github.com/ui-router/angular/compare/6.0.1...6.0.2)
+
+### Bug Fixes
+
+* **ci:** Set git username ([b209cd8](https://github.com/ui-router/angular/commit/b209cd8))
+
+
+### Features
+
+* create OnUiParamsChanged, OnUiExit interfaces  ([#800](https://github.com/ui-router/angular/issues/800)) ([ea4574d](https://github.com/ui-router/angular/commit/ea4574d)), closes [#788](https://github.com/ui-router/angular/issues/788)
+* **update_dependencies:** Add a repository_dispatch trigger ([d7a9777](https://github.com/ui-router/angular/commit/d7a9777))
+
 ## 6.0.1 (2019-11-24)
 [Compare `@uirouter/angular` versions 6.0.0 and 6.0.1](https://github.com/ui-router/angular/compare/6.0.0...6.0.1)
 
