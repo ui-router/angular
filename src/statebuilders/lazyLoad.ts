@@ -1,5 +1,3 @@
-/** @module ng2 */
-/** */
 import { LazyLoadResult, Transition, StateDeclaration } from '@uirouter/core'; // has or is using
 import { BuilderFunction, StateObject } from '@uirouter/core';
 import { loadNgModule } from '../lazyLoad/lazyLoadNgModule';

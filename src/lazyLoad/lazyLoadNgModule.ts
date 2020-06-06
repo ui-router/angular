@@ -1,5 +1,3 @@
-/** @ng2api @module core */
-/** */
 import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from '@angular/core';
 import {
   Transition,
@@ -79,9 +77,7 @@ export function loadNgModule(
 
     const applyModule = (moduleRef: NgModuleRef<any>) => applyNgModule(transition, moduleRef, ng2Injector, stateObject);
 
-    return loadModuleFactory(moduleToLoad, ng2Injector)
-      .then(createModule)
-      .then(applyModule);
+    return loadModuleFactory(moduleToLoad, ng2Injector).then(createModule).then(applyModule);
   };
 }
 
@@ -96,7 +92,7 @@ export function loadNgModule(
  * - Compiles the component type (if not running with AOT)
  * - Returns the NgModuleFactory resulting from compilation (or direct loading if using AOT) as a Promise
  *
- * @internalapi
+ * @internal
  */
 export function loadModuleFactory(
   moduleToLoad: ModuleTypeCallback,
@@ -108,7 +104,7 @@ export function loadModuleFactory(
 
   const compiler: Compiler = ng2Injector.get(Compiler);
 
-  const unwrapEsModuleDefault = x => (x && x.__esModule && x['default'] ? x['default'] : x);
+  const unwrapEsModuleDefault = (x) => (x && x.__esModule && x['default'] ? x['default'] : x);
 
   return Promise.resolve(moduleToLoad())
     .then(unwrapEsModuleDefault)
@@ -132,7 +128,7 @@ export function loadModuleFactory(
  * The NgModule's Injector (and ComponentFactoryResolver) will be added to that state.
  * The Injector/Factory are used when creating Components for the `replacement` state and all its children.
  *
- * @internalapi
+ * @internal
  */
 export function applyNgModule(
   transition: Transition,
@@ -166,7 +162,7 @@ export function applyNgModule(
   }
 
   const newStateObjects: StateObject[] = newChildModules
-    .map(module => applyModuleConfig(uiRouter, injector, module))
+    .map((module) => applyModuleConfig(uiRouter, injector, module))
     .reduce(unnestR, [])
     .reduce(uniqR, []);
 
@@ -186,10 +182,10 @@ export function applyNgModule(
   // Supply the newly loaded states with the Injector from the lazy loaded NgModule.
   // If a tree of states is lazy loaded, only add the injector to the root of the lazy loaded tree.
   // The children will get the injector by resolve inheritance.
-  const newParentStates = newStateObjects.filter(state => !inArray(newStateObjects, state.parent));
+  const newParentStates = newStateObjects.filter((state) => !inArray(newStateObjects, state.parent));
 
   // Add the Injector to the top of the lazy loaded state tree as a resolve
-  newParentStates.forEach(state => state.resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector)));
+  newParentStates.forEach((state) => state.resolvables.push(Resolvable.fromData(NATIVE_INJECTOR_TOKEN, injector)));
 
   return {};
 }
@@ -202,10 +198,10 @@ export function applyNgModule(
  *
  * This function returns the values added by the child injector,  and excludes all values from the parent injector.
  *
- * @internalapi
+ * @internal
  */
 export function multiProviderParentChildDelta(parent: Injector, child: Injector, token: any) {
   const childVals: RootModule[] = child.get(token, []);
   const parentVals: RootModule[] = parent.get(token, []);
-  return childVals.filter(val => parentVals.indexOf(val) === -1);
+  return childVals.filter((val) => parentVals.indexOf(val) === -1);
 }

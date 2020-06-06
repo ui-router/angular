@@ -81,10 +81,7 @@
  *   }
  * }
  * ```
- *
- * @preferred @module ng2
  */
-/** */
 import { Injector, Provider, PLATFORM_ID, APP_INITIALIZER } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -170,8 +167,8 @@ export function uiRouterFactory(
   router.urlMatcherFactory.$get();
 
   // ----------------- Initialize router -------------
-  rootModules.forEach(moduleConfig => applyRootModuleConfig(router, injector, moduleConfig));
-  modules.forEach(moduleConfig => applyModuleConfig(router, injector, moduleConfig));
+  rootModules.forEach((moduleConfig) => applyRootModuleConfig(router, injector, moduleConfig));
+  modules.forEach((moduleConfig) => applyModuleConfig(router, injector, moduleConfig));
 
   return router;
 }

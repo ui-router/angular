@@ -1,6 +1,3 @@
-/** @ng2api @module state */
-/** */
-
 import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from '@uirouter/core';
 import { Component, Type } from '@angular/core';
 import { ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';

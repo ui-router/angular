@@ -1,4 +1,3 @@
-/** @ng2api @module directives */ /** */
 import { Directive, Input, ElementRef, Host, Renderer2 } from '@angular/core';
 import { UISrefStatus, SrefStatus } from './uiSrefStatus';
 import { Subscription } from 'rxjs';
@@ -100,14 +99,14 @@ export class UISrefActive {
   private _subscription: Subscription;
   constructor(uiSrefStatus: UISrefStatus, rnd: Renderer2, @Host() host: ElementRef) {
     this._subscription = uiSrefStatus.uiSrefStatus.subscribe((next: SrefStatus) => {
-      this._classes.forEach(cls => {
+      this._classes.forEach((cls) => {
         if (next.active) {
           rnd.addClass(host.nativeElement, cls);
         } else {
           rnd.removeClass(host.nativeElement, cls);
         }
       });
-      this._classesEq.forEach(cls => {
+      this._classesEq.forEach((cls) => {
         if (next.exact) {
           rnd.addClass(host.nativeElement, cls);
         } else {

@@ -1,4 +1,3 @@
-/** @module ng2 */ /** */
 import { Injector } from '@angular/core';
 
 /**

@@ -1,4 +1,3 @@
-/** @module ng2 */ /** */
 import { UIRouter, isFunction, StateObject } from '@uirouter/core';
 import { StatesModule, RootModule } from './uiRouterNgModule';
 import { Injector } from '@angular/core';
@@ -10,7 +9,7 @@ export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, module
   }
 
   const states = module.states || [];
-  return states.map(state => uiRouter.stateRegistry.register(state));
+  return states.map((state) => uiRouter.stateRegistry.register(state));
 }
 
 export function applyRootModuleConfig(uiRouter: UIRouter, injector: Injector, module: RootModule) {

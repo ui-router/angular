@@ -1,6 +1,4 @@
-/** @ng2api @module core */
 import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from './injectionTokens';
-/** */
 import { Ng2StateDeclaration } from './interface';
 import {
   NgModule,
@@ -25,8 +23,8 @@ export function onTransitionReady(transitionService: TransitionService, root: Ro
   }
 
   return () =>
-    new Promise(resolve => {
-      const hook = trans => {
+    new Promise((resolve) => {
+      const hook = (trans) => {
         trans.promise.then(resolve, resolve);
       };
       transitionService.onStart({}, hook, { invokeLimit: 1 });

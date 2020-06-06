@@ -1,6 +1,3 @@
-/** @module ng2 */
-/** */
-
 import { UIRouter, is, BrowserLocationConfig } from '@uirouter/core';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 

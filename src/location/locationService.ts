@@ -1,5 +1,3 @@
-/** @module ng2 */
-/** */
 import { BaseLocationServices, parseUrl, UIRouter } from '@uirouter/core';
 import { LocationStrategy } from '@angular/common';
 
@@ -8,7 +6,7 @@ export class Ng2LocationServices extends BaseLocationServices {
   constructor(router: UIRouter, private _locationStrategy: LocationStrategy, isBrowser: boolean) {
     super(router, isBrowser);
 
-    this._locationStrategy.onPopState(evt => {
+    this._locationStrategy.onPopState((evt) => {
       if (evt.type !== 'hashchange') {
         this._listener(evt);
       }

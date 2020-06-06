@@ -1,5 +1,3 @@
-/** @ng2api @module directives */
-/** */
 import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber } from '@uirouter/core';
 import {
   Directive,
@@ -16,7 +14,7 @@ import { UIView, ParentUIViewInject } from './uiView';
 import { ReplaySubject, Subscription } from 'rxjs';
 
 /**
- * @internalapi
+ * @internal
  * # blah blah blah
  */
 @Directive({ selector: 'a[uiSref]' })
@@ -113,11 +111,11 @@ export class UISref implements OnChanges {
    */
   public targetState$ = new ReplaySubject<TargetState>(1);
 
-  /** @internalapi */ private _emit = false;
-  /** @internalapi */ private _statesSub: Subscription;
-  /** @internalapi */ private _router: UIRouter;
-  /** @internalapi */ private _anchorUISref: AnchorUISref;
-  /** @internalapi */ private _parent: ParentUIViewInject;
+  /** @internal */ private _emit = false;
+  /** @internal */ private _statesSub: Subscription;
+  /** @internal */ private _router: UIRouter;
+  /** @internal */ private _anchorUISref: AnchorUISref;
+  /** @internal */ private _parent: ParentUIViewInject;
 
   constructor(
     _router: UIRouter,
@@ -131,17 +129,17 @@ export class UISref implements OnChanges {
     this._statesSub = _router.globals.states$.subscribe(() => this.update());
   }
 
-  /** @internalapi */
+  /** @internal */
   set uiSref(val: string) {
     this.state = val;
     this.update();
   }
-  /** @internalapi */
+  /** @internal */
   set uiParams(val: Obj) {
     this.params = val;
     this.update();
   }
-  /** @internalapi */
+  /** @internal */
   set uiOptions(val: TransitionOptions) {
     this.options = val;
     this.update();
