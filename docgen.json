@@ -1,0 +1,30 @@
+{
+  "publishDir": "_ng2_docs",
+  "navigation": {
+    "": ["UIRouter"],
+    "Services": ["StateService", "StateRegistry", "TransitionService", "UrlService", "UrlConfig", "UrlRules"],
+    "Components": ["UIView", "UISref", "UISrefActive"],
+    "Other": ["Transition", "Trace"]
+  },
+  "include": [
+    {
+      "pkg": "@uirouter/core",
+      "repo": "https://github.com/ui-router/core",
+      "branch": "master"
+    },
+    {
+      "pkg": "@uirouter/rx",
+      "repo": "https://github.com/ui-router/rx"
+    }
+  ],
+  "tsconfig": {
+    "compilerOptions": {
+      "baseUrl": "./src",
+      "paths": {
+        "@uirouter/core": ["@uirouter/core/src"],
+        "@uirouter/core/lib/globals": ["@uirouter/core/src/globals"],
+        "@uirouter/rx": ["@uirouter/rx/src"]
+      }
+    }
+  }
+}

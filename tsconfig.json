@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "module": "es6",
     "target": "es5",
-    "lib": [ "es6", "dom" ],
+    "lib": ["es6", "dom"],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "rootDir": "src",
@@ -19,7 +19,5 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true
   },
-  "files": [
-    "src/index.ts"
-  ]
+  "files": ["src/index.ts"]
 }

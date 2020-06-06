@@ -57,7 +57,7 @@
     "@types/jest": "^25.1.4",
     "@types/jquery": "^3.3.33",
     "@uirouter/core": "^6.0.1",
-    "@uirouter/publish-scripts": "^2.3.48",
+    "@uirouter/publish-scripts": "^2.4.2",
     "@uirouter/rx": "^0.6.0",
     "husky": "^4.2.3",
     "jest": "^25.1.0",
@@ -65,7 +65,7 @@
     "ng-packagr": "=5.5.1",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
-    "rollup": "^2.0.6",
+    "rollup": "1.32.1",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-node-resolve": "^5.0.2",
     "rollup-plugin-sourcemaps": "^0.5.0",
@@ -73,10 +73,12 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "ts-loader": "^6.2.1",
-    "tslib": "^1.9.3",
+    "tslib": "1.13.0",
     "tslint": "^6.1.0",
-    "typescript": "~3.5.3",
-    "zone.js": "~0.10.2"
+    "typedoc": "~0.17.7",
+    "typedoc-plugin-ui-router": "^3.0.1",
+    "typescript": "3.5.3",
+    "zone.js": "0.9.1"
   },
   "ngPackage": {
     "lib": {
