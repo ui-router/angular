@@ -3,6 +3,7 @@
   "navigation": {
     "": ["UIRouter"],
     "Services": ["StateService", "StateRegistry", "TransitionService", "UrlService", "UrlConfig", "UrlRules"],
+    "Interfaces": ["Ng2StateDeclaration", "UiOnParamsChanged", "UiOnExit"],
     "Components": ["UIView", "UISref", "UISrefActive"],
     "Other": ["Transition", "Trace"]
   },
