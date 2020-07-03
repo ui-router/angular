@@ -227,7 +227,9 @@ export class UISrefStatus {
 
     // Watch the @ContentChildren UISref[] components and get their target states
     this._srefs$ = new BehaviorSubject(withHostSref(this._srefs.toArray()));
-    this._srefChangesSub = this._srefs.changes.subscribe((srefs) => this._srefs$.next(withHostSref(srefs)));
+    this._srefChangesSub = this._srefs.changes.subscribe((srefs: QueryList<UISref>) =>
+      this._srefs$.next(withHostSref(srefs.toArray()))
+    );
 
     const targetStates$: Observable<TargetState[]> = this._srefs$.pipe(
       switchMap((srefs: UISref[]) => combineLatest<TargetState[]>(srefs.map((sref) => sref.targetState$)))

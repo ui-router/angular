@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { UIRouter } from '@uirouter/core';
-import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISrefActive } from '../../src';
+import { UIRouterModule } from '../../src/uiRouterNgModule';
 
 describe('uiSrefActive', () => {
-  const tick = () => new Promise(resolve => setTimeout(resolve));
+  const tick = () => new Promise((resolve) => setTimeout(resolve));
 
-  const initialize = (Component, states) => {
+  const initialize = <T>(ComponentClass: Type<T>, states) => {
     const fixture = TestBed.configureTestingModule({
-      declarations: [Component],
+      declarations: [ComponentClass],
       imports: [UIRouterModule.forRoot({ useHash: true, states })],
-    }).createComponent(Component);
+    }).createComponent(ComponentClass);
     fixture.detectChanges();
 
     return fixture;
@@ -63,6 +63,65 @@ describe('uiSrefActive', () => {
           expect(classList).toContain(activeClasses[0]);
           expect(classList).toContain(activeClasses[1]);
         });
+    }));
+  });
+
+  describe('on a parent element', () => {
+    it('applies the active class when any child link is active', async(async () => {
+      const template = `
+      <li uiSrefActive="active">
+        <a uiSref="statea">State A</a>
+        <a uiSref="statec">State C</a>
+      </li>
+    `;
+      @Component({ template })
+      class TestComponent {}
+
+      const fixture = initialize(TestComponent, [{ name: 'statea' }, { name: 'stateb' }, { name: 'statec' }]);
+
+      const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
+      const router = fixture.debugElement.injector.get(UIRouter);
+
+      await router.stateService.go('statea').then(tick);
+      expect(des[0].nativeElement.classList).toContain('active');
+
+      await router.stateService.go('stateb').then(tick);
+      expect(des[0].nativeElement.classList).not.toContain('active');
+
+      await router.stateService.go('statec').then(tick);
+      expect(des[0].nativeElement.classList).toContain('active');
+    }));
+
+    // Test for https://github.com/ui-router/angular/issues/760
+    it('can dynamically add or remove nested uiSref', async(async () => {
+      const template = `
+        <li id="parent" uiSrefActive="active">
+          <a uiSref="statea"></a>
+          <a uiSref="stateb" *ngIf="show"></a>
+        </li>
+      `;
+      @Component({ template })
+      class TestComponent {
+        public show = false;
+      }
+
+      const states = [{ name: 'statea' }, { name: 'stateb' }, { name: 'statec' }];
+      const fixture = initialize(TestComponent, states);
+
+      const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
+      const router = fixture.debugElement.injector.get(UIRouter);
+
+      await router.stateService.go('statea').then(tick);
+      expect(des[0].nativeElement.classList).toContain('active');
+
+      fixture.componentInstance.show = true;
+      fixture.detectChanges();
+
+      await router.stateService.go('stateb').then(tick);
+      expect(des[0].nativeElement.classList).toContain('active');
+
+      await router.stateService.go('statec').then(tick);
+      expect(des[0].nativeElement.classList).not.toContain('active');
     }));
   });
 });
