@@ -180,16 +180,14 @@ describe('uiSref', () => {
       let subscription: Subscription;
 
       beforeEach(() => {
-        debugger;
         fixture = TestBed.configureTestingModule({
           declarations: [TestComponent],
           imports: [UIRouterModule.forRoot({ useHash: true })],
         }).createComponent(TestComponent);
-        debugger;
         fixture.detectChanges();
         comp = fixture.componentInstance;
         logger = [];
-        subscription = comp.linkASref.targetState$.subscribe(evt => logger.push(evt));
+        subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
       });
 
       afterEach(() => {
