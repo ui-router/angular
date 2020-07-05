@@ -60,7 +60,7 @@
     "@uirouter/publish-scripts": "^2.4.3",
     "@uirouter/rx": "^0.6.0",
     "husky": "^4.2.3",
-    "jest": "^25.1.0",
+    "jest": "^26.1.0",
     "jest-preset-angular": "^8.1.2",
     "ng-packagr": "=5.5.1",
     "prettier": "^2.0.5",
