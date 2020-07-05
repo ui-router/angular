@@ -19,12 +19,13 @@ export class Ng2LocationServices extends BaseLocationServices {
 
   _set(state: any, title: string, url: string, replace: boolean): any {
     const { path, search, hash } = parseUrl(url);
-    const urlWithHash = path + (hash ? '#' + hash : '');
+    const urlPart = search ? path : path + (hash ? '#' + hash : '');
+    const searchPart = search + (hash ? '#' + hash : '');
 
     if (replace) {
-      this._locationStrategy.replaceState(state, title, urlWithHash, search);
+      this._locationStrategy.replaceState(state, title, urlPart, searchPart);
     } else {
-      this._locationStrategy.pushState(state, title, urlWithHash, search);
+      this._locationStrategy.pushState(state, title, urlPart, searchPart);
     }
   }
 
