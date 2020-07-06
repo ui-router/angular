@@ -56,7 +56,13 @@ describe('uiSref', () => {
   };
 
   // Extract the logical portion of the URL after the hash
-  const urlOfElement = (srefElement: DebugElement) => srefElement.nativeElement.href.replace(/^[^#]*#/, '');
+  const urlOfElement = (srefElement: DebugElement) => {
+    let href = srefElement.nativeElement.href;
+    if (typeof location === 'object' && href.startsWith(location.href)) {
+      href = href.substr(location.href.length);
+    }
+    return href.replace(/^[^#]*#/, '');
+  };
 
   it('renders an href for a state with an url', () => {
     const { fixture, srefElements, router } = setup();
@@ -67,14 +73,14 @@ describe('uiSref', () => {
     expect(urlOfElement(srefElements[0])).toBe('/myurl');
   });
 
-  // it('renders an empty href for a url-less state', () => {
-  //   const { fixture, srefElements, router } = setup();
-  //   router.stateRegistry.register({ name: 'urlless' });
-  //   fixture.componentInstance.linkA = 'urlless';
-  //   fixture.detectChanges();
-  //   expect(srefElements[0].nativeElement.hasAttribute('href')).toBeTruthy();
-  //   expect(urlOfElement(srefElements[0])).toBe('');
-  // });
+  it('renders an empty href for a url-less state', () => {
+    const { fixture, srefElements, router } = setup();
+    router.stateRegistry.register({ name: 'urlless' });
+    fixture.componentInstance.linkA = 'urlless';
+    fixture.detectChanges();
+    expect(srefElements[0].nativeElement.hasAttribute('href')).toBeTruthy();
+    expect(urlOfElement(srefElements[0])).toBe('');
+  });
 
   it('renders no href when the sref state is empty', () => {
     const { fixture, srefElements } = setup();
