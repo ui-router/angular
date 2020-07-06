@@ -1,3 +1,13 @@
+## 6.0.3 (2020-07-06)
+[Compare `@uirouter/angular` versions 6.0.2 and 6.0.3](https://github.com/ui-router/angular/compare/6.0.2...6.0.3)
+
+### Bug Fixes
+
+* **LocationServices:** Apply the hash correctly when a query string is present ([0192877](https://github.com/ui-router/angular/commit/0192877)), closes [#747](https://github.com/ui-router/angular/issues/747)
+* **tokens:** Export injection tokens ([#810](https://github.com/ui-router/angular/issues/810)) ([b9c338d](https://github.com/ui-router/angular/commit/b9c338d)), closes [#805](https://github.com/ui-router/angular/issues/805)
+* **uiSref:** Render empty 'href' for states that have no urls ([5020c79](https://github.com/ui-router/angular/commit/5020c79)), closes [#721](https://github.com/ui-router/angular/issues/721)
+* **uiSrefActive:** Fix nested UISrefActive where UISref components are added/removed dynamically ([#811](https://github.com/ui-router/angular/issues/811)) ([8d35dc1](https://github.com/ui-router/angular/commit/8d35dc1)), closes [#760](https://github.com/ui-router/angular/issues/760)
+
 ## 6.0.2 (2020-06-06)
 [Compare `@uirouter/angular` versions 6.0.1 and 6.0.2](https://github.com/ui-router/angular/compare/6.0.1...6.0.2)
 
