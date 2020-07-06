@@ -1,4 +1,4 @@
-import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber } from '@uirouter/core';
+import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber, isNullOrUndefined } from '@uirouter/core';
 import {
   Directive,
   Inject,
@@ -20,11 +20,13 @@ import { ReplaySubject, Subscription } from 'rxjs';
 @Directive({ selector: 'a[uiSref]' })
 export class AnchorUISref {
   constructor(public _el: ElementRef, public _renderer: Renderer2) {}
+
   openInNewTab() {
     return this._el.nativeElement.target === '_blank';
   }
+
   update(href: string) {
-    if (href && href !== '') {
+    if (!isNullOrUndefined(href)) {
       this._renderer.setProperty(this._el.nativeElement, 'href', href);
     } else {
       this._renderer.removeAttribute(this._el.nativeElement, 'href');
@@ -168,8 +170,12 @@ export class UISref implements OnChanges {
     }
 
     if (this._anchorUISref) {
-      const href = $state.href(this.state, this.params, this.getOptions());
-      this._anchorUISref.update(href);
+      if (!this.state) {
+        this._anchorUISref.update(null);
+      } else {
+        const href = $state.href(this.state, this.params, this.getOptions()) || '';
+        this._anchorUISref.update(href);
+      }
     }
   }
 
