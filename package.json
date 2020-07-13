@@ -54,7 +54,7 @@
     "@angular/core": "^8.2.14",
     "@angular/platform-browser": "^8.2.5",
     "@angular/platform-browser-dynamic": "^8.2.5",
-    "@types/jest": "^25.1.4",
+    "@types/jest": "^26.0.4",
     "@types/jquery": "^3.3.33",
     "@uirouter/core": "^6.0.1",
     "@uirouter/publish-scripts": "^2.4.3",
