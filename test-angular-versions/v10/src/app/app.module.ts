@@ -10,7 +10,7 @@ import { AboutComponent } from './about.component';
 export const states = [
   { name: 'home', url: '/home', component: HomeComponent },
   { name: 'about', url: '/about', component: AboutComponent },
-  { name: 'lazy.**', url: '/lazy', loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule) },
+  { name: 'lazy.**', url: '/lazy', loadChildren: () => import('./lazy/lazy.module').then((m) => m.LazyModule) },
 ];
 
 export function config(router: UIRouter) {
