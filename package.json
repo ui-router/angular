@@ -67,7 +67,6 @@
     "pretty-quick": "^2.0.1",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
-    "ts-loader": "^6.2.1",
     "tslib": "1.13.0",
     "tslint": "^6.1.0",
     "typedoc": "~0.16",
