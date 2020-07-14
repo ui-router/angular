@@ -57,11 +57,11 @@
     "@types/jest": "^26.0.4",
     "@types/jquery": "^3.3.33",
     "@uirouter/core": "^6.0.1",
-    "@uirouter/publish-scripts": "^2.4.3",
+    "@uirouter/publish-scripts": "2.3.46",
     "@uirouter/rx": "^0.6.0",
     "husky": "^4.2.3",
-    "jest": "^26.1.0",
-    "jest-preset-angular": "^8.1.2",
+    "jest": "25.x",
+    "jest-preset-angular": "8.2.0",
     "ng-packagr": "=5.5.1",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
@@ -69,10 +69,14 @@
     "rxjs-compat": "^6.5.4",
     "tslib": "1.13.0",
     "tslint": "^6.1.0",
-    "typedoc": "~0.16",
+    "typedoc": "0.16.x",
     "typedoc-plugin-ui-router": "^3.0.1",
     "typescript": "3.5.3",
     "zone.js": "0.9.1"
+  },
+  "resolutions": {
+    "ts-jest": "25.x",
+    "typedoc": "0.16.x"
   },
   "ngPackage": {
     "lib": {
