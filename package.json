@@ -8,6 +8,7 @@
     "compile": "npm run clean && ngc",
     "build": "ng-packagr -p package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
+    "check-peer-dependencies": "check-peer-dependencies",
     "test": "jest --rootDir test",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --rootDir test --runInBand",
     "test:downstream": "test_downstream_projects",

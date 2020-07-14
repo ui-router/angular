@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        yarncmd: ['test', 'test:downstream']
+        yarncmd: ['check-peer-dependencies', 'test', 'test:downstream']
     steps:
       - uses: actions/checkout@v2
       - name: Configure Environment
