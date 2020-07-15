@@ -1,3 +1,38 @@
+# 7.0.0 (2020-07-15)
+[Compare `@uirouter/angular` versions 6.0.3 and 7.0.0](https://github.com/ui-router/angular/compare/6.0.3...7.0.0)
+
+### Features
+
+* Support Angular 9-10 ([56bd176](https://github.com/ui-router/angular/commit/56bd176))
+
+
+### BREAKING CHANGES
+
+- Drop support for Angular v8, add support for Angular v10
+
+
+
+### Updated `@uirouter/core` from 6.0.1 to 6.0.5
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.1 and 6.0.5](https://github.com/ui-router/core/compare/6.0.1...6.0.5)
+
+### Bug Fixes
+
+* **hof:** Rewrite curry from scratch ([fc324c6](https://github.com/ui-router/core/commit/fc324c6)), closes [#350](https://github.com/ui-router/core/issues/350)
+* **IE9:** Add safeConsole so IE9 doesn't break ([9c8579d](https://github.com/ui-router/core/commit/9c8579d))
+* **safeConsole:** check if document is defined to avoid issues in node environments ([da29d88](https://github.com/ui-router/core/commit/da29d88))
+* **TargetState:** make isDef check more thorough ([e657cfe](https://github.com/ui-router/core/commit/e657cfe))
+
+
+### Features
+
+* **stateService:** add transition option 'supercede' so transition can be ignored if one is pending ([6e5a56f](https://github.com/ui-router/core/commit/6e5a56f))
+* **urlRuleFactory:** Add support for StateDeclarations in UrlRuleFactory.fromState() ([539d33a](https://github.com/ui-router/core/commit/539d33a))
+
 ## 6.0.3 (2020-07-06)
 [Compare `@uirouter/angular` versions 6.0.2 and 6.0.3](https://github.com/ui-router/angular/compare/6.0.2...6.0.3)
 
