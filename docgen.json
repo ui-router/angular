@@ -19,12 +19,14 @@
     }
   ],
   "tsconfig": {
+    "files": ["./project/src/index.ts"],
     "compilerOptions": {
-      "baseUrl": "./src",
+      "rootDir": "./project/src",
+      "baseUrl": "./project/src",
       "paths": {
-        "@uirouter/core": ["@uirouter/core/src"],
-        "@uirouter/core/lib/globals": ["@uirouter/core/src/globals"],
-        "@uirouter/rx": ["@uirouter/rx/src"]
+        "@uirouter/core": ["./includes/@uirouter/core/src"],
+        "@uirouter/core/lib/globals": ["./includes/@uirouter/core/src/globals"],
+        "@uirouter/rx": ["./includes/@uirouter/rx/src"]
       }
     }
   }

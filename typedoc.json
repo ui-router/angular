@@ -1,7 +1,7 @@
 {
   "name": "@uirouter/angular",
   "readme": "README.md",
-  "out": "_doc",
+  "out": "project/_doc",
   "stripInternal": true,
   "excludeNotExported": true,
   "excludePrivate": true

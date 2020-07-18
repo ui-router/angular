@@ -59,7 +59,7 @@
     "@types/jest": "^26.0.4",
     "@types/jquery": "^3.3.33",
     "@uirouter/core": "^6.0.5",
-    "@uirouter/publish-scripts": "2.4.3",
+    "@uirouter/publish-scripts": "2.5.0",
     "@uirouter/rx": "^0.6.0",
     "bufferutil": "4.0.1",
     "canvas": "2.6.1",
