@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "@uirouter/core": ["./includes/@uirouter/core/src"],
+      "@uirouter/core/lib/globals": ["./includes/@uirouter/core/src/globals"],
+      "@uirouter/rx": ["./includes/@uirouter/rx/src"]
+    }
+  }
+}

@@ -59,7 +59,7 @@
     "@types/jest": "^26.0.4",
     "@types/jquery": "^3.3.33",
     "@uirouter/core": "^6.0.5",
-    "@uirouter/publish-scripts": "2.5.0",
+    "@uirouter/publish-scripts": "2.5.1",
     "@uirouter/rx": "^0.6.0",
     "bufferutil": "4.0.1",
     "canvas": "2.6.1",
@@ -72,8 +72,6 @@
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
     "tslint": "^6.1.0",
-    "typedoc": "0.17.8",
-    "typedoc-plugin-ui-router": "^3.0.1",
     "typescript": "~3.8.3",
     "utf-8-validate": "5.0.2",
     "zone.js": "0.10.3"
@@ -93,5 +91,46 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "docgen": {
+    "publishDir": "_ng2_docs",
+    "navigation": {
+      "": [
+        "UIRouter"
+      ],
+      "Services": [
+        "StateService",
+        "StateRegistry",
+        "TransitionService",
+        "UrlService",
+        "UrlConfig",
+        "UrlRules"
+      ],
+      "Interfaces": [
+        "Ng2StateDeclaration",
+        "UiOnParamsChanged",
+        "UiOnExit"
+      ],
+      "Components": [
+        "UIView",
+        "UISref",
+        "UISrefActive"
+      ],
+      "Other": [
+        "Transition",
+        "Trace"
+      ]
+    },
+    "include": [
+      {
+        "pkg": "@uirouter/core",
+        "repo": "https://github.com/ui-router/core",
+        "branch": "master"
+      },
+      {
+        "pkg": "@uirouter/rx",
+        "repo": "https://github.com/ui-router/rx"
+      }
+    ]
   }
 }
