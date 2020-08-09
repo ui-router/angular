@@ -64,7 +64,7 @@
     "bufferutil": "4.0.1",
     "canvas": "2.6.1",
     "husky": "^4.2.3",
-    "jest": "26.1.0",
+    "jest": "26.2.2",
     "jest-preset-angular": "8.2.1",
     "ng-packagr": "9.1.5",
     "prettier": "^2.0.5",
