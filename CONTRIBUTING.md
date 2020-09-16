@@ -1,4 +1,3 @@
-
 # Report an Issue
 
 Help us make UI-Router better! If you think you might have found a bug, or some other weirdness, start by making sure
@@ -17,10 +16,9 @@ is a bug, it's best to talk it out on
 [StackOverflow](http://stackoverflow.com/questions/ask?tags=angular2,@uirouter/angular) before reporting it. This
 keeps development streamlined, and helps us focus on building great software.
 
-
-Issues only! |
--------------|
-Please keep in mind that the issue tracker is for *issues*. Please do *not* post an issue if you need help or support. Instead, use StackOverflow. |
+| Issues only!                                                                                                                                       |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Please keep in mind that the issue tracker is for _issues_. Please do _not_ post an issue if you need help or support. Instead, use StackOverflow. |
 
 # Contribute
 
@@ -32,12 +30,10 @@ Please keep in mind that the issue tracker is for *issues*. Please do *not* post
 
 **(4)** Finally, commit some code and open a pull request. Code & commits should abide by the following rules:
 
-- *Always* have test coverage for new features (or regression tests for bug fixes), and *never* break existing tests
+- _Always_ have test coverage for new features (or regression tests for bug fixes), and _never_ break existing tests
 - Commits should represent one logical change each; if a feature goes through multiple iterations, squash your commits down to one
 - Make sure to follow the [Angular commit message format](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit-message-format) so your change will appear in the changelog of the next release.
 - Changes should always respect the coding style of the project
-
-
 
 # Developing
 
@@ -47,8 +43,8 @@ Please keep in mind that the issue tracker is for *issues*. Please do *not* post
 
 The code for `ui-router-ng2` is split into two source repositories:
 
-* [UI-Router Core](https://github.com/ui-router/core) (`@uirouter/core` on npm)
-* [UI-Router for Angular 2](https://github.com/ui-router/ng2) (`ui-router-ng2` on npm)
+- [UI-Router Core](https://github.com/ui-router/core) (`@uirouter/core` on npm)
+- [UI-Router for Angular 2](https://github.com/ui-router/ng2) (`ui-router-ng2` on npm)
 
 Clone both repositories into directories next to each other.
 
@@ -89,11 +85,10 @@ instead of the prebuilt version specified in `package.json`.
 
 ## Develop
 
-* `npm run build`: Perform a full build.
-* `npm run watch`: Continuously builds and runs tests when source or tests change.
+- `npm run build`: Perform a full build.
+- `npm run test:watch`: Continuously builds and runs tests when source or tests change.
 
 If you make changes in `@uirouter/core`, run these scripts before rebuilding or re-testing `@uirouter/angular`:
 
-* `npm run build`: Compiles `@uirouter/core` code
-* `npm run watch`: Continuously builds the `@uirouter/core` code when sources change.
-
+- `npm run build`: Compiles `@uirouter/core` code
+- `npm run watch`: Continuously builds the `@uirouter/core` code when sources change.
