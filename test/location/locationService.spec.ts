@@ -44,6 +44,10 @@ describe('locationService', () => {
       expectUrlReadAfterWrite(HashLocationStrategy, '/foo');
     });
 
+    it('should read/write the url path with single hash', () => {
+      expectUrlReadAfterWrite(HashLocationStrategy, '/foo#test');
+    });
+
     it('should read/write query params', () => {
       expectUrlReadAfterWrite(HashLocationStrategy, '/foo?query1=value1');
     });
@@ -64,6 +68,10 @@ describe('locationService', () => {
   describe('+ HashLocationStrategy', () => {
     it('should read/write the url path', () => {
       expectUrlReadAfterWrite(PathLocationStrategy, '/foo');
+    });
+
+    it('should read/write the url path with single hash', () => {
+      expectUrlReadAfterWrite(PathLocationStrategy, '/foo#test');
     });
 
     it('should read/write query params', () => {
