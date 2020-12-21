@@ -61,7 +61,7 @@
     "@uirouter/core": "^6.0.7",
     "@uirouter/publish-scripts": "2.5.4",
     "@uirouter/rx": "^0.6.0",
-    "bufferutil": "4.0.1",
+    "bufferutil": "4.0.2",
     "canvas": "2.6.1",
     "husky": "^4.2.3",
     "jest": "26.1.0",
