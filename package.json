@@ -71,6 +71,7 @@
     "pretty-quick": "^3.1.0",
     "rxjs": "^6.5.4",
     "rxjs-compat": "^6.5.4",
+    "ts-node": "9.1.1",
     "tslint": "^6.1.0",
     "typescript": "~4.0.0",
     "utf-8-validate": "5.0.3",
