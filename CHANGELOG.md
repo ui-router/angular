@@ -1,3 +1,28 @@
+# 8.0.0 (2020-12-21)
+[Compare `@uirouter/angular` versions 7.0.0 and 8.0.0](https://github.com/ui-router/angular/compare/7.0.0...8.0.0)
+
+### Features
+
+* support Angular 11 ([#885](https://github.com/ui-router/angular/issues/885)) ([d793e57](https://github.com/ui-router/angular/commit/d793e57))
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.5 to 6.0.7
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.5 and 6.0.7](https://github.com/ui-router/core/compare/6.0.5...6.0.7)
+
+### Bug Fixes
+
+* **array:** Fix decoding of array-type query parameters ([44ebfae](https://github.com/ui-router/core/commit/44ebfae))
+* **params:** Bi-directionally en/decode path and search params. ([#618](https://github.com/ui-router/core/issues/618)) ([89e99cd](https://github.com/ui-router/core/commit/89e99cd))
+
+
 # 7.0.0 (2020-07-15)
 [Compare `@uirouter/angular` versions 6.0.3 and 7.0.0](https://github.com/ui-router/angular/compare/6.0.3...7.0.0)
 
