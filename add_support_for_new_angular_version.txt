@@ -1,0 +1,21 @@
+Notes from when I added Angular 11 support
+
+- in uirouter/angular:
+ - update peer deps for angular packages, bumping each range by one
+ - update angular packages manually to the lower range supported (for angular 11, set to ^10.0.0)
+ - update ng-packagr manually to the lower range supported (for angular 11, set to ^10.0.0)
+ - update typescript to the version required by @angular/compiler-cli
+ - npx check-peer-dependencies
+ - gh pr create
+ - update other libs
+ - npx check-peer-dependencies
+ - gh pr create
+ - npm run release
+
+- in sample-app-angular:
+ - git checkout -b update-to-latest-angular
+ - npx ng update @angular/core @angular/cli
+ - git commit -m "chore: update to Angular 11"
+ - yarn && yarn test
+ - gh pr create
+
