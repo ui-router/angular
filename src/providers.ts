@@ -99,7 +99,7 @@ import {
   Resolvable,
   NATIVE_INJECTOR_TOKEN,
 } from '@uirouter/core';
-import { UIView, ParentUIViewInject } from './directives/uiView';
+import { UIView } from './directives/uiView';
 import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from './injectionTokens';
 import { ng2ViewsBuilder, Ng2ViewConfig } from './statebuilders/views';
 import { Ng2ViewDeclaration } from './interface';
@@ -183,17 +183,13 @@ export function appInitializer(router: UIRouter) {
   };
 }
 
-export function parentUIViewInjectFactory(r: StateRegistry) {
-  return { fqn: null, context: r.root() } as ParentUIViewInject;
-}
-
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] = [
   {
     provide: UIRouter,
     useFactory: uiRouterFactory,
     deps: [LocationStrategy, UIROUTER_ROOT_MODULE, UIROUTER_MODULE_TOKEN, Injector],
   },
-  { provide: UIView.PARENT_INJECT, useFactory: parentUIViewInjectFactory, deps: [StateRegistry] },
+  { provide: UIView.PARENT_UIVIEW_ID_TOKEN, useValue: null, deps: [StateRegistry] },
   { provide: APP_INITIALIZER, useFactory: appInitializer, deps: [UIRouter], multi: true },
 ];
 

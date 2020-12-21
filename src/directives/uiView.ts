@@ -8,19 +8,16 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ReflectiveInjector,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 
 import {
-  ActiveUIView,
   filter,
   inArray,
   isFunction,
   NATIVE_INJECTOR_TOKEN,
   Param,
-  parse,
   PathNode,
   ResolveContext,
   StateDeclaration,
@@ -29,20 +26,10 @@ import {
   TransitionHookFn,
   UIRouter,
   unnestR,
-  ViewConfig,
-  ViewContext,
 } from '@uirouter/core';
+import { UIViewPortalRenderCommand } from '@uirouter/core/lib/view/interface';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
-
-/** @hidden */
-let id = 0;
-
-/** @internal These are provide()d as the string UIView.PARENT_INJECT */
-export interface ParentUIViewInject {
-  context: ViewContext;
-  fqn: string;
-}
 
 /** @internal */
 interface InputMapping {
@@ -113,14 +100,24 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
   exportAs: 'uiView',
   template: `
     <ng-template #componentTarget></ng-template>
-    <ng-content *ngIf="!_componentRef"></ng-content>
+    <ng-content *ngIf="!_componentRef && !_renderInterop"></ng-content>
+    <div #interopDiv *ngIf="_renderInterop"></div>
   `,
 })
 export class UIView implements OnInit, OnDestroy {
-  static PARENT_INJECT = 'UIView.PARENT_INJECT';
+  /** This injection token is used to inject the parent UIView ID */
+  static PARENT_UIVIEW_ID_TOKEN = 'UIView.PARENT_INJECT';
 
   @ViewChild('componentTarget', { read: ViewContainerRef, static: true })
   _componentTarget: ViewContainerRef;
+
+  @ViewChild('interopDiv', { read: ViewContainerRef })
+  set interopDiv(ref: ViewContainerRef) {
+    if (this._renderCommand.command === 'RENDER_INTEROP_DIV') {
+      this._renderCommand.giveDiv(ref.element.nativeElement);
+    }
+  }
+
   @Input('name') name: string;
 
   @Input('ui-view')
@@ -136,39 +133,38 @@ export class UIView implements OnInit, OnDestroy {
   private _deregisterUiCanExitHook: Function;
   /** Deregisters the master uiOnParamsChanged transition hook */
   private _deregisterUiOnParamsChangedHook: Function;
+
   /** Data about the this UIView */
-  private _uiViewData: ActiveUIView = <any>{};
-  private _parent: ParentUIViewInject;
+  private _id: string;
+  private _parentUIViewId: string;
+  protected _renderCommand: UIViewPortalRenderCommand;
+  /** @internal */
+  _renderInterop = false;
 
   constructor(
     public router: UIRouter,
-    @Inject(UIView.PARENT_INJECT) parent,
+    @Inject(UIView.PARENT_UIVIEW_ID_TOKEN) parentUIViewId: string,
     public viewContainerRef: ViewContainerRef
   ) {
-    this._parent = parent;
+    this._parentUIViewId = parentUIViewId;
+  }
+
+  private _getViewConfig(): Ng2ViewConfig {
+    if (this._renderCommand?.command === 'RENDER_ROUTED_VIEW') {
+      return this._renderCommand.routedViewConfig as Ng2ViewConfig;
+    }
   }
 
   /**
    * @returns the UI-Router `state` that is filling this uiView, or `undefined`.
    */
   public get state(): StateDeclaration {
-    return parse('_uiViewData.config.viewDecl.$context.self')(this);
+    return this._renderCommand.command === 'RENDER_ROUTED_VIEW' ? this._renderCommand.contentState : undefined;
   }
 
   ngOnInit() {
     const router = this.router;
-    const parentFqn = this._parent.fqn;
     const name = this.name || '$default';
-
-    this._uiViewData = {
-      $type: 'ng2',
-      id: id++,
-      name: name,
-      fqn: parentFqn ? parentFqn + '.' + name : name,
-      creationContext: this._parent.context,
-      configUpdated: this._viewConfigUpdated.bind(this),
-      config: undefined,
-    };
 
     this._deregisterUiCanExitHook = router.transitionService.onBefore({}, (trans) => {
       return this._invokeUiCanExitHook(trans);
@@ -178,7 +174,8 @@ export class UIView implements OnInit, OnDestroy {
       this._invokeUiOnParamsChangedHook(trans)
     );
 
-    this._deregisterUIView = router.viewService.registerUIView(this._uiViewData);
+    const renderContentIntoUIViewPortal = this._renderContentIntoUIViewPortal.bind(this);
+    router.viewService.registerView('ng2', this._parentUIViewId, name, renderContentIntoUIViewPortal);
   }
 
   /**
@@ -212,14 +209,14 @@ export class UIView implements OnInit, OnDestroy {
     const uiOnParamsChanged: TransitionHookFn = instance && instance.uiOnParamsChanged;
 
     if (isFunction(uiOnParamsChanged)) {
-      const viewState: StateDeclaration = this.state;
-      const resolveContext: ResolveContext = new ResolveContext(this._uiViewData.config.path);
+      const resolveContext: ResolveContext = new ResolveContext(this._getViewConfig()?.path ?? []);
       const viewCreationTrans = resolveContext.getResolvable('$transition$').data;
 
       // Exit early if the $transition$ is the same as the view was created within.
       // Exit early if the $transition$ will exit the state the view is for.
-      if ($transition$ === viewCreationTrans || $transition$.exiting().indexOf(viewState as StateDeclaration) !== -1)
+      if ($transition$ === viewCreationTrans || $transition$.exiting().indexOf(this.state) !== -1) {
         return;
+      }
 
       const toParams: { [paramName: string]: any } = $transition$.params('to');
       const fromParams: { [paramName: string]: any } = $transition$.params('from');
@@ -249,40 +246,48 @@ export class UIView implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this._deregisterUIView) this._deregisterUIView();
+    if (this._id) this.router.viewService.deregisterView(this._id);
     if (this._deregisterUiCanExitHook) this._deregisterUiCanExitHook();
     if (this._deregisterUiOnParamsChangedHook) this._deregisterUiOnParamsChangedHook();
     this._deregisterUIView = this._deregisterUiCanExitHook = this._deregisterUiOnParamsChangedHook = null;
     this._disposeLast();
   }
 
-  /**
-   * The view service is informing us of an updated ViewConfig
-   * (usually because a transition activated some state and its views)
-   */
-  _viewConfigUpdated(config: ViewConfig) {
-    // The config may be undefined if there is nothing currently targeting this UIView.
-    // Dispose the current component, if there is one
-    if (!config) return this._disposeLast();
+  private _saveUiViewId(uiViewId: string) {
+    if (typeof this._id === 'string' && this._id !== uiViewId) {
+      throw new Error(
+        `Received a render command for wrong UIView. Render command id: ${uiViewId}, UIView id: ${this._id}`
+      );
+    }
 
-    // Only care about Ng2 configs
-    if (!(config instanceof Ng2ViewConfig)) return;
-
-    // The "new" viewconfig is already applied, so exit early
-    if (this._uiViewData.config === config) return;
-
-    // This is a new ViewConfig.  Dispose the previous component
-    this._disposeLast();
-    trace.traceUIViewConfigUpdated(this._uiViewData, config && config.viewDecl.$context);
-
-    this._applyUpdatedConfig(config);
-
-    // Initiate change detection for the newly created component
-    this._componentRef.changeDetectorRef.markForCheck();
+    this._id = uiViewId;
   }
 
-  private _applyUpdatedConfig(config: Ng2ViewConfig) {
-    this._uiViewData.config = config;
+  /**
+   * The view service is informing us to change what we are rendering in the portal
+   * (usually because a transition activated some state and its views)
+   */
+  _renderContentIntoUIViewPortal(renderCommand: UIViewPortalRenderCommand): void {
+    this._renderCommand = renderCommand;
+    this._saveUiViewId(renderCommand.uiViewId);
+
+    // Dispose the previous component
+    this._disposeLast();
+
+    // UIView template will handle RENDER_INTEROP_DIV and RENDER_DEFAULT_CONTENT
+    this._renderInterop = renderCommand.command === 'RENDER_INTEROP_DIV';
+
+    if (renderCommand.command === 'RENDER_ROUTED_VIEW') {
+      const registeredportal = this.router.viewService._pluginapi._registeredUIView(this._id);
+      trace.traceUIViewConfigUpdated(registeredportal, this.state.$$state()); // TODO: move to core
+      this._renderRoutedConfigComponent(renderCommand.routedViewConfig);
+    }
+
+    // Initiate change detection for the newly created component
+    this._componentRef?.changeDetectorRef.markForCheck();
+  }
+
+  private _renderRoutedConfigComponent(config: Ng2ViewConfig) {
     // Create the Injector for the routed component
     const context = new ResolveContext(config.path);
     const componentInjector = this._getComponentInjector(context);
@@ -317,15 +322,13 @@ export class UIView implements OnInit, OnDestroy {
       .filter((r) => r.resolved);
 
     const newProviders = resolvables.map((r) => ({ provide: r.token, useValue: context.injector().get(r.token) }));
-
-    const parentInject = { context: this._uiViewData.config.viewDecl.$context, fqn: this._uiViewData.fqn };
-    newProviders.push({ provide: UIView.PARENT_INJECT, useValue: parentInject });
+    newProviders.push({ provide: UIView.PARENT_UIVIEW_ID_TOKEN, useValue: this._id });
 
     const parentComponentInjector = this.viewContainerRef.injector;
     const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
     const mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
 
-    return ReflectiveInjector.resolveAndCreate(newProviders, mergedParentInjector);
+    return Injector.create({ providers: newProviders, parent: mergedParentInjector });
   }
 
   /**
@@ -335,7 +338,7 @@ export class UIView implements OnInit, OnDestroy {
    * to the resolve data.
    */
   private _applyInputBindings(factory: ComponentFactory<any>, component: any, context: ResolveContext, componentClass) {
-    const bindings = this._uiViewData.config.viewDecl['bindings'] || {};
+    const bindings = this._getViewConfig()?.viewDecl?.bindings ?? {};
     const explicitBoundProps = Object.keys(bindings);
 
     // Returns the actual component property for a renamed an input renamed using `@Input('foo') _foo`.

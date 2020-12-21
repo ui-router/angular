@@ -9,8 +9,9 @@ import {
   OnChanges,
   SimpleChanges,
   HostListener,
+  OnInit,
 } from '@angular/core';
-import { UIView, ParentUIViewInject } from './uiView';
+import { UIView } from './uiView';
 import { ReplaySubject, Subscription } from 'rxjs';
 
 /**
@@ -79,7 +80,7 @@ export class AnchorUISref {
   selector: '[uiSref]',
   exportAs: 'uiSref',
 })
-export class UISref implements OnChanges {
+export class UISref implements OnChanges, OnInit {
   /**
    * `@Input('uiSref')` The name of the state to link to
    *
@@ -117,16 +118,16 @@ export class UISref implements OnChanges {
   /** @internal */ private _statesSub: Subscription;
   /** @internal */ private _router: UIRouter;
   /** @internal */ private _anchorUISref: AnchorUISref;
-  /** @internal */ private _parent: ParentUIViewInject;
+  /** @internal */ private _parentUiViewId: string;
 
   constructor(
     _router: UIRouter,
     @Optional() _anchorUISref: AnchorUISref,
-    @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject
+    @Inject(UIView.PARENT_UIVIEW_ID_TOKEN) parent: string
   ) {
     this._router = _router;
     this._anchorUISref = _anchorUISref;
-    this._parent = parent;
+    this._parentUiViewId = parent;
 
     this._statesSub = _router.globals.states$.subscribe(() => this.update());
   }
@@ -180,8 +181,9 @@ export class UISref implements OnChanges {
   }
 
   getOptions() {
+    const parent = this._router.viewService._pluginapi._registeredUIView(this._parentUiViewId);
     const defaultOpts: TransitionOptions = {
-      relative: this._parent && this._parent.context && this._parent.context.name,
+      relative: parent?.contentState?.name,
       inherit: true,
       source: 'sref',
     };
