@@ -19,3 +19,26 @@ Notes from when I added Angular 11 support
  - yarn && yarn test
  - gh pr create
 
+- in sample-app-angular-hybrid
+ - npx ng update @angular/core @angular/cli
+ - yarn upgrade-interactive --latest (update uirouter libs)
+ - push to a branch 'upgrade-to-angular-11'
+
+- in uirouter/angular-hybrid
+ - target the sample-app branch in downstream_test.json: 
+   - "https://github.com/ui-router/sample-app-angular-hybrid.git@update-to-angular-11"
+ - update peer deps for angular packages, bumping each range by one
+ - update angular packages manually to the lower range supported (for angular 11, set to ^10.0.0)
+ - update ng-packagr manually to the lower range supported (for angular 11, set to ^10.0.0)
+ - update typescript to the version required by @angular/compiler-cli
+ - npx check-peer-dependencies
+ - in example
+  - npx ng update @angular/core @angular/cli
+  - yarn upgrade-interactive --latest (update uirouter libs)
+ - gh pr create
+ - npm run release
+ - revert downstream_projects.json and push
+
+- in sample-app-angular-hybrid after merging
+ - yarn upgrade-interactive --latest (update uirouter libs)
+ - push and merge
