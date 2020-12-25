@@ -113,7 +113,7 @@ export class UIView implements OnInit, OnDestroy {
 
   @ViewChild('interopDiv', { read: ViewContainerRef })
   set interopDiv(ref: ViewContainerRef) {
-    if (this._renderCommand.command === 'RENDER_INTEROP_DIV') {
+    if (this._renderCommand.portalContentType === 'RENDER_INTEROP_DIV') {
       this._renderCommand.giveDiv(ref.element.nativeElement);
     }
   }
@@ -150,8 +150,8 @@ export class UIView implements OnInit, OnDestroy {
   }
 
   private _getViewConfig(): Ng2ViewConfig {
-    if (this._renderCommand?.command === 'RENDER_ROUTED_VIEW') {
-      return this._renderCommand.routedViewConfig as Ng2ViewConfig;
+    if (this._renderCommand?.portalContentType === 'RENDER_ROUTED_VIEW') {
+      return this._renderCommand.uiViewPortalRegistration.viewConfig as Ng2ViewConfig;
     }
   }
 
@@ -159,7 +159,9 @@ export class UIView implements OnInit, OnDestroy {
    * @returns the UI-Router `state` that is filling this uiView, or `undefined`.
    */
   public get state(): StateDeclaration {
-    return this._renderCommand.command === 'RENDER_ROUTED_VIEW' ? this._renderCommand.contentState : undefined;
+    return this._renderCommand.portalContentType === 'RENDER_ROUTED_VIEW'
+      ? this._renderCommand.uiViewPortalRegistration.contentState
+      : undefined;
   }
 
   ngOnInit() {
@@ -175,7 +177,7 @@ export class UIView implements OnInit, OnDestroy {
     );
 
     const renderContentIntoUIViewPortal = this._renderContentIntoUIViewPortal.bind(this);
-    router.viewService.registerView('ng2', this._parentUIViewId, name, renderContentIntoUIViewPortal);
+    router.viewService._pluginapi._registerView('ng2', this._parentUIViewId, name, renderContentIntoUIViewPortal);
   }
 
   /**
@@ -246,7 +248,7 @@ export class UIView implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this._id) this.router.viewService.deregisterView(this._id);
+    if (this._id) this.router.viewService._pluginapi._deregisterView(this._id);
     if (this._deregisterUiCanExitHook) this._deregisterUiCanExitHook();
     if (this._deregisterUiOnParamsChangedHook) this._deregisterUiOnParamsChangedHook();
     this._deregisterUIView = this._deregisterUiCanExitHook = this._deregisterUiOnParamsChangedHook = null;
@@ -269,18 +271,16 @@ export class UIView implements OnInit, OnDestroy {
    */
   _renderContentIntoUIViewPortal(renderCommand: UIViewPortalRenderCommand): void {
     this._renderCommand = renderCommand;
-    this._saveUiViewId(renderCommand.uiViewId);
-
-    // Dispose the previous component
+    this._saveUiViewId(renderCommand.uiViewPortalRegistration.id); // Dispose the previous component
     this._disposeLast();
 
     // UIView template will handle RENDER_INTEROP_DIV and RENDER_DEFAULT_CONTENT
-    this._renderInterop = renderCommand.command === 'RENDER_INTEROP_DIV';
+    this._renderInterop = renderCommand.portalContentType === 'RENDER_INTEROP_DIV';
 
-    if (renderCommand.command === 'RENDER_ROUTED_VIEW') {
+    if (renderCommand.portalContentType === 'RENDER_ROUTED_VIEW') {
       const registeredportal = this.router.viewService._pluginapi._registeredUIView(this._id);
-      trace.traceUIViewConfigUpdated(registeredportal, this.state.$$state()); // TODO: move to core
-      this._renderRoutedConfigComponent(renderCommand.routedViewConfig);
+      trace.traceUIViewConfigUpdated(registeredportal as any, this.state.$$state()); // TODO: move to core
+      this._renderRoutedConfigComponent(renderCommand.uiViewPortalRegistration.viewConfig);
     }
 
     // Initiate change detection for the newly created component
