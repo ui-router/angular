@@ -8,6 +8,7 @@ Notes from when I added Angular 11 support
  - npx check-peer-dependencies
  - gh pr create
  - update other libs
+ - update tests in test-angular-versions/ and test-typescript-versions/
  - npx check-peer-dependencies
  - gh pr create
  - npm run release
