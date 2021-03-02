@@ -1,3 +1,10 @@
+## 8.0.1 (2021-03-02)
+[Compare `@uirouter/angular` versions 8.0.0 and 8.0.1](https://github.com/ui-router/angular/compare/8.0.0...8.0.1)
+
+### Bug Fixes
+
+* **location:** do not add hash to URL twice ([#847](https://github.com/ui-router/angular/issues/847)) ([3794b25](https://github.com/ui-router/angular/commit/3794b25))
+
 # 8.0.0 (2020-12-21)
 [Compare `@uirouter/angular` versions 7.0.0 and 8.0.0](https://github.com/ui-router/angular/compare/7.0.0...8.0.0)
 
