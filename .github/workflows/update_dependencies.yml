@@ -32,12 +32,11 @@ jobs:
       - name: Create Pull Request
         id: cpr
         if: ${{ steps.upgrade.outputs.upgrades != '' }}
-        # the following hash is from https://github.com/peter-evans/create-pull-request/releases/tag/v2.7.0
-        uses: peter-evans/create-pull-request@340e629d2f63059fb3e3f15437e92cfbc7acd85b
+        # the following hash is from https://github.com/peter-evans/create-pull-request/releases/tag/v3.8.2
+        uses: peter-evans/create-pull-request@052fc72b4198ba9fbc81b818c6e1859f747d49a8
         with:
           token: ${{ secrets.UIROUTERBOT_PAT }}
-          request-to-parent: true
-          branch-suffix: 'random'
+          branch: 'update-${{ matrix.deptype }}'
           commit-message: 'chore(package): Update ${{ steps.upgrade.outputs.upgradecount }} ${{ matrix.deptype }} to ${{ steps.upgrade.outputs.upgradestrategy }}'
           title: 'chore(package): Update ${{ steps.upgrade.outputs.upgradecount }} ${{ matrix.deptype }} to ${{ steps.upgrade.outputs.upgradestrategy }}'
           body: |
