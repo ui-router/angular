@@ -2,7 +2,7 @@
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@clarivate/ui-router-angular",
   "description": "State-based routing for Angular",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",
