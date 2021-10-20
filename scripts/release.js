@@ -33,7 +33,7 @@ util.ensureCleanMaster('master');
 _exec('npm run package');
 
 // publish to npm first
-_exec(`npm publish`);
+_exec(`npm publish --access public`);
 
 // then tag and push tag
 _exec(`git tag ${version}`);
