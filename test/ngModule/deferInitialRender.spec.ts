@@ -6,7 +6,6 @@ import {
   APP_INITIALIZER,
   ApplicationInitStatus,
   Component,
-  SystemJsNgModuleLoader,
 } from '@angular/core';
 import { Ng2StateDeclaration } from '../../src/interface';
 
