@@ -6,8 +6,6 @@ import {
   APP_INITIALIZER,
   ApplicationInitStatus,
   Component,
-  NgModuleFactoryLoader,
-  SystemJsNgModuleLoader,
 } from '@angular/core';
 import { Ng2StateDeclaration } from '../../src/interface';
 
@@ -43,7 +41,6 @@ const setupTests = (deferInitialRender: boolean) => {
     declarations: [HomeComponent, AppComponent],
     imports: [routerModule],
     providers: [
-      { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
       { provide: APP_INITIALIZER, useValue: () => appInitializer, multi: true },
     ],
   });

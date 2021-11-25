@@ -1,4 +1,4 @@
-import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler, NgModuleFactoryLoader } from '@angular/core';
+import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler } from '@angular/core';
 import {
   Transition,
   LazyLoadResult,
@@ -84,10 +84,6 @@ export function loadNgModule(
 /**
  * Returns the module factory that can be used to instantiate a module
  *
- * For strings this:
- * - Finds the correct NgModuleFactoryLoader
- * - Loads the new NgModuleFactory from the path string (async)
- *
  * For a Type<any> or Promise<Type<any>> this:
  * - Compiles the component type (if not running with AOT)
  * - Returns the NgModuleFactory resulting from compilation (or direct loading if using AOT) as a Promise
@@ -98,10 +94,6 @@ export function loadModuleFactory(
   moduleToLoad: ModuleTypeCallback,
   ng2Injector: Injector
 ): Promise<NgModuleFactory<any>> {
-  if (isString(moduleToLoad)) {
-    return ng2Injector.get(NgModuleFactoryLoader).load(moduleToLoad);
-  }
-
   const compiler: Compiler = ng2Injector.get(Compiler);
 
   const unwrapEsModuleDefault = (x) => (x && x.__esModule && x['default'] ? x['default'] : x);
