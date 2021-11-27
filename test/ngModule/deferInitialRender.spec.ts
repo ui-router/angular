@@ -61,7 +61,7 @@ describe('deferInitialRender == false', () => {
     status = _status;
   }));
 
-  it('should not wait for initial transition', async done => {
+  it('should not wait for initial transition', async () => {
     const { stateService } = router;
     const fixture = TestBed.createComponent(AppComponent);
 
@@ -78,7 +78,6 @@ describe('deferInitialRender == false', () => {
 
     resolveData();
     await goPromise;
-    done();
   });
 });
 
@@ -95,7 +94,7 @@ describe('deferInitialRender == true', () => {
     status = _status;
   }));
 
-  it('should wait for initial transition', async done => {
+  it('should wait for initial transition', async () => {
     const { stateService } = router;
     const fixture = TestBed.createComponent(AppComponent);
 
@@ -116,7 +115,5 @@ describe('deferInitialRender == true', () => {
 
     await timeout();
     expect(status.done).toBe(true);
-
-    done();
   });
 });
