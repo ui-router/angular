@@ -8,8 +8,7 @@ export class AppComponent {}
 
 describe('onBefore hook', () => {
   let stateService;
-  const hook = trans => (stateService = trans.injector().get(StateService));
-  const hookSpy = jasmine.createSpy('hook', hook).and.callThrough();
+  const hookSpy = jest.fn(trans => (stateService = trans.injector().get(StateService)));
 
   const setupTests = () => {
     const configFn = (router: UIRouter) => {

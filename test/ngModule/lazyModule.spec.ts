@@ -1,4 +1,4 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UIView } from '../../src/directives/uiView';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
@@ -42,7 +42,7 @@ describe('lazy loading', () => {
     });
   });
 
-  it('should lazy load a module', async(
+  it('should lazy load a module', waitForAsync(
     inject([UIRouter], (router: UIRouter) => {
       const { stateRegistry, stateService, globals } = router;
       stateRegistry.register(futureFoo);
@@ -70,7 +70,7 @@ describe('lazy loading', () => {
     })
   ));
 
-  it('should throw if no future state replacement is lazy loaded', async(
+  it('should throw if no future state replacement is lazy loaded', waitForAsync(
     inject([UIRouter], (router: UIRouter) => {
       const { stateRegistry, stateService } = router;
       stateService.defaultErrorHandler(() => null);
@@ -96,7 +96,7 @@ describe('lazy loading', () => {
     })
   ));
 
-  it('should support loadChildren on non-future state (manual state cleanup)', async(
+  it('should support loadChildren on non-future state (manual state cleanup)', waitForAsync(
     inject([UIRouter], (router: UIRouter) => {
       const { stateRegistry, stateService } = router;
       stateRegistry.register(augment1);

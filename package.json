@@ -83,7 +83,6 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "environments": ["zone.js/testing"],
     "setupFilesAfterEnv": [
       "./setupJest.ts"
     ]

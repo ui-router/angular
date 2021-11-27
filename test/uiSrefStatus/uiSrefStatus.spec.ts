@@ -1,10 +1,11 @@
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { UISref } from '../../src';
 
 import { SrefStatus, UISrefStatus } from '../../src/directives/uiSrefStatus';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
-import { clickOnElement } from '../testUtils';
+import { clickOnElement, tick } from '../testUtils';
 
 describe('uiSrefStatus', () => {
   @Component({
@@ -20,7 +21,7 @@ describe('uiSrefStatus', () => {
   let de: DebugElement;
   let fixture: ComponentFixture<TestComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [TestComponent],
       imports: [
@@ -36,20 +37,19 @@ describe('uiSrefStatus', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    de = fixture.debugElement.query(By.directive(UISrefStatus));
+    de = fixture.debugElement.query(By.directive(UISref));
   });
 
   describe('when click on `foo` uiSref', () => {
-    beforeEach(async(() => {
-      spyOn(component, 'updated');
+    it('should emit a event with a TargetState pointing to `foo`', async () => {
+      const spy = jest.spyOn(component, 'updated').mockImplementation(() => {});
       clickOnElement(de);
-    }));
+      await tick();
+      expect(spy).toHaveBeenCalledTimes(2);
 
-    it('should emit a event with a TargetState pointing to `foo`', () => {
-      expect(component.updated).toHaveBeenCalled();
-      const arg: SrefStatus = (component.updated as jasmine.Spy).calls.mostRecent().args[0];
+      const arg: SrefStatus = spy.mock.calls[1][0];
       expect(arg.targetStates.length).toEqual(1);
-      expect(arg.targetStates[0].state()).toEqual(jasmine.objectContaining({ name: 'foo' }));
+      expect(arg.targetStates[0].state()).toEqual(expect.objectContaining({ name: 'foo' }));
     });
   });
 });
