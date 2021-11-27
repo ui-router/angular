@@ -29,10 +29,6 @@ describe('uiSref', () => {
       return this.srefs.first;
     }
 
-    get linkBSref() {
-      return this.srefs.toArray()[1];
-    }
-
     constructor() {
       this.linkA = null;
       this.linkAParams = null;

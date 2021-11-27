@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Ng2StateDeclaration, UIRouterModule, UIView } from '../../src';
 import { memoryLocationPlugin, Transition, UIRouter } from '@uirouter/core';
@@ -17,7 +17,7 @@ describe('uiView', () => {
     let id = 0;
 
     @Component({ template: `<h3>hey</h3> ` })
-    class ParamWatcherComponent {
+    class ParamWatcherComponent implements OnInit {
       $id = id++;
 
       public uiOnParamsChanged(newParams: { [paramName: string]: any }, trans: Transition) {
