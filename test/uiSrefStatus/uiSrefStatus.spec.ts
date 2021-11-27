@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { UISref } from '../../src';
 
-import { SrefStatus, UISrefStatus } from '../../src/directives/uiSrefStatus';
+import { SrefStatus} from '../../src/directives/uiSrefStatus';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { clickOnElement, tick } from '../testUtils';
 

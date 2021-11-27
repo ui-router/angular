@@ -1,4 +1,3 @@
-import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { inject, TestBed } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';

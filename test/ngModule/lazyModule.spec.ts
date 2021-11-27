@@ -3,8 +3,6 @@ import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UIView } from '../../src/directives/uiView';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
 
-declare let System;
-
 const futureFoo = {
   name: 'foo.**',
   url: '/foo',
@@ -111,7 +109,6 @@ describe('lazy loading', () => {
         .sort();
       expect(names).toEqual(['', 'augment1', 'augment1.augment2']);
 
-      const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
       stateService.go('augment1.augment2').then(() => {
         fixture.detectChanges();
         expect(stateService.current.name).toBe('augment1.augment2');
