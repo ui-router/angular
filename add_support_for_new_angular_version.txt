@@ -8,7 +8,12 @@ Notes from when I added Angular 11 support
  - npx check-peer-dependencies
  - gh pr create
  - update other libs
- - update tests in test-angular-versions/ and test-typescript-versions/
+ - update tests in test-angular-versions/
+   - ./scaffold.sh 11
+   - remove old tests fro test-angular-versions and ../downstream_projects.json
+ - update tests in test-typescript-versions/
+   - ./scaffold.sh 4.5
+   - (maybe) remove old tests fro test-typescript-versions and ../downstream_projects.json
  - npx check-peer-dependencies
  - gh pr create
  - npm run release

@@ -1,10 +1,7 @@
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UIView } from '../../src/directives/uiView';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
-import { NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
-
-declare let System;
 
 const futureFoo = {
   name: 'foo.**',
@@ -40,11 +37,10 @@ describe('lazy loading', () => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [routerModule],
-      providers: [{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader }],
     });
   });
 
-  it('should lazy load a module', async(
+  it('should lazy load a module', waitForAsync(
     inject([UIRouter], (router: UIRouter) => {
       const { stateRegistry, stateService, globals } = router;
       stateRegistry.register(futureFoo);
@@ -72,7 +68,7 @@ describe('lazy loading', () => {
     })
   ));
 
-  it('should throw if no future state replacement is lazy loaded', async(
+  it('should throw if no future state replacement is lazy loaded', waitForAsync(
     inject([UIRouter], (router: UIRouter) => {
       const { stateRegistry, stateService } = router;
       stateService.defaultErrorHandler(() => null);
@@ -98,7 +94,7 @@ describe('lazy loading', () => {
     })
   ));
 
-  it('should support loadChildren on non-future state (manual state cleanup)', async(
+  it('should support loadChildren on non-future state (manual state cleanup)', waitForAsync(
     inject([UIRouter], (router: UIRouter) => {
       const { stateRegistry, stateService } = router;
       stateRegistry.register(augment1);
@@ -113,7 +109,6 @@ describe('lazy loading', () => {
         .sort();
       expect(names).toEqual(['', 'augment1', 'augment1.augment2']);
 
-      const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
       stateService.go('augment1.augment2').then(() => {
         fixture.detectChanges();
         expect(stateService.current.name).toBe('augment1.augment2');

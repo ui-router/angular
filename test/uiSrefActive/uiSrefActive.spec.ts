@@ -1,14 +1,13 @@
 import { Component, Type } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { UIRouter } from '@uirouter/core';
 import { UISrefActive } from '../../src';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
+import { tick } from '../testUtils';
 
 describe('uiSrefActive', () => {
-  const tick = () => new Promise((resolve) => setTimeout(resolve));
-
   const initialize = <T>(ComponentClass: Type<T>, states) => {
     const fixture = TestBed.configureTestingModule({
       declarations: [ComponentClass],
@@ -30,7 +29,7 @@ describe('uiSrefActive', () => {
       expect(des[0].nativeElement.classList.length).toBe(0);
     });
 
-    it('applies the class when the link is active', async(() => {
+    it('applies the class when the link is active', waitForAsync(() => {
       const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
       const router = fixture.debugElement.injector.get(UIRouter);
       router.stateService
@@ -52,7 +51,7 @@ describe('uiSrefActive', () => {
     let fixture: ComponentFixture<TestComponent>;
     beforeEach(() => (fixture = initialize(TestComponent, [{ name: 'statea' }])));
 
-    it('applies all classses when the link is active', async(() => {
+    it('applies all classses when the link is active', waitForAsync(() => {
       const des = fixture.debugElement.queryAll(By.directive(UISrefActive));
       const router = fixture.debugElement.injector.get(UIRouter);
       router.stateService
@@ -67,7 +66,7 @@ describe('uiSrefActive', () => {
   });
 
   describe('on a parent element', () => {
-    it('applies the active class when any child link is active', async(async () => {
+    it('applies the active class when any child link is active', waitForAsync(async () => {
       const template = `
       <li uiSrefActive="active">
         <a uiSref="statea">State A</a>
@@ -93,7 +92,7 @@ describe('uiSrefActive', () => {
     }));
 
     // Test for https://github.com/ui-router/angular/issues/760
-    it('can dynamically add or remove nested uiSref', async(async () => {
+    it('can dynamically add or remove nested uiSref', waitForAsync(async () => {
       const template = `
         <li id="parent" uiSrefActive="active">
           <a uiSref="statea"></a>

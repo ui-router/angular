@@ -1,4 +1,3 @@
-import { resolve } from '@angular/compiler-cli/src/ngtsc/file_system';
 import { inject, TestBed } from '@angular/core/testing';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { memoryLocationPlugin, UIRouter } from '@uirouter/core';
@@ -6,8 +5,6 @@ import {
   APP_INITIALIZER,
   ApplicationInitStatus,
   Component,
-  NgModuleFactoryLoader,
-  SystemJsNgModuleLoader,
 } from '@angular/core';
 import { Ng2StateDeclaration } from '../../src/interface';
 
@@ -43,7 +40,6 @@ const setupTests = (deferInitialRender: boolean) => {
     declarations: [HomeComponent, AppComponent],
     imports: [routerModule],
     providers: [
-      { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
       { provide: APP_INITIALIZER, useValue: () => appInitializer, multi: true },
     ],
   });
@@ -64,7 +60,7 @@ describe('deferInitialRender == false', () => {
     status = _status;
   }));
 
-  it('should not wait for initial transition', async done => {
+  it('should not wait for initial transition', async () => {
     const { stateService } = router;
     const fixture = TestBed.createComponent(AppComponent);
 
@@ -81,7 +77,6 @@ describe('deferInitialRender == false', () => {
 
     resolveData();
     await goPromise;
-    done();
   });
 });
 
@@ -98,7 +93,7 @@ describe('deferInitialRender == true', () => {
     status = _status;
   }));
 
-  it('should wait for initial transition', async done => {
+  it('should wait for initial transition', async () => {
     const { stateService } = router;
     const fixture = TestBed.createComponent(AppComponent);
 
@@ -119,7 +114,5 @@ describe('deferInitialRender == true', () => {
 
     await timeout();
     expect(status.done).toBe(true);
-
-    done();
   });
 });

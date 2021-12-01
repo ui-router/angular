@@ -1,13 +1,15 @@
 {
   "packageDir": "./dist",
   "projects": {
-    "angular10": "./test-angular-versions/v10",
-    "angular11": "./test-angular-versions/v11",
-    "typescript3.6": "./test-typescript-versions/typescript3.6",
-    "typescript3.7": "./test-typescript-versions/typescript3.7",
-    "typescript3.8": "./test-typescript-versions/typescript3.8",
-    "typescript3.9": "./test-typescript-versions/typescript3.9",
-    "typescript4.0": "./test-typescript-versions/typescript4.0",
+    "angular12": "./test-angular-versions/v12",
+    "angular13": "./test-angular-versions/v13",
+    "typescript37": "./test-typescript-versions/typescript3.7",
+    "typescript38": "./test-typescript-versions/typescript3.8",
+    "typescript39": "./test-typescript-versions/typescript3.9",
+    "typescript40": "./test-typescript-versions/typescript4.0",
+    "typescript41": "./test-typescript-versions/typescript4.1",
+    "typescript42": "./test-typescript-versions/typescript4.2",
+    "typescript43": "./test-typescript-versions/typescript4.3",
     "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git"
   }
 }

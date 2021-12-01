@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, NgModuleFactoryLoader, SystemJsNgModuleLoader } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { UIRouterModule } from '@uirouter/angular';
 import { UIRouter } from '@uirouter/core';
 
@@ -19,7 +19,6 @@ export function config(router: UIRouter) {
 
 @NgModule({
   imports: [BrowserModule, UIRouterModule.forRoot({ states, config })],
-  providers: [{ provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader }],
   declarations: [AppComponent, HomeComponent, AboutComponent],
   bootstrap: [AppComponent],
 })

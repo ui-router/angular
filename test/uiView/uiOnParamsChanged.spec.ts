@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Ng2StateDeclaration, UIRouterModule, UIView } from '../../src';
 import { memoryLocationPlugin, Transition, UIRouter } from '@uirouter/core';
@@ -17,7 +17,7 @@ describe('uiView', () => {
     let id = 0;
 
     @Component({ template: `<h3>hey</h3> ` })
-    class ParamWatcherComponent {
+    class ParamWatcherComponent implements OnInit {
       $id = id++;
 
       public uiOnParamsChanged(newParams: { [paramName: string]: any }, trans: Transition) {
@@ -71,7 +71,7 @@ describe('uiView', () => {
 
     ////////////////////////////////////////////////////////////////////////////////
 
-    it('should not receive the initial parameter values', async done => {
+    it('should not receive the initial parameter values', async () => {
       expect(lifecycle).toEqual([]);
 
       await router.stateService.go('hasDynamicParams', { param1: 'foo1', param2: 'bar1' });
@@ -79,11 +79,9 @@ describe('uiView', () => {
 
       expect(lifecycle).toEqual(['ngOnInit-0']);
       expect(paramChanges).toEqual([]);
-
-      done();
     });
 
-    it('should receive dynamic parameter changes', async done => {
+    it('should receive dynamic parameter changes', async () => {
       expect(lifecycle).toEqual([]);
 
       await router.stateService.go('hasDynamicParams', { param1: 'foo3', param2: 'bar3' });
@@ -91,11 +89,9 @@ describe('uiView', () => {
 
       expect(lifecycle).toEqual(['ngOnInit-0']);
       expect(paramChanges).toEqual([]);
-
-      done();
     });
 
-    it('should receive dynamic parameter changes', async done => {
+    it('should receive dynamic parameter changes', async () => {
       expect(lifecycle).toEqual([]);
 
       await router.stateService.go('hasDynamicParams', { param1: 'foo', param2: 'bar' });
@@ -108,11 +104,9 @@ describe('uiView', () => {
 
       expect(lifecycle).toEqual(['ngOnInit-0']);
       expect(paramChanges).toEqual([{ param2: 'notbar' }]);
-
-      done();
     });
 
-    it('should receive multiple parameter changes', async done => {
+    it('should receive multiple parameter changes', async () => {
       expect(lifecycle).toEqual([]);
 
       await router.stateService.go('hasDynamicParams', { param1: 'foo', param2: 'bar' });
@@ -124,11 +118,9 @@ describe('uiView', () => {
 
       expect(lifecycle).toEqual(['ngOnInit-0']);
       expect(paramChanges).toEqual([{ param2: 'notbar', param3: 'baz' }]);
-
-      done();
     });
 
-    it('should not receive non-dynamic parameter changes', async done => {
+    it('should not receive non-dynamic parameter changes', async () => {
       expect(lifecycle).toEqual([]);
 
       await router.stateService.go('hasDynamicParams', { param1: 'foo', param2: 'bar' });
@@ -141,8 +133,6 @@ describe('uiView', () => {
 
       expect(lifecycle).toEqual(['ngOnInit-0', 'ngOnDestroy-0', 'ngOnInit-1']);
       expect(paramChanges).toEqual([]);
-
-      done();
     });
   });
 });
