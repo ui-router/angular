@@ -1,3 +1,10 @@
+# 9.0.0 (2021-12-01)
+[Compare `@uirouter/angular` versions 8.0.1 and 9.0.0](https://github.com/ui-router/angular/compare/8.0.1...9.0.0)
+
+### Features
+
+* Support Angular 12 and 13
+
 ## 8.0.1 (2021-03-02)
 [Compare `@uirouter/angular` versions 8.0.0 and 8.0.1](https://github.com/ui-router/angular/compare/8.0.0...8.0.1)
 
