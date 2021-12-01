@@ -1,3 +1,44 @@
+## 9.0.1 (2021-12-01)
+[Compare `@uirouter/angular` versions 9.0.0 and 9.0.1](https://github.com/ui-router/angular/compare/9.0.0...9.0.1)
+
+### Bug Fixes
+
+* bump [@uirouter](https://github.com/uirouter)/core and [@uirouter](https://github.com/uirouter)/rx deps ([257ee61](https://github.com/ui-router/angular/commit/257ee61))
+
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.7 to 6.0.8
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.7 and 6.0.8](https://github.com/ui-router/core/compare/6.0.7...6.0.8)
+
+
+---
+
+
+### Updated `@uirouter/rx` from 0.6.0 to 1.0.0
+
+
+Changelog for `@uirouter/rx`:
+
+
+[Compare `@uirouter/rx` versions 0.6.0 and 1.0.0](https://github.com/ui-router/rx/compare/0.6.0...1.0.0)
+
+### Bug Fixes
+
+* **publish:** Check in npm ignore file ([f11590b](https://github.com/ui-router/rx/commit/f11590b))
+* make RXWAIT custom async policy AOT compatible ([a091c48](https://github.com/ui-router/rx/commit/a091c48))
+
+
+### Features
+
+* **update_dependencies:** Add a repository_dispatch trigger ([af1f9f8](https://github.com/ui-router/rx/commit/af1f9f8))
+
 # 9.0.0 (2021-12-01)
 [Compare `@uirouter/angular` versions 8.0.1 and 9.0.0](https://github.com/ui-router/angular/compare/8.0.1...9.0.0)
 
