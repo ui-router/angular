@@ -60,7 +60,7 @@
     "@types/jest": "^27.0.3",
     "@types/jquery": "^3.5.9",
     "@uirouter/core": "^6.0.7",
-    "@uirouter/publish-scripts": "2.5.5",
+    "@uirouter/publish-scripts": "2.6.0",
     "@uirouter/rx": "^0.6.0",
     "husky": "^7.0.4",
     "jest": "27.3.1",
