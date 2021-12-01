@@ -1,3 +1,10 @@
+# 9.1.0 (2021-12-01)
+[Compare `@uirouter/angular` versions 9.0.1 and 9.1.0](https://github.com/ui-router/angular/compare/9.0.1...9.1.0)
+
+### Bug Fixes
+
+* build package with Angular 13. ([500f2f7](https://github.com/ui-router/angular/commit/500f2f7))
+
 ## 9.0.1 (2021-12-01)
 [Compare `@uirouter/angular` versions 9.0.0 and 9.0.1](https://github.com/ui-router/angular/compare/9.0.0...9.0.1)
 
