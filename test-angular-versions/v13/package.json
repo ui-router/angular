@@ -1,6 +1,9 @@
 {
   "name": "13",
   "version": "0.0.0",
+  "checkPeerDependencies": {
+    "ignore": ["avj"]
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
