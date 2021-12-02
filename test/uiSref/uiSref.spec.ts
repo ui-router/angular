@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISref } from '../../src/directives/uiSref';
-import { UIRouter, TargetState, TransitionOptions } from '@uirouter/core';
+import { UIRouter, StateDeclaration, TargetState, TransitionOptions } from '@uirouter/core';
 import { Subscription } from 'rxjs';
 import { clickOnElement } from '../testUtils';
 
@@ -14,6 +14,7 @@ describe('uiSref', () => {
     template: `
       <a [uiSref]="linkA" [target]="targetA" [uiParams]="linkAParams" [uiOptions]="linkAOptions"></a>
       <a [uiSref]="linkB"></a>
+      <a [uiSref]="linkC"></a>
     `,
   })
   class TestComponent {
@@ -22,6 +23,7 @@ describe('uiSref', () => {
     linkAOptions: TransitionOptions;
     targetA: string;
     linkB: string;
+    linkC: StateDeclaration;
 
     @ViewChildren(UISref) srefs: QueryList<UISref>;
 
@@ -35,6 +37,7 @@ describe('uiSref', () => {
       this.linkAOptions = null;
       this.targetA = '';
       this.linkB = '';
+      this.linkC = {};
     }
   }
 
@@ -106,6 +109,16 @@ describe('uiSref', () => {
     clickOnElement(srefElements[0]);
     expect(gospy).toHaveBeenCalled();
     expect(gospy.mock.calls[0][0]).toBe('stateref');
+  });
+
+  it('should handle when param is stateDeclaration', () => {
+    const { fixture, srefElements, router } = setup();
+    const gospy = jest.spyOn(router.stateService, 'go');
+    fixture.componentInstance.linkC = { name: 'stateref' };
+    fixture.detectChanges();
+    clickOnElement(srefElements[2]);
+    expect(gospy).toHaveBeenCalledTimes(1);
+    expect(gospy.mock.calls[0][0]).toEqual({ name: 'stateref' });
   });
 
   it('should ignore the click event when target is _blank', () => {
