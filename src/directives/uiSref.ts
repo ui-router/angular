@@ -132,7 +132,7 @@ export class UISref implements OnChanges {
   }
 
   /** @internal */
-  set uiSref(val: string) {
+  set uiSref(val: StateOrName) {
     this.state = val;
     this.update();
   }
