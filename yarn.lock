@@ -18,7 +18,7 @@
     "@angular-devkit/core" "14.1.0"
     "rxjs" "6.6.7"
 
-"@angular-devkit/build-angular@>=0.1102.19 <15.0.0":
+"@angular-devkit/build-angular@^14.1.0", "@angular-devkit/build-angular@>=0.1102.19 <15.0.0":
   "integrity" "sha512-AtecSuDEPLYd3p7uFVKpoA0XNcq+NvVYFJK8h90BG+IRZtzEm7ZJeYdohXVeVfTO5GvpNFN1XoHxR5rxiXeBhg=="
   "resolved" "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-14.1.0.tgz"
   "version" "14.1.0"

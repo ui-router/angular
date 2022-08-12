@@ -49,6 +49,7 @@
     "@uirouter/rx": "^1.0.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^14.1.0",
     "@angular/animations": "^14.0.0",
     "@angular/common": "^14.0.0",
     "@angular/compiler": "^14.0.0",
