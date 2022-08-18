@@ -7,7 +7,7 @@
     "compile": "npm run clean && ngc",
     "build": "ng-packagr -p ng-package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
-    "check-peer-dependencies": "check-peer-dependencies",
+    "check-peer-dependencies": "check-peer-dependencies --runOnlyOnRootDependencies",
     "test": "jest --rootDir test",
     "test:watch": "jest --rootDir test --watchAll",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --rootDir test --runInBand",
@@ -49,7 +49,7 @@
     "@uirouter/rx": "^1.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.1.0",
+    "@angular-devkit/build-angular": "^14.0.0",
     "@angular/animations": "^14.0.0",
     "@angular/common": "^14.0.0",
     "@angular/compiler": "^14.0.0",
@@ -71,6 +71,7 @@
     "pretty-quick": "^3.1.2",
     "rxjs": "6.6.7",
     "rxjs-compat": "^6.5.4",
+    "schema-utils": "^4.0.0",
     "ts-node": "10.4.0",
     "tslint": "^6.1.0",
     "typescript": "~4.6.2",
