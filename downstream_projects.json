@@ -1,8 +1,6 @@
 {
   "packageDir": "./dist",
   "projects": {
-    "angular12": "./test-angular-versions/v12",
-    "angular13": "./test-angular-versions/v13",
     "typescript37": "./test-typescript-versions/typescript3.7",
     "typescript38": "./test-typescript-versions/typescript3.8",
     "typescript39": "./test-typescript-versions/typescript3.9",
@@ -10,6 +8,7 @@
     "typescript41": "./test-typescript-versions/typescript4.1",
     "typescript42": "./test-typescript-versions/typescript4.2",
     "typescript43": "./test-typescript-versions/typescript4.3",
-    "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git"
+    "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git",
+    "angular14": "./test-angular-versions/v14"
   }
 }
