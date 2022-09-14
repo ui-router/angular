@@ -92,3 +92,6 @@ If you make changes in `@uirouter/core`, run these scripts before rebuilding or 
 
 - `npm run build`: Compiles `@uirouter/core` code
 - `npm run watch`: Continuously builds the `@uirouter/core` code when sources change.
+
+## Updating Angular Versions
+See [notes in add_support_for_new_angular_version.txt](./add_support_for_new_angular_version.txt) for steps to update the angular dependency version
