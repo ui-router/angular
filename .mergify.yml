@@ -1,3 +1,8 @@
+queue_rules:
+  - name: default
+    conditions:
+      - check-success=ci
+
 pull_request_rules:
   - name: Auto Squash and Merge
     conditions:
@@ -6,9 +11,9 @@ pull_request_rules:
       - 'label=ready to squash and merge'
     actions:
       delete_head_branch: {}
-      merge:
+      queue:
         method: squash
-        strict: smart
+        name: default
   - name: Auto Rebase and Merge
     conditions:
       - base=master
@@ -16,6 +21,6 @@ pull_request_rules:
       - 'label=ready to rebase and merge'
     actions:
       delete_head_branch: {}
-      merge:
-        method: rebase
-        strict: smart
+      queue:
+        method: squash
+        name: default
