@@ -7,7 +7,7 @@
     "compile": "npm run clean && ngc",
     "build": "ng-packagr -p ng-package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
-    "check-peer-dependencies": "check-peer-dependencies --runOnlyOnRootDependencies",
+    "check-peer-dependencies": "check-peer-dependencies",
     "test": "jest --rootDir test",
     "test:watch": "jest --rootDir test --watchAll",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --rootDir test --runInBand",
@@ -82,6 +82,9 @@
     "setupFilesAfterEnv": [
       "./setupJest.ts"
     ]
+  },
+  "checkPeerDependencies": {
+    "ignore": ["ajv"]
   },
   "husky": {
     "hooks": {
