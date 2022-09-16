@@ -1,3 +1,12 @@
+# 10.0.0 (2022-09-16)
+[Compare `@uirouter/angular` versions 9.1.0 and 10.0.0](https://github.com/ui-router/angular/compare/9.1.0...10.0.0)
+
+### Features
+
+* Support Angular 14
+
+* Update uiSref input type from string to StateOrName ([#943](https://github.com/ui-router/angular/issues/943)) ([fe26fe0](https://github.com/ui-router/angular/commit/fe26fe0))
+
 # 9.1.0 (2021-12-01)
 [Compare `@uirouter/angular` versions 9.0.1 and 9.1.0](https://github.com/ui-router/angular/compare/9.0.1...9.1.0)
 

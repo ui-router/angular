@@ -1,7 +1,7 @@
 {
   "name": "@uirouter/angular",
   "description": "State-based routing for Angular",
-  "version": "9.1.0",
+  "version": "10.0.0",
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",
@@ -84,7 +84,9 @@
     ]
   },
   "checkPeerDependencies": {
-    "ignore": ["ajv"]
+    "ignore": [
+      "ajv"
+    ]
   },
   "husky": {
     "hooks": {
