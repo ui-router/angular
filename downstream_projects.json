@@ -1,8 +1,8 @@
 {
   "packageDir": "./dist",
   "projects": {
-    "angular14": "./test-angular-versions/v14",
-    "typescript46": "./test-typescript-versions/typescript4.6",
-    "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git"
+    "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git",
+    "angular15": "./test-angular-versions/v15",
+    "typescript48": "./test-typescript-versions/typescript4.8"
   }
 }
