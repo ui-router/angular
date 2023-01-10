@@ -10,10 +10,10 @@ Notes from when I added Angular 11 support
  - update other libs
  - update tests in test-angular-versions/
    - ./scaffold.sh 11
-   - remove old tests fro test-angular-versions and ../downstream_projects.json
+   - remove old tests from test-angular-versions and ../downstream_projects.json
  - update tests in test-typescript-versions/
    - ./scaffold.sh 4.5
-   - (maybe) remove old tests fro test-typescript-versions and ../downstream_projects.json
+   - (maybe) remove old tests from test-typescript-versions and ../downstream_projects.json
  - npx check-peer-dependencies
  - gh pr create
  - npm run release
