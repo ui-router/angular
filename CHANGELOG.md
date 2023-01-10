@@ -1,3 +1,10 @@
+# 11.0.0 (2023-01-10)
+[Compare `@uirouter/angular` versions 10.0.0 and 11.0.0](https://github.com/ui-router/angular/compare/10.0.0...11.0.0)
+
+### Features
+
+* Angular 15 support ([#973](https://github.com/ui-router/angular/issues/973)) ([d69d03e](https://github.com/ui-router/angular/commit/d69d03e))
+
 # 10.0.0 (2022-09-16)
 [Compare `@uirouter/angular` versions 9.1.0 and 10.0.0](https://github.com/ui-router/angular/compare/9.1.0...10.0.0)
 
