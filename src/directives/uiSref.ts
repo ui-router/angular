@@ -130,7 +130,7 @@ export class UISref implements OnChanges {
     this._parent = parent;
 
     this._statesSub = _router.globals.states$.subscribe(() => this.update());
-    this._statesSub = _router.globals.params$.subscribe(() => this.update());
+    this._paramsSub = _router.globals.params$.subscribe(() => this.update());
   }
 
   /** @internal */
