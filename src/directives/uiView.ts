@@ -33,7 +33,6 @@ import {
   ViewContext,
 } from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
-import { MergeInjector } from '../mergeInjector';
 
 /** @hidden */
 let id = 0;
@@ -291,7 +290,8 @@ export class UIView implements OnInit, OnDestroy {
     const componentClass = config.viewDecl.component;
 
     // Create the component
-    const compFactoryResolver = componentInjector.get(ComponentFactoryResolver);
+    const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
+    const compFactoryResolver = moduleInjector.get(ComponentFactoryResolver);
     const compFactory = compFactoryResolver.resolveComponentFactory(componentClass);
     this._componentRef = this._componentTarget.createComponent(compFactory, undefined, componentInjector);
 
@@ -322,10 +322,8 @@ export class UIView implements OnInit, OnDestroy {
     newProviders.push({ provide: UIView.PARENT_INJECT, useValue: parentInject });
 
     const parentComponentInjector = this.viewContainerRef.injector;
-    const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
-    const mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
 
-    return ReflectiveInjector.resolveAndCreate(newProviders, mergedParentInjector);
+    return Injector.create({ providers: newProviders, parent: parentComponentInjector });
   }
 
   /**
