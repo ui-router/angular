@@ -1,11 +1,10 @@
-import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler } from '@angular/core';
+import { NgModuleRef, Injector, Type, createNgModule } from '@angular/core';
 import {
   Transition,
   LazyLoadResult,
   UIRouter,
   Resolvable,
   NATIVE_INJECTOR_TOKEN,
-  isString,
   unnestR,
   inArray,
   StateObject,
@@ -72,40 +71,14 @@ export function loadNgModule(
 ): (transition: Transition, stateObject: StateDeclaration) => Promise<LazyLoadResult> {
   return (transition: Transition, stateObject: StateDeclaration) => {
     const ng2Injector = transition.injector().get(NATIVE_INJECTOR_TOKEN);
-
-    const createModule = (factory: NgModuleFactory<any>) => factory.create(ng2Injector);
-
+    const unwrapEsModuleDefault = x => (x && x.__esModule && x['default'] ? x['default'] : x);
     const applyModule = (moduleRef: NgModuleRef<any>) => applyNgModule(transition, moduleRef, ng2Injector, stateObject);
 
-    return loadModuleFactory(moduleToLoad, ng2Injector).then(createModule).then(applyModule);
+    return Promise.resolve(moduleToLoad())
+      .then(unwrapEsModuleDefault)
+      .then((ngModule: Type<any>) => createNgModule(ngModule, ng2Injector))
+      .then(applyModule);
   };
-}
-
-/**
- * Returns the module factory that can be used to instantiate a module
- *
- * For a Type<any> or Promise<Type<any>> this:
- * - Compiles the component type (if not running with AOT)
- * - Returns the NgModuleFactory resulting from compilation (or direct loading if using AOT) as a Promise
- *
- * @internal
- */
-export function loadModuleFactory(
-  moduleToLoad: ModuleTypeCallback,
-  ng2Injector: Injector
-): Promise<NgModuleFactory<any>> {
-  const compiler: Compiler = ng2Injector.get(Compiler);
-
-  const unwrapEsModuleDefault = (x) => (x && x.__esModule && x['default'] ? x['default'] : x);
-
-  return Promise.resolve(moduleToLoad())
-    .then(unwrapEsModuleDefault)
-    .then((t: NgModuleFactory<any> | Type<any>) => {
-      if (t instanceof NgModuleFactory) {
-        return t;
-      }
-      return compiler.compileModuleAsync(t);
-    });
 }
 
 /**

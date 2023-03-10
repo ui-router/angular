@@ -1,14 +1,13 @@
 import {
   Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
+  ComponentMirror,
   ComponentRef,
   Inject,
   Injector,
   Input,
   OnDestroy,
   OnInit,
-  ReflectiveInjector,
+  reflectComponentType,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -57,7 +56,7 @@ interface InputMapping {
  *
  * @internal
  */
-const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
+const ng2ComponentInputs = (factory: ComponentMirror<any>): InputMapping[] => {
   return factory.inputs.map((input) => ({ prop: input.propName, token: input.templateName }));
 };
 
@@ -291,12 +290,19 @@ export class UIView implements OnInit, OnDestroy {
 
     // Create the component
     const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
-    const compFactoryResolver = moduleInjector.get(ComponentFactoryResolver);
-    const compFactory = compFactoryResolver.resolveComponentFactory(componentClass);
-    this._componentRef = this._componentTarget.createComponent(compFactory, undefined, componentInjector);
+
+    this._componentRef = this._componentTarget.createComponent(componentClass, {
+      injector: componentInjector,
+      environmentInjector: moduleInjector
+    });
 
     // Wire resolves to @Input()s
-    this._applyInputBindings(compFactory, this._componentRef.instance, context, componentClass);
+    this._applyInputBindings(
+      reflectComponentType(componentClass),
+      this._componentRef.instance,
+      context,
+      componentClass
+    );
   }
 
   /**
@@ -332,7 +338,7 @@ export class UIView implements OnInit, OnDestroy {
    * Finds component inputs which match resolves (by name) and sets the input value
    * to the resolve data.
    */
-  private _applyInputBindings(factory: ComponentFactory<any>, component: any, context: ResolveContext, componentClass) {
+  private _applyInputBindings(factory: ComponentMirror<any>, component: any, context: ResolveContext, componentClass) {
     const bindings = this._uiViewData.config.viewDecl['bindings'] || {};
     const explicitBoundProps = Object.keys(bindings);
 
