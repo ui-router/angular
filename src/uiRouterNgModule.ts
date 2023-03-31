@@ -3,7 +3,6 @@ import { Ng2StateDeclaration } from './interface';
 import {
   NgModule,
   ModuleWithProviders,
-  ANALYZE_FOR_ENTRY_COMPONENTS,
   Provider,
   Injector,
   APP_INITIALIZER,
@@ -35,7 +34,6 @@ export function makeRootProviders(module: RootModule): Provider[] {
   return [
     { provide: UIROUTER_ROOT_MODULE, useValue: module, multi: true },
     { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
-    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
     {
       provide: APP_INITIALIZER,
       useFactory: onTransitionReady,
@@ -48,7 +46,6 @@ export function makeRootProviders(module: RootModule): Provider[] {
 export function makeChildProviders(module: StatesModule): Provider[] {
   return [
     { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
-    { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: module.states || [], multi: true },
   ];
 }
 
