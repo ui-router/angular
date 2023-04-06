@@ -8,7 +8,6 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ReflectiveInjector,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -325,7 +324,7 @@ export class UIView implements OnInit, OnDestroy {
     const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
     const mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
 
-    return ReflectiveInjector.resolveAndCreate(newProviders, mergedParentInjector);
+    return Injector.create(newProviders, mergedParentInjector);
   }
 
   /**
