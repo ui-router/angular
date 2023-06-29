@@ -69,16 +69,11 @@ export function locationStrategy(useHash) {
  *
  * State definitions found in the `states:` property are provided to the Dependency Injector.
  * This enables UI-Router to automatically register the states with the [[StateRegistry]] at bootstrap (and during lazy load).
- *
- * ### Entry Components
- *
- * Any routed components are added as `entryComponents:` so they will get compiled.
  */
 @NgModule({
   imports: [CommonModule],
   declarations: [_UIROUTER_DIRECTIVES],
   exports: [_UIROUTER_DIRECTIVES],
-  entryComponents: [UIView],
 })
 export class UIRouterModule {
   /**
@@ -218,7 +213,6 @@ export interface StatesModule {
    * The module's UI-Router states
    *
    * This list of [[Ng2StateDeclaration]] objects will be registered with the [[StateRegistry]].
-   * Also, the components that the states route to will be added to `entryComponents` so they will be compiled.
    */
   states?: Ng2StateDeclaration[];
 
