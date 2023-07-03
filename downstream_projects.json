@@ -2,7 +2,6 @@
   "packageDir": "./dist",
   "projects": {
     "sample-app-angular": "https://github.com/boxmein/sample-app-angular.git@boxmein_angular16",
-    "angular15": "./test-angular-versions/v15",
     "typescript48": "./test-typescript-versions/typescript4.8",
     "angular16": "./test-angular-versions/v16",
     "typescript49": "./test-typescript-versions/typescript4.9"
