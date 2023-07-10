@@ -1,3 +1,15 @@
+# 11.1.0 (2023-04-13)
+[Compare `@uirouter/angular` versions 11.0.0 and 11.1.0](https://github.com/ui-router/angular/compare/11.0.0...11.1.0)
+
+### Features
+
+* Remove deprecated ANALYZE_FOR_ENTRY_COMPONENTS ([#982](https://github.com/ui-router/angular/issues/982))
+
+### Bug Fixes
+
+* test_downstream ([#983](https://github.com/ui-router/angular/issues/983)) ([bf45a80](https://github.com/ui-router/angular/commit/bf45a80))
+
+
 # 11.0.0 (2023-01-10)
 [Compare `@uirouter/angular` versions 10.0.0 and 11.0.0](https://github.com/ui-router/angular/compare/10.0.0...11.0.0)
 
@@ -177,7 +189,7 @@ There are some *BREAKING CHANGES*, see below.
 * **ivy:** Inject host UISref separately to account for behavior change in [@ContentChildren](https://github.com/ContentChildren) ([ebd2e40](https://github.com/ui-router/angular/commit/ebd2e40)), closes [/github.com/angular/angular/issues/8277#issuecomment-323678013](https://github.com//github.com/angular/angular/issues/8277/issues/issuecomment-323678013)
 * fix(angular8): Add static: true to ViewChild
 * fix(lazyLoad): Remove dependency on angular/router in favor of using ivy
-Ivy supports lazy loading of modules without depending on the ROUTES token from angular/router.
+  Ivy supports lazy loading of modules without depending on the ROUTES token from angular/router.
 
 ### Features
 
@@ -287,7 +299,7 @@ Migrate your `loadChildren`(s) to the `import()` style.
 ### BREAKING CHANGES in rx
 
 * **package:** this version of uirouter/rx depends on uirouter/core version 6 and greater.
-Because this package now provides an async resolve policy for Observables, this package now has a peerDependency on uirouter/core version >=6.0.0
+  Because this package now provides an async resolve policy for Observables, this package now has a peerDependency on uirouter/core version >=6.0.0
 
 # 4.0.0 (2019-06-14)
 [Compare `@uirouter/angular` versions 3.0.0 and 4.0.0](https://github.com/ui-router/angular/compare/3.0.0...4.0.0)
@@ -836,7 +848,7 @@ Now, the error is wrapped in a Rejection object.
 
 ```js
 .onError({}, (trans, err) =>
-    err instanceof Rejection && err.detail === 'reject transition')
+  err instanceof Rejection && err.detail === 'reject transition')
 ```
 
 - The Rejection object indicates the `.type` of transition rejection (ABORTED, ERROR, SUPERSEDED and/or redirection).
@@ -994,7 +1006,7 @@ export var futureFooState = {
 
   imports: [
     UIRouterModule.forRoot({ states: [ futureFooState  ] }),
-...
+  ...
 ```
 
 In your nested module, add a state named `foo` (without the `.**`). This
@@ -1017,7 +1029,7 @@ export var fooState = {
 
   imports: [
     UIRouterModule.forChild({ states: [ fooState ] }),
-...
+  ...
 ```
 
 This change works by providing the same DI token as the `@angular/router`
@@ -1264,13 +1276,13 @@ More specific rules are preferred over less specific rules
 It's possible to have multiple url rules that match a given URL.
 Consider the following states:
 
- - `{ name: 'books', url: '/books/index' }''`
- - `{ name: 'book', url: '/books/:bookId' }''`
+- `{ name: 'books', url: '/books/index' }''`
+- `{ name: 'book', url: '/books/:bookId' }''`
 
 Both states match when the url is `/books/index`.
 Additionally, you might have some custom url rewrite rules such as:
 
- `.when('/books/list', '/books/index')`.
+`.when('/books/list', '/books/index')`.
 
 The `book` state also matches when the rewrite rule is matched.
 
@@ -1321,7 +1333,7 @@ For backwards compatibility, register a sort function which sorts by the registr
 myApp.config(function ($urlServiceProvider) {
 
   function sortByRegistrationOrder(a, b) {
-   return a.$id - b.$id;
+    return a.$id - b.$id;
   }
 
   $urlServiceProvider.rules.sort(sortByRegistrationOrder);
@@ -1351,9 +1363,9 @@ If you rely on the previous encoding, create a custom parameter type that implem
 ```js
 urlMatcherFactory.type('tildes', {
   encode: (val: any) =>
-      val != null ? val.toString().replace(/(~|\/)/g, m => ({ '~': '~~', '/': '~2F' }[m])) : val;
+    val != null ? val.toString().replace(/(~|\/)/g, m => ({ '~': '~~', '/': '~2F' }[m])) : val;
   decode: (val: string) =>
-      val != null ? val.toString().replace(/(~~|~2F)/g, m => ({ '~~': '~', '~2F': '/' }[m])) : val;
+    val != null ? val.toString().replace(/(~~|~2F)/g, m => ({ '~~': '~', '~2F': '/' }[m])) : val;
   pattern: /[^/]*/
 });
 ```
@@ -1463,28 +1475,28 @@ Major breaking changes for Angular 2 bootstrap between beta.2 and beta.3
 - See https://ui-router.github.io/docs/latest/classes/ng2.uiroutermodule.html
 
 @NgModule({
-  imports: [
-    UIRouterModule.forRoot({
-      states: INITIAL_STATES,
-      useHash: true,
-      configClass: MyUIRouterConfig
-    }),
-    BrowserModule,
-    FeatureModule,
-  ],
-  declarations: INITIAL_COMPONENTS
+imports: [
+UIRouterModule.forRoot({
+states: INITIAL_STATES,
+useHash: true,
+configClass: MyUIRouterConfig
+}),
+BrowserModule,
+FeatureModule,
+],
+declarations: INITIAL_COMPONENTS
 })
 class RootAppModule {}
 
 @NgModule({
-  imports: [
-    UIRouterModule.forChild({
-      states: FEATURE_STATES,
-      configClass: FeatureConfig
-    }),
-    CommonModule,
-  ],
-  declarations: FEATURE_COMPONENTS
+imports: [
+UIRouterModule.forChild({
+states: FEATURE_STATES,
+configClass: FeatureConfig
+}),
+CommonModule,
+],
+declarations: FEATURE_COMPONENTS
 })
 
 
@@ -1603,16 +1615,16 @@ This list is extensive, but typical users won't be affected by most of these cha
 The most common breaks will be #1 and #2
 
 1) BC-BREAK: renamed all Ui* (lowercase 'i') symbols to UI* (uppercase 'I') for more consistent naming.
-   - UiView -> UIView
-   - UiSref -> UISref (and related directives)
-   - UiInjector -> UIInjector
+  - UiView -> UIView
+  - UiSref -> UISref (and related directives)
+  - UiInjector -> UIInjector
 
 2) BC-BREAK: Transition Hooks are no longer injected (onBefore/onStart/onExit/onRetain/onEnter/onFinish/onSuccess/onError)
 
    Previously, a hook like `['$state', ($state) => $state.target('foo')]` would get `$state` injected.
    Now, all hooks receive two parameters:
-   - transition: the current Transition, which has an `injector()` function
-   - state: for onEnter/onRetain/onExit hooks only, the State which the hook is being run for. This value will be null for onBefore/onStart/onFinish/onSuccess/onError hooks.
+  - transition: the current Transition, which has an `injector()` function
+  - state: for onEnter/onRetain/onExit hooks only, the State which the hook is being run for. This value will be null for onBefore/onStart/onFinish/onSuccess/onError hooks.
 
    Refactor your hooks
    from: `['$state', 'mySvc', ($state, mySvc) => mySvc.foo() ? $state.target('foo')] : true`
@@ -1632,7 +1644,7 @@ The most common breaks will be #1 and #2
 
 8) BC-BREAK: remove support for `JIT` resolves.  This also eliminated the need for the `loadAllControllerLocals` hook which was also removed
 
-9) BC-BREAK: Replaced `ViewConfig.node` with `ViewConfig.path`. Angular 1's `$(element).data('$uiView')` is affected. 
+9) BC-BREAK: Replaced `ViewConfig.node` with `ViewConfig.path`. Angular 1's `$(element).data('$uiView')` is affected.
    Previously the .node was the node for the view. Now the last element in the path is the node for the view.
 
 10) BC-BREAK: Nodes no longer have (stateful) `.resolveContext` properties. Instead, a new ResolveContext is wrapped over a Path of Nodes.  Removed `PathFactory.bindResolveContexts()`.
@@ -1850,11 +1862,11 @@ This is a maintenance release which fixes a few known bugs introduced in 0.2.16.
 
 #### Bug Fixes
 
-* **$state:** 
+* **$state:**
   * statechangeCancel: Avoid infinite digest in .otherwise/redirect case. Don't clobber url if a new transition has started.  Closes #222 ([e00aa695](https://github.com/angular-ui/ui-router/commit/e00aa695e41ddc5ebd5d2b226aa0917a751b11aa), closes [#2238](https://github.com/angular-ui/ui-router/issues/2238))
   * transitionTo: Allow hash (#) value to be read as toParams['#'] in events.  Re-add the saved hash before broadcasting $stateChangeStart event.  ([8c1bf30d](https://github.com/angular-ui/ui-router/commit/8c1bf30d2a3b78ba40b330f12d854c885d6cc117))
 * **$stateParams:** Fix for testing: reset service instance between tests ([2aeb0c4b](https://github.com/angular-ui/ui-router/commit/2aeb0c4b205baf6cfa2ef25bb986bb160dc13bf9))
-* **$urlRouter:** 
+* **$urlRouter:**
   * Sort URL rules by specificity. Potential minor BC if apps were relying on rule registration order.  ([b5c57c8e](https://github.com/angular-ui/ui-router/commit/b5c57c8ec2e14e17e75104c1424654f126ea4011))
   * Use $sniffer for pushstate compat check ([c219e801](https://github.com/angular-ui/ui-router/commit/c219e801797f340ef9c5c919ab890ef003a7a042))
 * **UrlMatcher:**
@@ -1865,11 +1877,11 @@ This is a maintenance release which fixes a few known bugs introduced in 0.2.16.
   * include the slash when recognizing squashed params in url ([b5130bb1](https://github.com/angular-ui/ui-router/commit/b5130bb1215e15f832ea6daa670410b9a950c0d4), closes [#2064](https://github.com/angular-ui/ui-router/issues/2064))
   * Allow url query param names to contain periods ([d31b3337](https://github.com/angular-ui/ui-router/commit/d31b3337cc2ce71d87c92fdded629e46558d0b49))
 * **reloadOnSearch:** Update `locals.globals.$stateParams` when reloadOnSearch=false ([350d3e87](https://github.com/angular-ui/ui-router/commit/350d3e87783a2263fd7d23913da34f1268c3300b), closes [#2356](https://github.com/angular-ui/ui-router/issues/2356))
-* **ui-view:** 
+* **ui-view:**
   * fix $animate usage for ng 1.4+ ([9b6d9a2d](https://github.com/angular-ui/ui-router/commit/9b6d9a2d0ce4ae08384165cb517bddea59b67892))
   * change $viewContentLoading to pair with $viewContentLoaded ([f9b43d66](https://github.com/angular-ui/ui-router/commit/f9b43d66833f0e17de41fd8d1cc3b491e3ba4a0e), closes [#685](https://github.com/angular-ui/ui-router/issues/685))
   * $destroy event is triggered before animation ends ([1be13795](https://github.com/angular-ui/ui-router/commit/1be13795686ab78abb2d5094bc8addcacb928975))
-* **uiSref:** 
+* **uiSref:**
   * Ensure URL once param checks pass ([9dc31c54](https://github.com/angular-ui/ui-router/commit/9dc31c5465328e5666468b0c2319ce205f4b72f8), closes [#2091](https://github.com/angular-ui/ui-router/issues/2091))
   * uiSrefActive: update the active classes after linking directive ([7c914030](https://github.com/angular-ui/ui-router/commit/7c914030f13e05e45a941c1b723cb785db729890))
 
@@ -2058,7 +2070,7 @@ This release includes a lot of bug fixes around default/optional and typed param
   * allow prevent syncUrl on failure ([753060b9](https://github.com/angular-ui/ui-router/commit/753060b910d5d2da600a6fa0757976e401c33172))
 * **typescript:** Add typescript definitions for component builds ([521ceb3f](https://github.com/angular-ui/ui-router/commit/521ceb3fd7850646422f411921e21ce5e7d82e0f))
 * **uiSref:** extend syntax for ui-sref ([71cad3d6](https://github.com/angular-ui/ui-router/commit/71cad3d636508b5a9fe004775ad1f1adc0c80c3e))
-* **uiSrefActive:** 
+* **uiSrefActive:**
   * Also activate for child states. ([bf163ad6](https://github.com/angular-ui/ui-router/commit/bf163ad6ce176ce28792696c8302d7cdf5c05a01), closes [#818](https://github.com/angular-ui/ui-router/issues/818))
     * **BREAKING CHANGE** Since ui-sref-active now activates even when child states are active you may need to swap out your ui-sref-active with ui-sref-active-eq, thought typically we think devs want the auto inheritance.
 
