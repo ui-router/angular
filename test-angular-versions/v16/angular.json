@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "v15": {
+    "v16": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -41,7 +41,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/v15",
+            "outputPath": "dist/v16",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -88,10 +88,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "v15:build:production"
+              "browserTarget": "v16:build:production"
             },
             "development": {
-              "browserTarget": "v15:build:development"
+              "browserTarget": "v16:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +99,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "v15:build"
+            "browserTarget": "v16:build"
           }
         },
         "test": {

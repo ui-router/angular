@@ -31,6 +31,5 @@ export function config(router: UIRouter, injector: Injector, module: StatesModul
 @NgModule({
   imports: [UIRouterModule.forChild({ config })],
   declarations: [Component1, Component2],
-  entryComponents: [Component1, Component2],
 })
 export class AugmentModule {}
