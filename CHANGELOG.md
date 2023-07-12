@@ -1,3 +1,8 @@
+# 12.0.0 (2023-07-12)
+[Compare `@uirouter/angular` versions 11.1.0 and 12.0.0](https://github.com/ui-router/angular/compare/11.1.0...12.0.0)
+
+* Angular 16 support ([#973](https://github.com/ui-router/angular/issues/984)) ([36652f1](https://github.com/ui-router/angular/commit/36652f125861095be8084a46028e3d07d4dc3ef6))
+
 # 11.1.0 (2023-04-13)
 [Compare `@uirouter/angular` versions 11.0.0 and 11.1.0](https://github.com/ui-router/angular/compare/11.0.0...11.1.0)
 
