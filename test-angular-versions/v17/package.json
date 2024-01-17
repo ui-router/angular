@@ -24,7 +24,9 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2",
     "@uirouter/angular": "*",
-    "@uirouter/cypress-runner": "*"
+    "@uirouter/cypress-runner": "*",
+    "@uirouter/core": "*",
+    "@uirouter/rx": "*"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.10",
@@ -41,7 +43,8 @@
   },
   "checkPeerDependencies": {
     "ignore": [
-      "ajv"
+      "ajv",
+      "terser"
     ]
   }
 }
