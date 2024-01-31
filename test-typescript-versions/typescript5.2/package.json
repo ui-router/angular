@@ -1,0 +1,21 @@
+{
+  "name": "@uirouter/angular-test-typescript5.2",
+  "version": "1.0.0",
+  "description": "Test against Typescript 5.2",
+  "scripts": {
+    "test": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/common": "^17",
+    "@angular/core": "^17",
+    "@uirouter/angular": "*",
+    "@uirouter/core": "*",
+    "@uirouter/rx": "*",
+    "rxjs": "~7.8.0",
+    "zone.js": "~0.14.2",
+    "typescript": "5.2.2"
+  },
+  "devDependencies": {}
+}
