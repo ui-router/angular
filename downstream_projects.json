@@ -1,7 +1,7 @@
 {
   "packageDir": "./dist",
   "projects": {
-    "sample-app-angular": "https://github.com/lindolo25/sample-app-angular.git",
+    "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git",
     "angular17": "./test-angular-versions/v17",
     "typescript52": "./test-typescript-versions/typescript5.2"
   }
