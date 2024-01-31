@@ -1,3 +1,8 @@
+# 13.0.0 (2024-01-31)
+[Compare `@uirouter/angular` versions 12.0.0 and 13.0.0](https://github.com/ui-router/angular/compare/12.0.0...13.0.0)
+
+* chore: Angular 17 support ([#987](https://github.com/ui-router/angular/issues/987)) ([2682adf](https://github.com/ui-router/angular/commit/2682adf0f0b09a59c1d4db6e7b4e6f7f843b1478))
+
 # 12.0.0 (2023-07-12)
 [Compare `@uirouter/angular` versions 11.1.0 and 12.0.0](https://github.com/ui-router/angular/compare/11.1.0...12.0.0)
 
