@@ -1,4 +1,4 @@
-import { UIRouter, extend, Obj, TransitionOptions, TargetState, isNumber, isNullOrUndefined } from '@uirouter/core';
+import { UIRouter, extend, Obj, StateOrName, TransitionOptions, TargetState, isNumber, isNullOrUndefined } from '@uirouter/core';
 import {
   Directive,
   Inject,
@@ -87,7 +87,7 @@ export class UISref implements OnChanges {
    * <a uiSref="hoome">Home</a>
    * ```
    */
-  @Input('uiSref') state: string;
+  @Input('uiSref') state: StateOrName;
 
   /**
    * `@Input('uiParams')` The parameter values to use (as key/values)
@@ -132,7 +132,7 @@ export class UISref implements OnChanges {
   }
 
   /** @internal */
-  set uiSref(val: string) {
+  set uiSref(val: StateOrName) {
     this.state = val;
     this.update();
   }

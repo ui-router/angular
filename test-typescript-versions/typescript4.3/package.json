@@ -1,0 +1,18 @@
+{
+  "name": "@uirouter/angular-test-typescript4.3",
+  "version": "1.0.0",
+  "description": "Test against Typescript 4.3",
+  "scripts": {
+    "test": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/common": "^12",
+    "@angular/core": "^12",
+    "@uirouter/angular": "latest",
+    "rxjs": "^6.0.0",
+    "typescript": "4.3"
+  },
+  "devDependencies": {}
+}

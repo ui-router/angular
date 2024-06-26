@@ -2,11 +2,11 @@
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@clarivate/ui-router-angular",
   "description": "State-based routing for Angular",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",
-    "build": "ng-packagr -p package.json",
+    "build": "ng-packagr -p ng-package.json",
     "release": "release --deps @uirouter/core @uirouter/rx",
     "check-peer-dependencies": "check-peer-dependencies",
     "test": "jest --rootDir test",
@@ -44,49 +44,51 @@
   "license": "MIT",
   "distDir": "dist",
   "peerDependencies": {
-    "@angular/common": "^10.0.0 || ^11.0.0 || ^12.0.0",
-    "@angular/core": "^10.0.0 || ^11.0.0 || ^12.0.0",
-    "@uirouter/core": "^6.0.7",
-    "@uirouter/rx": "^0.6.0"
+    "@angular/common": "^10.0.0 || ^11.0.0 || ^12.0.0" || "^17.0.0",
+    "@angular/core": "^10.0.0 || ^11.0.0 || ^12.0.0" || "^17.0.0",
+    "@uirouter/core": "^6.0.8",
+    "@uirouter/rx": "^1.0.0"
   },
   "devDependencies": {
-    "@angular/animations": "^10.0.0",
-    "@angular/common": "^10.0.0",
-    "@angular/compiler": "^10.0.0",
-    "@angular/compiler-cli": "^10.0.0",
-    "@angular/core": "^10.0.0",
-    "@angular/platform-browser": "^10.0.0",
-    "@angular/platform-browser-dynamic": "^10.0.0",
-    "@types/jest": "^26.0.4",
-    "@types/jquery": "^3.3.33",
-    "@uirouter/core": "^6.0.7",
-    "@uirouter/publish-scripts": "2.5.5",
-    "@uirouter/rx": "^0.6.0",
-    "bufferutil": "4.0.3",
-    "canvas": "2.7.0",
-    "husky": "^5.1.2",
-    "jest": "26.6.3",
-    "jest-preset-angular": "8.4.0",
-    "ng-packagr": "^10.0.0",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^3.1.0",
-    "rxjs": "^6.5.4",
+    "@angular-devkit/build-angular": "^17.0.0",
+    "@angular/animations": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@types/jest": "^27.0.3",
+    "@types/jquery": "^3.5.9",
+    "@types/node": "^20.11.4",
+    "@uirouter/core": "^6.0.8",
+    "@uirouter/publish-scripts": "2.6.2",
+    "@uirouter/rx": "^1.0.0",
+    "husky": "^7.0.4",
+    "jest": "^29.0.0",
+    "jest-preset-angular": "^14.0.0",
+    "ng-packagr": "^17.0.0",
+    "postcss": "^8.0.0",
+    "prettier": "^2.5.0",
+    "pretty-quick": "^3.1.2",
+    "rxjs": "~7.8.0",
     "rxjs-compat": "^6.5.4",
-    "ts-node": "9.1.1",
+    "schema-utils": "^4.0.0",
+    "ts-node": "10.4.0",
+    "tslib": "^2.3.0",
     "tslint": "^6.1.0",
-    "typescript": "~4.0.0",
-    "utf-8-validate": "5.0.4",
-    "zone.js": "0.10.3"
-  },
-  "ngPackage": {
-    "lib": {
-      "entryFile": "src/index.ts"
-    }
+    "typescript": "~5.2.2",
+    "zone.js": "~0.14.0"
   },
   "jest": {
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
       "./setupJest.ts"
+    ]
+  },
+  "checkPeerDependencies": {
+    "ignore": [
+      "ajv"
     ]
   },
   "husky": {

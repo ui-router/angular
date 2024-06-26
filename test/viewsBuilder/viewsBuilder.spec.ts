@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ng2ViewsBuilder } from '../../src/statebuilders/views';
-import { StateObject, StateRegistry, UIRouter } from '@uirouter/core';
+import { StateObject, UIRouter } from '@uirouter/core';
 
 describe('views statebuilder', () => {
   let router: UIRouter;
