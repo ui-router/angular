@@ -1,0 +1,21 @@
+{
+  "name": "@uirouter/angular-test-typescript5.4",
+  "version": "1.0.0",
+  "description": "Test against Typescript 5.4",
+  "scripts": {
+    "test": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/common": "^18",
+    "@angular/core": "^18",
+    "@uirouter/angular": "*",
+    "@uirouter/core": "*",
+    "@uirouter/rx": "*",
+    "rxjs": "~7.8.0",
+    "zone.js": "~0.14.2",
+    "typescript": "5.4.5"
+  },
+  "devDependencies": {}
+}
