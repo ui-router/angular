@@ -1,3 +1,8 @@
+# 14.0.0 (2024-07-15)
+[Compare `@uirouter/angular` versions 13.0.0 and 14.0.0](https://github.com/ui-router/angular/compare/13.0.0...14.0.0)
+
+* chore: Angular 18 support ([#992](https://github.com/ui-router/angular/issues/992)) ([60314f4](https://github.com/ui-router/angular/commit/60314f4455520eb69533c9cc12592e2d12c2a3a4))
+
 # 13.0.0 (2024-01-31)
 [Compare `@uirouter/angular` versions 12.0.0 and 13.0.0](https://github.com/ui-router/angular/compare/12.0.0...13.0.0)
 
