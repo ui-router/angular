@@ -71,8 +71,10 @@ export function locationStrategy(useHash) {
  * This enables UI-Router to automatically register the states with the [[StateRegistry]] at bootstrap (and during lazy load).
  */
 @NgModule({
-  imports: [CommonModule],
-  declarations: [_UIROUTER_DIRECTIVES],
+  imports: [
+    CommonModule,
+    _UIROUTER_DIRECTIVES
+  ],
   exports: [_UIROUTER_DIRECTIVES],
 })
 export class UIRouterModule {
