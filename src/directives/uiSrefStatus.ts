@@ -182,6 +182,7 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
 @Directive({
   selector: '[uiSrefStatus],[uiSrefActive],[uiSrefActiveEq]',
   exportAs: 'uiSrefStatus',
+  standalone: true
 })
 export class UISrefStatus {
   /** current statuses of the state/params the uiSref directive is linking to */
