@@ -33,6 +33,7 @@ import {
 } from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
+import { CommonModule } from '@angular/common';
 
 /** @hidden */
 let id = 0;
@@ -111,6 +112,7 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
   selector: 'ui-view, [ui-view]',
   exportAs: 'uiView',
   standalone: true,
+  imports: [CommonModule],
   template: `
     <ng-template #componentTarget></ng-template>
     <ng-content *ngIf="!_componentRef"></ng-content>
