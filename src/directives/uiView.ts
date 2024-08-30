@@ -110,6 +110,7 @@ const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
 @Component({
   selector: 'ui-view, [ui-view]',
   exportAs: 'uiView',
+  standalone: true,
   template: `
     <ng-template #componentTarget></ng-template>
     <ng-content *ngIf="!_componentRef"></ng-content>
