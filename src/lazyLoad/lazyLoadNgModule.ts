@@ -14,6 +14,7 @@ import {
 import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from '../injectionTokens';
 import { RootModule, StatesModule } from '../uiRouterNgModule';
 import { applyModuleConfig } from '../uiRouterConfig';
+import { Ng2StateDeclaration } from '../interface';
 
 /**
  * A function that returns an NgModule, or a promise for an NgModule
@@ -188,4 +189,54 @@ export function multiProviderParentChildDelta<T>(parent: Injector, child: Inject
   const childVals: RootModule[] = child.get<RootModule[]>(token, []);
   const parentVals: RootModule[] = parent.get<RootModule[]>(token, []);
   return childVals.filter((val) => parentVals.indexOf(val) === -1);
+}
+
+/**
+ * A function that returns a Component, or a promise for a Component
+ *
+ * #### Example:
+ * ```ts
+ * export function loadFooComponent() {
+ *   return import('../foo/foo.component').then(result => result.FooComponent);
+ * }
+ * ```
+ */
+export type ComponentTypeCallback<T> = ModuleTypeCallback<T>;
+
+export function loadComponent<T>(
+  callback: ComponentTypeCallback<T>
+): (transition: Transition, stateObject: Ng2StateDeclaration) => Promise<LazyLoadResult> {
+  return (transition: Transition, stateObject: Ng2StateDeclaration) => {
+
+    return Promise.resolve(callback())
+      .then(_unwrapEsModuleDefault)
+      .then((component: Type<T>) => applyComponent(component, transition, stateObject))
+  }
+}
+
+/**
+ * @internal
+ * @param component
+ * @param transition
+ * @param stateObject
+ */
+export function applyComponent<T>(
+  component: Type<T>,
+  transition: Transition,
+  stateObject: Ng2StateDeclaration
+): LazyLoadResult {
+
+  if (!isStandalone(component)) throw _notStandaloneError();
+
+  const registry = transition.router.stateRegistry;
+  const current = stateObject.component;
+  stateObject.component = component || current;
+  const removed = registry.deregister(stateObject).map(child => child.self);
+  const children = removed.filter(i => i.name != stateObject.name);
+
+  return { states: [stateObject, ...children] }
+}
+
+function _notStandaloneError(): Error {
+  return new Error("Is not standalone.");
 }
