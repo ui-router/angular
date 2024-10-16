@@ -1,6 +1,6 @@
 import { LazyLoadResult, Transition, StateDeclaration } from '@uirouter/core'; // has or is using
 import { BuilderFunction, StateObject } from '@uirouter/core';
-import { loadNgModule } from '../lazyLoad/lazyLoadNgModule';
+import { loadComponent, loadNgModule } from '../lazyLoad/lazyLoadNgModule';
 
 /**
  * This is a [[StateBuilder.builder]] function for ngModule lazy loading in Angular.
@@ -46,6 +46,7 @@ import { loadNgModule } from '../lazyLoad/lazyLoadNgModule';
  *
  */
 export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction) {
+  const loadComponentFn = state['loadComponent'];
   const loadNgModuleFn = state['loadChildren'];
-  return loadNgModuleFn ? loadNgModule(loadNgModuleFn) : state.lazyLoad;
+  return loadComponentFn ? loadComponent(loadComponentFn) : loadNgModuleFn ? loadNgModule(loadNgModuleFn) : state.lazyLoad;
 }
