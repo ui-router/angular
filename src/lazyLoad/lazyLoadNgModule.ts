@@ -1,11 +1,10 @@
-import { NgModuleRef, Injector, NgModuleFactory, Type, Compiler } from '@angular/core';
+import { NgModuleRef, Injector, Type, createNgModule, InjectionToken, isStandalone } from '@angular/core';
 import {
   Transition,
   LazyLoadResult,
   UIRouter,
   Resolvable,
   NATIVE_INJECTOR_TOKEN,
-  isString,
   unnestR,
   inArray,
   StateObject,
@@ -26,7 +25,7 @@ import { applyModuleConfig } from '../uiRouterConfig';
  * }
  * ```
  */
-export type ModuleTypeCallback = () => Type<any> | Promise<Type<any>>;
+export type ModuleTypeCallback<T = unknown> = () => Type<T> | Promise<Type<T>>;
 
 /**
  * Returns a function which lazy loads a nested module
@@ -67,17 +66,15 @@ export type ModuleTypeCallback = () => Type<any> | Promise<Type<any>>;
  * - Finds the "replacement state" for the target state, and adds the new NgModule Injector to it (as a resolve)
  * - Returns the new states array
  */
-export function loadNgModule(
-  moduleToLoad: ModuleTypeCallback
+export function loadNgModule<T>(
+  moduleToLoad: ModuleTypeCallback<T>
 ): (transition: Transition, stateObject: StateDeclaration) => Promise<LazyLoadResult> {
   return (transition: Transition, stateObject: StateDeclaration) => {
+
     const ng2Injector = transition.injector().get(NATIVE_INJECTOR_TOKEN);
 
-    const createModule = (factory: NgModuleFactory<any>) => factory.create(ng2Injector);
-
-    const applyModule = (moduleRef: NgModuleRef<any>) => applyNgModule(transition, moduleRef, ng2Injector, stateObject);
-
-    return loadModuleFactory(moduleToLoad, ng2Injector).then(createModule).then(applyModule);
+    return loadModuleFactory(moduleToLoad, ng2Injector)
+      .then(moduleRef => applyNgModule(moduleRef, ng2Injector, stateObject));
   };
 }
 
@@ -90,22 +87,18 @@ export function loadNgModule(
  *
  * @internal
  */
-export function loadModuleFactory(
-  moduleToLoad: ModuleTypeCallback,
+export function loadModuleFactory<T>(
+  moduleToLoad: ModuleTypeCallback<T>,
   ng2Injector: Injector
-): Promise<NgModuleFactory<any>> {
-  const compiler: Compiler = ng2Injector.get(Compiler);
-
-  const unwrapEsModuleDefault = (x) => (x && x.__esModule && x['default'] ? x['default'] : x);
+): Promise<NgModuleRef<T>> {
 
   return Promise.resolve(moduleToLoad())
-    .then(unwrapEsModuleDefault)
-    .then((t: NgModuleFactory<any> | Type<any>) => {
-      if (t instanceof NgModuleFactory) {
-        return t;
-      }
-      return compiler.compileModuleAsync(t);
-    });
+    .then(_unwrapEsModuleDefault)
+    .then((t: Type<T>) => createNgModule(t, ng2Injector));
+}
+
+function _unwrapEsModuleDefault(x) {
+  return x && x.__esModule && x['default'] ? x['default'] : x;
 }
 
 /**
@@ -122,9 +115,8 @@ export function loadModuleFactory(
  *
  * @internal
  */
-export function applyNgModule(
-  transition: Transition,
-  ng2Module: NgModuleRef<any>,
+export function applyNgModule<T>(
+  ng2Module: NgModuleRef<T>,
   parentInjector: Injector,
   lazyLoadState: StateDeclaration
 ): LazyLoadResult {
@@ -192,8 +184,8 @@ export function applyNgModule(
  *
  * @internal
  */
-export function multiProviderParentChildDelta(parent: Injector, child: Injector, token: any) {
-  const childVals: RootModule[] = child.get(token, []);
-  const parentVals: RootModule[] = parent.get(token, []);
+export function multiProviderParentChildDelta<T>(parent: Injector, child: Injector, token: InjectionToken<T>): RootModule[] {
+  const childVals: RootModule[] = child.get<RootModule[]>(token, []);
+  const parentVals: RootModule[] = parent.get<RootModule[]>(token, []);
   return childVals.filter((val) => parentVals.indexOf(val) === -1);
 }
