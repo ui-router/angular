@@ -60,7 +60,7 @@ interface InputMapping {
  * @internal
  */
 function ng2ComponentInputs<T>(mirror: ComponentMirror<T>): InputMapping[] {
-  return mirror.inputs.map((input) => ({ prop: input.propName, token: input.templateName }));
+  return mirror.inputs.map((input) => ({ prop: input.templateName, token: input.templateName }));
 };
 
 /**
@@ -339,13 +339,6 @@ export class UIView implements OnInit, OnDestroy {
     const explicitBoundProps = Object.keys(bindings);
     const mirror = reflectComponentType(component);
 
-    // Returns the actual component property for a renamed an input renamed using `@Input('foo') _foo`.
-    // return the `_foo` property
-    const renamedInputProp = (prop: string) => {
-      const input = mirror.inputs.find((i) => i.templateName === prop);
-      return (input && input.propName) || prop;
-    };
-
     // Supply resolve data to component as specified in the state's `bindings: {}`
     const explicitInputTuples = explicitBoundProps.reduce(
       (acc, key) => acc.concat([{ prop: key, token: bindings[key] }]),
@@ -367,7 +360,7 @@ export class UIView implements OnInit, OnDestroy {
       .map(addResolvable)
       .filter((tuple) => tuple.resolvable && tuple.resolvable.resolved)
       .forEach((tuple) => {
-        componentRef.setInput(tuple.resolvable.token, injector.get(tuple.resolvable.token));
+        componentRef.setInput(tuple.prop, injector.get(tuple.resolvable.token));
       });
   }
 }
