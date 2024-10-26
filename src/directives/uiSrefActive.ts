@@ -82,6 +82,11 @@ import { Subscription } from 'rxjs';
  */
 @Directive({
   selector: '[uiSrefActive],[uiSrefActiveEq]',
+  hostDirectives: [{
+    directive: UISrefStatus,
+    outputs: ['uiSrefStatus']
+  }],
+  standalone: true
 })
 export class UISrefActive {
   private _classes: string[] = [];

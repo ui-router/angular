@@ -17,7 +17,10 @@ import { ReplaySubject, Subscription } from 'rxjs';
  * @internal
  * # blah blah blah
  */
-@Directive({ selector: 'a[uiSref]' })
+@Directive({
+  selector: 'a[uiSref]',
+  standalone: true
+})
 export class AnchorUISref {
   constructor(public _el: ElementRef, public _renderer: Renderer2) {}
 
@@ -78,6 +81,7 @@ export class AnchorUISref {
 @Directive({
   selector: '[uiSref]',
   exportAs: 'uiSref',
+  standalone: true
 })
 export class UISref implements OnChanges {
   /**
