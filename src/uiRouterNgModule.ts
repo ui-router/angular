@@ -7,9 +7,8 @@ import {
   Injector,
   APP_INITIALIZER,
 } from '@angular/core';
-import { CommonModule, LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { _UIROUTER_DIRECTIVES } from './directives/directives';
-import { UIView } from './directives/uiView';
 import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
 
@@ -71,8 +70,9 @@ export function locationStrategy(useHash) {
  * This enables UI-Router to automatically register the states with the [[StateRegistry]] at bootstrap (and during lazy load).
  */
 @NgModule({
-  imports: [CommonModule],
-  declarations: [_UIROUTER_DIRECTIVES],
+  imports: [
+    _UIROUTER_DIRECTIVES
+  ],
   exports: [_UIROUTER_DIRECTIVES],
 })
 export class UIRouterModule {
