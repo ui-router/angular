@@ -1,3 +1,10 @@
+# 15.0.0 (2024-11-05)
+[Compare `@uirouter/angular` versions 14.0.0 and 15.0.0](https://github.com/ui-router/angular/compare/14.0.0...15.0.0)
+
+### Features
+
+* add support for standalone angular applications ([#994](https://github.com/ui-router/angular/issues/994)) ([6b496c2](https://github.com/ui-router/angular/commit/6b496c2))
+
 # 14.0.0 (2024-07-15)
 [Compare `@uirouter/angular` versions 13.0.0 and 14.0.0](https://github.com/ui-router/angular/compare/13.0.0...14.0.0)
 
