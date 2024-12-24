@@ -36,9 +36,7 @@ export type ModuleTypeCallback<T = unknown> = () => Type<T> | Promise<Type<T>>;
  * It could also be used manually as a [[StateDeclaration.lazyLoad]] property to lazy load an `NgModule` and its state(s).
  *
  * #### Example:
- * Using `import()` and named export of `HomeModule`
- * ```js
- * declare var System;
+ * ```ts
  * var futureState = {
  *   name: 'home.**',
  *   url: '/home',
@@ -46,19 +44,8 @@ export type ModuleTypeCallback<T = unknown> = () => Type<T> | Promise<Type<T>>;
  * }
  * ```
  *
- * #### Example:
- * Using a path (string) to the module
- * ```js
- * var futureState = {
- *   name: 'home.**',
- *   url: '/home',
- *   lazyLoad: loadNgModule('./home/home.module#HomeModule')
- * }
- * ```
  *
- *
- * @param moduleToLoad a path (string) to the NgModule to load.
- *    Or a function which loads the NgModule code which should
+ * @param moduleToLoad function which loads the NgModule code which should
  *    return a reference to  the `NgModule` class being loaded (or a `Promise` for it).
  *
  * @returns A function which takes a transition, which:
@@ -203,6 +190,26 @@ export function multiProviderParentChildDelta<T>(parent: Injector, child: Inject
  */
 export type ComponentTypeCallback<T> = ModuleTypeCallback<T>;
 
+/**
+ * Returns a function which lazy loads a standalone component for the target state
+ *
+ * #### Example:
+ * ```ts
+ * var futureComponentState = {
+ *   name: 'home',
+ *   url: '/home',
+ *   lazyLoad: loadComponent(() => import('./home.component').then(result => result.HomeComponent))
+ * }
+ * ```
+ *
+ * @param callback function which loads the Component code which should
+ *    return a reference to  the `Component` class being loaded (or a `Promise` for it).
+ *
+ * @returns A function which takes a transition, stateObject, and:
+ * - Loads a standalone component
+ * - replaces the component configuration of the stateObject.
+ * - Returns the new states array
+ */
 export function loadComponent<T>(
   callback: ComponentTypeCallback<T>
 ): (transition: Transition, stateObject: Ng2StateDeclaration) => Promise<LazyLoadResult> {
@@ -215,10 +222,14 @@ export function loadComponent<T>(
 }
 
 /**
+ * Apply the lazy-loaded component to the stateObject.
+ *
  * @internal
- * @param component
- * @param transition
- * @param stateObject
+ * @param component reference to the component class
+ * @param transition Transition object reference
+ * @param stateObject target state configuration object
+ *
+ * @returns the new states array
  */
 export function applyComponent<T>(
   component: Type<T>,
@@ -226,7 +237,7 @@ export function applyComponent<T>(
   stateObject: Ng2StateDeclaration
 ): LazyLoadResult {
 
-  if (!isStandalone(component)) throw _notStandaloneError();
+  if (!isStandalone(component)) throw new Error("Is not a standalone component.");
 
   const registry = transition.router.stateRegistry;
   const current = stateObject.component;
@@ -235,8 +246,4 @@ export function applyComponent<T>(
   const children = removed.filter(i => i.name != stateObject.name);
 
   return { states: [stateObject, ...children] }
-}
-
-function _notStandaloneError(): Error {
-  return new Error("Is not standalone.");
 }
