@@ -19,7 +19,7 @@ describe('uiSrefActive', () => {
   };
 
   describe('with a simple class', () => {
-    @Component({ template: `<a uiSref="statea" uiSrefActive="active">State A</a>` })
+    @Component({ template: `<a uiSref="statea" uiSrefActive="active">State A</a>`, standalone: false })
     class TestComponent {}
     let fixture: ComponentFixture<TestComponent>;
     beforeEach(() => (fixture = initialize(TestComponent, [{ name: 'statea' }])));
@@ -46,7 +46,7 @@ describe('uiSrefActive', () => {
   describe('with multiple classes', () => {
     const activeClasses = ['active', 'active2'];
 
-    @Component({ template: `<a uiSref="statea" uiSrefActive="${activeClasses.join(' ')}">State A</a>` })
+    @Component({ template: `<a uiSref="statea" uiSrefActive="${activeClasses.join(' ')}">State A</a>`, standalone: false })
     class TestComponent {}
     let fixture: ComponentFixture<TestComponent>;
     beforeEach(() => (fixture = initialize(TestComponent, [{ name: 'statea' }])));
@@ -73,7 +73,7 @@ describe('uiSrefActive', () => {
         <a uiSref="statec">State C</a>
       </li>
     `;
-      @Component({ template })
+      @Component({ template, standalone: false })
       class TestComponent {}
 
       const fixture = initialize(TestComponent, [{ name: 'statea' }, { name: 'stateb' }, { name: 'statec' }]);
@@ -99,7 +99,7 @@ describe('uiSrefActive', () => {
           <a uiSref="stateb" *ngIf="show"></a>
         </li>
       `;
-      @Component({ template })
+      @Component({ template, standalone: false })
       class TestComponent {
         public show = false;
       }

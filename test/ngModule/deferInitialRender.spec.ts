@@ -11,10 +11,10 @@ import { Ng2StateDeclaration } from '../../src/interface';
 const timeout = (delay?: number) => new Promise(resolve => setTimeout(resolve, delay));
 const configFn = (router: UIRouter) => router.plugin(memoryLocationPlugin);
 
-@Component({ selector: 'home', template: 'HOME' })
+@Component({ selector: 'home', template: 'HOME', standalone: false })
 export class HomeComponent {}
 
-@Component({ selector: 'home', template: '<h1>APP</h1><ui-view></ui-view>' })
+@Component({ selector: 'home', template: '<h1>APP</h1><ui-view></ui-view>', standalone: false })
 export class AppComponent {}
 
 const setupTests = (deferInitialRender: boolean) => {

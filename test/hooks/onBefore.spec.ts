@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { memoryLocationPlugin, UIRouter, StateService } from '@uirouter/core';
 import { UIRouterModule } from '../../src';
 
-@Component({ selector: 'home', template: '<h1>APP</h1><ui-view></ui-view>' })
+@Component({ selector: 'home', template: '<h1>APP</h1><ui-view></ui-view>', standalone: false })
 export class AppComponent {}
 
 describe('onBefore hook', () => {

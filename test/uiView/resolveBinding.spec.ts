@@ -6,7 +6,7 @@ import { Resolvable, UIRouter } from '@uirouter/core';
 
 describe('uiView', () => {
   describe('should map resolve data to inputs', () => {
-    @Component({ template: `<h3>hey</h3> ` })
+    @Component({ template: `<h3>hey</h3> `, standalone: false })
     class ManyResolvesComponent {
       constructor(@Inject('resolve1') foo, @Inject('Resolve2') bar, @Inject('resolve5') baz) {
         this.injectedValues = Array.from(arguments);

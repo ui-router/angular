@@ -5,9 +5,9 @@ import { StateObject, UIRouter } from '@uirouter/core';
 describe('views statebuilder', () => {
   let router: UIRouter;
   let root: StateObject;
-  @Component({ template: '<h1>foo</h1>' })
+  @Component({ template: '<h1>foo</h1>', standalone: false })
   class Cmp {}
-  @Component({ template: '<h1>foo2</h1>' })
+  @Component({ template: '<h1>foo2</h1>', standalone: false })
   class Cmp2 {}
 
   beforeEach(() => {
