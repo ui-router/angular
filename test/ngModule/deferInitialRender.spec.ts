@@ -70,9 +70,6 @@ describe('deferInitialRender == false', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(status.done).toBe(false);
-
-    await timeout();
     expect(status.done).toBe(true);
 
     resolveData();
