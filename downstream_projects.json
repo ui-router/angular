@@ -4,6 +4,6 @@
     "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git",
     "angular18": "./test-angular-versions/v18",
     "angular18standalone": "./test-angular-versions/v18-standalone",
-    "typescript54": "./test-typescript-versions/typescript5.4"
+    "typescript56": "./test-typescript-versions/typescript5.6"
   }
 }
