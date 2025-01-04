@@ -4,7 +4,7 @@ import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy, PathLocationStra
 import { UIRouter } from '@uirouter/core';
 import { Ng2LocationServices } from '../../src/location/locationService';
 
-@Component({ selector: 'test', template: '' })
+@Component({ selector: 'test', template: '', standalone: false })
 class TestComponent {
   constructor(public locationStrategy: LocationStrategy) {}
 }

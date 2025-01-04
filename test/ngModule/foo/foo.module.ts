@@ -1,13 +1,13 @@
 import { UIRouterModule } from '../../../src/uiRouterNgModule';
 import { Component, NgModule } from '@angular/core';
 
-@Component({ selector: 'foo', template: 'FOO' })
+@Component({ selector: 'foo', template: 'FOO', standalone: false })
 export class FooComponent {}
 
-@Component({ selector: 'child1', template: 'CHILD1' })
+@Component({ selector: 'child1', template: 'CHILD1', standalone: false })
 export class Child1Component {}
 
-@Component({ selector: 'child2', template: 'CHILD2' })
+@Component({ selector: 'child2', template: 'CHILD2', standalone: false })
 export class Child2Component {}
 
 export const foo = { name: 'foo', url: '/foo', component: FooComponent };

@@ -16,6 +16,7 @@ describe('uiSref', () => {
       <a [uiSref]="linkB"></a>
       <a [uiSref]="linkC"></a>
     `,
+    standalone: false
   })
   class TestComponent {
     linkA: string;

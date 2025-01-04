@@ -16,7 +16,7 @@ describe('uiView', () => {
 
     let id = 0;
 
-    @Component({ template: `<h3>hey</h3> ` })
+    @Component({ template: `<h3>hey</h3> `, standalone: false })
     class ParamWatcherComponent implements OnInit {
       $id = id++;
 

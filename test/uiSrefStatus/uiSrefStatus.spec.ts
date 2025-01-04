@@ -10,6 +10,7 @@ import { clickOnElement, tick } from '../testUtils';
 describe('uiSrefStatus', () => {
   @Component({
     template: '<a uiSref="foo" (uiSrefStatus)="updated($event)"></a>',
+    standalone: false
   })
   class TestComponent {
     updated(event: SrefStatus) {
