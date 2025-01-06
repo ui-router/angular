@@ -1,3 +1,25 @@
+# 16.0.0 (2025-01-06)
+[Compare `@uirouter/angular` versions 15.0.0 and 16.0.0](https://github.com/ui-router/angular/compare/15.0.0...16.0.0)
+
+* Chore: Angular v19 support ([#1000](https://github.com/ui-router/angular/issues/1000)) ([0bceb2f](https://github.com/ui-router/angular/commit/0bceb2f60ae5fe8dceb881f27d131eb0d94361d4))
+
+---
+
+
+### Updated `@uirouter/core` from 6.0.8 to 6.1.1
+
+
+Changelog for `@uirouter/core`:
+
+
+[Compare `@uirouter/core` versions 6.0.8 and 6.1.1](https://github.com/ui-router/core/compare/6.0.8...6.1.1)
+
+### Bug Fixes
+
+* **angular-compiler:** remove index.metadata.json from uirouter core, ([37b5ebe](https://github.com/ui-router/core/commit/37b5ebe))
+* **stateParams:** $inherit is not affected by enumerable prototype custom methods ([#841](https://github.com/ui-router/core/issues/841)) ([9c94c2a](https://github.com/ui-router/core/commit/9c94c2a))
+* **stateService:** make sure `$state.href` (and by extension `uiSref`) handle `inherit: false` ([#834](https://github.com/ui-router/core/issues/834)) ([12cd951](https://github.com/ui-router/core/commit/12cd951)), closes [/github.com/ui-router/core/pull/834#issuecomment-1379019917](https://github.com//github.com/ui-router/core/pull/834/issues/issuecomment-1379019917) [/github.com/ui-router/core/pull/834#issuecomment-1379195131](https://github.com//github.com/ui-router/core/pull/834/issues/issuecomment-1379195131)
+
 # 15.0.0 (2024-11-05)
 [Compare `@uirouter/angular` versions 14.0.0 and 15.0.0](https://github.com/ui-router/angular/compare/14.0.0...15.0.0)
 
