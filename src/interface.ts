@@ -1,6 +1,6 @@
 import { StateDeclaration, _ViewDeclaration, Transition, HookResult } from '@uirouter/core';
 import { Component, Type } from '@angular/core';
-import { ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';
+import { ComponentTypeCallback, ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';
 
 /**
  * The StateDeclaration object is used to define a state or nested state.
@@ -25,7 +25,7 @@ import { ModuleTypeCallback } from './lazyLoad/lazyLoadNgModule';
  * }
  * ```
  */
-export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaration {
+export interface Ng2StateDeclaration<T = unknown> extends StateDeclaration, Ng2ViewDeclaration<T> {
   /**
    * An optional object used to define multiple named views.
    *
@@ -152,10 +152,28 @@ export interface Ng2StateDeclaration extends StateDeclaration, Ng2ViewDeclaratio
    * }
    * ```
    */
-  loadChildren?: ModuleTypeCallback;
+  loadChildren?: ModuleTypeCallback<T>;
+
+  /**
+   * A function used to lazy load a `Component`.
+   *
+   * When the state is activate the `loadComponent` property should lazy load a standalone `Component`
+   * and use it to render the view of the state
+   *
+   * ### Example:
+   * ```ts
+   * var homeState = {
+   *    name: 'home',
+   *    url: '/home',
+   *    loadComponent: () => import('./home/home.component')
+   *        .then(result => result.HomeComponent)
+   * }
+   * ```
+   */
+  loadComponent?: ComponentTypeCallback<T>;
 }
 
-export interface Ng2ViewDeclaration extends _ViewDeclaration {
+export interface Ng2ViewDeclaration<T = unknown> extends _ViewDeclaration {
   /**
    * The `Component` class to use for this view.
    *
@@ -238,7 +256,7 @@ export interface Ng2ViewDeclaration extends _ViewDeclaration {
    * }
    * ```
    */
-  component?: Type<any>;
+  component?: Type<T>;
 
   /**
    * An object which maps `resolve` keys to [[component]] `bindings`.

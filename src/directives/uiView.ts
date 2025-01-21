@@ -1,13 +1,14 @@
 import {
   Component,
-  ComponentFactory,
-  ComponentFactoryResolver,
+  ComponentMirror,
   ComponentRef,
   Inject,
   Injector,
   Input,
   OnDestroy,
   OnInit,
+  reflectComponentType,
+  Type,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -58,8 +59,8 @@ interface InputMapping {
  *
  * @internal
  */
-const ng2ComponentInputs = (factory: ComponentFactory<any>): InputMapping[] => {
-  return factory.inputs.map((input) => ({ prop: input.propName, token: input.templateName }));
+function ng2ComponentInputs<T>(mirror: ComponentMirror<T>): InputMapping[] {
+  return mirror.inputs.map((input) => ({ prop: input.templateName, token: input.templateName }));
 };
 
 /**
@@ -293,12 +294,9 @@ export class UIView implements OnInit, OnDestroy {
     const componentClass = config.viewDecl.component;
 
     // Create the component
-    const compFactoryResolver = componentInjector.get(ComponentFactoryResolver);
-    const compFactory = compFactoryResolver.resolveComponentFactory(componentClass);
-    this._componentRef = this._componentTarget.createComponent(compFactory, undefined, componentInjector);
-
+    this._componentRef = this._componentTarget.createComponent(componentClass, { injector: componentInjector });
     // Wire resolves to @Input()s
-    this._applyInputBindings(compFactory, this._componentRef.instance, context, componentClass);
+    this._applyInputBindings(componentClass, this._componentRef, context);
   }
 
   /**
@@ -327,7 +325,7 @@ export class UIView implements OnInit, OnDestroy {
     const moduleInjector = context.getResolvable(NATIVE_INJECTOR_TOKEN).data;
     const mergedParentInjector = new MergeInjector(moduleInjector, parentComponentInjector);
 
-    return Injector.create(newProviders, mergedParentInjector);
+    return Injector.create({ providers: newProviders, parent: mergedParentInjector });
   }
 
   /**
@@ -336,25 +334,19 @@ export class UIView implements OnInit, OnDestroy {
    * Finds component inputs which match resolves (by name) and sets the input value
    * to the resolve data.
    */
-  private _applyInputBindings(factory: ComponentFactory<any>, component: any, context: ResolveContext, componentClass) {
+  private _applyInputBindings<T>(component: Type<T>, componentRef: ComponentRef<T>, context: ResolveContext): void {
     const bindings = this._uiViewData.config.viewDecl['bindings'] || {};
     const explicitBoundProps = Object.keys(bindings);
-
-    // Returns the actual component property for a renamed an input renamed using `@Input('foo') _foo`.
-    // return the `_foo` property
-    const renamedInputProp = (prop: string) => {
-      const input = factory.inputs.find((i) => i.templateName === prop);
-      return (input && input.propName) || prop;
-    };
+    const mirror = reflectComponentType(component);
 
     // Supply resolve data to component as specified in the state's `bindings: {}`
     const explicitInputTuples = explicitBoundProps.reduce(
-      (acc, key) => acc.concat([{ prop: renamedInputProp(key), token: bindings[key] }]),
+      (acc, key) => acc.concat([{ prop: key, token: bindings[key] }]),
       []
     );
 
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']
-    const implicitInputTuples = ng2ComponentInputs(factory).filter((tuple) => !inArray(explicitBoundProps, tuple.prop));
+    const implicitInputTuples = ng2ComponentInputs(mirror).filter((tuple) => !inArray(explicitBoundProps, tuple.prop));
 
     const addResolvable = (tuple: InputMapping) => ({
       prop: tuple.prop,
@@ -368,7 +360,7 @@ export class UIView implements OnInit, OnDestroy {
       .map(addResolvable)
       .filter((tuple) => tuple.resolvable && tuple.resolvable.resolved)
       .forEach((tuple) => {
-        component[tuple.prop] = injector.get(tuple.resolvable.token);
+        componentRef.setInput(tuple.prop, injector.get(tuple.resolvable.token));
       });
   }
 }

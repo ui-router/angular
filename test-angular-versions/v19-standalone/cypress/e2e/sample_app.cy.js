@@ -56,6 +56,7 @@ describe('Angular app', () => {
     cy.get('a').contains('home').should('not.have.class', 'active');
     cy.get('a').contains('lazy.child').should('have.class', 'active');
     cy.get('#default').contains('lazy.child works');
+    cy.get('#lazy-child-provided').contains('provided value');
   });
 
   it('targets named views', () => {
