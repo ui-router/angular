@@ -8,7 +8,7 @@ import { LAZY_PROVIDER_TOKE } from './lazy.module';
   imports: [UIRouterModule],
   template: `
     <p>{{ state().name }} works!</p>
-    <p>{{ _providedString }}</p>
+    <p id="lazy-child-provided">{{ _providedString }}</p>
     <ui-view></ui-view>
   `,
 })
