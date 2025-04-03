@@ -1,3 +1,10 @@
+# 16.1.0 (2025-04-03)
+[Compare `@uirouter/angular` versions 16.0.0 and 16.1.0](https://github.com/ui-router/angular/compare/16.0.0...16.1.0)
+
+### Features
+
+* Extending lazy-load functionality to include loading standalone components for specific routes. ([#995](https://github.com/ui-router/angular/issues/995)) ([e381ea4](https://github.com/ui-router/angular/commit/e381ea4))
+
 # 16.0.0 (2025-01-06)
 [Compare `@uirouter/angular` versions 15.0.0 and 16.0.0](https://github.com/ui-router/angular/compare/15.0.0...16.0.0)
 
