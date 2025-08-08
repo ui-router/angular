@@ -62,11 +62,12 @@
     "@uirouter/publish-scripts": "2.6.3",
     "@uirouter/rx": "^1.0.0",
     "husky": "^7.0.4",
-    "jest": "^30.0.5",
-    "jest-environment-jsdom": "^30.0.5",
-    "jest-preset-angular": "^15.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jest-preset-angular": "^14.6.1",
     "jsdom": "^26.1.0",
     "ng-packagr": "^20.1.0",
+    "picomatch": "4.0.3",
     "postcss": "^8.5.6",
     "prettier": "^2.8.8",
     "pretty-quick": "^3.3.1",
@@ -77,7 +78,7 @@
     "tslib": "^2.8.1",
     "tslint": "^6.1.0",
     "typescript": "~5.8.3",
-    "vite": "^5.4.19",
+    "vite": "7.1.1",
     "zone.js": "~0.15.1"
   },
   "jest": {
@@ -88,7 +89,8 @@
   },
   "checkPeerDependencies": {
     "ignore": [
-      "ajv"
+      "ajv",
+      "terser"
     ]
   },
   "husky": {
