@@ -23,10 +23,10 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0",
-    "@uirouter/angular": "*",
-    "@uirouter/cypress-runner": "*",
-    "@uirouter/core": "*",
-    "@uirouter/rx": "*"
+    "@uirouter/angular": "latest",
+    "@uirouter/cypress-runner": "latest",
+    "@uirouter/core": "latest",
+    "@uirouter/rx": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.6",
