@@ -2,8 +2,8 @@
   "packageDir": "./dist",
   "projects": {
     "sample-app-angular": "https://github.com/ui-router/sample-app-angular.git",
-    "angular19": "./test-angular-versions/v19",
-    "angular19standalone": "./test-angular-versions/v19-standalone",
-    "typescript56": "./test-typescript-versions/typescript5.6"
+    "angular20": "./test-angular-versions/v20",
+    "angular20standalone": "./test-angular-versions/v20-standalone",
+    "typescript58": "./test-typescript-versions/typescript5.8"
   }
 }
