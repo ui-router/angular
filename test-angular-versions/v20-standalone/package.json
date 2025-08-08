@@ -1,5 +1,5 @@
 {
-  "name": "v19-standalone",
+  "name": "v20-standalone",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test:dev && npm run test:prod",
-    "test:dev": "ng build --configuration development && cypress-runner run --path dist/v19-standalone/browser",
-    "test:prod": "ng build  --configuration production && cypress-runner run --path dist/v19-standalone/browser"
+    "test:dev": "ng build --configuration development && cypress-runner run --path dist/v20-standalone/browser",
+    "test:prod": "ng build  --configuration production && cypress-runner run --path dist/v20-standalone/browser"
   },
   "private": true,
   "dependencies": {
@@ -23,10 +23,10 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0",
-    "@uirouter/angular": "latest",
-    "@uirouter/cypress-runner": "latest",
-    "@uirouter/core": "latest",
-    "@uirouter/rx": "latest"
+    "@uirouter/angular": "*",
+    "@uirouter/cypress-runner": "*",
+    "@uirouter/core": "*",
+    "@uirouter/rx": "*"
   },
   "devDependencies": {
     "@angular/build": "^20.1.5",

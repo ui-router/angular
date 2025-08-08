@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "v19-standalone": {
+    "v20-standalone": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -41,7 +41,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/v19-standalone",
+            "outputPath": "dist/v20-standalone",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -87,10 +87,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "v19-standalone:build:production"
+              "buildTarget": "v20-standalone:build:production"
             },
             "development": {
-              "buildTarget": "v19-standalone:build:development"
+              "buildTarget": "v20-standalone:build:development"
             }
           },
           "defaultConfiguration": "development"
