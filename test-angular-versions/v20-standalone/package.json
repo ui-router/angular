@@ -1,5 +1,5 @@
 {
-  "name": "v19-standalone",
+  "name": "v20-standalone",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,19 +7,19 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test:dev && npm run test:prod",
-    "test:dev": "ng build --configuration development && cypress-runner run --path dist/v19-standalone/browser",
-    "test:prod": "ng build  --configuration production && cypress-runner run --path dist/v19-standalone/browser"
+    "test:dev": "ng build --configuration development && cypress-runner run --path dist/v20-standalone/browser",
+    "test:prod": "ng build  --configuration production && cypress-runner run --path dist/v20-standalone/browser"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^19.0.5",
-    "@angular/common": "^19.0.5",
-    "@angular/compiler": "^19.0.5",
-    "@angular/core": "^19.0.5",
-    "@angular/forms": "^19.0.5",
-    "@angular/platform-browser": "^19.0.5",
-    "@angular/platform-browser-dynamic": "^19.0.5",
-    "@angular/router": "^19.0.5",
+    "@angular/animations": "^20.1.6",
+    "@angular/common": "^20.1.6",
+    "@angular/compiler": "^20.1.6",
+    "@angular/core": "^20.1.6",
+    "@angular/forms": "^20.1.6",
+    "@angular/platform-browser": "^20.1.6",
+    "@angular/platform-browser-dynamic": "^20.1.6",
+    "@angular/router": "^20.1.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0",
@@ -29,9 +29,9 @@
     "@uirouter/rx": "*"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.0.6",
-    "@angular/cli": "^19.0.6",
-    "@angular/compiler-cli": "^19.0.5",
+    "@angular/build": "^20.1.5",
+    "@angular/cli": "^20.1.5",
+    "@angular/compiler-cli": "^20.1.6",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
@@ -39,7 +39,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.6.3"
+    "typescript": "~5.8.3"
   },
   "checkPeerDependencies": {
     "ignore": [
