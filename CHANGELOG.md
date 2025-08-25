@@ -1,3 +1,8 @@
+# 17.0.0 (2025-08-25)
+[Compare `@uirouter/angular` versions 16.1.0 and 17.0.0](https://github.com/ui-router/angular/compare/16.1.0...17.0.0)
+
+* Chore: Angular v20 support ([#1000](https://github.com/ui-router/angular/issues/1001)) ([053c8b7](https://github.com/ui-router/angular/commit/053c8b7c2af5cc580bb0c4c76bfee44d4da802d0))
+
 # 16.1.0 (2025-04-03)
 [Compare `@uirouter/angular` versions 16.0.0 and 16.1.0](https://github.com/ui-router/angular/compare/16.0.0...16.1.0)
 
