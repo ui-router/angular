@@ -3,7 +3,7 @@ import { defineConfig } from 'cypress';
 export default defineConfig({
   video: false,
   e2e: {
-    setupNodeEvents(on, config) {},
+    setupNodeEvents(on, config) { },
     baseUrl: 'http://localhost:4000',
     supportFile: false
   },

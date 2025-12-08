@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "v20": {
+    "v21": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -41,7 +41,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/v20",
+            "outputPath": "dist/v21",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -87,10 +87,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "v20:build:production"
+              "buildTarget": "v21:build:production"
             },
             "development": {
-              "buildTarget": "v20:build:development"
+              "buildTarget": "v21:build:development"
             }
           },
           "defaultConfiguration": "development"
