@@ -1,0 +1,39 @@
+{
+  "name": "v21-zoneless",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "npm run test:dev && npm run test:prod",
+    "test:dev": "ng build --configuration development && cypress-runner run --path dist/v21-zoneless/browser",
+    "test:prod": "ng build  --configuration production && cypress-runner run --path dist/v21-zoneless/browser"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^21.0.3",
+    "@angular/compiler": "^21.0.3",
+    "@angular/core": "^21.0.3",
+    "@angular/platform-browser": "^21.0.3",
+    "@angular/platform-browser-dynamic": "^21.0.3",
+    "@uirouter/angular": "*",
+    "@uirouter/cypress-runner": "*",
+    "@uirouter/core": "*",
+    "@uirouter/rx": "*",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.0.2",
+    "@angular/cli": "^21.0.2",
+    "@angular/compiler-cli": "^21.0.3",
+    "typescript": "~5.9.3"
+  },
+  "checkPeerDependencies": {
+    "ignore": [
+      "ajv",
+      "terser"
+    ]
+  }
+}
