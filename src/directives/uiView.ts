@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ComponentMirror,
   ComponentRef,
@@ -8,6 +9,7 @@ import {
   OnDestroy,
   OnInit,
   reflectComponentType,
+  signal,
   Type,
   ViewChild,
   ViewContainerRef,
@@ -34,7 +36,6 @@ import {
 } from '@uirouter/core';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
-import { CommonModule } from '@angular/common';
 
 /** @hidden */
 let id = 0;
@@ -113,10 +114,12 @@ function ng2ComponentInputs<T>(mirror: ComponentMirror<T>): InputMapping[] {
   selector: 'ui-view, [ui-view]',
   exportAs: 'uiView',
   standalone: true,
-  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-template #componentTarget></ng-template>
-    <ng-content *ngIf="!_componentRef"></ng-content>
+    @if (!_componentRef()) {
+      <ng-content></ng-content>
+    }
   `,
 })
 export class UIView implements OnInit, OnDestroy {
@@ -132,7 +135,7 @@ export class UIView implements OnInit, OnDestroy {
   }
 
   /** The reference to the component currently inside the viewport */
-  _componentRef: ComponentRef<any>;
+  readonly _componentRef = signal<ComponentRef<any> | null>(null);
   /** Deregisters the ui-view from the view service */
   private _deregisterUIView: Function;
   /** Deregisters the master uiCanExit transition hook */
@@ -193,7 +196,7 @@ export class UIView implements OnInit, OnDestroy {
    * If both are true, adds the uiCanExit component function as a hook to that singular Transition.
    */
   private _invokeUiCanExitHook(trans: Transition) {
-    const instance = this._componentRef && this._componentRef.instance;
+    const instance = this._componentRef() && this._componentRef().instance;
     const uiCanExitFn: TransitionHookFn = instance && instance.uiCanExit;
 
     if (isFunction(uiCanExitFn)) {
@@ -211,7 +214,7 @@ export class UIView implements OnInit, OnDestroy {
    * For each transition, checks if any param values changed and notify component
    */
   private _invokeUiOnParamsChangedHook($transition$: Transition) {
-    const instance = this._componentRef && this._componentRef.instance;
+    const instance = this._componentRef() && this._componentRef().instance;
     const uiOnParamsChanged: TransitionHookFn = instance && instance.uiOnParamsChanged;
 
     if (isFunction(uiOnParamsChanged)) {
@@ -247,8 +250,8 @@ export class UIView implements OnInit, OnDestroy {
   }
 
   private _disposeLast() {
-    if (this._componentRef) this._componentRef.destroy();
-    this._componentRef = null;
+    if (this._componentRef()) this._componentRef().destroy();
+    this._componentRef.set(null);
   }
 
   ngOnDestroy() {
@@ -281,7 +284,7 @@ export class UIView implements OnInit, OnDestroy {
     this._applyUpdatedConfig(config);
 
     // Initiate change detection for the newly created component
-    this._componentRef.changeDetectorRef.markForCheck();
+    this._componentRef().changeDetectorRef.markForCheck();
   }
 
   private _applyUpdatedConfig(config: Ng2ViewConfig) {
@@ -294,9 +297,9 @@ export class UIView implements OnInit, OnDestroy {
     const componentClass = config.viewDecl.component;
 
     // Create the component
-    this._componentRef = this._componentTarget.createComponent(componentClass, { injector: componentInjector });
+    this._componentRef.set(this._componentTarget.createComponent(componentClass, { injector: componentInjector }));
     // Wire resolves to @Input()s
-    this._applyInputBindings(componentClass, this._componentRef, context);
+    this._applyInputBindings(componentClass, this._componentRef(), context);
   }
 
   /**
