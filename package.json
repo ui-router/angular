@@ -58,7 +58,7 @@
     "@angular/platform-browser-dynamic": "^20.1.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.1.0",
-    "@uirouter/core": "^6.1.1",
+    "@uirouter/core": "^6.1.2",
     "@uirouter/publish-scripts": "2.6.4",
     "@uirouter/rx": "^1.0.0",
     "husky": "^7.0.4",
