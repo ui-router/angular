@@ -1,7 +1,7 @@
 {
   "name": "@uirouter/angular",
   "description": "State-based routing for Angular",
-  "version": "17.0.0",
+  "version": "17.0.1",
   "scripts": {
     "clean": "shx rm -rf lib lib-esm _bundles _doc dist",
     "compile": "npm run clean && ngc",
@@ -61,8 +61,8 @@
     "@angular/platform-browser-dynamic": "^21.0.3",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
-    "@uirouter/core": "^6.1.1",
-    "@uirouter/publish-scripts": "2.6.3",
+    "@uirouter/core": "^6.1.2",
+    "@uirouter/publish-scripts": "2.6.4",
     "@uirouter/rx": "^1.0.0",
     "husky": "^7.0.4",
     "jest": "^30.2.0",
