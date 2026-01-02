@@ -48,7 +48,7 @@
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0",
-    "@uirouter/core": "^6.1.1",
+    "@uirouter/core": "^6.1.2",
     "@uirouter/rx": "^1.0.0"
   },
   "devDependencies": {
