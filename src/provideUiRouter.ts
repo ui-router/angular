@@ -1,6 +1,6 @@
-import { EnvironmentProviders, makeEnvironmentProviders } from "@angular/core";
-import { locationStrategy, makeRootProviders, RootModule } from "./uiRouterNgModule";
-import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from "./providers";
+import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core';
+import { locationStrategy, makeRootProviders, RootModule } from './uiRouterNgModule';
+import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
 
 /**
  * Sets up providers necessary to enable UI-Router for the application. Intended as a replacement

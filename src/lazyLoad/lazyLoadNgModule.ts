@@ -58,11 +58,11 @@ export function loadNgModule<T>(
   moduleToLoad: ModuleTypeCallback<T>
 ): (transition: Transition, stateObject: StateDeclaration) => Promise<LazyLoadResult> {
   return (transition: Transition, stateObject: StateDeclaration) => {
-
     const ng2Injector = transition.injector().get(NATIVE_INJECTOR_TOKEN);
 
-    return loadModuleFactory(moduleToLoad, ng2Injector)
-      .then(moduleRef => applyNgModule(moduleRef, ng2Injector, stateObject));
+    return loadModuleFactory(moduleToLoad, ng2Injector).then((moduleRef) =>
+      applyNgModule(moduleRef, ng2Injector, stateObject)
+    );
   };
 }
 
@@ -79,7 +79,6 @@ export function loadModuleFactory<T>(
   moduleToLoad: ModuleTypeCallback<T>,
   ng2Injector: Injector
 ): Promise<NgModuleRef<T>> {
-
   return Promise.resolve(moduleToLoad())
     .then(_unwrapEsModuleDefault)
     .then((t: Type<T>) => createNgModule(t, ng2Injector));
@@ -172,7 +171,11 @@ export function applyNgModule<T>(
  *
  * @internal
  */
-export function multiProviderParentChildDelta<T>(parent: Injector, child: Injector, token: InjectionToken<T>): RootModule[] {
+export function multiProviderParentChildDelta<T>(
+  parent: Injector,
+  child: Injector,
+  token: InjectionToken<T>
+): RootModule[] {
   const childVals: RootModule[] = child.get<RootModule[]>(token, []);
   const parentVals: RootModule[] = parent.get<RootModule[]>(token, []);
   return childVals.filter((val) => parentVals.indexOf(val) === -1);
@@ -214,11 +217,10 @@ export function loadComponent<T>(
   callback: ComponentTypeCallback<T>
 ): (transition: Transition, stateObject: Ng2StateDeclaration) => Promise<LazyLoadResult> {
   return (transition: Transition, stateObject: Ng2StateDeclaration) => {
-
     return Promise.resolve(callback())
       .then(_unwrapEsModuleDefault)
-      .then((component: Type<T>) => applyComponent(component, transition, stateObject))
-  }
+      .then((component: Type<T>) => applyComponent(component, transition, stateObject));
+  };
 }
 
 /**
@@ -236,14 +238,13 @@ export function applyComponent<T>(
   transition: Transition,
   stateObject: Ng2StateDeclaration
 ): LazyLoadResult {
-
-  if (!isStandalone(component)) throw new Error("Is not a standalone component.");
+  if (!isStandalone(component)) throw new Error('Is not a standalone component.');
 
   const registry = transition.router.stateRegistry;
   const current = stateObject.component;
   stateObject.component = component || current;
-  const removed = registry.deregister(stateObject).map(child => child.self);
-  const children = removed.filter(i => i.name != stateObject.name);
+  const removed = registry.deregister(stateObject).map((child) => child.self);
+  const children = removed.filter((i) => i.name != stateObject.name);
 
-  return { states: [stateObject, ...children] }
+  return { states: [stateObject, ...children] };
 }
