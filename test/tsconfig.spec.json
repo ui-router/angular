@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "isolatedModules": true,
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es5",
