@@ -42,7 +42,10 @@ export class Ng2ViewConfig implements ViewConfig {
   $id: number = id++;
   loaded = true;
 
-  constructor(public path: PathNode[], public viewDecl: Ng2ViewDeclaration) {}
+  constructor(
+    public path: PathNode[],
+    public viewDecl: Ng2ViewDeclaration
+  ) {}
 
   load() {
     return services.$q.when(this);
