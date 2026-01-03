@@ -23,7 +23,7 @@
     "@angular-devkit/core" "21.0.4"
     rxjs "7.8.2"
 
-"@angular-devkit/build-angular@^21.0.2":
+"@angular-devkit/build-angular@^21.0.4":
   version "21.0.4"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-angular/-/build-angular-21.0.4.tgz#421b3f38f7eccd3dfd017c73d83ccb0253af3a8b"
   integrity sha512-w81o1AYUloBLTyaBjGP5V2N4l6/zLpifc6kdu9QATNEhzZOoFdUG+vUiX4GOKBIXNV1OltnwvOfWsE9auJcNQA==
@@ -2877,12 +2877,12 @@
   resolved "https://registry.yarnpkg.com/@uirouter/core/-/core-6.1.2.tgz#2ccfe68488dede2e2afad8d7cf49e5652e512d96"
   integrity sha512-pYcg+cxVd9E9poC7AJf7ZrlQQrwAV6KVkiPvlbLJX5km+pBWrUOGQhdd87oIGc7/5iVQ7qSiAdl9QD+l55yegg==
 
-"@uirouter/publish-scripts@2.6.4":
-  version "2.6.4"
-  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.6.4.tgz#f515cd7f83b9fe81a042060ac8db77d92d6e56fd"
-  integrity sha512-ZdisSi41/Q0jAnzIV4cdkNZkkXbmHZfjMDYGGZ0+jT6avNwaaj8k1LLCfx8DS81duPcHOR6w3Vf49GvWLGGfrA==
+"@uirouter/publish-scripts@2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@uirouter/publish-scripts/-/publish-scripts-2.7.0.tgz#c2cef104f789314d7fc44412cf80d74eabe6988e"
+  integrity sha512-QUL08F5+GmlhUnewlQAoGcyWfBF+Lgf3Ol1bW9Rb1v1FV5eAwHUFk9zPtEB9YpSDwmbkU61RvT10UnPzu3cbqQ==
   dependencies:
-    check-peer-dependencies "^4.3.2"
+    check-peer-dependencies "^4.3.4"
     conventional-changelog "^3.1.24"
     conventional-changelog-ui-router-core "^1.4.2"
     find-parent-dir "^0.3.1"
@@ -3674,7 +3674,7 @@ char-regex@^1.0.2:
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
 
-check-peer-dependencies@^4.3.2:
+check-peer-dependencies@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/check-peer-dependencies/-/check-peer-dependencies-4.3.4.tgz#9ccfc507c13a1138d051d5749c7e79bf6b0ff8dd"
   integrity sha512-Z7iMjwy85Izmjav0+9/Tok8mpDgj0r4Z//yDsmcRYVm4hUSVKQgPvtbU6OU5/y+6Ntsa0cstZhOyavwla+w74A==
@@ -6410,7 +6410,7 @@ jsdom@^26.1.0:
     ws "^8.18.0"
     xml-name-validator "^5.0.0"
 
-jsdom@^27.2.0:
+jsdom@^27.4.0:
   version "27.4.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-27.4.0.tgz#c36af2e43e1281a7e8bb8f255086435d177801f2"
   integrity sha512-mjzqwWRD9Y1J1KUi7W97Gja1bwOOM5Ug0EZ6UDK3xS7j7mndrkwozHtSblfomlzyB4NepioNt+B2sOSzczVgtQ==

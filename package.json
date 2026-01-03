@@ -63,7 +63,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
     "@uirouter/core": "^6.1.2",
-    "@uirouter/publish-scripts": "2.6.4",
+    "@uirouter/publish-scripts": "2.7.0",
     "@uirouter/rx": "^1.0.0",
     "husky": "^9.0.0",
     "jest": "^30.2.0",
