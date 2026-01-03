@@ -1,3 +1,15 @@
+# 21.0.0 (2026-01-03)
+[Compare `@uirouter/angular` versions 17.0.1 and 21.0.0](https://github.com/ui-router/angular/compare/17.0.1...21.0.0)
+
+### Bug Fixes
+
+* support zoneless ([#1012](https://github.com/ui-router/angular/issues/1012)) ([6fa2d1e](https://github.com/ui-router/angular/commit/6fa2d1e))
+
+
+### Features
+
+* Support Angular v21 ([4c66883](https://github.com/ui-router/angular/commit/4c66883))
+
 ## 17.0.1 (2025-12-31)
 [Compare `@uirouter/angular` versions 17.0.0 and 17.0.1](https://github.com/ui-router/angular/compare/17.0.0...17.0.1)
 
