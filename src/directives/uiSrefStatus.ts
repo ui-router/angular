@@ -182,7 +182,7 @@ function mergeSrefStatus(left: SrefStatus, right: SrefStatus): SrefStatus {
 @Directive({
   selector: '[uiSrefStatus]',
   exportAs: 'uiSrefStatus',
-  standalone: true
+  standalone: true,
 })
 export class UISrefStatus {
   /** current statuses of the state/params the uiSref directive is linking to */
@@ -210,7 +210,7 @@ export class UISrefStatus {
     // start -> (success|error)
     const transEvents$: Observable<TransEvt> = this._globals.start$.pipe(
       switchMap((trans: Transition) => {
-        const event = (evt: string) => ({ evt, trans } as TransEvt);
+        const event = (evt: string) => ({ evt, trans }) as TransEvt;
 
         const transStart$ = of(event('start'));
         const transResult = trans.promise.then(

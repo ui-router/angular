@@ -61,7 +61,7 @@ interface InputMapping {
  */
 function ng2ComponentInputs<T>(mirror: ComponentMirror<T>): InputMapping[] {
   return mirror.inputs.map((input) => ({ prop: input.templateName, token: input.templateName }));
-};
+}
 
 /**
  * A UI-Router viewport directive, which is filled in by a view (component) on a state.

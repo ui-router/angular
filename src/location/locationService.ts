@@ -3,7 +3,11 @@ import { LocationStrategy } from '@angular/common';
 
 /** A `LocationServices` that delegates to the Angular LocationStrategy */
 export class Ng2LocationServices extends BaseLocationServices {
-  constructor(router: UIRouter, private _locationStrategy: LocationStrategy, isBrowser: boolean) {
+  constructor(
+    router: UIRouter,
+    private _locationStrategy: LocationStrategy,
+    isBrowser: boolean
+  ) {
     super(router, isBrowser);
 
     this._locationStrategy.onPopState((evt) => {

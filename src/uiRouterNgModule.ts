@@ -1,12 +1,6 @@
 import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from './injectionTokens';
 import { Ng2StateDeclaration } from './interface';
-import {
-  NgModule,
-  ModuleWithProviders,
-  Provider,
-  Injector,
-  APP_INITIALIZER,
-} from '@angular/core';
+import { NgModule, ModuleWithProviders, Provider, Injector, APP_INITIALIZER } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { _UIROUTER_DIRECTIVES } from './directives/directives';
 import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
@@ -43,9 +37,7 @@ export function makeRootProviders(module: RootModule): Provider[] {
 }
 
 export function makeChildProviders(module: StatesModule): Provider[] {
-  return [
-    { provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true },
-  ];
+  return [{ provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true }];
 }
 
 export function locationStrategy(useHash) {
@@ -70,9 +62,7 @@ export function locationStrategy(useHash) {
  * This enables UI-Router to automatically register the states with the [[StateRegistry]] at bootstrap (and during lazy load).
  */
 @NgModule({
-  imports: [
-    _UIROUTER_DIRECTIVES
-  ],
+  imports: [_UIROUTER_DIRECTIVES],
   exports: [_UIROUTER_DIRECTIVES],
 })
 export class UIRouterModule {

@@ -48,5 +48,9 @@ import { loadComponent, loadNgModule } from '../lazyLoad/lazyLoadNgModule';
 export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction) {
   const loadComponentFn = state['loadComponent'];
   const loadNgModuleFn = state['loadChildren'];
-  return loadComponentFn ? loadComponent(loadComponentFn) : loadNgModuleFn ? loadNgModule(loadNgModuleFn) : state.lazyLoad;
+  return loadComponentFn
+    ? loadComponent(loadComponentFn)
+    : loadNgModuleFn
+      ? loadNgModule(loadNgModuleFn)
+      : state.lazyLoad;
 }

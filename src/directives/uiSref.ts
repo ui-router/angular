@@ -1,4 +1,13 @@
-import { UIRouter, extend, Obj, StateOrName, TransitionOptions, TargetState, isNumber, isNullOrUndefined } from '@uirouter/core';
+import {
+  UIRouter,
+  extend,
+  Obj,
+  StateOrName,
+  TransitionOptions,
+  TargetState,
+  isNumber,
+  isNullOrUndefined,
+} from '@uirouter/core';
 import {
   Directive,
   Inject,
@@ -19,10 +28,13 @@ import { ReplaySubject, Subscription } from 'rxjs';
  */
 @Directive({
   selector: 'a[uiSref]',
-  standalone: true
+  standalone: true,
 })
 export class AnchorUISref {
-  constructor(public _el: ElementRef, public _renderer: Renderer2) {}
+  constructor(
+    public _el: ElementRef,
+    public _renderer: Renderer2
+  ) {}
 
   openInNewTab() {
     return this._el.nativeElement.target === '_blank';
@@ -81,7 +93,7 @@ export class AnchorUISref {
 @Directive({
   selector: '[uiSref]',
   exportAs: 'uiSref',
-  standalone: true
+  standalone: true,
 })
 export class UISref implements OnChanges {
   /**
