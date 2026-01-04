@@ -1,13 +1,13 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { Component, DebugElement, ViewChildren, QueryList } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { vi, describe, beforeEach, it, expect, type MockInstance } from 'vitest';
 
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISref } from '../../src/directives/uiSref';
 import { UIRouter, StateDeclaration, TargetState, TransitionOptions } from '@uirouter/core';
-import { Subscription } from 'rxjs';
-import { clickOnElement } from '../testUtils';
+import { clickOnElement, tick } from '../testUtils';
 
 describe('uiSref', () => {
   @Component({
@@ -16,7 +16,7 @@ describe('uiSref', () => {
       <a [uiSref]="linkB"></a>
       <a [uiSref]="linkC"></a>
     `,
-    standalone: false
+    standalone: false,
   })
   class TestComponent {
     linkA: string;
@@ -42,12 +42,18 @@ describe('uiSref', () => {
     }
   }
 
-  const setup = () => {
+  const setup = (initialValues?: Partial<TestComponent>) => {
     const fixture = TestBed.configureTestingModule({
       declarations: [TestComponent],
       imports: [UIRouterModule.forRoot({ useHash: true })],
       providers: [{ provide: APP_BASE_HREF, useValue: '/root' }],
     }).createComponent(TestComponent);
+
+    // Set initial values BEFORE first detectChanges to avoid ExpressionChangedAfterItHasBeenChecked
+    if (initialValues) {
+      Object.assign(fixture.componentInstance, initialValues);
+    }
+
     fixture.detectChanges();
     const srefElements = fixture.debugElement.queryAll(By.directive(UISref));
     const router = fixture.debugElement.injector.get(UIRouter);
@@ -65,35 +71,29 @@ describe('uiSref', () => {
   };
 
   it('renders an href for a state with an url', () => {
-    const { fixture, srefElements, router } = setup();
+    const { fixture, srefElements, router } = setup({ linkA: 'urlstate' });
     router.stateRegistry.register({ name: 'urlstate', url: '/myurl' });
-    fixture.componentInstance.linkA = 'urlstate';
     fixture.detectChanges();
     expect(srefElements[0].nativeElement.hasAttribute('href')).toBeTruthy();
     expect(urlOfElement(srefElements[0])).toBe('/myurl');
   });
 
   it('renders an empty href for a url-less state', () => {
-    const { fixture, srefElements, router } = setup();
+    const { fixture, srefElements, router } = setup({ linkA: 'urlless' });
     router.stateRegistry.register({ name: 'urlless' });
-    fixture.componentInstance.linkA = 'urlless';
     fixture.detectChanges();
     expect(srefElements[0].nativeElement.hasAttribute('href')).toBeTruthy();
     expect(urlOfElement(srefElements[0])).toBe('');
   });
 
   it('renders no href when the sref state is empty', () => {
-    const { fixture, srefElements } = setup();
-    fixture.componentInstance.linkA = null;
+    const { srefElements } = setup({ linkA: null });
     expect(srefElements[0].nativeElement.hasAttribute('href')).toBeFalsy();
   });
 
   it('should ignore the click event when the sref state is empty', () => {
-    const { fixture, srefElements, router } = setup();
-    const gospy = jest.spyOn(router.stateService, 'go');
-    fixture.componentInstance.linkA = null;
-    fixture.componentInstance.linkB = null;
-    fixture.detectChanges();
+    const { srefElements, router } = setup({ linkA: null, linkB: null });
+    const gospy = vi.spyOn(router.stateService, 'go');
 
     clickOnElement(srefElements[0]);
     expect(gospy).not.toHaveBeenCalled();
@@ -103,31 +103,25 @@ describe('uiSref', () => {
   });
 
   it('should call stateService.go with the linked state when clicked', () => {
-    const { fixture, srefElements, router } = setup();
-    const gospy = jest.spyOn(router.stateService, 'go');
-    fixture.componentInstance.linkA = 'stateref';
-    fixture.detectChanges();
+    const { srefElements, router } = setup({ linkA: 'stateref' });
+    const gospy = vi.spyOn(router.stateService, 'go');
     clickOnElement(srefElements[0]);
     expect(gospy).toHaveBeenCalled();
     expect(gospy.mock.calls[0][0]).toBe('stateref');
   });
 
   it('should handle when param is stateDeclaration', () => {
-    const { fixture, srefElements, router } = setup();
-    const gospy = jest.spyOn(router.stateService, 'go');
-    fixture.componentInstance.linkC = { name: 'stateref' };
-    fixture.detectChanges();
+    const { srefElements, router } = setup({ linkC: { name: 'stateref' } });
+    const gospy = vi.spyOn(router.stateService, 'go');
     clickOnElement(srefElements[2]);
     expect(gospy).toHaveBeenCalledTimes(1);
     expect(gospy.mock.calls[0][0]).toEqual({ name: 'stateref' });
   });
 
   it('should ignore the click event when target is _blank', () => {
-    const { fixture, srefElements, router } = setup();
-    const gospy = jest.spyOn(router.stateService, 'go');
+    const { fixture, srefElements, router } = setup({ linkA: 'statea', targetA: '_blank' });
+    const gospy = vi.spyOn(router.stateService, 'go');
     router.stateRegistry.register({ name: 'statea', url: '/statea' });
-    fixture.componentInstance.linkA = 'statea';
-    fixture.componentInstance.targetA = '_blank';
     fixture.detectChanges();
     clickOnElement(srefElements[0]);
     expect(gospy).not.toHaveBeenCalled();
@@ -135,14 +129,12 @@ describe('uiSref', () => {
 
   describe('opening in a new tab', () => {
     let srefElement: DebugElement;
-    let gospy: jest.SpyInstance;
+    let gospy: MockInstance;
 
     beforeEach(() => {
-      const { fixture, srefElements, router } = setup();
+      const { srefElements, router } = setup({ targetA: 'somestate' });
       srefElement = srefElements[0];
-      gospy = jest.spyOn(router.stateService, 'go');
-      fixture.componentInstance.targetA = 'somestate';
-      fixture.detectChanges();
+      gospy = vi.spyOn(router.stateService, 'go');
     });
 
     it('should fallback to the browser default when the button is not the left', () => {
@@ -168,71 +160,86 @@ describe('uiSref', () => {
 
   describe('when applied to a link tag', () => {
     describe('when the bound values change', () => {
-      let fixture: ComponentFixture<TestComponent>;
-      let comp: TestComponent;
-      let logger: TargetState[];
-      let subscription: Subscription;
-
+      // Each test creates its own fixture; reset TestBed before each to ensure isolation
       beforeEach(() => {
-        fixture = TestBed.configureTestingModule({
+        TestBed.resetTestingModule();
+      });
+
+      const createTestFixture = () => {
+        const fixture = TestBed.configureTestingModule({
           declarations: [TestComponent],
           imports: [UIRouterModule.forRoot({ useHash: true })],
         }).createComponent(TestComponent);
         fixture.detectChanges();
-        comp = fixture.componentInstance;
-        logger = [];
-        subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
-      });
+        return fixture;
+      };
 
-      afterEach(() => {
+      it('should emit an empty target state event when uiSref is empty', () => {
+        const fixture = createTestFixture();
+        const comp = fixture.componentInstance;
+        const logger: TargetState[] = [];
+        const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
+
+        expect(logger.length).toBe(1);
+        expect(logger[0].name()).toBeNull();
+
         subscription.unsubscribe();
       });
 
-      describe('when the uiSref is empty', () => {
-        it('should emit an empty target state event', () => {
-          expect(logger.length).toBe(1);
-          expect(logger[0].name()).toBeNull();
-        });
+      it('should emit an event when the target state changes', async () => {
+        const fixture = createTestFixture();
+        const comp = fixture.componentInstance;
+        const logger: TargetState[] = [];
+        const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
+
+        comp.linkA = 'stateA';
+        await tick();
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(logger.length).toBe(2);
+        expect(logger[1].name()).toBe('stateA');
+
+        subscription.unsubscribe();
       });
 
-      describe('when the target state changes', () => {
-        beforeEach(() => {
-          comp.linkA = 'stateA';
-          fixture.detectChanges();
-        });
+      it('should emit an event when the target params change', async () => {
+        const fixture = createTestFixture();
+        const comp = fixture.componentInstance;
+        const logger: TargetState[] = [];
+        const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
 
-        it('should emit an event', () => {
-          expect(logger.length).toBe(2);
-          expect(logger[1].name()).toBe('stateA');
-        });
-      });
-
-      describe('when the target params change', () => {
         const params = { paramA: 'paramA' };
+        comp.linkAParams = params;
+        await tick();
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-        beforeEach(() => {
-          comp.linkAParams = params;
-          fixture.detectChanges();
-        });
+        expect(logger.length).toBe(2);
+        expect(logger[1].params()).toEqual(params);
 
-        it('should emit an event', () => {
-          expect(logger.length).toBe(2);
-          expect(logger[1].params()).toEqual(params);
-        });
+        subscription.unsubscribe();
       });
 
-      describe('when the transition options change', () => {
+      it('should emit an event when the transition options change', async () => {
+        const fixture = createTestFixture();
+        const comp = fixture.componentInstance;
+        const logger: TargetState[] = [];
+        const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
+
         const options: TransitionOptions = { custom: 'custom' };
+        comp.linkAOptions = options;
+        await tick();
+        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-        beforeEach(() => {
-          comp.linkAOptions = options;
-          fixture.detectChanges();
-        });
+        expect(logger.length).toBe(2);
+        expect(logger[1].options().custom).toEqual(options.custom);
 
-        it('should emit an event', () => {
-          expect(logger.length).toBe(2);
-          expect(logger[1].options().custom).toEqual(options.custom);
-        });
+        subscription.unsubscribe();
       });
     });
   });

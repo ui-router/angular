@@ -1,16 +1,17 @@
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { vi, describe, beforeEach, it, expect } from 'vitest';
 import { UISref } from '../../src';
 
-import { SrefStatus} from '../../src/directives/uiSrefStatus';
+import { SrefStatus } from '../../src/directives/uiSrefStatus';
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { clickOnElement, tick } from '../testUtils';
 
 describe('uiSrefStatus', () => {
   @Component({
     template: '<a uiSref="foo" (uiSrefStatus)="updated($event)"></a>',
-    standalone: false
+    standalone: false,
   })
   class TestComponent {
     updated(event: SrefStatus) {
@@ -22,8 +23,8 @@ describe('uiSrefStatus', () => {
   let de: DebugElement;
   let fixture: ComponentFixture<TestComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [TestComponent],
       imports: [
         UIRouterModule.forRoot({
@@ -32,9 +33,7 @@ describe('uiSrefStatus', () => {
         }),
       ],
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -43,7 +42,7 @@ describe('uiSrefStatus', () => {
 
   describe('when click on `foo` uiSref', () => {
     it('should emit a event with a TargetState pointing to `foo`', async () => {
-      const spy = jest.spyOn(component, 'updated').mockImplementation(() => {});
+      const spy = vi.spyOn(component, 'updated').mockImplementation(() => {});
       clickOnElement(de);
       await tick();
       expect(spy).toHaveBeenCalledTimes(2);
