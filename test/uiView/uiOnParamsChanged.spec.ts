@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Ng2StateDeclaration, UIRouterModule, UIView } from '../../src';
 import { memoryLocationPlugin, Transition, UIRouter } from '@uirouter/core';
 import { APP_BASE_HREF } from '@angular/common';
+import { describe, beforeEach, afterEach, it, expect } from 'vitest';
 
 describe('uiView', () => {
   describe('should map resolve data to inputs', () => {
@@ -33,7 +34,7 @@ describe('uiView', () => {
       }
     }
 
-    beforeEach(done => {
+    beforeEach(() => {
       id = 0;
       paramChanges = [];
       lifecycle = [];
@@ -59,8 +60,6 @@ describe('uiView', () => {
       fixture.detectChanges();
 
       router = fixture.debugElement.injector.get(UIRouter);
-
-      done();
     });
 
     afterEach(() => {

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Ng2StateDeclaration, UIRouterModule, UIView } from '../../src';
 import { By } from '@angular/platform-browser';
 import { Resolvable, UIRouter } from '@uirouter/core';
+import { describe, beforeEach, it, expect } from 'vitest';
 
 describe('uiView', () => {
   describe('should map resolve data to inputs', () => {
@@ -21,18 +22,18 @@ describe('uiView', () => {
       @Input({ alias: 'resolve6' }) _resolve6;
       @Input({ alias: 'resolve7' }) _resolve7;
       @Input({ transform: (value: string) => `${value}1` }) resolve8;
-      resolve9 = input<string>("");
-      resolve10 = input<string>("");
-      _resolve11 = input<string>("", { alias: 'resolve11' });
-      _resolve12 = input<string>("", { alias: 'resolve12' });
-      resolve13 = input<string, string>("", { transform: value => `${value}1` });
+      resolve9 = input<string>('');
+      resolve10 = input<string>('');
+      _resolve11 = input<string>('', { alias: 'resolve11' });
+      _resolve12 = input<string>('', { alias: 'resolve12' });
+      resolve13 = input<string, string>('', { transform: (value) => `${value}1` });
     }
 
     let comp: ManyResolvesComponent;
     let fixture: ComponentFixture<UIView>;
     let router: UIRouter;
 
-    beforeEach(done => {
+    beforeEach(async () => {
       const manyResolves: Ng2StateDeclaration = {
         name: 'manyResolves',
         component: ManyResolvesComponent,
@@ -42,7 +43,7 @@ describe('uiView', () => {
           resolve4: 'Resolve4',
           resolve7: 'Resolve7',
           resolve10: 'Resolve10',
-          resolve12: 'Resolve12'
+          resolve12: 'Resolve12',
         },
         resolve: [
           { token: 'resolve1', resolveFn: () => 'resolve1' },
@@ -57,7 +58,7 @@ describe('uiView', () => {
           { token: 'Resolve10', resolveFn: () => 'resolve10' },
           { token: 'resolve11', resolveFn: () => 'resolve11' },
           { token: 'Resolve12', resolveFn: () => 'resolve12' },
-          { token: 'resolve13', resolveFn: () => 'resolve13' }
+          { token: 'resolve13', resolveFn: () => 'resolve13' },
         ],
       };
 
@@ -70,10 +71,8 @@ describe('uiView', () => {
 
       fixture.detectChanges();
       router = fixture.debugElement.injector.get(UIRouter);
-      router.stateService.go('manyResolves').then(() => {
-        comp = fixture.debugElement.query(By.directive(ManyResolvesComponent)).componentInstance;
-        done();
-      });
+      await router.stateService.go('manyResolves');
+      comp = fixture.debugElement.query(By.directive(ManyResolvesComponent)).componentInstance;
     });
 
     /////////////////////////////////////////

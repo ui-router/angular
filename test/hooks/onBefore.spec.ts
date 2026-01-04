@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { vi, describe, beforeEach, it, expect } from 'vitest';
 import { memoryLocationPlugin, UIRouter, StateService } from '@uirouter/core';
 import { UIRouterModule } from '../../src';
 
@@ -8,7 +9,7 @@ export class AppComponent {}
 
 describe('onBefore hook', () => {
   let stateService;
-  const hookSpy = jest.fn(trans => (stateService = trans.injector().get(StateService)));
+  const hookSpy = vi.fn(trans => (stateService = trans.injector().get(StateService)));
 
   const setupTests = () => {
     const configFn = (router: UIRouter) => {
