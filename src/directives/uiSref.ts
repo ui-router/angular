@@ -131,6 +131,7 @@ export class UISref implements OnChanges {
 
   /** @internal */ private _emit = false;
   /** @internal */ private _statesSub: Subscription;
+  /** @internal */ private _paramsSub: Subscription;
   /** @internal */ private _router: UIRouter;
   /** @internal */ private _anchorUISref: AnchorUISref;
   /** @internal */ private _parent: ParentUIViewInject;
@@ -145,6 +146,7 @@ export class UISref implements OnChanges {
     this._parent = parent;
 
     this._statesSub = _router.globals.states$.subscribe(() => this.update());
+    this._paramsSub = _router.globals.params$.subscribe(() => this.update());
   }
 
   /** @internal */
@@ -175,6 +177,7 @@ export class UISref implements OnChanges {
   ngOnDestroy() {
     this._emit = false;
     this._statesSub.unsubscribe();
+    this._paramsSub.unsubscribe();
     this.targetState$.unsubscribe();
   }
 
