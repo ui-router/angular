@@ -168,7 +168,7 @@ export class UISref implements OnChanges {
     this.update();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     this.update();
   }
 

@@ -59,7 +59,7 @@ describe('uiSrefActive', () => {
       await router.stateService.go('statea');
       await tick();
       fixture.detectChanges();
-      let classList = des[0].nativeElement.classList;
+      const classList = des[0].nativeElement.classList;
       expect(classList).toContain(activeClasses[0]);
       expect(classList).toContain(activeClasses[1]);
     });

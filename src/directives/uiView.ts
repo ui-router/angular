@@ -135,10 +135,12 @@ export class UIView implements OnInit, OnDestroy {
   /** The reference to the component currently inside the viewport */
   readonly _componentRef = signal<ComponentRef<any> | null>(null);
   /** Deregisters the ui-view from the view service */
-  private _deregisterUIView: Function;
-  /** Deregisters the master uiCanExit transition hook */
+  private _deregisterUIView: () => void;
+  /** Deregisters the master uiCanExit transition hook (returns Function from @uirouter/core) */
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   private _deregisterUiCanExitHook: Function;
-  /** Deregisters the master uiOnParamsChanged transition hook */
+  /** Deregisters the master uiOnParamsChanged transition hook (returns Function from @uirouter/core) */
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   private _deregisterUiOnParamsChangedHook: Function;
   /** Data about the this UIView */
   private _uiViewData: ActiveUIView = <any>{};
