@@ -79,12 +79,6 @@
     "vitest": "^4.0.8",
     "zone.js": "~0.16.0"
   },
-  "checkPeerDependencies": {
-    "ignore": [
-      "ajv",
-      "terser"
-    ]
-  },
   "docgen": {
     "publishDir": "_ng2_docs",
     "navigation": {

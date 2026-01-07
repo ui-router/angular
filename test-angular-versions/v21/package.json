@@ -7,8 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "npm run test:dev && npm run test:prod",
-    "test:dev": "ng build --configuration development && cypress-runner run --path dist/v21/browser",
-    "test:prod": "ng build  --configuration production && cypress-runner run --path dist/v21/browser"
+    "test:dev": "ng build --configuration development && DIST_PATH=dist/v21/browser npx playwright test",
+    "test:prod": "ng build  --configuration production && DIST_PATH=dist/v21/browser npx playwright test"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +18,6 @@
     "@angular/platform-browser": "^21.0.3",
     "@angular/platform-browser-dynamic": "^21.0.3",
     "@uirouter/angular": "*",
-    "@uirouter/cypress-runner": "*",
     "@uirouter/core": "*",
     "@uirouter/rx": "*",
     "rxjs": "~7.8.0",
@@ -29,19 +28,8 @@
     "@angular/build": "^21.0.2",
     "@angular/cli": "^21.0.2",
     "@angular/compiler-cli": "^21.0.3",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "@playwright/test": "^1.49.0",
+    "serve": "^14.2.4",
     "typescript": "~5.9.3"
-  },
-  "checkPeerDependencies": {
-    "ignore": [
-      "ajv",
-      "terser"
-    ]
   }
 }
