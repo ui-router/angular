@@ -1,4 +1,3 @@
-import { LazyLoadResult, Transition, StateDeclaration } from '@uirouter/core'; // has or is using
 import { BuilderFunction, StateObject } from '@uirouter/core';
 import { loadComponent, loadNgModule } from '../lazyLoad/lazyLoadNgModule';
 
@@ -45,7 +44,7 @@ import { loadComponent, loadNgModule } from '../lazyLoad/lazyLoadNgModule';
  * ```
  *
  */
-export function ng2LazyLoadBuilder(state: StateObject, parent: BuilderFunction) {
+export function ng2LazyLoadBuilder(state: StateObject, _parent: BuilderFunction) {
   const loadComponentFn = state['loadComponent'];
   const loadNgModuleFn = state['loadChildren'];
   return loadComponentFn

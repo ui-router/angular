@@ -14,7 +14,7 @@ describe('uiSrefStatus', () => {
     standalone: false,
   })
   class TestComponent {
-    updated(event: SrefStatus) {
+    updated(_event: SrefStatus) {
       throw new Error('updated() method must be spied');
     }
   }

@@ -244,7 +244,7 @@ export function applyComponent<T>(
   const current = stateObject.component;
   stateObject.component = component || current;
   const removed = registry.deregister(stateObject).map((child) => child.self);
-  const children = removed.filter((i) => i.name != stateObject.name);
+  const children = removed.filter((i) => i.name !== stateObject.name);
 
   return { states: [stateObject, ...children] };
 }

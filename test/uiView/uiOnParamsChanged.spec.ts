@@ -21,7 +21,7 @@ describe('uiView', () => {
     class ParamWatcherComponent implements OnInit {
       $id = id++;
 
-      public uiOnParamsChanged(newParams: { [paramName: string]: any }, trans: Transition) {
+      public uiOnParamsChanged(newParams: { [paramName: string]: any }, _trans: Transition) {
         paramChanges.push(newParams);
       }
 

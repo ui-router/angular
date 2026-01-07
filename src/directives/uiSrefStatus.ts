@@ -17,7 +17,7 @@ import {
 } from '@uirouter/core';
 
 import { Subscription, Observable, BehaviorSubject, of, from, combineLatest, concat } from 'rxjs';
-import { switchMap, map, tap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 
 /** @internal */
 interface TransEvt {
@@ -66,7 +66,7 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
   const paramSchema: Param[] = targetPath
     .map((node) => node.paramSchema)
     .reduce(unnestR, [])
-    .filter((param: Param) => targetParamVals.hasOwnProperty(param.id));
+    .filter((param: Param) => Object.prototype.hasOwnProperty.call(targetParamVals, param.id));
 
   return (path: PathNode[]) => {
     const tailNode = tail(path);

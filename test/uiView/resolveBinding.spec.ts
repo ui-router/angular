@@ -9,7 +9,9 @@ describe('uiView', () => {
   describe('should map resolve data to inputs', () => {
     @Component({ template: `<h3>hey</h3> `, standalone: false })
     class ManyResolvesComponent {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       constructor(@Inject('resolve1') foo, @Inject('Resolve2') bar, @Inject('resolve5') baz) {
+        // eslint-disable-next-line prefer-rest-params
         this.injectedValues = Array.from(arguments);
       }
 
