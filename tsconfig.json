@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -19,5 +20,5 @@
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true
   },
-  "files": ["src/index.ts"]
+  "include": ["src/**/*.ts"]
 }
