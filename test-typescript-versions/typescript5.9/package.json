@@ -9,7 +9,7 @@
   "license": "MIT",
   "dependencies": {
     "@angular/common": "^21.0.3",
-    "@angular/core": "^21.0.3",
+    "@angular/core": "^21.0.7",
     "@uirouter/angular": "latest",
     "rxjs": "^7.8.2",
     "typescript": "5.9.3"
