@@ -11,6 +11,7 @@ idea-out
 *.iws
 
 _doc
+_ng2_docs
 _bundles
 lib
 lib-esm
