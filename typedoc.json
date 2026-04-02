@@ -1,9 +1,13 @@
 {
+  "$schema": "https://typedoc.org/schema.json",
   "name": "@uirouter/angular",
   "readme": "README.md",
   "out": "project/_ng2_docs",
-  "entryPoints": ["src/index.ts"],
+  "entryPoints": [
+    "src/index.ts"
+  ],
   "excludeInternal": true,
+  "githubPages": false,
   "visibilityFilters": {
     "external": true,
     "inherited": true,
