@@ -3,7 +3,7 @@ import { Ng2StateDeclaration } from './interface';
 import { NgModule, ModuleWithProviders, Provider, Injector, APP_INITIALIZER } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, PathLocationStrategy } from '@angular/common';
 import { _UIROUTER_DIRECTIVES } from './directives/directives';
-import { UrlRuleHandlerFn, TargetState, TargetStateDef, UIRouter, TransitionService } from '@uirouter/core';
+import { UrlRuleHandlerFn, TargetState, TargetStateDef, Transition, TransitionService, UIRouter } from '@uirouter/core';
 import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './providers';
 
 // Delay angular bootstrap until first transition is successful, for SSR.
@@ -15,8 +15,8 @@ export function onTransitionReady(transitionService: TransitionService, root: Ro
   }
 
   return () =>
-    new Promise((resolve) => {
-      const hook = (trans) => {
+    new Promise<void>((resolve) => {
+      const hook = (trans: Transition) => {
         trans.promise.then(resolve, resolve);
       };
       transitionService.onStart({}, hook, { invokeLimit: 1 });
@@ -40,7 +40,7 @@ export function makeChildProviders(module: StatesModule): Provider[] {
   return [{ provide: UIROUTER_MODULE_TOKEN, useValue: module, multi: true }];
 }
 
-export function locationStrategy(useHash) {
+export function locationStrategy(useHash?: boolean): Provider {
   return { provide: LocationStrategy, useClass: useHash ? HashLocationStrategy : PathLocationStrategy };
 }
 
@@ -106,8 +106,8 @@ export class UIRouterModule {
     return {
       ngModule: UIRouterModule,
       providers: [
-        _UIROUTER_INSTANCE_PROVIDERS,
-        _UIROUTER_SERVICE_PROVIDERS,
+        ..._UIROUTER_INSTANCE_PROVIDERS,
+        ..._UIROUTER_SERVICE_PROVIDERS,
         locationStrategy(config.useHash),
         ...makeRootProviders(config),
       ],

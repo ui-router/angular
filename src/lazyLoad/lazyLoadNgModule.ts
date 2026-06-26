@@ -5,16 +5,18 @@ import {
   UIRouter,
   Resolvable,
   NATIVE_INJECTOR_TOKEN,
-  unnestR,
   inArray,
   StateObject,
-  uniqR,
   StateDeclaration,
 } from '@uirouter/core';
 import { UIROUTER_MODULE_TOKEN, UIROUTER_ROOT_MODULE } from '../injectionTokens';
 import { RootModule, StatesModule } from '../uiRouterNgModule';
 import { applyModuleConfig } from '../uiRouterConfig';
 import { Ng2StateDeclaration } from '../interface';
+
+function appendUnique<T>(acc: T[], token: T): T[] {
+  return inArray(acc, token) ? acc : acc.concat(token);
+}
 
 /**
  * A function that returns an NgModule, or a promise for an NgModule
@@ -84,8 +86,10 @@ export function loadModuleFactory<T>(
     .then((t: Type<T>) => createNgModule(t, ng2Injector));
 }
 
-function _unwrapEsModuleDefault(x) {
-  return x && x.__esModule && x['default'] ? x['default'] : x;
+function _unwrapEsModuleDefault<T>(x: T | { __esModule?: boolean; default?: T }): T {
+  return x && typeof x === 'object' && '__esModule' in x && x.__esModule && 'default' in x && x.default
+    ? x.default
+    : (x as T);
 }
 
 /**
@@ -112,32 +116,35 @@ export function applyNgModule<T>(
   const registry = uiRouter.stateRegistry;
 
   const originalName = lazyLoadState.name;
+  if (!originalName) {
+    throw new Error('Lazy loaded states must define a name before applying an NgModule.');
+  }
   const originalState = registry.get(originalName);
   // Check if it's a future state (ends with .**)
   const isFuture = /^(.*)\.\*\*$/.exec(originalName);
   // Final name (without the .**)
-  const replacementName = isFuture && isFuture[1];
+  const replacementName = isFuture?.[1];
 
-  const newRootModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_ROOT_MODULE).reduce(
-    uniqR,
-    []
-  ) as RootModule[];
-  const newChildModules = multiProviderParentChildDelta(parentInjector, injector, UIROUTER_MODULE_TOKEN).reduce(
-    uniqR,
-    []
-  ) as StatesModule[];
+  const newRootModules = multiProviderParentChildDelta<RootModule>(parentInjector, injector, UIROUTER_ROOT_MODULE).reduce<
+    RootModule[]
+  >((acc, token) => appendUnique(acc, token), []);
+  const newChildModules = multiProviderParentChildDelta<StatesModule>(
+    parentInjector,
+    injector,
+    UIROUTER_MODULE_TOKEN
+  ).reduce<StatesModule[]>((acc, token) => appendUnique(acc, token), []);
 
   if (newRootModules.length) {
     console.log(newRootModules); // tslint:disable-line:no-console
     throw new Error('Lazy loaded modules should not contain a UIRouterModule.forRoot() module');
   }
 
-  const newStateObjects: StateObject[] = newChildModules
+  const newStateObjects = newChildModules
     .map((module) => applyModuleConfig(uiRouter, injector, module))
-    .reduce(unnestR, [])
-    .reduce(uniqR, []);
+    .reduce<StateObject[]>((acc, states) => acc.concat(states), [])
+    .reduce<StateObject[]>((acc, state) => appendUnique(acc, state), []);
 
-  if (isFuture) {
+  if (isFuture && replacementName) {
     const replacementState = registry.get(replacementName);
     if (!replacementState || replacementState === originalState) {
       throw new Error(
@@ -174,10 +181,10 @@ export function applyNgModule<T>(
 export function multiProviderParentChildDelta<T>(
   parent: Injector,
   child: Injector,
-  token: InjectionToken<T>
-): RootModule[] {
-  const childVals: RootModule[] = child.get<RootModule[]>(token, []);
-  const parentVals: RootModule[] = parent.get<RootModule[]>(token, []);
+  token: InjectionToken<unknown>
+): T[] {
+  const childVals = child.get<T[]>(token as InjectionToken<T[]>, []);
+  const parentVals = parent.get<T[]>(token as InjectionToken<T[]>, []);
   return childVals.filter((val) => parentVals.indexOf(val) === -1);
 }
 

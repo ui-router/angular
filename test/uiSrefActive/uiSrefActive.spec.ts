@@ -1,4 +1,4 @@
-import { Component, Type } from '@angular/core';
+import { Component, Type, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -104,14 +104,14 @@ describe('uiSrefActive', () => {
         const template = `
           <li id="parent" uiSrefActive="active">
             <a uiSref="statea"></a>
-            @if (showStateb) {
+            @if (showStateb()) {
               <a uiSref="stateb"></a>
             }
           </li>
         `;
         @Component({ template, standalone: false })
         class ToggleTestComponent {
-          public showStateb = initialShowStateb;
+          public showStateb = signal(initialShowStateb);
         }
 
         const states = [{ name: 'statea' }, { name: 'stateb' }, { name: 'statec' }];
@@ -167,20 +167,16 @@ describe('uiSrefActive', () => {
         expect(des[0].nativeElement.classList).not.toContain('active');
 
         // Now dynamically show the stateb link
-        fixture.componentInstance.showStateb = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.componentInstance.showStateb.set(true);
         fixture.detectChanges();
-        await tick();
         await fixture.whenStable();
 
         // After showing stateb link, parent should NOW be active
         expect(des[0].nativeElement.classList).toContain('active');
 
         // Hide the stateb link again
-        fixture.componentInstance.showStateb = false;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.componentInstance.showStateb.set(false);
         fixture.detectChanges();
-        await tick();
         await fixture.whenStable();
 
         // Parent should no longer be active

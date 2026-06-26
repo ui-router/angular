@@ -1,13 +1,13 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { Component, DebugElement, ViewChildren, QueryList } from '@angular/core';
+import { Component, DebugElement, ViewChildren, QueryList, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { vi, describe, beforeEach, it, expect, type MockInstance } from 'vitest';
 
 import { UIRouterModule } from '../../src/uiRouterNgModule';
 import { UISref } from '../../src/directives/uiSref';
-import { UIRouter, StateDeclaration, TargetState, TransitionOptions } from '@uirouter/core';
-import { clickOnElement, tick } from '../testUtils';
+import { RawParams, UIRouter, StateDeclaration, TargetState, TransitionOptions } from '@uirouter/core';
+import { clickOnElement } from '../testUtils';
 
 describe('uiSref', () => {
   @Component({
@@ -39,6 +39,24 @@ describe('uiSref', () => {
       this.targetA = '';
       this.linkB = '';
       this.linkC = {};
+    }
+  }
+
+  @Component({
+    template: `
+      <a [uiSref]="linkA()" [uiParams]="linkAParams()" [uiOptions]="linkAOptions()"></a>
+    `,
+    standalone: false,
+  })
+  class ReactiveBindingsTestComponent {
+    readonly linkA = signal<string | null>(null);
+    readonly linkAParams = signal<RawParams | null>(null);
+    readonly linkAOptions = signal<TransitionOptions | null>(null);
+
+    @ViewChildren(UISref) srefs!: QueryList<UISref>;
+
+    get linkASref() {
+      return this.srefs.first;
     }
   }
 
@@ -160,22 +178,19 @@ describe('uiSref', () => {
 
   describe('when applied to a link tag', () => {
     describe('when the bound values change', () => {
-      // Each test creates its own fixture; reset TestBed before each to ensure isolation
-      beforeEach(() => {
-        TestBed.resetTestingModule();
-      });
-
-      const createTestFixture = () => {
-        const fixture = TestBed.configureTestingModule({
-          declarations: [TestComponent],
+      const createTestFixture = async () => {
+        await TestBed.configureTestingModule({
+          declarations: [ReactiveBindingsTestComponent],
           imports: [UIRouterModule.forRoot({ useHash: true })],
-        }).createComponent(TestComponent);
+        }).compileComponents();
+        const fixture = TestBed.createComponent(ReactiveBindingsTestComponent);
         fixture.detectChanges();
+        await fixture.whenStable();
         return fixture;
       };
 
-      it('should emit an empty target state event when uiSref is empty', () => {
-        const fixture = createTestFixture();
+      it('should emit an empty target state event when uiSref is empty', async () => {
+        const fixture = await createTestFixture();
         const comp = fixture.componentInstance;
         const logger: TargetState[] = [];
         const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
@@ -187,14 +202,12 @@ describe('uiSref', () => {
       });
 
       it('should emit an event when the target state changes', async () => {
-        const fixture = createTestFixture();
+        const fixture = await createTestFixture();
         const comp = fixture.componentInstance;
         const logger: TargetState[] = [];
         const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
 
-        comp.linkA = 'stateA';
-        await tick();
-        fixture.changeDetectorRef.markForCheck();
+        comp.linkA.set('stateA');
         fixture.detectChanges();
         await fixture.whenStable();
 
@@ -205,15 +218,13 @@ describe('uiSref', () => {
       });
 
       it('should emit an event when the target params change', async () => {
-        const fixture = createTestFixture();
+        const fixture = await createTestFixture();
         const comp = fixture.componentInstance;
         const logger: TargetState[] = [];
         const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
 
         const params = { paramA: 'paramA' };
-        comp.linkAParams = params;
-        await tick();
-        fixture.changeDetectorRef.markForCheck();
+        comp.linkAParams.set(params);
         fixture.detectChanges();
         await fixture.whenStable();
 
@@ -224,15 +235,13 @@ describe('uiSref', () => {
       });
 
       it('should emit an event when the transition options change', async () => {
-        const fixture = createTestFixture();
+        const fixture = await createTestFixture();
         const comp = fixture.componentInstance;
         const logger: TargetState[] = [];
         const subscription = comp.linkASref.targetState$.subscribe((evt) => logger.push(evt));
 
         const options: TransitionOptions = { custom: 'custom' };
-        comp.linkAOptions = options;
-        await tick();
-        fixture.changeDetectorRef.markForCheck();
+        comp.linkAOptions.set(options);
         fixture.detectChanges();
         await fixture.whenStable();
 

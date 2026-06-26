@@ -13,11 +13,14 @@ import {
   Param,
   PathUtils,
   identity,
-  uniqR,
 } from '@uirouter/core';
 
 import { Subscription, Observable, BehaviorSubject, of, from, combineLatest, concat } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
+
+function appendUnique<T>(acc: T[], token: T): T[] {
+  return acc.indexOf(token) === -1 ? acc.concat(token) : acc;
+}
 
 /** @internal */
 interface TransEvt {
@@ -68,7 +71,8 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
     .reduce(unnestR, [])
     .filter((param: Param) => Object.prototype.hasOwnProperty.call(targetParamVals, param.id));
 
-  return (path: PathNode[]) => {
+  return (path?: PathNode[]) => {
+    if (!path) return false;
     const tailNode = tail(path);
     if (!tailNode || tailNode.state !== state) return false;
     const paramValues = PathUtils.paramValues(path);
@@ -84,7 +88,7 @@ const pathMatches = (target: TargetState): Predicate<PathNode[]> => {
  * @internal
  */
 function spreadToSubPaths(basePath: PathNode[], appendPath: PathNode[]): PathNode[][] {
-  return appendPath.map((node) => basePath.concat(PathUtils.subPath(appendPath, (n) => n.state === node.state)));
+  return appendPath.map((node) => basePath.concat(PathUtils.subPath(appendPath, (n) => n?.state === node.state)));
 }
 
 /**
@@ -189,26 +193,31 @@ export class UISrefStatus {
   @Output('uiSrefStatus') uiSrefStatus = new EventEmitter<SrefStatus>(false);
   /** Monitor all child components for UISref(s) */
   @ContentChildren(UISref, { descendants: true })
-  private _srefs: QueryList<UISref>;
+  private _srefs!: QueryList<UISref>;
 
   /** The current status */
   status: SrefStatus;
 
-  /** @internal */ private _subscription: Subscription;
-  /** @internal */ private _srefChangesSub: Subscription;
-  /** @internal */ private _srefs$: BehaviorSubject<UISref[]>;
+  /** @internal */ private _subscription?: Subscription;
+  /** @internal */ private _srefChangesSub?: Subscription;
+  /** @internal */ private _srefs$?: BehaviorSubject<UISref[]>;
   /** @internal */ private _globals: UIRouterGlobals;
-  /** @internal */ private _hostUiSref: UISref;
-  constructor(@Host() @Self() @Optional() _hostUiSref: UISref, _globals: UIRouterGlobals) {
+  /** @internal */ private _hostUiSref?: UISref;
+  constructor(@Host() @Self() @Optional() _hostUiSref: UISref | null, _globals: UIRouterGlobals) {
     this._globals = _globals;
-    this._hostUiSref = _hostUiSref;
+    this._hostUiSref = _hostUiSref ?? undefined;
     this.status = Object.assign({}, inactiveStatus);
   }
 
   ngAfterContentInit() {
+    const start$ = this._globals.start$;
+    if (!start$) {
+      return;
+    }
+
     // Map each transition start event to a stream of:
     // start -> (success|error)
-    const transEvents$: Observable<TransEvt> = this._globals.start$.pipe(
+    const transEvents$: Observable<TransEvt> = start$.pipe(
       switchMap((trans: Transition) => {
         const event = (evt: string) => ({ evt, trans }) as TransEvt;
 
@@ -223,17 +232,21 @@ export class UISrefStatus {
       })
     );
 
-    const withHostSref = (childrenSrefs: UISref[]) =>
-      childrenSrefs.concat(this._hostUiSref).filter(identity).reduce(uniqR, []);
+    const withHostSref = (childrenSrefs: UISref[]): UISref[] => {
+      const merged = this._hostUiSref ? childrenSrefs.concat(this._hostUiSref) : childrenSrefs.slice();
+      return merged.filter(identity).reduce<UISref[]>((acc, sref) => appendUnique(acc, sref), []);
+    };
 
     // Watch the @ContentChildren UISref[] components and get their target states
     this._srefs$ = new BehaviorSubject(withHostSref(this._srefs.toArray()));
     this._srefChangesSub = this._srefs.changes.subscribe((srefs: QueryList<UISref>) =>
-      this._srefs$.next(withHostSref(srefs.toArray()))
+      this._srefs$?.next(withHostSref(srefs.toArray()))
     );
 
     const targetStates$: Observable<TargetState[]> = this._srefs$.pipe(
-      switchMap((srefs: UISref[]) => combineLatest<TargetState[]>(srefs.map((sref) => sref.targetState$)))
+      switchMap((srefs: UISref[]) =>
+        srefs.length ? combineLatest<TargetState[]>(srefs.map((sref) => sref.targetState$)) : of([] as TargetState[])
+      )
     );
 
     // Calculate the status of each UISref based on the transition event.
@@ -244,7 +257,7 @@ export class UISrefStatus {
           return targetStates$.pipe(
             map((targets: TargetState[]) => {
               const statuses: SrefStatus[] = targets.map((target) => getSrefStatus(evt, target));
-              return statuses.reduce(mergeSrefStatus);
+              return statuses.reduce(mergeSrefStatus, { ...inactiveStatus, targetStates: [] });
             })
           );
         })
@@ -256,7 +269,9 @@ export class UISrefStatus {
     if (this._subscription) this._subscription.unsubscribe();
     if (this._srefChangesSub) this._srefChangesSub.unsubscribe();
     if (this._srefs$) this._srefs$.unsubscribe();
-    this._subscription = this._srefChangesSub = this._srefs$ = undefined;
+    this._subscription = undefined;
+    this._srefChangesSub = undefined;
+    this._srefs$ = undefined;
   }
 
   private _setStatus(status: SrefStatus) {

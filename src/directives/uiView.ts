@@ -33,6 +33,7 @@ import {
   ViewConfig,
   ViewContext,
 } from '@uirouter/core';
+import { Ng2ViewDeclaration } from '../interface';
 import { Ng2ViewConfig } from '../statebuilders/views';
 import { MergeInjector } from '../mergeInjector';
 
@@ -124,8 +125,8 @@ export class UIView implements OnInit, OnDestroy {
   static PARENT_INJECT = 'UIView.PARENT_INJECT';
 
   @ViewChild('componentTarget', { read: ViewContainerRef, static: true })
-  _componentTarget: ViewContainerRef;
-  @Input('name') name: string;
+  _componentTarget!: ViewContainerRef;
+  @Input('name') name?: string;
 
   @Input('ui-view')
   set _name(val: string) {
@@ -135,20 +136,18 @@ export class UIView implements OnInit, OnDestroy {
   /** The reference to the component currently inside the viewport */
   readonly _componentRef = signal<ComponentRef<any> | null>(null);
   /** Deregisters the ui-view from the view service */
-  private _deregisterUIView: () => void;
-  /** Deregisters the master uiCanExit transition hook (returns Function from @uirouter/core) */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  private _deregisterUiCanExitHook: Function;
-  /** Deregisters the master uiOnParamsChanged transition hook (returns Function from @uirouter/core) */
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-  private _deregisterUiOnParamsChangedHook: Function;
+  private _deregisterUIView?: () => void;
+  /** Deregisters the master uiCanExit transition hook */
+  private _deregisterUiCanExitHook?: () => void;
+  /** Deregisters the master uiOnParamsChanged transition hook */
+  private _deregisterUiOnParamsChangedHook?: () => void;
   /** Data about the this UIView */
   private _uiViewData: ActiveUIView = <any>{};
   private _parent: ParentUIViewInject;
 
   constructor(
     public router: UIRouter,
-    @Inject(UIView.PARENT_INJECT) parent,
+    @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject,
     public viewContainerRef: ViewContainerRef
   ) {
     this._parent = parent;
@@ -173,16 +172,16 @@ export class UIView implements OnInit, OnDestroy {
       fqn: parentFqn ? parentFqn + '.' + name : name,
       creationContext: this._parent.context,
       configUpdated: this._viewConfigUpdated.bind(this),
-      config: undefined,
+      config: undefined as unknown as ViewConfig,
     };
 
     this._deregisterUiCanExitHook = router.transitionService.onBefore({}, (trans) => {
       return this._invokeUiCanExitHook(trans);
-    });
+    }) as () => void;
 
     this._deregisterUiOnParamsChangedHook = router.transitionService.onSuccess({}, (trans) =>
       this._invokeUiOnParamsChangedHook(trans)
-    );
+    ) as () => void;
 
     this._deregisterUIView = router.viewService.registerUIView(this._uiViewData);
   }
@@ -196,7 +195,7 @@ export class UIView implements OnInit, OnDestroy {
    * If both are true, adds the uiCanExit component function as a hook to that singular Transition.
    */
   private _invokeUiCanExitHook(trans: Transition) {
-    const instance = this._componentRef() && this._componentRef().instance;
+    const instance = this._componentRef()?.instance;
     const uiCanExitFn: TransitionHookFn = instance && instance.uiCanExit;
 
     if (isFunction(uiCanExitFn)) {
@@ -214,7 +213,7 @@ export class UIView implements OnInit, OnDestroy {
    * For each transition, checks if any param values changed and notify component
    */
   private _invokeUiOnParamsChangedHook($transition$: Transition) {
-    const instance = this._componentRef() && this._componentRef().instance;
+    const instance = this._componentRef()?.instance;
     const uiOnParamsChanged: TransitionHookFn = instance && instance.uiOnParamsChanged;
 
     if (isFunction(uiOnParamsChanged)) {
@@ -243,14 +242,15 @@ export class UIView implements OnInit, OnDestroy {
       if (changedToParams.length) {
         const changedKeys: string[] = changedToParams.map((x) => x.id);
         // Filter the params to only changed/new to params.  `$transition$.params()` may be used to get all params.
-        const newValues = filter(toParams, (val, key) => changedKeys.indexOf(key) !== -1);
+        const newValues = filter(toParams, (_val, key) => typeof key === 'string' && changedKeys.indexOf(key) !== -1);
         instance.uiOnParamsChanged(newValues, $transition$);
       }
     }
   }
 
   private _disposeLast() {
-    if (this._componentRef()) this._componentRef().destroy();
+    const componentRef = this._componentRef();
+    if (componentRef) componentRef.destroy();
     this._componentRef.set(null);
   }
 
@@ -258,7 +258,9 @@ export class UIView implements OnInit, OnDestroy {
     if (this._deregisterUIView) this._deregisterUIView();
     if (this._deregisterUiCanExitHook) this._deregisterUiCanExitHook();
     if (this._deregisterUiOnParamsChangedHook) this._deregisterUiOnParamsChangedHook();
-    this._deregisterUIView = this._deregisterUiCanExitHook = this._deregisterUiOnParamsChangedHook = null;
+    this._deregisterUIView = undefined;
+    this._deregisterUiCanExitHook = undefined;
+    this._deregisterUiOnParamsChangedHook = undefined;
     this._disposeLast();
   }
 
@@ -279,12 +281,13 @@ export class UIView implements OnInit, OnDestroy {
 
     // This is a new ViewConfig.  Dispose the previous component
     this._disposeLast();
-    trace.traceUIViewConfigUpdated(this._uiViewData, config && config.viewDecl.$context);
+    trace.traceUIViewConfigUpdated(this._uiViewData, config.viewDecl.$context ?? this._parent.context);
 
     this._applyUpdatedConfig(config);
 
     // Initiate change detection for the newly created component
-    this._componentRef().changeDetectorRef.markForCheck();
+    const componentRef = this._componentRef();
+    if (componentRef) componentRef.changeDetectorRef.markForCheck();
   }
 
   private _applyUpdatedConfig(config: Ng2ViewConfig) {
@@ -295,11 +298,18 @@ export class UIView implements OnInit, OnDestroy {
 
     // Get the component class from the view declaration. TODO: allow promises?
     const componentClass = config.viewDecl.component;
+    if (!componentClass) {
+      throw new Error(`UIView '${this._uiViewData.fqn}' cannot render a config without a component class.`);
+    }
 
     // Create the component
     this._componentRef.set(this._componentTarget.createComponent(componentClass, { injector: componentInjector }));
+    const componentRef = this._componentRef();
+    if (!componentRef) {
+      throw new Error(`UIView '${this._uiViewData.fqn}' failed to create its component instance.`);
+    }
     // Wire resolves to @Input()s
-    this._applyInputBindings(componentClass, this._componentRef(), context);
+    this._applyInputBindings(componentClass, componentRef, context);
   }
 
   /**
@@ -338,18 +348,20 @@ export class UIView implements OnInit, OnDestroy {
    * to the resolve data.
    */
   private _applyInputBindings<T>(component: Type<T>, componentRef: ComponentRef<T>, context: ResolveContext): void {
-    const bindings = this._uiViewData.config.viewDecl['bindings'] || {};
+    const bindings = (this._uiViewData.config.viewDecl as Ng2ViewDeclaration).bindings ?? {};
     const explicitBoundProps = Object.keys(bindings);
     const mirror = reflectComponentType(component);
 
     // Supply resolve data to component as specified in the state's `bindings: {}`
-    const explicitInputTuples = explicitBoundProps.reduce(
+    const explicitInputTuples = explicitBoundProps.reduce<InputMapping[]>(
       (acc, key) => acc.concat([{ prop: key, token: bindings[key] }]),
       []
     );
 
     // Supply resolve data to matching @Input('prop') or inputs: ['prop']
-    const implicitInputTuples = ng2ComponentInputs(mirror).filter((tuple) => !inArray(explicitBoundProps, tuple.prop));
+    const implicitInputTuples = mirror
+      ? ng2ComponentInputs(mirror).filter((tuple) => !inArray(explicitBoundProps, tuple.prop))
+      : [];
 
     const addResolvable = (tuple: InputMapping) => ({
       prop: tuple.prop,

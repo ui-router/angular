@@ -1,7 +1,6 @@
-import { UIRouter, isFunction, StateObject } from '@uirouter/core';
+import { UIRouter, isDefined, isFunction, StateObject } from '@uirouter/core';
 import { StatesModule, RootModule } from './uiRouterNgModule';
 import { Injector } from '@angular/core';
-import { isDefined } from '@uirouter/core';
 
 export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, module: StatesModule = {}): StateObject[] {
   if (isFunction(module.config)) {
@@ -13,7 +12,8 @@ export function applyModuleConfig(uiRouter: UIRouter, injector: Injector, module
 }
 
 export function applyRootModuleConfig(uiRouter: UIRouter, injector: Injector, module: RootModule) {
+  const { initial, otherwise } = module;
   if (isDefined(module.deferIntercept)) uiRouter.urlService.deferIntercept(module.deferIntercept);
-  if (isDefined(module.otherwise)) uiRouter.urlService.rules.otherwise(module.otherwise);
-  if (isDefined(module.initial)) uiRouter.urlService.rules.initial(module.initial);
+  if (otherwise !== undefined) uiRouter.urlService.rules.otherwise(otherwise);
+  if (initial !== undefined) uiRouter.urlService.rules.initial(initial);
 }

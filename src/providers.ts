@@ -184,7 +184,7 @@ export function appInitializer(router: UIRouter) {
 }
 
 export function parentUIViewInjectFactory(r: StateRegistry) {
-  return { fqn: null, context: r.root() } as ParentUIViewInject;
+  return { fqn: '', context: r.root() } as ParentUIViewInject;
 }
 
 export const _UIROUTER_INSTANCE_PROVIDERS: Provider[] = [

@@ -1,18 +1,9 @@
-import '@analogjs/vitest-angular/setup-testbed';
-import { afterEach } from 'vitest';
+import '@angular/compiler';
+import '@analogjs/vitest-angular/setup-snapshots';
+import '@analogjs/vitest-angular/setup-serializers';
+import { setupTestBed } from '@analogjs/vitest-angular/setup-testbed';
 
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { getTestBed, TestBed } from '@angular/core/testing';
-
-getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-  errorOnUnknownElements: true,
-  errorOnUnknownProperties: true,
-});
-
-// Global cleanup after each test to ensure test isolation
-afterEach(() => {
-  TestBed.resetTestingModule();
-});
+setupTestBed();
 
 // Shared browser mocks for jsdom
 import '../test/browser-mocks';

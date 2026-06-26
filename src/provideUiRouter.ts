@@ -29,8 +29,8 @@ import { _UIROUTER_INSTANCE_PROVIDERS, _UIROUTER_SERVICE_PROVIDERS } from './pro
  */
 export function provideUIRouter(config: RootModule = {}): EnvironmentProviders {
   return makeEnvironmentProviders([
-    _UIROUTER_INSTANCE_PROVIDERS,
-    _UIROUTER_SERVICE_PROVIDERS,
+    ..._UIROUTER_INSTANCE_PROVIDERS,
+    ..._UIROUTER_SERVICE_PROVIDERS,
     locationStrategy(config.useHash),
     ...makeRootProviders(config),
   ]);

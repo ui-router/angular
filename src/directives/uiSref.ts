@@ -1,4 +1,5 @@
 import {
+  RawParams,
   UIRouter,
   extend,
   Obj,
@@ -16,6 +17,8 @@ import {
   ElementRef,
   Renderer2,
   OnChanges,
+  OnDestroy,
+  OnInit,
   SimpleChanges,
   HostListener,
 } from '@angular/core';
@@ -40,7 +43,7 @@ export class AnchorUISref {
     return this._el.nativeElement.target === '_blank';
   }
 
-  update(href: string) {
+  update(href?: string | null) {
     if (!isNullOrUndefined(href)) {
       this._renderer.setProperty(this._el.nativeElement, 'href', href);
     } else {
@@ -95,7 +98,7 @@ export class AnchorUISref {
   exportAs: 'uiSref',
   standalone: true,
 })
-export class UISref implements OnChanges {
+export class UISref implements OnInit, OnDestroy {
   /**
    * `@Input('uiSref')` The name of the state to link to
    *
@@ -103,7 +106,7 @@ export class UISref implements OnChanges {
    * <a uiSref="hoome">Home</a>
    * ```
    */
-  @Input('uiSref') state: StateOrName;
+  @Input('uiSref') state?: StateOrName | null;
 
   /**
    * `@Input('uiParams')` The parameter values to use (as key/values)
@@ -112,7 +115,7 @@ export class UISref implements OnChanges {
    * <a uiSref="book" [uiParams]="{ bookId: book.id }">Book {{ book.name }}</a>
    * ```
    */
-  @Input('uiParams') params: any;
+  @Input('uiParams') params?: RawParams | null;
 
   /**
    * `@Input('uiOptions')` The transition options
@@ -121,7 +124,7 @@ export class UISref implements OnChanges {
    * <a uiSref="books" [uiOptions]="{ reload: true }">Book {{ book.name }}</a>
    * ```
    */
-  @Input('uiOptions') options: TransitionOptions;
+  @Input('uiOptions') options?: TransitionOptions | null;
 
   /**
    * An observable (ReplaySubject) of the state this UISref is targeting.
@@ -132,7 +135,7 @@ export class UISref implements OnChanges {
   /** @internal */ private _emit = false;
   /** @internal */ private _statesSub: Subscription;
   /** @internal */ private _router: UIRouter;
-  /** @internal */ private _anchorUISref: AnchorUISref;
+  /** @internal */ private _anchorUISref?: AnchorUISref;
   /** @internal */ private _parent: ParentUIViewInject;
 
   constructor(
@@ -141,26 +144,10 @@ export class UISref implements OnChanges {
     @Inject(UIView.PARENT_INJECT) parent: ParentUIViewInject
   ) {
     this._router = _router;
-    this._anchorUISref = _anchorUISref;
+    this._anchorUISref = _anchorUISref ?? undefined;
     this._parent = parent;
 
-    this._statesSub = _router.globals.states$.subscribe(() => this.update());
-  }
-
-  /** @internal */
-  set uiSref(val: StateOrName) {
-    this.state = val;
-    this.update();
-  }
-  /** @internal */
-  set uiParams(val: Obj) {
-    this.params = val;
-    this.update();
-  }
-  /** @internal */
-  set uiOptions(val: TransitionOptions) {
-    this.options = val;
-    this.update();
+    this._statesSub = _router.globals.states$?.subscribe(() => this.update()) ?? new Subscription();
   }
 
   ngOnInit() {
@@ -181,7 +168,7 @@ export class UISref implements OnChanges {
   private update() {
     const $state = this._router.stateService;
     if (this._emit) {
-      const newTarget = $state.target(this.state, this.params, this.getOptions());
+      const newTarget = $state.target((this.state ?? null) as StateOrName, this.params ?? undefined, this.getOptions());
       this.targetState$.next(newTarget);
     }
 
@@ -189,7 +176,7 @@ export class UISref implements OnChanges {
       if (!this.state) {
         this._anchorUISref.update(null);
       } else {
-        const href = $state.href(this.state, this.params, this.getOptions()) || '';
+        const href = $state.href(this.state, this.params ?? undefined, this.getOptions()) || '';
         this._anchorUISref.update(href);
       }
     }
@@ -215,7 +202,7 @@ export class UISref implements OnChanges {
       return;
     }
 
-    this._router.stateService.go(this.state, this.params, this.getOptions());
+    this._router.stateService.go(this.state, this.params ?? undefined, this.getOptions());
     return false;
   }
 }
