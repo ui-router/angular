@@ -3,22 +3,35 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
     "module": "es6",
-    "target": "es5",
-    "lib": ["es6", "dom"],
-    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "skipLibCheck": true,
     "rootDir": "src",
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true,
     "inlineSources": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false
   },
   "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    },
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true
   },
-  "include": ["src/**/*.ts"]
+  "include": [
+    "src/**/*.ts"
+  ]
 }
