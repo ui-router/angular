@@ -1,4 +1,4 @@
-import { Component, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -109,7 +109,7 @@ describe('uiSrefActive', () => {
             }
           </li>
         `;
-        @Component({ template, standalone: false })
+        @Component({ template, standalone: false, changeDetection: ChangeDetectionStrategy.Eager })
         class ToggleTestComponent {
           public showStateb = initialShowStateb;
         }
