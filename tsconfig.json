@@ -29,7 +29,8 @@
       }
     },
     "skipTemplateCodegen": true,
-    "strictMetadataEmit": true
+    "strictMetadataEmit": true,
+    "compilationMode": "partial"
   },
   "include": [
     "src/**/*.ts"
