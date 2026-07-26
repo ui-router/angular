@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { Ng2StateDeclaration, UIRouterModule } from '@uirouter/angular';
 import { LAZY_PROVIDER_TOKE } from './lazy.module';
 
@@ -6,6 +6,7 @@ import { LAZY_PROVIDER_TOKE } from './lazy.module';
   selector: 'app-lazy',
   standalone: true,
   imports: [UIRouterModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <p>{{ state().name }} works!</p>
     <p id="lazy-child-provided">{{ _providedString }}</p>
