@@ -32,5 +32,11 @@
     "istanbul-lib-instrument": "^6.0.3",
     "serve": "^14.2.4",
     "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "@uirouter/angular": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core"
+    }
   }
 }
