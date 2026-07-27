@@ -48,6 +48,8 @@
   "license": "MIT",
   "distDir": "dist",
   "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
     "@uirouter/core": "^6.1.2",
     "@uirouter/rx": "^1.0.0"
   },
