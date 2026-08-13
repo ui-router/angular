@@ -114,7 +114,7 @@ function ng2ComponentInputs<T>(mirror: ComponentMirror<T>): InputMapping[] {
   selector: 'ui-view, [ui-view]',
   exportAs: 'uiView',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ng-template #componentTarget></ng-template>
     @if (!_componentRef()) {
