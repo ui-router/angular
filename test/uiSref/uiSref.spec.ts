@@ -1,5 +1,5 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { Component, DebugElement, ViewChildren, QueryList } from '@angular/core';
+import { Component, DebugElement, ViewChildren, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { vi, describe, beforeEach, it, expect, type MockInstance } from 'vitest';
@@ -17,6 +17,7 @@ describe('uiSref', () => {
       <a [uiSref]="linkC"></a>
     `,
     standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
   })
   class TestComponent {
     linkA: string;

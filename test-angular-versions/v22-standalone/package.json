@@ -1,22 +1,22 @@
 {
-  "name": "v21-standalone",
+  "name": "v22-standalone",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "npm run test:dev && npm run test:prod",
+    "test": "playwright install chromium && npm run test:dev && npm run test:prod",
     "test:dev": "ng build --configuration development && DIST_PATH=dist/v21-standalone/browser npx playwright test",
     "test:prod": "ng build  --configuration production && DIST_PATH=dist/v21-standalone/browser npx playwright test"
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^21.0.3",
-    "@angular/compiler": "^21.0.3",
-    "@angular/core": "^21.0.3",
-    "@angular/platform-browser": "^21.0.3",
-    "@angular/platform-browser-dynamic": "^21.0.3",
+    "@angular/common": "^22.0.8",
+    "@angular/compiler": "^22.0.8",
+    "@angular/core": "^22.0.8",
+    "@angular/platform-browser": "^22.0.8",
+    "@angular/platform-browser-dynamic": "^22.0.8",
     "@uirouter/angular": "*",
     "@uirouter/core": "*",
     "@uirouter/rx": "*",
@@ -25,11 +25,18 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^21.0.2",
-    "@angular/cli": "^21.0.2",
-    "@angular/compiler-cli": "^21.0.3",
+    "@angular/build": "^22.0.8",
+    "@angular/cli": "^22.0.8",
+    "@angular/compiler-cli": "^22.0.8",
     "@playwright/test": "^1.49.0",
+    "istanbul-lib-instrument": "^6.0.3",
     "serve": "^14.2.4",
-    "typescript": "~5.9.3"
+    "typescript": "~6.0.3"
+  },
+  "overrides": {
+    "@uirouter/angular": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core"
+    }
   }
 }

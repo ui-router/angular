@@ -8,7 +8,15 @@
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "isolatedModules": true,
+    "isolatedModules": true
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "test-zoneless/**/*.ts"],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }
