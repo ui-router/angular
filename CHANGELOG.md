@@ -1,3 +1,11 @@
+# 22.0.0 (2026-08-18)
+[Compare `@uirouter/angular` versions 21.0.0 and 22.0.0](https://github.com/ui-router/angular/compare/21.0.0...22.0.0)
+
+### Features
+
+* Support Angular v22 -- Much thanks to @lindolo25 for making this happen ([dce7abe](https://github.com/ui-router/angular/commit/dce7abe))
+* UIView now explicitly specifies Eager change detection
+
 # 21.0.0 (2026-01-03)
 [Compare `@uirouter/angular` versions 17.0.1 and 21.0.0](https://github.com/ui-router/angular/compare/17.0.1...21.0.0)
 
