@@ -1,8 +1,24 @@
 {
+  "$schema": "https://typedoc.org/schema.json",
   "name": "@uirouter/angular",
   "readme": "README.md",
-  "out": "project/_doc",
-  "stripInternal": true,
-  "excludeNotExported": true,
-  "excludePrivate": true
+  "out": "project/_ng2_docs",
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "excludeInternal": true,
+  "githubPages": false,
+  "visibilityFilters": {
+    "external": true,
+    "inherited": true,
+    "private": true,
+    "protected": true
+  },
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "plugin": [
+    "typedoc-plugin-ui-router"
+  ]
 }
